@@ -1,5 +1,3 @@
-okay give me a complete run.sh file freshly by altering whatever you recommended
-
 #!/bin/bash
 DESTINATION=$1
 PORT=$2
