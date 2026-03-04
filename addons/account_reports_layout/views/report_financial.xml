@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="template_aged_partner_balance_report_customize_header" inherit_id="account_reports.main_template">
+            <xpath expr="//div[hasclass('print_only')]/h2" position="replace">
+            </xpath>
+            <xpath expr="//div[hasclass('print_only')]" position="after">
+                <div class="print_only" style="text-align:center;font-size:18px;">
+                    <h2>
+                        <t t-esc="report.get('name')"></t>
+                    </h2>
+                    <t t-if="options.get('partner_ids') != None">
+                        <t t-set="res_partner_value">Summary Report</t>
+                        <t t-foreach="options['selected_partner_ids']" t-as="partner_name">
+                            <t t-set="res_partner_value" t-value="''"/>
+                            <t t-esc="partner_name"/>
+                        </t>
+                        <span>
+                            <t t-esc="res_partner_value"/>
+                        </span>
+                    </t>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="filter_info_template_customize" inherit_id="account_reports.filter_info_template">
+            <xpath expr="//div[hasclass('print_only')]" position="replace">
+                <div class="print_only">
+                    <div class="col-12" style="text-align:center;font-size:20px;">
+                        <t t-if="options.get('date') and options['date'].get('string')">
+                            <span style="text-align:center">
+                                <t t-esc="options['date']['string']"/>
+                            </span>
+                        </t>
+                        <t t-if="not options.get('multi_company')">
+                            <br/>
+                            <t t-esc="report.get('company_name')"/>
+                        </t>
+                        <t t-if="options.get('multi_company')">
+                            <br/>Companies:
+                            <t t-set="company_value">All</t>
+                            <t t-foreach="options['multi_company']" t-as="c">
+                                <t t-set="company_value" t-value="''"/>
+                                <t t-esc="c.get('name')"/>
+                            </t>
+                            <t t-esc="company_value"/>
+                        </t>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="exclude_company_name_report_internal" inherit_id="web.internal_layout">
+            <xpath expr="//span[@t-esc='company.name']" position="replace">
+
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

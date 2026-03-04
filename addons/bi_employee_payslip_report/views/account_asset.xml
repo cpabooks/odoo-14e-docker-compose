@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem
+                id="menu_deffered_expense_model"
+                name="Deffered Expenses"
+                parent="bi_employee_payslip_report.menu_ctc_configuration"
+                sequence="003"
+                action="account_asset.action_account_expense_form"/>
+    </data>
+</odoo>
+
+
+
+

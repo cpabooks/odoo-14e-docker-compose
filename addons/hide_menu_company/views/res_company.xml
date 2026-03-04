@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+        <record id="hide_company_menu" model="ir.ui.view">
+            <field name="name">hide.menu.company</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Hide Specific Menu" groups="base.group_system">
+                        <tree>
+                            <field name="hide_company_menu_ids"/>
+                        </tree>
+                        <group>
+                            <group>
+                                <button name="set_default" type="object" string="set default" class="oe_highlight"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+<!--                <xpath expr="//sheet" position="before">-->
+<!--                    <header string="Hide Specific Menu" groups="base.group_system">-->
+<!--                    </header>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+
+        <record id="ir_ui_menu_company" model="ir.ui.view">
+            <field name="name">restrict.menu.company</field>
+            <field name="model">ir.ui.menu</field>
+            <field name="inherit_id" ref="base.edit_menu_access"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Restrict Companies" name="restrict_companies">
+                        <tree>
+                            <field name="restrict_company_ids"/>
+                        </tree>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

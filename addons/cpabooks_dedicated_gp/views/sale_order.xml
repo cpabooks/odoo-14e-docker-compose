@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Account Move Form View -->
+    <record id="view_sale_line_form_inherit_gp" model="ir.ui.view">
+        <field name="name">sale.line.form.inherit.gp</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+<!--            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">-->
+<!--                <field name="class_name"/>-->
+<!--            </xpath>-->
+
+            <field name="partner_id" position="after">
+                <field name="project_name"/>
+            </field>
+
+             <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <field name="item_code" invisible="1" style="text-align:center"/>
+                </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>

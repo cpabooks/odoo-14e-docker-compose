@@ -1,0 +1,37 @@
+<odoo>
+  <data>
+
+    <record id="vehicle_no_form" model="ir.ui.view">
+        <field name="name">account.move.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+                <field name ='invoice_vendor_bill_id' position="after">
+                    <field name="vehicle_name"/>
+                    <field name="vehicle_no"/>
+                    <field name="kilometer"/>
+
+            </field>
+        </field>
+    </record>
+
+
+    <record id="vehicle_no_form_tree" model="ir.ui.view">
+        <field name="name">account.move.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <field name="invoice_partner_display_name" position="after">
+                    <field name="vehicle_name" optional="show"/>
+                    <field name="vehicle_no" optional="show"/>
+                    <field name="kilometer" optional="show"/>
+
+            </field>
+        </field>
+    </record>
+
+
+
+  </data>
+</odoo>
+

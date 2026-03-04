@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle
+ -->
+<odoo>
+    <record id="form_dev_employee_document_name" model="ir.ui.view">
+        <field name="name">form.dev.employee.document.name</field>
+        <field name="model">dev.employee.document.name</field>
+
+        <field name="arch" type="xml">
+            <form string="Employee Document Form Name">
+                <sheet>
+
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="company_id"/>
+                        </group>
+                     </group>
+
+                </sheet>
+            </form>
+       </field>
+    </record>
+
+    <record id="tree_dev_employee_document_name" model="ir.ui.view">
+        <field name="name">tree.dev.employee.document.name</field>
+        <field name="model">dev.employee.document.name</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="company_id"/>
+
+            </tree>
+       </field>
+    </record>
+
+
+
+
+    <record id="action_dev_employee_document_name" model="ir.actions.act_window">
+        <field name="name">Employee Document Name</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dev.employee.document.name</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+
+    <menuitem id="dev_employee_document_name_menu" name="Employee Document Name" parent="dev_employee_document_expiry.dev_employee_document_main" action="action_dev_employee_document_name"/>
+</odoo>

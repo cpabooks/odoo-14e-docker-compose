@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--<record id="menu_patient" model="website_menu">
+        <field name="name">Patient</field>
+        <field name="url">template</field>
+        <field name="patient_id" ref="website.main_menu"></field>
+        <field name="sequence">56</field>
+
+    </record>-->
+
+    <template id="patient" name="patient">
+        <t t-call="website.layout">
+            <div class="container">
+                Hey there ...
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Patient Name</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="patients" t-as="patient">
+                            <tr>
+                                <td>
+
+                                    <t t-esc="patient.name"/>
+
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_technical_submittal_document">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+            <div class="page">
+                <div class="oe_structure"/>
+
+                <h2 class="oe_mt16">
+                    <span>Technical Submittal </span>
+                    <span t-field="doc.name"/>
+                </h2>
+
+                <div class="row oe_mt16">
+                    <div class="col-3">
+                        <strong>Project </strong>
+                    </div>
+                    <div class="col-9">
+                        <span>: </span><span t-field="doc.ts_project"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <strong>Location </strong>
+                    </div>
+                    <div class="col-9">
+                        <span>: </span><span t-field="doc.ts_location"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <strong>Owner </strong>
+                    </div>
+                    <div class="col-9">
+                        <span>: </span><span t-field="doc.ts_owner"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <strong>Project Management </strong>
+                    </div>
+                    <div class="col-9">
+                        <span>: </span><span t-field="doc.ts_project_mgmt"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <strong>Consultant </strong>
+                    </div>
+                    <div class="col-9">
+                        <span>: </span><span t-field="doc.ts_consultant"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <strong>MEP Consultant </strong>
+                    </div>
+                    <div class="col-9">
+                        <span>: </span><span t-field="doc.ts_mep_consultant"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <strong>Main Consultant </strong>
+                    </div>
+                    <div class="col-9">
+                        <span>: </span><span t-field="doc.ts_main_consultant"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <strong>MEP Consultant </strong>
+                    </div>
+                    <div class="col-9">
+                        <span>: </span><span t-field="doc.ts_mep_contractor"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <strong>Designed Panels </strong>
+                    </div>
+                    <div class="col-9">
+                        <span>: </span><span t-field="doc.ts_designed_panels"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <strong>Reference No. </strong>
+                    </div>
+                    <div class="col-9">
+                        <span>: </span><span t-field="doc.ts_reference_no"/>
+                    </div>
+                </div>
+
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_technical_submittal">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="cpabooks_job_order_extend.report_technical_submittal_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

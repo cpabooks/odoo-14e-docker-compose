@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <function name="add_users_on_show_task_employee" model="res.groups"/>
+    </data>
+</odoo>

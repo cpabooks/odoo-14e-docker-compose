@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+       <!--  <report
+            id="product_warranty_card_report"
+            string="Print Warranty Card"
+            model="product.warranty.registration"
+            report_type="qweb-pdf"
+            name="odoo_product_warranty_claim_enterprice.template_report_warranty_data" 
+            file="odoo_product_warranty_claim_enterprice.template_report_warranty_data"
+        /> -->
+        <record id="product_warranty_card_report" model="ir.actions.report">
+            <field name="name">Print Warranty Card</field>
+            <field name="model">product.warranty.registration</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">odoo_product_warranty_claim_enterprice.template_report_warranty_data</field>
+            <field name="report_file">odoo_product_warranty_claim_enterprice.template_report_warranty_data</field>
+        </record>
+
+        <template id="template_report_warranty_data">
+            <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+            <t t-call="web.external_layout">
+            <div class="page">
+                <div>
+                    <table style="border-spacing:0;margin-bottom:0;height:122px;" class="table">
+                        <thead>
+                            <tr>
+                                <td style="text-align: center;" colspan="4">
+                                    <strong><h3>Warranty Card - <span t-field="doc.name"/> - <span t-field="doc.state"/></h3></strong>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                     <strong>Customer Warranty:</strong>
+                                </td>
+                                <td>
+                                     <span t-field="doc.product_id.name"/>
+                                </td>
+                                <td>
+                                     <strong>Quantity: </strong>
+                                </td>
+                                <td>
+                                     <span t-field="doc.quantity"/> - <span t-field="doc.uom_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Customer: </strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.contract_id.partner_id.name"/>
+                                </td>
+                                <td>
+                                    <strong>Sale Order: </strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.sale_order_id"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Subscription: </strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.subscription_id.name"/>
+                                </td>
+                                <td>
+                                    <strong>Analytic Account: </strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.contract_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Warranty Period: </strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.product_id.custom_warranty_interval"/> - <span t-field="doc.product_id.custom_warranty_rule_type"/>
+                                </td>
+                                <td>
+                                    <strong>Warranty Type: </strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.product_id.custom_warranty_type"/><br/>
+                                    <strong t-if="doc.product_id.custom_warranty_type == paid">Warranty Cost: </strong><span t-if="doc.product_id.custom_warranty_type == paid" t-field="doc.product_id.custom_warranty_cost"/>
+                               </td>
+                            </tr>
+                            <t t-if="doc.product_id.custom_warranty_type == 'paid'">
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <strong>Warranty Cost: </strong>
+                                </td>
+                                <td>
+                                       <span t-field="doc.product_id.custom_warranty_cost" t-field-options='{"widget": "monetary", "display_currency": "doc.contract_id.currency_id"}'/>
+                               </td>
+                            </tr>
+                            </t>
+                            <tr>
+                                <td>
+                                    <strong>Start Date: </strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.start_date" t-field-options='{"format": "d/M/y"}'/>
+                                </td>
+                                <td>
+                                    <strong>End Date: </strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.end_date" t-field-options='{"format": "d/M/y"}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Create Date: </strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.custom_date" t-field-options='{"format": "d/M/y"}'/>
+                                </td>
+                                <td>
+                                    <strong>User: </strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.user_id" t-field-options='{"format": "d/M/y"}'/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 2.0em;margin-top: 5em">
+                 <div class="col-xs-6 text-left">
+                 </div>
+                 <div class="col-xs-6 text-right">
+                    <p><strong>Signature:_______________________________</strong></p><br/>
+                    <p><strong>Date:__________________________________</strong></p>
+                 </div>
+            </div>
+        </t>
+    </t>
+</t>
+     </template>
+
+    </data>
+</odoo>

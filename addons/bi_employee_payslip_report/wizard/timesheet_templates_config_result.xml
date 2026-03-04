@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="timehseet_templates_config_result_form_view" model="ir.ui.view">
+            <field name="name">timesheet.templates.config.result.form.view</field>
+            <field name="model">timesheet.templates.config.result</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <label for="message" string="Message"/>
+                            <field name="message" nolabel="1" readonly="1"/>
+                        </group>
+                        <footer>
+                            <button string="Close" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

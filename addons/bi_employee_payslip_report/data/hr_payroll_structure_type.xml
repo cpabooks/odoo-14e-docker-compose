@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="structure_type_hourly_pay_on_timesheet_bi_employee" model="hr.payroll.structure.type">
+            <field name="name">Hourly Pay on Timesheet</field>
+            <field name="country_id" eval="False"/>
+            <field name="default_resource_calendar_id"
+                   ref="bi_employee_payslip_report.resource_calendar_hourly_pay_on_timesheet_std_40h"/>
+        </record>
+
+        <record id="structure_type_hourly_pay_on_basic" model="hr.payroll.structure.type">
+            <field name="name">Hourly Pay on Basic</field>
+            <field name="country_id" eval="False"/>
+            <field name="default_resource_calendar_id" ref="resource_calendar_hourly_pay_on_basic_std_40h"/>
+        </record>
+
+        <record id="structure_type_basic_pay_office_staff" model="hr.payroll.structure.type">
+            <field name="name">Basic Pay Office Staff</field>
+            <field name="country_id" eval="False"/>
+            <field name="default_resource_calendar_id" ref="resource_calendar_basic_pay_office_staff_std_40h"/>
+        </record>
+
+        <record id="structure_type_basic_pay_site_staff" model="hr.payroll.structure.type">
+            <field name="name">Basic Pay Site Staff</field>
+            <field name="country_id" eval="False"/>
+            <field name="default_resource_calendar_id" ref="resource_calendar_Basic_pay_site_staff_std_40h"/>
+        </record>
+
+    </data>
+</odoo>

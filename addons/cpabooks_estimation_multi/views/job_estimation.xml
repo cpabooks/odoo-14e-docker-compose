@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    <record id="job_estimate_form_view_inherit_from_switchgear" model="ir.ui.view">-->
+    <!--        <field name="name">job.estimate.form.view.inherit.from.switchgear</field>-->
+    <!--        <field name="model">job.estimate</field>-->
+    <!--        <field name="inherit_id" ref="cpabooks_switchgear_custom.job_estimate_form_view_inherit_switchgear_custom"/>-->
+    <!--        <field name="arch" type="xml">-->
+
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="job_estimate_form_view_inherit_from_cost_estimation" model="ir.ui.view">
+        <field name="name">job.estimate.form.view.inherit.from.cost.estimation</field>
+        <field name="model">job.estimate</field>
+        <field name="inherit_id" ref="cost_estimate_customer_ld.job_estimate_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='material_estimation_ids']/tree/field[@name='product_id']" position="before">
+                <field name="bom_product_id"/>
+            </xpath>
+
+            <field name="project_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+
+            <xpath expr="//notebook" position="inside">
+                <page name="raw_material" string="Material Summary">
+                    <field name="raw_materials"
+                           attrs="{'readonly': [('state', '=', 'done')]}">
+                        <tree string="Material Summary" editable="bottom" >
+                            <field name="product_id" readonly="1" force_save="1"/>
+                            <field name="quantity" readonly="1" force_save="1"/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="final_product" string="Final Products">
+                    <field name="final_product_ids"
+                           attrs="{'readonly': [('state', '=', 'done')]}">
+                        <tree string="Final Products" editable="bottom" >
+                            <field name="final_product_id" readonly="1" force_save="1"/>
+                            <field name="quantity" invisible="1"/>
+                            <field name="material_cost" readonly="1" force_save="1"/>
+                            <field name="labour_cost" readonly="1" force_save="1"/>
+                            <field name="overhead_cost" readonly="1" force_save="1"/>
+                            <field name="profit_amount" readonly="1" force_save="1"/>
+                            <field name="amount" readonly="1" force_save="1"/>
+                            <field name="final_quantity"/>
+                            <field name="final_amount"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+
+            <xpath expr="//group[@class='oe_subtotal_footer oe_right']" position="replace">
+<!--                <group>-->
+<!--                    <group></group>-->
+<!--                    <group>-->
+
+<!--                    </group>-->
+<!--                </group>-->
+                <div class="oe_subtotal_footer oe_right">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-right" colspan="2">Single Qty</th>
+                            <th class="text-right">Final Qty</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span>Total Material Estimate</span></td>
+                            <td class="text-right"><field name="total_material_estimate" widget="monetary"/></td>
+                            <td class="text-right"><field name="final_material_estimate" widget="monetary"/></td>
+                        </tr>
+                        <tr>
+                            <td><span>Total Labour Estimate</span></td>
+                            <td class="text-right"><field name="total_labour_estimate" widget="monetary"/></td>
+                            <td class="text-right"><field name="final_labour_estimate" widget="monetary"/></td>
+                        </tr>
+                        <tr>
+                            <td><span>Total Overhead Estimate</span></td>
+                            <td class="text-right"><field name="total_overhead_estimate" widget="monetary"/></td>
+                            <td class="text-right"><field name="final_overhead_estimate" widget="monetary"/></td>
+                        </tr>
+                        <tr>
+                            <td><span>Profit %</span></td>
+                            <td class="text-right"><field name="profit_percent"/></td>
+                            <td class="text-right"><field name="final_profit_amount" widget="monetary"/></td>
+                        </tr>
+                        <tr>
+                            <td><span>Total Job Estimate</span></td>
+                            <td class="text-right"><field name="total_job_estimate" widget="monetary"/></td>
+                            <td class="text-right"><field name="final_total_job_estimation" widget="monetary"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+<!--                <group  >-->
+
+<!--                          -->
+<!--                            <field name="final_material_estimate" widget="monetary"/>-->
+<!--                            <field name="total_labour_estimate" widget="monetary"/>-->
+<!--                            <field name="total_overhead_estimate" widget="monetary"/>-->
+<!--                            <field name="profit_percent"/>-->
+<!--                            <field name="total_job_estimate" widget="monetary"/>-->
+
+
+
+<!--                </group>-->
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="job_estimate_form_view_inherit_from_switchgear_custom" model="ir.ui.view">
+        <field name="name">job.estimate.form.view.inherit.from.switchgear_custom</field>
+        <field name="model">job.estimate</field>
+        <field name="inherit_id" ref="cpabooks_switchgear_custom.job_estimate_form_view_inherit_switchgear_custom"/>
+        <field name="arch" type="xml">
+            <field name="bom_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="bom_reference" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="bom_product_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

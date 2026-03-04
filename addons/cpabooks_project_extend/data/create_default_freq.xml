@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data noupdate="0">
+		<record id="project_task_freq_daily" model="project.task.frequency">
+			<field name="name">Daily</field>
+		</record>
+		<record id="project_task_freq_monthly" model="project.task.frequency">
+			<field name="name">Monthly</field>
+		</record>
+		<record id="project_task_freq_quarterly" model="project.task.frequency">
+			<field name="name">Quarterly</field>
+		</record>
+		<record id="project_task_freq_yearly" model="project.task.frequency">
+			<field name="name">Yearly</field>
+		</record>
+	</data>
+</odoo>

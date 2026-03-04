@@ -1,0 +1,31 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'CPA HelpDesk',
+    'version': '1.0.1',
+    'summary': 'CPA HelpDesk Custom Addons',
+    'sequence': -100,
+    'description': """CPA HelpDesk""",
+    'category': 'Productivity',
+    'website': 'https://www.parimaldbz.com',
+    'license': 'LGPL-3',
+    'images': [],
+    'depends': [
+        'sale',
+        'website',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/menu.xml',
+        'data/maintenance_request_sequence.xml',
+        'views/gcl.xml',
+        'views/maintenance_request.xml',
+        'views/maintenance_tenant_views.xml',
+        'views/ticket.xml',
+        'views/ticket_tree.xml',
+    ],
+    'demo': [],
+    'qweb': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

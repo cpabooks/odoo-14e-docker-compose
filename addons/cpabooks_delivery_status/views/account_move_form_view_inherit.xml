@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="delivery_status_view" model="ir.ui.view">
+        <field name="name">account.move.form.view.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='journal_div']" position="after">
+                <field name="delivery_state"
+                       style="color:#ffffff;font-size:16px;background:#00A04A;padding: 5px 10px;font-weight:bold;"
+                       string="Delivery Status"
+                       attrs="{'invisible': [('delivery_state', '!=', 'delivered'), ('delivery_state', '!=', 'done')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,11 @@
+27 June 2018
+---------------------------
+v 11.0.1.0
+
+    * Module Created
+
+Pylint Score:
+
+    * dev_employee_document.py : 6.56/10
+    * res_company.py : -7.00/10
+    * hr_employee.py : 4.44/10

@@ -1,0 +1,142 @@
+<odoo>
+  <data>
+
+    <record id="project_in_project" model="ir.ui.view">
+        <field name="name">project.project.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+                <field name ='partner_id' position="after">
+                    <field name="project_import_or_export"/>
+                    <field name="project_sl_no"/>
+                    <field name="project_month"/>
+                    <field name="project_bill_of_ladding" attrs="{'invisible': [('project_import_or_export', '!=', 'import')]}"/>
+                    <field name="project_container_no" attrs="{'invisible': [('project_import_or_export', '!=', 'import')]}"/>
+                    <field name="project_booking_no"/>
+                    <field name="project_ref"/>
+                    <field name="project_etd"/>
+                    <field name="port_of_loading"/>
+                    <field name="project_sales_person"/>
+                    <field name="project_vassel_name"/>
+                    <field name="project_port_of_destination"/>
+                    <field name="project_service" attrs="{'invisible': [('project_import_or_export', '=', 'import')]}"/>
+                    <field name="project_ts" attrs="{'invisible': [('project_import_or_export', '=', 'import')]}"/>
+                    <field name="project_status01"/>
+                    <field name="project_dostatus" attrs="{'invisible': [('project_import_or_export', '!=', 'import')]}"/>
+                    <field name="project_item_qty"/>
+                    <field name="project_container_type"/>
+                    <field name="project_teus20ft"/>
+                    <field name="project_ffe40ft"/>
+                    <field name="project_est_cost"/>
+                    <field name="project_est_sales"/>
+                    <field name="project_validity" attrs="{'invisible': [('project_import_or_export', '!=', 'import')]}" optional="show"/>
+                    <field name="project_carier" attrs="{'invisible': [('project_import_or_export', '!=', 'import')]}" optional="show"/>
+                    <field name="project_billofentry" attrs="{'invisible': [('project_import_or_export', '!=', 'import')]}" optional="show"/>
+                    <field name="project_si_submitted"/>
+                    <field name="project_vgm"/>
+                    <field name="project_bl_draft"/>
+                    <field name="project_swb"/>
+                    <field name="project_invoice" attrs="{'invisible': [('project_import_or_export', '=', 'import')]}" optional="show"/>
+                    <field name="project_job"/>
+                    <field name="project_eta"/>
+                    <field name="project_destination"/>
+                    <field name="project_remarks"/>
+                    <field name="project_paying"/>
+                    <field name="project_selling"/>
+            </field>
+
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="placeholder">Job Name</attribute>
+            </xpath>
+
+            <!-- todo autofocus specific page is not working have to slove  -->
+
+            <xpath expr="//page[@name='description_page']" position="attributes">
+                  <attribute name="autofocus">False</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="project_in_project_tree" model="ir.ui.view">
+        <field name="name">project.project.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                    <field name="project_import_or_export" optional="show"/>
+                    <field name="project_sl_no" optional="show"/>
+                    <field name="project_month" optional="show"/>
+                    <field name="project_bill_of_ladding" attrs="{'invisible': [('project_import_or_export', '!=', 'import')]}" optional="show"/>
+                    <field name="project_container_no" attrs="{'invisible': [('project_import_or_export', '!=', 'import')]}" optional="show"/>
+                    <field name="project_booking_no" optional="show"/>
+                    <field name="project_ref" optional="show"/>
+                    <field name="project_etd" optional="show"/>
+                    <field name="port_of_loading" optional="show"/>
+                    <field name="project_sales_person" optional="show"/>
+                    <field name="project_vassel_name" optional="show"/>
+                    <field name="project_port_of_destination" optional="show"/>
+                    <field name="project_service" attrs="{'invisible': [('project_import_or_export', '=', 'import')]}" optional="show"/>
+                    <field name="project_ts" attrs="{'invisible': [('project_import_or_export', '=', 'import')]}" optional="show"/>
+                    <field name="project_status01" optional="show"/>
+                    <field name="project_dostatus" attrs="{'invisible': [('project_import_or_export', '!=', 'import')]}" optional="show"/>
+                    <field name="project_item_qty" optional="show"/>
+                    <field name="project_container_type" optional="show"/>
+                    <field name="project_teus20ft" optional="show"/>
+                    <field name="project_ffe40ft" optional="show"/>
+                    <field name="project_est_cost" optional="show"/>
+                    <field name="project_est_sales" optional="show"/>
+                    <field name="project_validity" attrs="{'invisible': [('project_import_or_export', '!=', 'import')]}" optional="show"/>
+                    <field name="project_carier" attrs="{'invisible': [('project_import_or_export', '!=', 'import')]}" optional="show"/>
+                    <field name="project_billofentry" attrs="{'invisible': [('project_import_or_export', '!=', 'import')]}" optional="show"/>
+                    <field name="project_si_submitted" optional="show"/>
+                    <field name="project_vgm" optional="show"/>
+                    <field name="project_bl_draft" optional="show"/>
+                    <field name="project_swb" optional="show"/>
+                    <field name="project_invoice" attrs="{'invisible': [('project_import_or_export', '=', 'import')]}" optional="show"/>
+                    <field name="project_job" optional="show"/>
+                    <field name="project_eta" optional="show"/>
+                    <field name="project_destination" optional="show"/>
+                    <field name="project_remarks" optional="show"/>
+                    <field name="project_paying" optional="show"/>
+                    <field name="project_selling" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="seq_cpaproject_project" model="ir.sequence">
+        <field name="name">Serial No.</field>
+        <field name="code">project.project</field>
+        <field name="prefix">JOB # </field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="project.menu_main_pm" model="ir.ui.menu">
+        <field name="name">JOB</field>
+    </record>
+
+    <record id="project.menu_projects" model="ir.ui.menu">
+        <field name="name">Jobs</field>
+    </record>
+
+    <record id="project.menu_projects_config" model="ir.ui.menu">
+        <field name="name">Jobs</field>
+    </record>
+
+    <record id="project.open_view_project_all" model="ir.actions.act_window">
+        <field name="name">Jobs</field>
+    </record>
+
+    <record id="project.open_view_project_all_config" model="ir.actions.act_window">
+        <field name="name">Jobs</field>
+    </record>
+
+    <record id="project.open_create_project" model="ir.actions.act_window">
+        <field name="name">Create a Job</field>
+    </record>
+
+
+  </data>
+</odoo>
+

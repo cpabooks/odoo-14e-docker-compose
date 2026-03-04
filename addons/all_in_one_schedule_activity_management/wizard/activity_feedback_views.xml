@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="mail_activity_feedback_form_view" model="ir.ui.view">
+            <field name="name">mail.activity.feedback.form.view</field>
+            <field name="model">activity.feedback</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="activity_id"/>
+                    </group>
+                    <group>
+                        <field placeholder="Write Feedback" nolabel="1" name="message"/>
+                    </group>
+                    <footer>
+                        <button name="action_done" string="Done" type="object" class="btn-primary oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_mail_activity_feedback" model="ir.actions.act_window">
+            <field name="name">Mail Activity Feedback</field>
+            <field name="res_model">activity.feedback</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

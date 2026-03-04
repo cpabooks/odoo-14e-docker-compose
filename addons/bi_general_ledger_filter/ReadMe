@@ -1,0 +1,10 @@
+14.0.0.1 ==> fixed issue of traceback for payment in report.
+
+=> 14.0.0.2 : Add French, Spanish , Arabic and Dutch translation in module also improved an index.
+
+Version: 14.0.0.3 | 22/12/2021 :-
+	- Journal and Options filter was not applying on xlsx report, solved that issue.
+
+
+Version: 14.0.0.4 | 17/02/2022 :-
+	- On clicking Detailed General Ledger menu traceback was occurring, solved this issue.

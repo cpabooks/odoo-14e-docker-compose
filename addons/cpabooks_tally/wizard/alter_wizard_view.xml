@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="alter_wizard_form_view" model="ir.ui.view">
+            <field name="name">Alter</field>
+            <field name="model">alter.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Ledger Selection Form">
+                    <group>
+                        <field name="ledger_id"/>
+                    </group>
+                    <footer>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                        <button name="edit" string="Edit" class="btn-primary" type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_alter_wizard" model="ir.actions.act_window">
+            <field name="name">Ledger Selection</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">alter.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        
+        <!-- FORM VIEW CUSTOMER CODE SETUP -->
+        <record id="view_customer_code_setup_form" model="ir.ui.view">
+            <field name="name">view.customer.code.setup.form</field>
+            <field name="model">customer.code.setup</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_save" string="Save" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code_prefix"/>
+                                <field name="separator"/>
+                                <field name="code_start"/>
+                                <field name="code_padding"/>
+                                <field name="code_step"/>
+                            </group>
+                            <group>
+                                <field name="code_next"/>
+                                <field name="code_last"/>
+                                <field name="code_active"/>
+                                <field name="company_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <footer></footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- SERVER ACTION to open the last created record in wizard mode -->
+        <record id="action_server_open_last_config_wizard" model="ir.actions.server">
+            <field name="name">Open Customer Code Setup Wizard</field>
+            <field name="model_id" ref="model_customer_code_setup"/>
+            <field name="state">code</field>
+            <field name="code">
+action = {
+    'type': 'ir.actions.act_window',
+    'name': 'Customer Code Setup',
+    'res_model': 'customer.code.setup',
+    'view_mode': 'form',
+    'target': 'new',
+    'context': {'form_view_initial_mode': 'edit'},
+}
+
+# Get current company
+current_company = env.company
+
+# Find the last created record for the current company
+last_record = env['customer.code.setup'].search([
+    ('company_id', '=', current_company.id)
+], order='id desc', limit=1)
+
+if last_record:
+    action['res_id'] = last_record.id
+else:
+    # If no record exists for this company, create a new one with default values
+    new_record = env['customer.code.setup'].create({
+        'company_id': current_company.id,
+        'code_prefix': 'CUST',
+        'code_start': 1,
+        'code_padding': 5,
+        'code_step': 1,
+        'code_active': False
+    })
+    action['res_id'] = new_record.id
+action
+            </field>
+        </record>
+        
+        <!-- SINGLE menuitem that uses the server action -->
+        <menuitem
+            id="menu_customer_code_setup"
+            name="Customer Code Setup"
+            sequence="10"
+            parent="contacts.res_partner_menu_config"
+            action="action_server_open_last_config_wizard"
+            groups="cpabooks_admin_power.group_partner_editor"
+        />
+    </data>
+</odoo>

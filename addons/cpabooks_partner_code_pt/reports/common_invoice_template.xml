@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="common_invoice_template_partner" inherit_id="professional_templates.INVOICE_common_document">
+            <xpath expr="//div[@name='partner_name']" position="before">
+                <div name="partner_code" t-if="o.partner_id.cust_code" style="padding-left:3px;">
+                            <span class="fa fa-th-large"/> <span t-field="o.partner_id.cust_code"/>
+                            </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

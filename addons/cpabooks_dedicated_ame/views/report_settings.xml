@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+      <record id="report_settings_inherit_dedicated_ame" model="ir.ui.view">
+            <field name="name">report.settings.inherit.dedicated.ame</field>
+            <field name="model">report.template.settings</field>
+            <field name="inherit_id" ref="professional_templates_ame.view_report_style_form"/>
+            <field name="arch" type="xml">
+                 <field name="font_family" position="after">
+                        <field name="bank_font" string="Bank Font(px)"/>
+                 </field>
+            </field>
+      </record>
+  </data>
+</odoo>

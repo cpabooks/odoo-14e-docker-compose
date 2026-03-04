@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_acc_move_ykt" inherit_id="cpabooks_custom_print.report_invoice_document_inherit_custom">
+
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t[4]/tr/t[1]/td[@name='td_unit']"
+               position="replace">
+            <td name="td_unit" class="text-center">
+                <span t-field="line.uom_text"/>
+            </td>
+        </xpath>
+        <!--region        Hide invoice+Bill No-->
+        <xpath expr="//h5" position="replace">
+            <h5 class="text-center" style="margin-top:-8px;font-size:18px;">
+                <div t-if="o.move_type == 'out_invoice'">
+                    <strong>TRN:</strong>
+                    <span t-field="o.company_id.vat"/>
+                </div>
+
+            </h5>
+        </xpath>
+        <!--endregion        Hide invoice+Bill No-->
+
+        <!--region    TOP RIght DIV align customer one-->
+        <xpath expr="//div[@class='row oe_mt16']/div[2]" position="replace">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-5" align="left">
+                        &#xA0;&#xA0;&#xA0;
+                        <strong style="font-size:16px;color:#13286b"
+                                t-if="o.move_type == 'out_invoice' and o.name != '/'">Invoice No.
+                        </strong>
+                        <strong style="font-size:16px ;color:#13286b"
+                                t-if="o.move_type == 'in_invoice' and o.name != '/'">BILL No.
+                        </strong>
+                        <!--                        &#xA0;-->
+                    </div>
+                    <div class="col-1" align="center">
+                        <span style="font-size:16px">:</span>
+                    </div>
+                    <div class="col-6" style="text-align:left;font-size:15px;color:#13286b;">
+                        <t t-if="o.print_manual_invoice==False">
+                            <span t-if="o.name != '/'" t-field="o.name"/>
+                        </t>
+                        <t t-if="o.print_manual_invoice==True">
+                            <span t-if="o.name != '/'" t-field="o.manual_invoice"/>
+                        </t>
+                    </div>
+                </div>
+                <div class="row" t-if="o.ref">
+                    <div class="col-5">
+                        &#xA0;&#xA0;&#xA0;&#xA0;<strong align="left">LPO Ref.</strong>
+                        <!--                      &#xA0;  <span>:</span>-->
+
+                    </div>
+                    <div class="col-1" align="center">
+                        <span>:</span>
+
+                    </div>
+
+                    <div class="col-6" align="left">
+                        <p class="m-0" t-field="o.ref"/>
+                    </div>
+                </div>
+                <div class="row" t-if="o.invoice_origin">
+                    <div class="col-5">
+                        &#xA0;&#xA0;&#xA0;&#xA0;<strong align="left">Quot. Ref.</strong>
+                        <!--                        <span>:</span>-->
+
+                    </div>
+                    <div class="col-1" align="center">
+                        <span>:</span>
+
+                    </div>
+                    <div class="col-6" align="left">
+                        <p class="m-0" t-field="o.invoice_origin"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+        <!--endregion    TOP RIght DIV align customer one-->
+
+        <!--region        Some field hide from "informations" div-->
+        <xpath expr="//div[@id='informations']" position="replace">
+            <div id="informations" class="row oe_mt16 oe_mb16">
+                <div class="col-auto col-2 mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
+                    <strong>Invoice Date:</strong>
+                    <p class="m-0" t-field="o.invoice_date"/>
+                </div>
+
+            </div>
+        </xpath>
+        <!--endregion        Some field hide from "informations" div-->
+
+        <!--region        Excl ,incl Vat add in amount total and subtotal-->
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_subtotal']/strong[1]"
+               position="replace">
+            <strong groups="account.group_show_line_subtotals_tax_excluded">Amount</strong>
+            <br/>
+            <strong>(Excl. VAT)</strong>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm']/tr[@class='border-black o_subtotal']/td[1]" position="replace">
+            <td>
+                <strong>Subtotal (Excl. VAT)</strong>
+            </td>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm']/tr[@class='border-black o_total']/td[1]" position="replace">
+            <td>
+                <strong>Total (Incl. VAT)</strong>
+            </td>
+        </xpath>
+        <!--endregion        Excl ,incl Vat add in amount total and subtotal-->
+        <!--region        payment term upto note-->
+        <xpath expr="//div[@name='note']" position="before">
+            <div class="row" name="payment_term">
+                <div class="col-2">
+                    <strong>Payment Terms:</strong>
+                </div>
+                <div class="col-10">
+                    <span t-field="o.invoice_payment_term_id.name"/>
+                </div>
+            </div>
+        </xpath>
+        <!--endregion        payment term upto note-->
+
+        <!--region        signature prepared by and approved by name-->
+<!--        <xpath expr="//div[@t-if='signature']/div[1]" position="replace">-->
+<!--            <div class="col-4 text-center">-->
+<!--                <strong style="text-decoration:underline">-->
+<!--                    <span t-field="signature.signature1"/>-->
+<!--                </strong>-->
+<!--                <br/>-->
+<!--                <strong>-->
+<!--                    <span t-field="o.prepared_by"/>-->
+<!--                </strong>-->
+<!--            </div>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//div[@t-if='signature']/div[2]" position="replace">-->
+<!--            <div class="col-4" align="center">-->
+<!--                <t t-if="o.prepare_by.user_stamp">-->
+<!--                    <div name="signature_logo" class="row">-->
+<!--                        <div class="col-12">-->
+<!--                            <img t-att-src="'data:image/png;base64,%s' % to_text(o.prepare_by.user_stamp)"-->
+<!--                                 style="height: 3cm; min-width: 4cm;margin-top:-30px;"/>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </t>-->
+<!--                <t t-else="">-->
+<!--                    <div class="col-12 text-center">-->
+<!--                        <br/>-->
+<!--                        <strong>-->
+<!--                            <span style="text-decoration:overline;" t-field="signature.signature2" />-->
+<!--                        </strong>-->
+<!--                    </div>-->
+<!--                </t>-->
+<!--            </div>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//div[@t-if='signature']/div[3]" position="replace">-->
+<!--            <div class="col-4 text-center">-->
+<!--                <strong style="text-decoration:underline">-->
+<!--                    <span t-field="signature.signature3"/>-->
+<!--                </strong>-->
+<!--                <br/>-->
+<!--                <strong>-->
+<!--                    <span t-field="o.approve_by"/>-->
+<!--                </strong>-->
+<!--            </div>-->
+<!--        </xpath>-->
+        <!--endregion        signature prepared by and approved by name-->
+    </template>
+</odoo>

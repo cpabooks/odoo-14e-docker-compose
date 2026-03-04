@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="client_report_form" model="ir.ui.view">
+            <field name="name">client.report.form</field>
+            <field name="model">client.report</field>
+            <field name="arch" type="xml">
+                <form string="Client Report">
+
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="project_no" options='{ "no_create": True}'/>
+                            <field name="client_name" options='{ "no_create": True}'/>
+                            <field name="location"/>
+                            <field name="issue_date" widget="date"/>
+                            <field name="rev_no"/>
+
+                        </group>
+                        <group>
+                            <field name="contact_no"/>
+                            <field name="plan_no"/>
+                            <field name="due_date" widget="date"/>
+                            <field name="rev_date" widget="date"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Client Report Details" name="client_report">
+                            <field name="client_report_line" widget="section_and_note_one2many">
+                                <tree string="Daily Report Details" editable="bottom">
+                                    <field name="product_id" options='{ "no_create": True}'/>
+                                    <field name="product_qty"/>
+                                    <field name="remarks"/>
+
+                                </tree>
+
+                            </field>
+
+                            <div class="oe_clear"/>
+                        </page>
+                        <page string="Description" name="description">
+                            <group>
+                                <field name="description"/>
+                                <field name="recommendation"/>
+                            </group>
+                        </page>
+                              <page string="Photos" name="photos">
+                            <field name="images">
+                                <kanban>
+                                    <field name="id"/>
+                                    <field name="image"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click" >
+                                                <div class="o_kanban_image" style="width:100%">
+                                                    <img t-att-src="kanban_image('client.image', 'image', record.id.raw_value)" alt="Image"/>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <field name="image" widget="image"/>
+                                </form>
+                            </field>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="client_report_tree" model="ir.ui.view">
+            <field name="name">client.report.tree</field>
+            <field name="model">client.report</field>
+            <field name="arch" type="xml">
+                <tree string="Client Report" multi_edit="1">
+                    <field name="name"/>
+                    <field name="project_no"/>
+                    <field name="location"/>
+                    <field name="contact_no"/>
+                    <field name="plan_no"/>
+                    <field name="due_date" widget="date"/>
+<!--                    <field name="pc_no"/>-->
+
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="client_report_form_action" model="ir.actions.act_window">
+            <field name="name">Client Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">client.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="client_report_tree"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No Client Report found. Let's create one!
+
+              </p>
+            </field>
+        </record>
+
+</odoo>

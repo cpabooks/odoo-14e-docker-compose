@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="auh" model="vehicle.src">
+            <field name="name">AUH</field>
+        </record>
+
+        <record id="dxb" model="vehicle.src">
+            <field name="name">DXB</field>
+        </record>
+
+        <record id="rak" model="vehicle.src">
+            <field name="name">RAK</field>
+        </record>
+
+        <record id="uaq" model="vehicle.src">
+            <field name="name">UAQ</field>
+        </record>
+
+        <record id="ajm" model="vehicle.src">
+            <field name="name">AJM</field>
+        </record>
+
+        <record id="shj" model="vehicle.src">
+            <field name="name">SHJ</field>
+        </record>
+    </data>
+</odoo>

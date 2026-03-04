@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="inv_common_template_amg" inherit_id="professional_templates.INVOICE_common_document">
+            <xpath expr="//div[@name='master_table']" position="before">
+                <div class="col-12" t-attf-style="padding-left: 0 !important;padding-right: 0 !important;" id="vehicle_information">
+                     <div class="col-3 mt8 mb8 float-left" name="vehicle_name" t-if="o.vehicle_name" >
+                         <div t-attf-style="display:inline; color:{{style.name_color}};font-size:{{int(style.body_font)+2}}px;">
+                            <strong>
+                                Vehicle Name:
+                            </strong>
+                             <span class="m-0" t-field="o.vehicle_name"/>
+                        </div>
+                     </div>
+                    <div class="col-3 mt8 mb8 float-left" name="vehicle_no" t-if="o.vehicle_no">
+                         <div t-attf-style="display:inline; color:{{style.name_color}};font-size:{{int(style.body_font)+2}}px;">
+                            <strong>
+                                Vehicle No.:
+                            </strong>
+                             <span class="m-0" t-field="o.vehicle_no"/>
+                        </div>
+                     </div>
+                    <div class="col-3 mt8 mb8 float-left" name="kilometer" t-if="o.kilometer">
+                         <div t-attf-style="display:inline; color:{{style.name_color}};font-size:{{int(style.body_font)+2}}px;">
+                            <strong>
+                                Kilometer:
+                            </strong>
+                             <span class="m-0" t-field="o.kilometer"/>
+                        </div>
+                     </div>
+                    <div class="col-3 mt8 mb8 float-left" name="claim_no" t-if="o.claim_no">
+                         <div t-attf-style="display:inline; color:{{style.name_color}};font-size:{{int(style.body_font)+2}}px;">
+                            <strong>
+                                Claim No.:
+                            </strong>
+                             <span class="m-0" t-field="o.claim_no"/>
+                        </div>
+                     </div>
+                </div>
+
+            </xpath>
+        </template>
+    </data>
+</odoo>

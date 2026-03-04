@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="stock_location_inherit" model="ir.ui.view">
+            <field name="name">stock.location.inherit</field>
+            <field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='return_location']" position="after">
+                    <field name="user_ids" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_qty_inherit" model="ir.ui.view">
+            <field name="name">stock.qty.inherit</field>
+            <field name="model">wizard.inventory.valuation.qty</field>
+            <field name="inherit_id" ref="eq_inventory_valuation_report.wizard_inventory_valuation_qty_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='filter_by']" position="after">
+                    <field name="user_id" invisible="1"/>
+                </xpath>
+<!--                <xpath expr="//field[@name='location_ids']" position="attributes">-->
+<!--                    <attribute name="readonly">1</attribute>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+    </data>
+</odoo>

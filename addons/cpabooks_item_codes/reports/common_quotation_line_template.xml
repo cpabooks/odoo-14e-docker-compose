@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="quotation_common_template_inherit_item_code" inherit_id="professional_templates.sales_lines_common_template">
+            <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[@name='description_th']" position="before">
+                <th name="item_code_th" t-attf-style="{{th_style}}" t-if="style.is_item_code_visible">Item Code</th>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='description_td']" position="before">
+                <td name="item_code_td" t-attf-style="{{td_style}}" t-if="style.is_item_code_visible"><span t-field="l.product_id.product_tmpl_id.item_code"/></td>
+            </xpath>
+
+            <xpath expr="//table[@name='invoice_line_table']/tbody/tr[@name='subtotal_row']/td[1]" position="before">
+                <td name="item_code_space" t-if="style.is_item_code_visible"></td>
+<!--                  <td name="item_code_space" t-if="style.show_img and style.is_item_code_visible" colspan="2"></td>-->
+            </xpath>
+        </template>
+    </data>
+</odoo>

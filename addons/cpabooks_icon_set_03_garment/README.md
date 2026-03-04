@@ -1,0 +1,17 @@
+Accounting
+Document
+Sales
+Purchase
+Recquisations
+Inventory 
+Project
+Discuss
+Repairs
+Calender
+Notes
+Contacts
+Expenses
+Dashboards
+CRM
+Apps
+Settings

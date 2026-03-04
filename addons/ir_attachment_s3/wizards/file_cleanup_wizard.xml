@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="cleanup_s3_attachments_views_form" model="ir.ui.view">
+            <field name="name">file.cleanup.wizard.form</field>
+            <field name="model">file.cleanup.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <span>To clean existing attchment from server.</span>
+                    </group>
+                    <footer>
+                        <button string="Cleanup" type="object" name="delete_local_attachments" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="cleanup_s3_attachments_action" model="ir.actions.act_window">
+            <field name="name">Cleanup S3 Attachments</field>
+            <field name="res_model">file.cleanup.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+        id="menu_cleanup_s3_attachment"
+        name="Cleanup S3 Attachments"
+        groups="base.group_system"
+        parent="base.menu_custom"
+        action="cleanup_s3_attachments_action"
+        sequence="75"/>
+    </data>
+</odoo>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_internal_order_document">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+            <div class="page">
+                <div class="oe_structure"/>
+
+                <h2 class="text-center">
+                    <span><u>INTERNAL ORDER</u></span>
+                </h2>
+
+                <h5 class="text-center" style="margin-top:-8px;font-size:18px;">
+                      <strong>Quotation No: </strong><span t-field="doc.name"/>
+                </h5>
+
+                <div class="row oe_mt16">
+                    <div class="col-6">
+                        <strong>Customer: </strong>
+                        <div t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": True}'/>
+                    </div>
+                    <div class="col-6 text-right">
+                        <t t-if="doc.partner_shipping_id" groups="sale.group_delivery_invoice_address">
+                            <strong>Shipping Address: </strong>
+                            <div t-field="doc.partner_shipping_id" t-options='{"widget": "contact", "fields": ["name", "address", "phone"], "no_marker": True, "phone_icons": True}'/>
+                        </t>
+                    </div>
+                </div>
+
+                <div class="row oe_mt16 oe_mb16" id="informations">
+                    <div t-if="doc.client_order_ref" class="col-auto col-3 mw-100 mb-2">
+                        <strong>Attention:</strong>
+                        <p class="m-0" t-field="doc.client_order_ref"/>
+                    </div>
+                    <div t-if="doc.date_order and doc.state not in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
+                        <strong>Order Date:</strong>
+                        <p class="m-0" t-field="doc.date_order" t-options="{'widget': 'date'}"/>
+                    </div>
+                    <div t-if="doc.date_order and doc.state in ['draft','sent']" class="col-auto col-3 mw-100 mb-2">
+                        <strong>Quotation Date:</strong>
+                        <p class="m-0" t-field="doc.date_order" t-options='{"widget": "date"}'/>
+                    </div>
+                    <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto col-3 mw-100 mb-2" name="expiration_date" style="display: none;">
+                        <strong>Expiration:</strong>
+                        <p class="m-0" t-field="doc.validity_date"/>
+                    </div>
+                    <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
+                        <strong>Salesperson:</strong>
+                        <p class="m-0" t-field="doc.user_id"/>
+                    </div>
+                </div>
+
+                <!-- Is there a discount on at least one line? -->
+                <t t-set="display_discount" t-value="any(l.discount for l in doc.order_line)"/>
+
+                <table class="table table-sm o_main_table">
+                    <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                    <thead style="display: table-row-group">
+                        <tr>
+                            <th name="th_sr_no" class="text-center"><strong>Sr. No.</strong></th>
+                            <th name="th_item_code" class="text-left"><strong>Item Code</strong></th>
+                            <th name="th_description" class="text-left"><strong>Description</strong></th>
+                            <th name="th_quantity" class="text-left"><strong>Qty</strong></th>
+                            <th name="th_unit" class="text-right"><strong>Units</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody">
+                        <t t-set="sr_no" t-value="1"/>
+
+                        <t t-foreach="doc.order_line" t-as="line">
+                            <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                <t t-if="not line.display_type">
+                                    <td class="text-center">
+                                        <span t-esc="sr_no"/>
+                                        <t t-set="sr_no" t-value="sr_no+1"/>
+                                    </td>
+                                    <td name="td_item_code">
+                                        <span t-field="line.product_id.item_code"/>
+                                    </td>
+                                    <td name="td_name"><span t-field="line.name"/></td>
+                                    <td name="td_quantity" class="text-right">
+                                        <span t-field="line.product_uom_qty"/>
+                                    </td>
+                                    <td name="td_unit" class="text-left">
+                                        <span t-field="line.product_uom"/>
+                                    </td>
+                                </t>
+                                <t t-if="line.display_type == 'line_section'">
+                                    <td name="td_section_line" colspan="99">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <t t-set="current_section" t-value="line"/>
+                                </t>
+                                <t t-if="line.display_type == 'line_note'">
+                                    <td name="td_note_line" colspan="99">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_internal_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="cpabooks_job_order_extend.report_internal_order_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

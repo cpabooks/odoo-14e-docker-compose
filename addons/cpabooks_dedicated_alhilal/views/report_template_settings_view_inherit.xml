@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="report_template_settings_view_inherit_alhilal" model="ir.ui.view">
+            <field name="name">report.template.settings.view.inherit.alhilal</field>
+            <field name="model">report.template.settings</field>
+            <field name="inherit_id" ref="professional_templates_v1.view_report_style_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[1]" position="inside">
+                    <field name="stamp_visibility" help="Please input a value between 0.0 to 1" placeholder="Value between 0.0 to 1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

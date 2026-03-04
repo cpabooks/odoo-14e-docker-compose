@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_task_form_seq" model="ir.ui.view">
+        <field name="name">project.task.seq.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="task_seq"/>
+                <field name="total_job"/>
+                <field name="complete_job" attrs="{'readonly':[('task_type','=','main')]}" force_save="1"/>
+                <field name="balance_job" readonly="1" force_save="1"/>
+
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="task_type"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_task_tree_seq" model="ir.ui.view">
+        <field name="name">project.task.seq.tree</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="arch" type="xml">
+            <field name="project_id" position="after">
+                <field name="total_job" sum="total_job"/>
+                <field name="complete_job" sum="complete_job"/>
+                <field name="balance_job" sum="balance_job"/>
+
+            </field>
+            <field name="stage_id" position="after">
+                <field name="task_type"/>
+
+            </field>
+        </field>
+    </record>
+    <record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">
+     <field name="domain">[('project_id', '=', active_id),('task_type','=','main')]</field>
+</record>
+</odoo>

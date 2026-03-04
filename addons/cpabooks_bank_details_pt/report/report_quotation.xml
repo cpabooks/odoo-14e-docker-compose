@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_pt_common_quotation_inherit_bank_details" inherit_id="professional_templates.SO_common_document">
+        <xpath expr="//div[@name='Note']" position="after">
+
+                <div class="oe_mt32 row" t-if="doc.bank_detail_enable" t-attf-style="margin-left:1px;page-break-inside:avoid;">
+                    <span t-attf-style="text-decoration: underline;font-size:18px;font-weight:bold;">Bank Details</span>
+                    <br/>
+                    <t t-if="doc.company_id.bank_name">
+                        <span t-field="doc.company_id.bank_name"/>
+                        <br/>
+                    </t>
+                    <t t-if="doc.company_id.bank_account_number">
+                        <span t-field="doc.company_id.bank_account_number"/>
+                        <br/>
+                    </t>
+                    <t t-if="doc.company_id.bank_iban_number">
+                        <span t-field="doc.company_id.bank_iban_number"/>
+                        <br/>
+                    </t>
+                    <t t-if="doc.company_id.bank_address">
+                        <span t-field="doc.company_id.bank_address"/>
+                        <br/>
+                    </t>
+                    <t t-if="doc.company_id.bank_branch">
+                        <span t-field="doc.company_id.bank_branch"/>
+                    </t>
+                </div>
+
+        </xpath>
+    </template>
+</odoo>

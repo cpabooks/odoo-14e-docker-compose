@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		<!--List view maintenance Request-->
+		<record id="view_maintenance_request_tree_inherit" model="ir.ui.view">
+			<field name="name">view.maintenance.request.tree.inherit</field>
+			<field name="model">maintenance.request</field>
+			<field name="inherit_id" ref="maintenance.hr_equipment_request_view_tree"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="before">
+					<field name="ticket_no"/>
+				</xpath>
+			</field>
+		</record>
+		
+		<!--Form view maintenance request-->
+		<record id="view_maintenance_request_form" model="ir.ui.view">
+			<field name="name">view.maintenance.request.form</field>
+			<field name="model">maintenance.request</field>
+			<field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='employee_id']" position="before">
+					<field name="ticket_no"/>
+					<field name="tenant_id"/>
+				</xpath>
+				<xpath expr="//form/sheet/group" position="inside">
+					<group>
+						<field name="city"/>
+						<field name="project_id"/>
+						<field name="building"/>
+						<field name="flat"/>
+						<field name="analytical_account_id"/>
+						<field name="task_id" domain="[('project_id', '=', project_id)]"/>
+						<field name="work_type"/>
+						<field name="problem"/>
+						<field name="property"/>
+						<field name="address"/>
+					</group>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

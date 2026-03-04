@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="dedicated_style_for_all_reports" model="dedicated.report.templates">
+            <field name="name">Dedicated Default style</field>
+        </record>
+    </data>
+</odoo>

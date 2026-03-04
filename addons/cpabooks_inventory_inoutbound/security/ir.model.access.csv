@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_valuation_layer,stock_valuation_layer,stock_account.model_stock_valuation_layer,base.group_user,1,1,1,0
+access_vehicle_no_manager,vehicle.user_manager,cpabooks_inventory_inoutbound.model_vehicle_no,base.group_user,1,1,1,1

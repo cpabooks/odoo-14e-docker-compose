@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="inherit_view_account_analytic_line_tree" model="ir.ui.view">
+            <field name="name">inherit.view.account.analytic.line.tree</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="document_number" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="optional">show</attribute>
+<!--                    <optional>show</optional>-->
+                </xpath>
+                <xpath expr="//field[@name='ref']" position="attributes">
+                    <attribute name="optional">show</attribute>
+<!--                    <optional>show</optional>-->
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+<!--                    <optional>hide</optional>-->
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

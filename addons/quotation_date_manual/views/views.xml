@@ -1,0 +1,62 @@
+<odoo>
+  <data>
+    <record id="manual_date_quotation_form" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+                <field name ='date_order' position="replace">
+                    <field name="manual_date"/>
+                </field>
+<!--                <field name="date_order" position="attributes">
+                    <attribute name="attrs">{'invisible': True}</attribute>
+                </field>-->
+
+            <xpath expr="//field[@name='date_order']" position="attributes">
+                <attribute name="invisible">1</attribute>
+                <attribute name="attrs">{'invisible': True}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+
+
+
+
+   <!-- Freight field in Quotation inherit form -->
+<!--    <record id="manual_date_quotation_form" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+                <field name ='date_order' position="replace">
+                    <field name="manual_date"/>
+                </field>
+                <field name="date_order" position="attributes">
+                    <attribute name="attrs">{'invisible': True}</attribute>
+                </field>
+        </field>
+    </record>-->
+
+
+
+
+   <!-- Freight field in Quotation inherit tree -->
+    <record id="manual_date_quotation_tree" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="create_date" position="replace">
+                    <field name="manual_date" optional="show"/>
+
+            </field>
+        </field>
+    </record>
+
+  </data>
+</odoo>
+

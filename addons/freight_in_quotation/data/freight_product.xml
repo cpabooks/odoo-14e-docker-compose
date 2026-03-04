@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+        <record id="freight_product_bask_bankar" model="product.template">
+            <field name="name">Buck-Bunker Charge</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="type">consu</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        </record>
+        <record id="freight_product_seafreight" model="product.template">
+            <field name="name">Seafreight</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="type">consu</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        </record>
+        <record id="freight_product_gulf_risk" model="product.template">
+            <field name="name">Gulf Risk Administration Fees</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="type">consu</field>
+            <field name="charge_type" ref="freight_in_quotation.freight_charge_type_main"/>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        </record>
+        <record id="freight_product_noc" model="product.template">
+            <field name="name">NOC Charges</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="type">consu</field>
+            <field name="charge_type" ref="freight_in_quotation.freight_charge_type_other"/>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        </record>
+        <record id="freight_product_clerence" model="product.template">
+            <field name="name">Clearence Charges</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="type">consu</field>
+            <field name="charge_type" ref="freight_in_quotation.freight_charge_type_other"/>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        </record>
+    </data>
+</odoo>

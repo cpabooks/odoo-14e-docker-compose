@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="my_custom_css_asset" name="my_custom_css assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/cpabooks_helpdesk_extend/static/src/css/helpdesk.css"/>
+        </xpath>
+    </template>
+
+    <record id="helpdesk_ticket_view_form_extend" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.form.extend</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="team_id"]' position="before">
+                <field name="module" widget="many2many_tags" invisible="1"/>
+                <field name="project" invisible="1"/>
+            </xpath>
+            <xpath expr='//field[@name="team_id"]' position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr='//field[@name="partner_id"]' position="before">
+                <field name="ticket_date" readonly="1" force_save="1"/>
+                <field name="ticket_age" readonly="1" force_save="1"/>
+                <field name="job_closing_date" readonly="1" force_save="1"/>
+                <field name="issue_description" readonly="1" force_save="1" invisible="1"/>
+                <field name="tasks" readonly="1" force_save="1" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='email_cc']" position="after">
+                <field name="dev_name" string="Dev. Name_X" invisible="1"/>
+                <field name="dev_email" string="Dev. Email_X" invisible="1"/>
+                <field name="dev"/>
+                <field name="email_id"/>
+                <field name="dev_tester"/>
+                <field name="clint_updater"/>
+            </xpath>
+
+            <field name="partner_id" position="attributes">
+                <attribute name="string">Customer Cont. Name</attribute>
+            </field>
+            <field name="partner_email" position="attributes">
+                <attribute name="string">Customer Cont. Email</attribute>
+            </field>
+
+            <field name="partner_name" position="attributes">
+                <attribute name="attrs">{"invisible":[True]}</attribute>
+            </field>
+            <field name="partner_id" position="before">
+                <field name="customer_name"/>
+            </field>
+
+            <xpath expr="//div[@class='oe_title']" position="before">
+                <div class="row">
+                    <div class="col-6" name="sequence">
+                        <h1>
+                            <field name="sequence_no" readonly="1" force_save="1"/>
+                        </h1>
+                    </div>
+                    <div class="col-6 text-right text-uppercase" name="processing_state">
+                        <h1>
+                            <field name="ticket_state" readonly="1"
+                                   widget='badge'
+                                   decoration-bf="ticket_state == 'new'"
+                                   decoration-it="ticket_state == 'draft'"
+                                   decoration-primary="ticket_state == 'submit_for_approval'"
+                                   decoration-info="ticket_state == 'approve'"
+                                   decoration-warning="ticket_state == 'test'"
+                                   decoration-danger="ticket_state == 'updating'"
+                                   decoration-success="ticket_state == 'done'"
+                                   decoration-muted="ticket_state == 'cancel'"/>
+                        </h1>
+                    </div>
+                </div>
+                <div name="oe_main_subject">
+                    <h1>
+                        <field name="main_sub_id" class="field_name" placeholder="Main Subject..." invisible="1"/>
+                    </h1>
+                </div>
+            </xpath>
+
+            <xpath expr="//header" position="inside">
+
+
+                <!--Action Buttons for review-->
+                <!--                <button id="button1" name="get_reviewed" type="object" string="1.Set As Reviewed" class="btn-success"/>-->
+
+                <button id="button2" name="submit_for_approval" string="1.Submit for Approval" type="object"
+                        class="btn-success" attrs="{'invisible': [('ticket_state', '!=', 'draft')]}"/>
+
+                <button id="button3" name="btn_approve" string="2.Approve" type="object" class="btn-success"
+                        attrs="{'invisible': [('ticket_state', '!=', 'submit_for_approval')]}"/>
+
+                <!--                <button id="button4" name="assign_dev" type="object" string="4.Assign To Dev."-->
+                <!--                        class="btn-success"/>-->
+
+                <button id="button5" name="send_to_test" type="object" string="3.Send To Test" class="btn-success"
+                        attrs="{'invisible': [('ticket_state', '!=', 'dev')]}"/>
+
+                <button id="button6" name="send_to_updater" type="object" string="4.Send To updater"
+                        attrs="{'invisible': [('ticket_state', '!=', 'test')]}"
+                        class="btn-success"/>
+
+                <button id="button7" name="send_to_clint" type="object" string="5.UTC (Done)"
+                        attrs="{'invisible': [('ticket_state', '!=', 'updating')]}"
+                        class="btn-success"/>
+
+                <button name="action_cancel" type="object" string="Cancel"
+                        class="btn-danger"/>
+
+                <button name="action_return_draft" type="object" string="Return to Draft"
+                        class="btn-danger"/>
+
+                <button name="assign_dev_approve" type="object" string="Bypass Approval" class="btn-danger"/>
+
+                <button name="re_assign_developer" type="object" string="Reassign To Developer"
+                        class="btn-danger"/>
+
+                <!--                <button name="btn_initial" string="Cross Check" type="object" class="btn-danger"/>-->
+
+                <!--                <button name="send_to_review" type="object" string="Assign to Review." class="btn-danger"/>-->
+
+                <!--                <button name="set_plan" type="object" string="Set Time Plan" class="btn-danger"/>-->
+
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_form_extend1" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.form.extend1</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='task_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='project_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr='//field[@name="team_id"]' position="after">
+                <field name="team_id"/>
+                <field name="project_id"/>
+                <field name="task_id"/>
+            </xpath>
+
+<!--            <xpath expr='//notebook/page[@name="description"]' position="after">-->
+<!--                <page name="require_items" string="Require Items">-->
+<!--                    <field name='require_items' context="{'require_items':require_items}">-->
+<!--                        &lt;!&ndash;                          on_change="onchange_line(order_line)"&ndash;&gt;-->
+<!--                        <tree editable="bottom" class="help">-->
+<!--                            <field name="sr_no" readonly="1"/>-->
+
+<!--                            &lt;!&ndash;                             <field name="issue"/>&ndash;&gt;-->
+<!--                            <field name="issue_id"/>-->
+
+<!--                            <field name="project" invisible="1"/>-->
+<!--                            <field name="defult_task_id" widget="many2many_tags" invisible="1"/>-->
+<!--                            <field name="task_id"/>-->
+<!--                            <field name="description"/>-->
+<!--                            <field name="menu_id" widget="many2many_tags"-->
+<!--                                   options="{'no_create': True, 'no_open': True}"/>-->
+<!--                            <field name="tech_module" widget="many2many_tags"-->
+<!--                                   options="{'no_create': True, 'no_open': True}"/>-->
+<!--                            <field name="require_db" widget="many2many_tags"/>-->
+<!--                            <field name="line_status"/>-->
+<!--                            <field name="quantity"/>-->
+<!--                            <field name="amount"/>-->
+<!--                            <field name="total_amount" readonly="1" force_save="1"/>-->
+<!--                        </tree>-->
+<!--                    </field>-->
+<!--                </page>-->
+
+<!--            </xpath>-->
+        </field>
+    </record>
+
+    <record id="helpdesk_tickets_view_tree_extend" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.form.extend</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="display_name"]' position="before">
+                <field name="sequence_no" optional="show"/>
+
+
+                <!--                <field name="module_names" invisible="1"/>-->
+            </xpath>
+            <xpath expr='//field[@name="display_name"]' position="after">
+                <field name="task_id" optional="show"/>
+                <!--                <field name="sub_task" optional="show"/>-->
+                <field name="dis_name" optional="show"/>
+                <field name="des_tree" attrs="{'invisible':[('is_list', '=', True)]}" optional="1"/>
+                <field name="is_list" invisible="1" optional="show"/>
+                <field name="module" widget="many2many_tags"/>
+                <field name="issue_description" optional="hide"/>
+                <field name="tasks" invisible="1"/>
+            </xpath>
+            <xpath expr='//field[@name="stage_id"]' position="before">
+                <field name="ticket_age" string="Days"/>
+                <field name="ticket_date" optional="show"/>
+                <field name="job_closing_date" optional="hide"/>
+            </xpath>
+            <xpath expr='//field[@name="stage_id"]' position="after">
+                <field name="total_proposed_hour" string="TPH" optional="show"/>
+                <field name="total_hours_spent" string="THS" optional="show"/>
+            </xpath>
+
+            <field name="partner_id" position="attributes">
+                <attribute name="string">Your Name</attribute>
+            </field>
+            <field name="partner_id" position="before">
+                <field name="dev"/>
+                <field name="customer_name" optional="show"/>
+            </field>
+            <field name="ticket_date" position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
+            <field name="partner_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+                <attribute name="string">Ticket Book by</attribute>
+            </field>
+            <field name="display_name" position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
+            <field name="module" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="activity_ids" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+
+            <xpath expr="//tree/field[@name='company_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="helpdesk_tickets_view_search_extend" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.search.extend</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="sequence_no"/>
+            </field>
+            <field name="name" position="after">
+                <field name="description"/>
+                <field name="module"/>
+            </field>
+            <!--            <xpath expr="//group" position="inside">-->
+            <!--                <filter string = "Module" name = "module" context = "{'group_by': 'module_names'}" />-->
+
+            <!--            </xpath>-->
+        </field>
+    </record>
+
+
+    <record id="helpdesk_ticket_view_form_inherit_helpdesk_timesheet_product" model="ir.ui.view">
+        <field name='name'>helpdesk.ticket.form.inherit.timesheet.product</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='timesheets']/field[@name='timesheet_ids']/tree/field[@name='date']"
+                   position="after">
+                <field name="product_id" invisible="1"/>
+                <field name="project_id" invisible="1"/>
+                <field name="task_id"/>
+            </xpath>
+
+            <xpath expr="//page[@name='timesheets']/field[@name='timesheet_ids']" position="after">
+                <group>
+                    <group></group>
+                    <group>
+                        <group>
+                            <field name="total_proposed_hour" readonly="1"/>
+                        </group>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+<!--    <record id="helpdesk.helpdesk_ticket_action_main_tree" model="ir.actions.act_window">-->
+<!--            <field name="context">{'custom_search': True,'search_default_is_open': True}</field>-->
+<!--        </record>-->
+
+</odoo>

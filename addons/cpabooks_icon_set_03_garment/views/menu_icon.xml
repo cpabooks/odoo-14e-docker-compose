@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="cloth_tailor_management_odoo.tailor_management_menu_root" name="Tailor"
+              web_icon="cpabooks_icon_set_03_garment,static/description/tailor.png"/>
+
+        <menuitem id="repair.menu_repair_order" name="Repairs"
+              web_icon="cpabooks_icon_set_03_garment,static/description/repairs.png"/>
+    </data>
+</odoo>

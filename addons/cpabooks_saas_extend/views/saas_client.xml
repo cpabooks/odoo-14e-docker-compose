@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="saas_client_form_view_active_inherit" model="ir.ui.view">
+        <field name="name">saas.client.view.active.form.inherit</field>
+        <field name="model">saas.client</field>
+        <field name="priority" eval="70"/>
+        <field name="inherit_id" ref="odoo_saas_kit.saas_client_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='saas_contract_id']" position="after">
+                <field name="active" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="saas_client_serach_view_search_inherit" model="ir.ui.view">
+        <field name="name">saas.client.view.active.form.inherit</field>
+        <field name="model">saas.client</field>
+        <field name="priority" eval="70"/>
+        <field name="inherit_id" ref="odoo_saas_kit.saas_client_serach_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='server']" position="after">
+                <filter string="Archived" name="active" domain="[('active', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

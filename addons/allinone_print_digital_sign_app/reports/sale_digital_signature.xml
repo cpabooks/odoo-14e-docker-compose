@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Signature print in sale report -->
+        <!--        <template id="sale_qweb_report" inherit_id="sale.report_saleorder_document">-->
+        <!--             <xpath expr="//div[hasclass('clearfix')]" position="after">-->
+        <!--                <t t-if="doc.digital_sign_sale_order_compute">-->
+        <!--                    <t t-if="doc.digital_signature">-->
+        <!--                        <div class="offset-8">-->
+        <!--                            <table class="table table-sm;page-break-inside: avoid;" >-->
+        <!--                                <tr>-->
+        <!--                                    <td>-->
+        <!--                                        <strong>Signature</strong>-->
+        <!--                                    </td>-->
+        <!--                                    <img t-att-src="'data:image/png;base64,%s' % to_text(doc.digital_signature)" style="max-height: 4cm; max-width: 8cm;"/>-->
+        <!--                                </tr>-->
+        <!--                            </table>-->
+        <!--                        </div>-->
+        <!--                    </t>-->
+        <!--               </t>-->
+        <!--            </xpath>-->
+        <!--        </template>-->
+
+        <template id="report_sale_quotation_digital_signature"
+                  inherit_id="cpabooks_custom_print.report_saleorder_document_inherit_custom">
+            <xpath expr="//t[@t-if='doc.company_id.bank_name and doc.bank_detail_enable']" position="before">
+                <div  style="page-break-inside: avoid;">
+<!--                <div name="warm_regards" class="row oe_mt16"-->
+<!--                     attrs="{'invisible': [('doc.digital_sign_sale_order_compute', '=', False)]}">-->
+<!--                    <div class="col-12">-->
+<!--                        <span t-field="doc.warm_regards"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div name="signature_logo" class="row"
+                     attrs="{'invisible': [('doc.digital_sign_sale_order_compute', '=', False)]}">
+                    <div class="col-12">
+                        <img t-if="doc.digital_signature"
+                             t-att-src="'data:image/png;base64,%s' % to_text(doc.digital_signature)"
+                             style="height: 1.5cm; max-width: 12cm;min-width:6cm"/>
+                        <img t-if="doc.digital_logo" t-att-src="'data:image/png;base64,%s' % to_text(doc.digital_logo)"
+                             style="height: 3cm; max-width: 6cm;"/>
+                    </div>
+                </div>
+
+                <div t-if="doc.digital_signature" class="col-3 text-center" style="margin-top:-10px;">
+                    <span t-field="doc.user_id.name"/>
+                </div>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

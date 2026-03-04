@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <menuitem id="mrp.menu_mrp_bom_form_action"
+            action="mrp.mrp_bom_form_action"
+            parent="mrp.menu_mrp_manufacturing"
+            sequence="30"/>
+</odoo>

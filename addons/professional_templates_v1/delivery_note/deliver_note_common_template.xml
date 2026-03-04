@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="DN_13_document" name="Delivery Note Common Template">
+            <!-- Multicompany -->
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <!--<div t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.header_font)}}px !important;font-family:{{style.font_family}} !important;" class="header">
+                <t t-if="style.header">
+                    <div class="col-5 float-left" t-attf-style="padding:15px; border:1px solid {{style.text_color}};">
+                        <t t-call="professional_templates_v1.company_address"/>
+                    </div>
+                    <div class="col-5 float-right" t-attf-style="border: 1px solid {{style.text_color}}; color:{{style.text_color}};">
+                        <strong>Date:</strong>
+                        <span t-field="o.write_date"/>
+                    </div>
+                    <div class="col-7 float-right" style="text-align:right; padding-left:0px; padding-right:0px;">
+                        <div t-if="style.logo" style="width:100%; text-align:right; padding-bottom:3px; padding-top:3px;">
+                            <img  t-att-src="image_data_uri(style.logo)" alt="Logo"/>
+                        </div>
+                        <div t-if="not style.logo and company.logo" style="width:100%; text-align:right;padding-bottom:8px;padding-top:3px;">
+                            <img  t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                        </div>
+                        <div t-if="not style.logo and not company.logo" style="width:100%;text-align:right;padding-bottom:8px;padding-top:3px;">
+                            <img  t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                        </div>
+                        <div t-if="company.twitter or company.facebook or company.facebook" t-attf-style="background-color:{{style.theme_color}}; width:auto;
+                            float:right; padding-left:15px; color:{{style.theme_txt_color}};padding-right:15px; padding-top:2px; padding-bottom:2px;">
+                        <span t-if="company.twitter" style="padding-left:0px;" class="fa fa-twitter-square "/>&#160;<span t-field="company.twitter"/>
+                        <span t-if="company.facebook" style="padding-left:13px;" class="fa fa-facebook-square "/>&#160;<span t-field="company.facebook"/>
+                        <span t-if="company.youtube" style="padding-left:13px;" class="fa fa-youtube-square "/>&#160;<span t-field="company.youtube" />
+                    </div>
+
+                </div> 
+            </t>
+        </div> -->
+            <div class="header col-12 float-left"
+                 t-attf-style="padding-left:0px; padding-right:0px; color:{{style.text_color}};font-size:{{int(style.header_font)}}px;font-family:{{style.font_family}};border-bottom:1px solid {{style.theme_color}}">
+                <t t-if="company.header_logo">
+                    <div class="text-center" style="margin-top: 8px;">
+                        <span t-field="company.header_logo"
+                              t-options="{'widget': 'image', 'style': 'max-width: 1280px; max-height: 200px;'}"/>
+                    </div>
+                </t>
+                <t t-else="">
+                    <t t-if="style.header">
+                        <div class="col-4 float-left" style="padding-left:0px;margin-top: 8px;margin-bottom:8px;">
+                            <span t-if="style.logo">
+                                <span itemprop="image" t-field="style.logo"
+                                      t-options="{'widget': 'image', 'style': 'max-width: 300px; max-height: 140px;'}"/>
+
+                            </span>
+                            <span t-if="not style.logo and company.logo">
+                                <span itemprop="image" t-field="company.logo"
+                                      t-options='{"widget": "image", "style": "float:right;max-width: 300px; max-height: 140px;"}'/>
+                            </span>
+                            <span t-if="not style.logo and not company.logo">
+                                <span itemprop="image" t-field="company.logo"
+                                      t-options='{"widget": "image", "style": "float:right;max-width: 300px; max-height: 140px;"}'/>
+                            </span>
+                        </div>
+                        <!--                    <div class="col-4 text-center" style="padding-left:0px;">-->
+                        <!--                        <h4 t-field="o.project_title" t-attf-style="background-color:{{style.theme_color}};color:{{style.theme_txt_color}};"/>-->
+                        <!--                    </div>-->
+                        <div class="col-4 mb8 float-right" style="padding-bottom:2px;padding-right:0px;">
+                            <div class="float-right" style="width:auto;padding-left:15px;padding-top:20px;">
+                                <t t-call="professional_templates_v1.company_address"/>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </div>
+            <!--end of Header-->
+            <!-- START OF PAGE -->
+
+
+            <div class="article page"
+                 t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.body_font)}}px !important;font-family:{{style.font_family}} !important;">
+
+
+                <div class="col-12 text-center" t-attf-style="color:black">
+                    <h2 t-attf-style="padding:10px; text-decoration:underline;">DELIVERY ORDER</h2>
+                </div>
+
+
+                <div class="row mt-4 mb-3" t-attf-style="padding:15px;">
+
+                    <div class="col-6"
+                         t-attf-style="border: 1px solid {{style.theme_txt_color}};padding:15px;"> <!--{{style.theme_txt_color}}-->
+
+                        <div t-if="o.partner_id"
+                             t-attf-style="font-size:{{int(style.body_font)+6}}px;color:{{style.cust_color}};margin-left:0px;">
+                            <t t-if="o.partner_id.parent_id">
+                                <span t-field="o.partner_id.parent_id"/>,
+                                <span t-if="o.partner_id.title" t-field="o.partner_id.title"/>
+                                <span t-field="o.partner_id.name"/>
+                            </t>
+                            <t t-if="not o.partner_id.parent_id">
+                                <span t-if="o.partner_id.title" t-field="o.partner_id.title"/>
+                                <span t-field="o.partner_id"/>
+                            </t>
+
+                        </div>
+                        <div t-field="o.partner_id" style="margin-bottom:0px;"
+                             t-options='{"widget": "contact", "fields": ["address", "phone",  "email", "website"]}'/>
+                        <span t-attf-style="font-size:1em; font-weight: bold;" t-if="o.partner_id.vat">VAT:
+                            <span t-field="o.partner_id.vat"/>
+                        </span>
+                    </div>
+
+                    <div class="col-6"
+                         t-attf-style="border: 1px solid {{style.theme_txt_color}}; page-break-inside: avoid !important;padding:15px; background-color:{{style.theme_color}}; color:{{style.theme_txt_color}}">
+
+                        <div id="title">
+                            <strong>Delivery Note</strong>
+                            <span t-field="o.name"/>
+                        </div>
+
+                        <div id="div_sched_date" t-if="o.scheduled_date">
+                            <strong style="white-space:nowrap;">Scheduled Date:</strong>
+                            <span style="white-space:nowrap;" t-field="o.scheduled_date"/>
+                        </div>
+
+                        <div t-if="o.picking_type_id">
+                            <strong style="white-space:nowrap;">Order (Origin):</strong>
+                            <span style="white-space:nowrap;" t-field="o.picking_type_id"/>
+                        </div>
+
+                        <t t-set="cust_ref" t-value="o.get_ref()"/>
+                        <div t-if="cust_ref">
+                            <strong style="white-space:nowrap;">Customer Ref:</strong>
+                            <span style="white-space:nowrap;" t-esc="cust_ref"/>
+                        </div>
+
+                        <div t-if="o.sudo().sale_id.client_order_ref" t-attf-style="{{div_style}}">
+                            <strong style="white-space:nowrap;">Customer Reference:</strong>
+                            <p style="white-space:nowrap;" t-field="o.sudo().sale_id.client_order_ref"/>
+                        </div>
+
+                        <div class="mt-3">
+                            <strong t-attf-style="font-size:{{int(style.body_font)+6}}px;">
+                                <span class="fa fa-truck"/>
+                                Delivery address:
+                            </strong>
+                            <div t-if="o.move_lines and o.move_lines[0].partner_id and o.move_lines[0].partner_id.id != o.partner_id.id">
+                                <div>
+                                    <div t-field="o.move_lines[0].partner_id" style="margin-bottom:0px;"
+                                         t-options='{"widget": "contact", "fields": ["address", "name", "phone", ], "no_marker": true}'/>
+                                </div>
+                            </div>
+                            <div t-if="(o.move_lines and o.move_lines[0].partner_id and o.move_lines[0].partner_id.id == o.partner_id.id) or o.move_lines and not o.move_lines[0].partner_id">
+                                <div t-field="o.partner_id" style="margin-bottom:0px;"
+                                     t-options='{"widget": "contact", "fields": ["address", "name", "phone", ], "no_marker": true}'/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- DATA-->
+                <t t-call="professional_templates_v1.delivery_lines"/>
+                <!--/DATA-->
+                <!--Signature and Disclaimer-->
+                <t t-set="signature" t-value="o.get_signature()"/>
+
+                <div t-if="signature" class="row oe_mt64">
+                    <div class="col-4 text-left">
+
+                        <strong>
+                            <span style="text-decoration:overline" t-field="signature.signature1"/>
+                        </strong>
+                    </div>
+                    <div class="col-4 text-center">
+                        <strong>
+                            <span style="text-decoration:overline" t-field="signature.signature2"/>
+                        </strong>
+                    </div>
+                    <div class="col-4 text-right">
+                        <strong>
+                            <span style="text-decoration:overline" t-field="signature.signature3"/>
+                        </strong>
+                    </div>
+                </div>
+
+                <div t-if="o.disclaimer" style="page-break-inside: avoid; margin-top: 128px;">
+                    <strong>Disclaimer</strong>
+                    <br/>
+                    <span t-field="o.disclaimer"/>
+                </div>
+                <!--Signature and Disclaimer-->
+            </div><!--End of PAGE-->
+            <!--FOOTER -->
+            <div class="footer"
+                 t-attf-style="font-size:{{style.footer_font}}px !important;font-family:{{style.font_family}} !important;">
+                <t t-call="professional_templates_v1.company_footer"/>
+            </div>
+            <!--/FOOTER-->
+
+        </template>
+    </data>
+</odoo>

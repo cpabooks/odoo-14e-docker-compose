@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="project_task_type_stage_main_task" model="project.task.type">
+            <field name="name">Main Task</field>
+            <field name="sequence">0</field>
+        </record>
+        <record id="project_task_type_stage_sub_task" model="project.task.type">
+            <field name="name">Sub Task</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="project_task_type_stage_task_under_progress" model="project.task.type">
+            <field name="name">Under Progress</field>
+            <field name="sequence">2</field>
+        </record>
+        <record id="project_task_type_stage_task_competed" model="project.task.type">
+            <field name="name">Completed</field>
+            <field name="sequence">3</field>
+        </record>
+    </data>
+</odoo>

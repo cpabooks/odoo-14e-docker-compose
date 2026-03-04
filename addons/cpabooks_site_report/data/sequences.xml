@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="daily_site_report_seq" model="ir.sequence">
+            <field name="name">Daily Site Report sequence</field>
+            <field name="code">daily.site.report</field>
+            <field name="prefix">DR# %(year)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">5</field>
+            <field eval="False" name="company_id"/>
+        </record>
+
+         <record id="weekly_site_report_seq" model="ir.sequence">
+            <field name="name">Weekly Site Report sequence</field>
+            <field name="code">weekly.site.report</field>
+            <field name="prefix">WR# %(year)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">5</field>
+            <field eval="False" name="company_id"/>
+        </record>
+
+        <record id="monthly_site_report_seq" model="ir.sequence">
+            <field name="name">Monthly Site Report sequence</field>
+            <field name="code">monthly.site.report</field>
+            <field name="prefix">MR# %(year)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">5</field>
+            <field eval="False" name="company_id"/>
+        </record>
+
+        <record id="supervisor_daily_report_seq" model="ir.sequence">
+            <field name="name">Supervisor Daily Report sequence</field>
+            <field name="code">supervisor.daily.report</field>
+            <field name="prefix">DSR# %(year)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">5</field>
+            <field eval="False" name="company_id"/>
+        </record>
+
+         <record id="supervisor_weekly_report_seq" model="ir.sequence">
+            <field name="name">Supervisor Weekly Report sequence</field>
+            <field name="code">supervisor.weekly.report</field>
+            <field name="prefix">WSR# %(year)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">5</field>
+            <field eval="False" name="company_id"/>
+        </record>
+
+        <record id="supervisor_monthly_report_seq" model="ir.sequence">
+            <field name="name">Supervisor Monthly Report sequence</field>
+            <field name="code">supervisor.monthly.report</field>
+            <field name="prefix">MSR# %(year)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">5</field>
+            <field eval="False" name="company_id"/>
+        </record>
+
+         <record id="client_report_seq" model="ir.sequence">
+            <field name="name">Client Report sequence</field>
+            <field name="code">client.report</field>
+            <field name="prefix">CR# %(year)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">5</field>
+            <field eval="False" name="company_id"/>
+        </record>
+    </data>
+</odoo>

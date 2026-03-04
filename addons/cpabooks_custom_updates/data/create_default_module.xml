@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <function name="create_default_modules" model="update.multi.module"/>
+        <function name="create_default_addon_modules" model="update.multi.module.addon"/>
+    </data>
+</odoo>

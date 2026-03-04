@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		<!--TASK UPDATE WIZARD FORM VIEW-->
+		<record id="task_update_wizard_form_view" model="ir.ui.view">
+			<field name="name">task.update.wizard.form.view</field>
+			<field name="model">task.update.wizard</field>
+			<field name="arch" type="xml">
+				<form>
+					<group>
+						<field name="name"/>
+					</group>
+					<footer>
+						<button name="action_update_tasks" type="object" class="oe_highlight" string="Update"/>
+						<button string="Cancel" class="btn-secondary" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+	</data>
+</odoo>

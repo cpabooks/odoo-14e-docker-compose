@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="odoo_purchase_order_inherit" inherit_id="purchase.report_purchaseorder_document">
+<!--            Company color to black color-->
+<!--            <xpath expr="//h2/span[3]" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//h2/span[2]" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="//div[@id='informations']/div[@t-if='o.user_id']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//div[@id='informations']/div[@t-if='o.partner_ref']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//div[@id='informations']/div[@t-if='o.date_order']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--             <xpath expr="//div[@id='informations']/div[@t-if='o.date_planned']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//div[@id='informations']/div[@t-if='o.payment_term_id']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_sr_no']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_description']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_unit']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_quantity']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_price_unit']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_taxes']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_amount']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="//table[@class='table table-sm']/tr[1]/td[@name='td_subtotal_label']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//table[@class='table table-sm']/tr[3]/td[@name='td_amount_total_label']" position="attributes">-->
+<!--                <attribute name="style">background-color:white !important;</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//table[@class='table table-sm']/tr[3]/td[2]" position="attributes">-->
+<!--                <attribute name="style">background-color:white !important;</attribute>-->
+<!--            </xpath>-->
+<!--              <xpath expr="//table[@class='table table-sm']/tr[3]/td[@name='td_amount_total_label']/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--              <xpath expr="//table[@class='table table-sm']/tr[3]/td[2]/span" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--             <xpath expr="//div[@id='total']/div[1]/div/strong" position="attributes">-->
+<!--                <attribute name="style">color:black !important;</attribute>-->
+<!--            </xpath>-->
+<!--            Company color to black color-->
+
+            <xpath expr="//div[@t-field='o.partner_id']" position="replace">
+                <div t-field="o.partner_id"
+                     t-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": True}'/>
+                <div t-if="o.partner_id.vat">
+                    <strong>TRN:</strong>
+                    <span t-field="o.vendor_vat"/>
+                </div>
+            </xpath>
+            <xpath expr="//h5[@class='text-center']" position="replace">
+                <h5 class="text-center">
+                    <div t-if="o.company_id.vat">
+                        <srong>TRN:</srong>
+                        <span t-field="o.company_id.vat"/>
+                    </div>
+                    <div>
+                        <strong>LPO Number:</strong>
+                        <span t-field="o.name"/>
+                    </div>
+                </h5>
+            </xpath>
+        </template>
+    </data>
+</odoo>

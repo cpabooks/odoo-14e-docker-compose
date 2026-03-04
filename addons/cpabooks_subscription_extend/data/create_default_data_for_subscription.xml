@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <function name="create_products_for_subscriptions" model="product.product"/>
+        <function name="create_default_templates" model="sale.subscription.template"/>
+    </data>
+</odoo>

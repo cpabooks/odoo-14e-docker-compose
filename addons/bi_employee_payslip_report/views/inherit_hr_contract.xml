@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="hr_contract_view_form_extend" model="ir.ui.view">
+        <field name="name">hr.contract.extend.form</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+              <xpath expr="//field[@name='structure_type_id']" position="after">
+                    <field name="weekend_day" options="{'no_create': True, 'no_open': True}" widget="many2many_tags"/>
+                    <field name="half_day" options="{'no_create': True, 'no_open': True}" widget="many2many_tags"/>
+                    <field name="half_day_working_hour" widget="float_time"/>
+              </xpath>
+
+        </field>
+    </record>
+
+<!--     <record id="hr_contract_view_form_inherit10_extend" model="ir.ui.view">-->
+<!--            <field name="name">HR Contract Inherit 1</field>-->
+<!--            <field name="model">hr.contract</field>-->
+<!--            <field name="inherit_id" ref="bi_hr_payroll_timesheet.hr_contract_view_form_inherit10"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--             <field name="salary_per_h" position="after">-->
+<!--                <label for="wps_salary"/>-->
+<!--                <div class="o_row">-->
+<!--                    <field name="wps_salary" nolabel="1"/>-->
+<!--                    <span>/ month</span>-->
+<!--                </div>-->
+<!--            </field>-->
+<!--            </field>-->
+<!--     </record>-->
+
+<!--    <record id="hr_contract_view_form_cpabooks_allowance_extend" model="ir.ui.view">-->
+<!--        <field name="name">HR Contract cpabooks allowance</field>-->
+<!--        <field name="model">hr.contract</field>-->
+<!--        <field name="inherit_id" ref="cpabooks_hr_allowance.hr_contract_view_form_cpabooks_allowance"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--             <xpath expr="//group/div[4]" position="after">-->
+<!--                     <label for="house_rent"/>-->
+<!--                    <div class="o_row">-->
+<!--                        <field name="house_rent" nolabel="1"/>-->
+<!--                        <span>/ month</span>-->
+<!--                    </div>-->
+
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+
+</odoo>

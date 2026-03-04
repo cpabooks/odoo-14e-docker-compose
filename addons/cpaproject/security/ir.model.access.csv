@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cpaproject_port_of_loading,access.cpaproject.port_of_loading,model_cpaproject_port_of_loading,base.group_user,1,1,1,1
+access_cpaproject_status,access.cpaproject.status,model_cpaproject_status,base.group_user,1,1,1,1
+access_cpaproject_dostatus,access.cpaproject.dostatus,model_cpaproject_dostatus,base.group_user,1,1,1,1
+access_cpaproject_billofentry,access.cpaproject.billofentry,model_cpaproject_billofentry,base.group_user,1,1,1,1

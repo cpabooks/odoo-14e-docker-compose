@@ -1,0 +1,41 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'CPABooks Custom Print',
+    'summary': 'CPABooks Custom Print',
+    'description': """ Customize Report for Purchase, Sales, Invoice """,
+    'category': 'Sales/Sales',
+    'version': '14.0.1.0.4',
+    'author': 'Vishal',
+    'support': 'vvgediya@gmail.com',
+    'depends': [
+        'base', 'web',  'sale',  'account', 'purchase', 'purchase_product_matrix',
+        'cpabooks_signature', 'cpabooks_bank_details', 'stock', 'crm'
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/ir_sequence_data.xml',
+        'data/tax_group.xml',
+        'views/res_company_views.xml',
+        # 'views/crm_lead_views.xml',
+        'views/sale_order_views.xml',
+        'views/account_move_views.xml',
+        'views/purchase_order_views.xml',
+        'views/payment_term_move_to_sale.xml',
+        'views/stock_picking.xml',
+        # 'views/signature_setup.xml',
+        'report/custom_report_templates.xml',
+        'report/sale_report_template.xml',
+        'report/report_invoice_template.xml',
+        'report/purchase_order_templates.xml',
+
+        'report/headerless_sale_quotation_report.xml',
+        'report/headerless_purchase_order_report.xml',
+        'report/headerless_invoice_report.xml',
+        'report/header_less_report_menu.xml',
+        'report/contracting_invoice_report.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+    'license': 'LGPL-3',
+}

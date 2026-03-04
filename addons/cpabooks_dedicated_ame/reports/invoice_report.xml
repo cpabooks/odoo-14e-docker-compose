@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Signature bottom of quotation sale order pdf report -->
+        <template id="signature_invoice_document_inherit_dedicated_ame" inherit_id="sign_sl_in_report.signature_invoice_document_inherit">
+            <xpath expr="//div[@class='last-page']/table/tr" position="attributes">
+                <attribute name="style">display:none;</attribute>
+            </xpath>
+            <xpath expr="//div[@class='last-page']/table" position="attributes">
+                <attribute name="style">margin-top:15px !important;</attribute>
+            </xpath>
+            <xpath expr="//div[@class='last-page']/table" position="inside">
+<!--                style="line-height: 1.5;"-->
+                <tr>
+                    <th>
+                        <div name="user_stamp" t-if="o.create_uid.user_stamp">
+                                    <img t-att-src="'data:image/png;base64,%s' % to_text(o.prepare_by.user_stamp)"
+                                         style="height: 4cm; min-width: 4cm;"/>
+                                </div>
+                    </th>
+                    <th></th>
+                </tr>
+                    <tr>
+                          <th  width="100%">
+                            ...................................................................
+                            <br/>
+                             For, <strong t-field="o.company_id.name"> </strong>
+                          </th>
+                          <th style="text-align:right" width="100%">
+                              ...................................................................
+                              <br/>
+                              <strong>Receiver Name &#38; Signature </strong>
+                          </th>
+                      </tr>
+            </xpath>
+        </template>
+
+        <template id="bank_details_inherit_dedicated_ame" inherit_id="cpabooks_bank_details.report_invoice_document_inherit_bank_details">
+            <xpath expr="//t/div[@class='oe_mt32']" position="attributes">
+                <attribute name="t-attf-style">font-size:{{style.bank_font}}px !important;</attribute>
+            </xpath>
+            <xpath expr="//t/div[@class='oe_mt32']/h5" position="attributes">
+                <attribute name="style">display:none;</attribute>
+            </xpath>
+
+             <xpath expr="//t/div[@class='oe_mt32']/h5" position="after">
+                 <span t-attf-style="text-decoration: underline;font-size:{{style.bank_font}}+4px !important;font-weight:bold;">
+                            Bank Details
+                        </span>
+                 <br/>
+             </xpath>
+        </template>
+    </data>
+</odoo>

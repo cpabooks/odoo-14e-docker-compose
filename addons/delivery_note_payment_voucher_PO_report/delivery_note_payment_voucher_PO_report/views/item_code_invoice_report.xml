@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_item_code_invoice_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@name='due_date']" position="replace">
+            <div class="col-auto col-3 mw-100 mb-2" name="dn_number_report">
+                <strong>DN Number:</strong>
+                <p class="m-0" t-field="o.dn_number"/>
+            </div>
+        </xpath>
+
+        <xpath expr="//table//th[@name='th_description']" position="before">
+            <th name="th_item_code" style="width:200px;">
+                <span>Item Code</span>
+            </th>
+        </xpath>
+        <xpath expr="//table//tr//td[@name='account_invoice_line_name']" position="before">
+            <td name="item_code_in_table">
+                <span style="width:200px;" t-field="line.product_id.item_code"/>
+            </td>
+        </xpath>
+    </template>
+</odoo>

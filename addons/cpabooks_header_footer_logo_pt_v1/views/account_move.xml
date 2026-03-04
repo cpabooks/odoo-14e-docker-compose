@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="inherit_report_visibility_account_move_form" model="ir.ui.view">
+            <field name="name">inherit.report.visibility.account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="professional_templates_v1c.account_move_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='report_visibility']" position="inside">
+                    <field name="is_hide_header_footer"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

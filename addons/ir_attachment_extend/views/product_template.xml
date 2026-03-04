@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="product_template_list_view_inherit" model="ir.ui.view">
+		<field name="name">product.template.list.view.inherit</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="professional_templates_v1.product_template_list_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//header" position="inside">
+<!--					<button name="action_reset_item_code" type="object" string="Reset Item Code" class="mb-1 ms-1 oe_highlight"/>-->
+                    <button name="action_restore_image_from_db" type="object" string="Restore Images" class="mb-1 ms-1 oe_highlight"/>
+			</xpath>
+            <field name="default_code" position="after">
+                <field name="check_image_db"/>
+            </field>
+		</field>
+	</record>
+
+     <record id="view_product_template_inherit_gp_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.gp.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="professional_templates_v1.view_product_template_inherit_gp"/>
+        <field name="arch" type="xml">
+            <xpath expr="//h1" position="after">
+                <label for="link_url" string="Img Link"/>
+                <field name="link_url" widget="url"/>
+            </xpath>
+<!--            <xpath expr="//field[@name='item_code']" position="after">-->
+<!--                    <field name="item_code_old" />-->
+<!--            </xpath>-->
+        </field>
+    </record>
+
+</odoo>

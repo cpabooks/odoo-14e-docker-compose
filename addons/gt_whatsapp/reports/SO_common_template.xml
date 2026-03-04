@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Report definition -->
+        <report
+            id="report_sale_order_common_document"
+            model="sale.order"
+            string="Sale Order Common Document"
+            report_type="qweb-pdf"
+            name="professional_templates.SO_common_document"
+            file="professional_templates.SO_common_document"
+        />
+    </data>
+</odoo>

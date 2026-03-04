@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle
+ -->
+<odoo>
+    <record id="cron_company_document_expiry_reminder" model="ir.cron">
+        <field name="name">Company : Document Expiry Reminder</field>
+        <field name="model_id" ref="model_dev_company_document"/>
+        <field name="state">code</field>
+        <field name="code">model.send_company_expiry_emails()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>

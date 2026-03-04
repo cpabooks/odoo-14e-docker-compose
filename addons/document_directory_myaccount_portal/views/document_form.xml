@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_document_form_inherit_portal" model="ir.ui.view">
+        <field name="name">Document Portal Attachment Form</field>
+        <field name="model">documents.document</field>
+        <field name="inherit_id" ref="documents.document_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="x_description" />
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="directory_action" model="ir.actions.act_window">
+      <field name="name">Directories</field>
+      <field name="res_model">document.directory</field>
+      <field name="view_mode">tree,form</field>
+        <!-- <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('documents.folder_view_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': False})]"/> -->
+    </record>
+    
+    <menuitem name="Directories" id="documents.directories_action" parent="documents.Config" action="directory_action" />
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+<!--        <record id="sequence_for_task" model="ir.sequence">-->
+<!--            <field name="name">Sequence for Task</field>-->
+<!--            <field name="code">task.sequence</field>-->
+<!--            <field name="padding">5</field>-->
+<!--            <field name="prefix">TID-</field>-->
+<!--        </record>-->
+
+        <record id="sequence_for_project" model="ir.sequence">
+            <field name="name">Sequence for Project</field>
+            <field name="code">project.sequence</field>
+            <field name="padding">4</field>
+            <field name="prefix">PID-%(year)s-</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="PO_3_document" name="Common_LPO">
+            <!-- Multicompany -->
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <t t-set="background_clr" t-value="style.theme_color"/>
+
+            <div class="header col-12 float-left"
+                 t-attf-style="padding-left:0px; padding-right:0px; color:{{style.text_color}};font-size:{{int(style.header_font)}}px;font-family:{{style.font_family}};border-bottom:1px solid {{style.theme_color}}">
+                <!--                <t t-if="company.header_logo">-->
+                <!--                    <div class="text-center" style="margin-top: 8px;">-->
+                <!--                        <span t-field="company.header_logo" t-options="{'widget': 'image', 'style': 'max-width: 1280px; max-height: 200px;'}"/>-->
+                <!--                    </div>-->
+                <!--                </t>-->
+                <!--                <t t-else="">-->
+                <t t-if="style.header">
+                    <div class="col-4 float-left" style="padding-left:0px;margin-top: 8px;margin-bottom:8px;">
+                        <span t-if="style.logo">
+                            <span itemprop="image" t-field="style.logo"
+                                  t-options="{'widget': 'image', 'style': 'max-width: 300px; max-height: 140px;'}"/>
+
+                        </span>
+                        <span t-if="not style.logo and company.logo">
+                            <span itemprop="image" t-field="company.logo"
+                                  t-options='{"widget": "image", "style": "float:right;max-width: 300px; max-height: 140px;"}'/>
+                        </span>
+                        <span t-if="not style.logo and not company.logo">
+                            <span itemprop="image" t-field="company.logo"
+                                  t-options='{"widget": "image", "style": "float:right;max-width: 300px; max-height: 140px;"}'/>
+                        </span>
+                    </div>
+                    <div class="col-4 text-center" style="padding-left:0px;">
+                    </div>
+                    <div class="col-4 mb8 float-right" style="padding-bottom:2px;padding-right:0px;">
+                        <div class="float-right" style="width:auto;padding-left:15px;padding-top:20px;">
+                            <t t-call="professional_templates_v1c.company_address"/>
+                        </div>
+                    </div>
+                </t>
+                <!--                </t>-->
+            </div>
+
+            <!--end of Header-->
+            <!-- START OF PAGE -->
+            <div class="article page"
+                 t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.body_font)}}px !important;font-family:{{style.font_family}} !important;">
+                <div class="col-12"
+                     t-attf-style="white-space:pre-line;color:#{style.wm_color};left:#{style.leftpadding}mm; top:#{style.toppadding}mm;font-size:#{style.fontsize}px; opacity:#{style.opacity};z-index:-99; -webkit-transform:rotate(-#{style.rotate}deg);position:fixed;">
+                    <t t-esc="style.wm_eval(o, time, user, res_company)"/>
+                </div>
+                <div class="col-12 text-center" style="padding-left:0px; padding-right:0px; ">
+                    <div t-attf-style="width:auto; max-width:100%; margin-top:0px;padding-top:1px;padding-left:15px;padding-right:15px;">
+                        <h3 style="margin-top:10px;">
+                            <span t-if="o.state != 'draft'">
+                                <b>PURCHASE ORDER</b>
+                            </span>
+                            <span t-if="o.state == 'draft'">Request for Quotation</span>
+                        </h3>
+                        <h5 style="margin-top:10px;">
+                            <b>
+                                <span t-field="o.name"/>
+                            </b>
+                        </h5>
+
+                    </div>
+                </div>
+
+                <div class="col-12 float-left mt8 mb8 text-left" t-attf-style="padding-left:0px; padding-right:0px;">
+                    <t t-set="div_style"
+                       t-value="'background-color:{}; width:auto; display:inline-block;color:{};font-size:{}px; padding-left:8px; padding-right:8px; padding-bottom:0px; margin-left:0px; margin-right:16px;padding-top:5px;margin-bottom:5px;'.format(style.theme_color, style.theme_txt_color, int(style.body_font)+2)"/>
+                    <div t-if="o.name" t-attf-style="{{div_style}}">
+                        <strong style="white-space:nowrap;">Our Reference:</strong>
+                        <p t-field="o.name" class="m-0"/>
+                    </div>
+                    <div t-if="o.partner_ref" t-attf-style="{{div_style}}">
+                        <strong style="white-space:nowrap;">Your Reference:</strong>
+                        <p t-field="o.partner_ref" class="m-0"/>
+                    </div>
+                    <div t-if="o.date_order" t-attf-style="{{div_style}}">
+                        <strong style="white-space:nowrap;">Order Date:</strong>
+                        <p t-field="o.date_order" t-options="{'widget': 'date'}" class="m-0"/>
+                    </div>
+                    <div t-if="o.date_planned" t-attf-style="{{div_style}}">
+                        <strong style="white-space:nowrap;">Scheduled Date:</strong>
+                        <p t-field="o.date_planned" t-options="{'widget': 'date'}" class="m-0"/>
+                    </div>
+                    <div t-if="o.fiscal_position_id" t-attf-style="{{div_style}}">
+                        <strong style="white-space:nowrap;">Fiscal Position:</strong>
+                        <p t-field="o.fiscal_position_id" class="m-0"/>
+                    </div>
+
+                </div>
+                <!--                <div class="col-12 float-left mt8 mb8 text-left" t-attf-style="padding-left:0px; padding-right:0px;">-->
+                <!--                    <t t-set="div_style"-->
+                <!--                       t-value="'background-color:{}; width:auto; display:inline-block;color:{};font-size:{}px; padding-left:8px; padding-right:8px; padding-bottom:0px; margin-left:0px; margin-right:16px;padding-top:5px;margin-bottom:5px;'.format(style.theme_color, style.theme_txt_color, int(style.body_font)+2)"/>-->
+                <!--                    <div t-attf-style="{{div_style}}">-->
+                <!--                        <t t-if="o.name">-->
+                <!--                            <strong style="white-space:nowrap;">Our Reference:</strong>-->
+                <!--                            <span t-field="o.name"/>-->
+                <!--                            <br></br>-->
+                <!--                        </t>-->
+
+                <!--                        <t t-if="o.partner_ref">-->
+                <!--                            <strong style="white-space:nowrap;">Your Reference:</strong>-->
+                <!--                            <span t-field="o.partner_ref"/>-->
+                <!--                            <br></br>-->
+                <!--                        </t>-->
+
+
+                <!--                        <t t-if="o.date_order">-->
+                <!--                            <strong style="white-space:nowrap;">Order Date:</strong>-->
+                <!--                            <span t-field="o.date_order"/>-->
+                <!--                            <br></br>-->
+                <!--                        </t>-->
+
+                <!--                        <t t-if="o.date_planned">-->
+                <!--                            <strong style="white-space:nowrap;">Scheduled Date:</strong>-->
+                <!--                            <span t-field="o.date_planned"/>-->
+                <!--                            <br></br>-->
+                <!--                        </t>-->
+
+                <!--                        <t t-if="o.fiscal_position_id">-->
+                <!--                            <strong style="white-space:nowrap;">Fiscal Position:</strong>-->
+                <!--                            <span t-field="o.fiscal_position_id"/>-->
+                <!--                        </t>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+
+                <div class="col-12 row  mb-5 float-left"
+                     style="padding-left:0px; border:1px solid black; padding-right:0px;"><!--start of wrapper -->
+                    <div class="col-6 float-left" style="border-right:1px solid black">
+                        <div class="float-left" style="padding-top:5px; padding-bottom:0px; width:100%;">
+                            <span t-attf-style="font-size:{{int(style.body_font)+6}}px; font-weight:bold;">
+                                <span class="fa fa-building"/>
+                                Vendor Address:
+                            </span>
+                        </div>
+                        <div class="float-left" style="width:100%;">
+                            <div t-if="o.partner_id"
+                                 t-attf-style="color:{{style.cust_color}};font-size:{{int(style.body_font)+6}}px; margin-top:2px; margin-bottom:5px; margin-left:0px;">
+                                <t t-if="o.partner_id.parent_id">
+                                    <span t-field="o.partner_id.parent_id"/>,
+                                    <span t-if="o.partner_id.title" t-field="o.partner_id.title"/>
+                                    <span t-field="o.partner_id.name"/>
+                                </t>
+                                <t t-if="not o.partner_id.parent_id">
+                                    <span t-if="o.partner_id.title" t-field="o.partner_id.title"/>
+                                    <span t-field="o.partner_id"/>
+                                </t>
+
+                            </div>
+                            <address t-field="o.partner_id" style="margin-bottom:0px;"
+                                     t-options='{"widget": "contact", "fields": ["address", "phone",  "email", "website"]}'/>
+                            <span t-if="o.partner_id.vat">VAT:
+                                <span t-field="o.partner_id.vat"/>
+                            </span>
+
+                        </div>
+                    </div>
+                    <div t-attf-style="color:{{style.theme_txt_color}} !important;background-color:{{style.theme_color}} !important;"
+                         class="col-6 float-right p-2 text-right">
+                        <span t-attf-style="font-size:{{int(style.body_font)+6}}px; font-weight:bold;">
+                            <span class="fa fa-truck"/>
+                            Shipping Address:
+                        </span>
+                        <div t-if="o.dest_address_id">
+                            <address t-field="o.dest_address_id" style="margin-bottom:0px;"
+                                     t-options='{"widget": "contact", "fields": ["address", "name", "phone",  "email", "website"]}'/>
+                        </div>
+
+                        <div t-if="not o.dest_address_id and o.picking_type_id and o.picking_type_id.warehouse_id">
+                            <span t-field="o.picking_type_id.warehouse_id.name"/>
+                            <address t-field="o.picking_type_id.warehouse_id.partner_id" style="margin-bottom:0px;"
+                                     t-options='{"widget": "contact", "fields": ["address", "phone",  "email", "website"]}'/>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--end of wrapper2-->
+                <!-- DATA-->
+                <t t-call="professional_templates_v1c.purchase_lines"/>
+                <!--/DATA-->
+
+                <t t-set="signature" t-value="o.get_signature()"/>
+                <div t-if="signature" class="row oe_mt64" name="signature">
+                    <div t-if="o.prepared_by" style="" class="col-4 text-left  position-relative">
+                        <div style="float:left" class="w-100 text-left">
+                            <img style="width:200px;" t-if="o.prepared_by.user_signature"
+                                 t-att-src="image_data_uri(o.prepared_by.user_signature)"
+                                 alt="Signature"/>
+
+                        </div>
+                        <div style="float:left;  bottom:0px" class="w-100 text-left position-absolute ">
+                            <strong style="text-decoration:overline;">
+                                <span t-field="signature.signature1"/>
+                                <b>
+                                    <span t-field="o.prepared_by.name"/>
+                                </b>
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div  class="col-12 position-absolute">
+                            <img style="width:6cm;" t-if="o.stamp"
+                                 t-att-src="image_data_uri(o.stamp)"
+                                 class="rounded" alt="Stamp"/>
+                        </div>
+                    </div>
+                    <div t-if="o.approve_by" class="col-4 text-right  position-absolute">
+
+                        <div style="float:right" class="w-100">
+                            <img style="width:200px;" t-if="o.approve_by.user_signature"
+                                 t-att-src="image_data_uri(o.approve_by.user_signature)"
+                                 alt="Signature"/>
+
+                        </div>
+                        <div style="float:right;  bottom:0px" class="w-100 text-center position-absolute ">
+                            <strong style="text-decoration:overline;">
+                                <span class="border" t-field="signature.signature3"/>
+                                <b>
+                                    <span class="border" t-field="o.approve_by.name"/>
+                                </b>
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div><!--End of PAGE-->
+            <!--FOOTER -->
+            <div class="footer"
+                 t-attf-style="font-size:{{style.footer_font}}px !important;font-family:{{style.font_family}} !important;">
+                <t t-call="professional_templates_v1c.company_footer"/>
+            </div>
+            <!--/FOOTER-->
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <report
+        id="report_payment_certificate"
+        string="Payment Certificate"
+        model="payment.certificate"
+        report_type="qweb-pdf"
+        name="cpabooks_payment_certificate.payment_certificate_report"
+        file="cpabooks_payment_certificate.payment_certificate_report"
+        paperformat = "cpabooks_payment_certificate.paperformat_payment_certificate_report"
+    />
+
+     <template id="payment_certificate_report">
+        <t t-call="web.external_layout">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                         <h2 class="text-center">
+                            <span><u>PAYMENT CERTIFICATE</u></span>
+
+                        </h2>
+
+                        <div class="row oe_mt16">
+                        <div class="col-6">
+                            <h3><strong>Ref: </strong><span t-field="o.name"/></h3>
+                        </div>
+
+                    </div>
+
+                     <table class="table table-sm table-bordered" style="font-size: 15px; font-family:FreeSerif;">
+                        <tbody>
+                            <tr>
+                                <td style="width:20%;border-left:1px solid black;background-color:#e9ecef"><b>Project No.</b></td>
+                                <td style="width:40%;text-align:center;"><t t-esc="o.project_no.name"/> </td>
+<!--                                <td style="width:20%;text-align:center;"><t t-esc="o.project_no.name"/> </td>-->
+<!--                                <td style="width:20%;text-align:center;border-right:1px solid black"></td>-->
+<!--                                <td style="width:20%;border-left:1px solid black"><b>Contract Type</b></td>-->
+<!--                                <td style="width:40%;text-align:center;"><t t-esc="o.contract_type.name"/> </td>-->
+                            </tr>
+                            <tr>
+                                <td style="width:20%;border-left:1px solid black;background-color:#e9ecef"><b>Project Name</b></td>
+                                <td style="width:40%;text-align:center;"><t t-esc="o.project_no.name"/> </td>
+<!--                                <td style="width:20%;text-align:center;"></td>-->
+<!--                                <td style="width:20%;text-align:center;border-right:1px solid black"></td>-->
+                                <td style="width:20%;border-left:1px solid black"><b>Date</b></td>
+                                <td style="width:40%;text-align:center"><t t-esc="o.date" t-options='{"widget": "date"}'/> </td>
+                            </tr>
+                             <tr>
+                                <td style="width:20%;border-left:1px solid black;background-color:#e9ecef"><b>Contractor/Vendor Name</b></td>
+                                <td style="width:40%;text-align:center;"><t t-esc="o.vendor_name.name"/> </td>
+<!--                                <td style="width:20%;text-align:center;"></td>-->
+<!--                                <td style="width:20%;text-align:center;border-right:1px solid black"></td>-->
+                                 <td style="width:20%;border-left:1px solid black"><b>Payment No.</b></td>
+                                <td style="width:40%;text-align:center"><t t-esc="o.name"/> </td>
+                            </tr>
+                            <tr>
+                                <td style="width:20%;border-left:1px solid black;background-color:#e9ecef;border-bottom:1px solid black"><b>Contract/Customer Name</b></td>
+                                <td style="width:40%;text-align:center;border-bottom:1px solid black"><t t-esc="o.contractor_name.name"/> </td>
+<!--                                <td style="width:20%;text-align:center;"></td>-->
+<!--                                <td style="width:20%;text-align:center;border-right:1px solid black"></td>-->
+                                <td style="width:20%;border-left:1px solid black;border-bottom:1px solid black"><b>Contract Value</b></td>
+                                <td style="width:40%;text-align:center;border-bottom:1px solid black"><t t-esc="o.contract_value"/> </td>
+                            </tr>
+<!--                            <tr>-->
+<!--                                <td style="width:20%;border-left:1px solid black"><b>Contract Type</b></td>-->
+<!--                                <td style="width:40%;text-align:center;"><t t-esc="o.contract_type.name"/> </td>-->
+<!--                                <td style="width:20%;text-align:center;"></td>-->
+<!--                                <td style="width:20%;text-align:center;border-right:1px solid black"></td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td style="width:20%;border-left:1px solid black"><b>Date</b></td>-->
+<!--                                <td style="width:40%;text-align:center"><t t-esc="o.date" t-options='{"widget": "date"}'/> </td>-->
+<!--                                <td style="width:20%;text-align:center"></td>-->
+<!--                                <td style="width:20%;text-align:center;border-right:1px solid black"></td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td style="width:20%;border-left:1px solid black"><b>Payment No.</b></td>-->
+<!--                                <td style="width:40%;text-align:center"><t t-esc="o.name"/> </td>-->
+<!--                                <td style="width:20%;text-align:center"></td>-->
+<!--                                <td style="width:20%;text-align:center;border-right:1px solid black"></td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td style="width:20%;border-left:1px solid black;border-bottom:1px solid black"><b>Contract Value</b></td>-->
+<!--                                <td style="width:40%;text-align:center;border-bottom:1px solid black"><t t-esc="o.contract_value"/> </td>-->
+<!--                                <td style="width:20%;text-align:center;border-bottom:1px solid black"></td>-->
+<!--                                <td style="width:20%;text-align:center;border-bottom:1px solid black;border-right:1px solid black"></td>-->
+<!--                            </tr>-->
+                        </tbody>
+                    </table>
+
+                    <br/>
+                    <table class="table table-sm  table-bordered" style="font-size: 15px; font-family:FreeSerif;">
+                        <thead>
+                            <tr>
+                                <th  rowspan="3" colspan="2" style="text-align:center">Description</th>
+                                <th  rowspan="3" style="text-align:center">Unit</th>
+                                <th rowspan="3" style="text-align:center">Rate (DHS)</th>
+                                <th colspan="6" class="text-center">Work Done</th>
+                                <th rowspan="3" style="text-align:center">Amount of Work Done (DHS)</th>
+                                <th rowspan="3" style="text-align:center">Remarks</th>
+                            </tr>
+                            <tr>
+                                <th style="text-align:center" colspan="2">Previous</th>
+                                <th style="text-align:center" colspan="2">Present</th>
+                                <th style="text-align:center" colspan="2">Total</th>
+                            </tr>
+                            <tr>
+                                <th style="text-align:center">QTY</th>
+                                <th style="text-align:center">Amount</th>
+                                <th style="text-align:center">QTY</th>
+                                <th style="text-align:center">Amount</th>
+                                <th style="text-align:center">QTY</th>
+                                <th style="text-align:center">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="count" t-value="0"/>
+                            <t t-set="total_prev_qty" t-value="0"/>
+                            <t t-set="total_prev_amt" t-value="0"/>
+                            <t t-set="total_present_qty" t-value="0"/>
+                            <t t-set="total_present_amt" t-value="0"/>
+                            <t t-set="total_qty" t-value="0"/>
+                            <t t-set="total_amt" t-value="0"/>
+                            <t t-foreach="o.payment_certificate_line" t-as="val">
+                                <t t-set="count" t-value="count+1"/>
+                                <tr>
+                                    <td style="text-align:center;border:1px solid black"><t t-esc="count"/></td>
+                                    <td style="border:1px solid black"><b><t t-esc="val.product_id.name"/> </b></td>
+                                    <td style="text-align:center;border:1px solid black"><t t-esc="val.unit.name"/> </td>
+                                    <td style="text-align:center;border:1px solid black"><t t-esc="'{:,.2f}'.format(val.rate)"/> </td>
+                                    <td style="text-align:center;border:1px solid black"><t t-esc="'{:,.2f}'.format(val.previous_qty)"/> </td>
+                                    <td style="text-align:center;border:1px solid black"><t t-esc="'{:,.2f}'.format(val.previous_amt)"/> </td>
+                                    <td style="text-align:center;border:1px solid black"><t t-esc="'{:,.2f}'.format(val.present_qty)"/> </td>
+                                    <td style="text-align:center;border:1px solid black"><t t-esc="'{:,.2f}'.format(val.present_amt)"/> </td>
+                                    <td style="text-align:center;border:1px solid black"><t t-esc="'{:,.2f}'.format(val.total_qty)"/> </td>
+                                    <td style="text-align:center;border:1px solid black"><t t-esc="'{:,.2f}'.format(val.total_amt)"/> </td>
+                                    <td style="text-align:right;border:1px solid black"><t t-esc="'{:,.2f}'.format(val.amount_work_done)"/> </td>
+                                    <td style="border:1px solid black;background-color:white"><t t-esc="val.remarks"/> </td>
+
+                                </tr>
+
+                                <t t-set="total_prev_qty" t-value="total_prev_qty+val.previous_qty"/>
+                                <t t-set="total_prev_amt" t-value="total_prev_amt+val.previous_amt"/>
+                                <t t-set="total_present_qty" t-value="total_present_qty+val.present_qty"/>
+                                <t t-set="total_present_amt" t-value="total_present_amt+val.present_amt"/>
+                                <t t-set="total_qty" t-value="total_qty+total_qty"/>
+                                <t t-set="total_amt" t-value="total_amt+val.total_amt"/>
+
+                            </t>
+                            <tr>
+                                <td colspan="4" style="text-align:right;border:1px solid black"><b>TOTAL</b></td>
+                                <td style="border:1px solid black" class="text-center"><b><t t-esc="'{:,.2f}'.format(total_prev_qty)"/> </b></td>
+                                <td style="border:1px solid black" class="text-center"><b><t t-esc="'{:,.2f}'.format(total_prev_amt)"/></b> </td>
+                                <td style="border:1px solid black" class="text-center"><b><t t-esc="'{:,.2f}'.format(total_present_qty)"/></b> </td>
+                                <td style="border:1px solid black" class="text-center"><b><t t-esc="'{:,.2f}'.format(total_present_amt)"/></b> </td>
+                                <td style="border:1px solid black" class="text-center"><b><t t-esc="'{:,.2f}'.format(total_qty)"/></b> </td>
+                                <td style="border:1px solid black" class="text-center"><b><t t-esc="'{:,.2f}'.format(total_amt)"/> </b></td>
+                                <td style="border:1px solid black;background-color:white" colspan="2"></td>
+                            </tr>
+                            <tr>
+
+                                    <td colspan="4" style="text-align:center;border-left:1px solid black;background-color:#e9ecef"><b>SUB-TOTAL</b></td>
+                                    <td style="background-color:#e9ecef" colspan="6"></td>
+                                    <td style="text-align:right;background-color:#e9ecef"><b><t t-esc="'{:,.2f}'.format(o.sub_total_amount)"/> </b></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="text-align:center;border-left:1px solid black;background-color:#e9ecef">Retention Amount (<t t-esc="o.retention_percentage"/>%)</td>
+                                    <td style="background-color:#e9ecef" colspan="6"></td>
+                                    <td style="text-align:right;background-color:#e9ecef"><b><t t-esc="'{:,.2f}'.format(o.retention_amount)"/></b> </td>
+                                    <td></td>
+                                </tr>
+                                 <tr>
+                                    <td colspan="4" style="text-align:center;border-left:1px solid black;background-color:#e9ecef">Previous Payments</td>
+                                    <td style="background-color:#e9ecef" colspan="6"></td>
+                                     <td style="text-align:right;background-color:#e9ecef"><b><t t-esc="'{:,.2f}'.format(o.previous_payment_amount)"/></b> </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="text-align:center;border-left:1px solid black;background-color:#e9ecef">Other Deduction</td>
+                                    <td style="background-color:#e9ecef" colspan="6"></td>
+                                    <td style="text-align:right;background-color:#e9ecef"><b><t t-esc="'{:,.2f}'.format(o.other_deduction_amount)"/></b> </td>
+                                    <td></td>
+                                </tr>
+                                 <tr>
+                                    <td colspan="4" style="text-align:center;border-left:1px solid black;border-bottom:1px solid black;background-color:#e9ecef"><b>Net Payment Due (DHS)</b></td>
+                                    <td style="border-bottom:1px solid black;background-color:#e9ecef" colspan="6"></td>
+                                    <td style="text-align:right;border-bottom:1px solid black;background-color:#e9ecef"><b><t t-esc="'{:,.2f}'.format(o.net_payment_due_amount)"/> </b></td>
+                                    <td style="border-bottom:1px solid black;background-color:#e9ecef"></td>
+                                </tr>
+                        </tbody>
+
+                    </table>
+                    <div class="footer o_standard_footer" style="border-top: 1px solid black;">
+                        <div class="row">
+                            <div class="col col-4" style="text-align:center">
+                                <b>Site Engineer</b>
+                            </div>
+                            <div class="col col-4" style="text-align:center">
+                                <b>Project Manager</b>
+                            </div>
+                            <div class="col col-4" style="text-align:center">
+                                <b>Accounts Department</b>
+                            </div>
+                        </div>
+                   </div>
+                    </div>
+
+                </t>
+
+            </t>
+        </t>
+    </template>
+</odoo>

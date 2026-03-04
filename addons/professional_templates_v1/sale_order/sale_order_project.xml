@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="sale_common_template_rads" inherit_id="professional_templates_v1.SO_common_document">
+        <xpath expr="//div[@name='salesperson']" position="after">
+            <div t-if="doc.project_id and doc.show_project" t-attf-style="{{div_style}}" name="project_job">
+                <strong style="white-space:nowrap;">Project:</strong>
+                <span t-field="doc.project_id.name"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

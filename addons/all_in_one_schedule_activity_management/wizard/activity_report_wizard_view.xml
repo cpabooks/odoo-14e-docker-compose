@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Form View for Activity Report Wizard -->
+        <record id="view_activity_report_wizard_form" model="ir.ui.view">
+            <field name="name">activity.report.wizard.form</field>
+            <field name="model">activity.report.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="user_id"/>
+                            </group>
+                            <group>
+                                <field name="date_report"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_print_pdf" type="object" string="Print PDF" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action to open the wizard -->
+        <record id="action_activity_report_wizard" model="ir.actions.act_window">
+            <field name="name">Daily Activity Report</field>
+            <field name="res_model">activity.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Menu item for the wizard -->
+        <menuitem
+            id="report_activity_report_wizard"
+            name="Activity Report"
+            parent="all_in_one_schedule_activity_management.activity_act"
+            action="action_activity_report_wizard"
+            sequence="10000"
+        />
+
+    </data>
+</odoo>

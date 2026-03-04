@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_overtime_line_request" model="ir.ui.view">
+        <field name="name">hr.overtime.line.request</field>
+        <field name="model">hr.overtime.line</field>
+        <field name="arch" type="xml">
+            <tree string="Overtime Request" editable="bottom" decoration-success="state=='approved'"
+                  decoration-warning="state=='confirmed'" decoration-danger="state=='refused'">
+                <field name="date" attrs="{'readonly':[('state','=','approved')]}"/>
+                <field name="employee_id" attrs="{'readonly':[('state','=','approved')]}"/>
+                <field name="project_id" attrs="{'readonly':[('state','=','approved')]}"/>
+                <field name="ot_type" attrs="{'readonly':[('state','=','approved')]}"/>
+                <field name="number_of_hours" widget="float_time" attrs="{'readonly':[('state','=','approved')]}"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <!-- overtime -->
+    <record id="hr_overtime_line_action" model="ir.actions.act_window">
+        <field name="name">Overtime Request</field>
+        <field name="res_model">hr.overtime.line</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create new Pre Approval Overtime Request.
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.actions.server" id="action_approved_overtime">
+        <field name="name">Validate</field>
+        <field name="model_id" ref="model_hr_overtime_line"/>
+        <field name="binding_model_id" ref="model_hr_overtime_line"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.action_update_state_approved()
+        </field>
+    </record>
+
+    <!-- MenuItems -->
+    <menuitem id="overtime_root" name="Overtime" parent="hr_timesheet.timesheet_menu_root" sequence="6"
+              groups="base.group_user"/>
+    <menuitem id="overtime_request" name="Overtime Request"
+              parent="overtime_root"
+              action="hr_overtime_line_action"
+              groups="base.group_user"/>
+</odoo>

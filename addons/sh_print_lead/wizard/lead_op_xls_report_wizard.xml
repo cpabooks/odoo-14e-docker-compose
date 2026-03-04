@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sh_crm_lead_details_report_wizard_form" model="ir.ui.view">
+        <field name="name">sh.crm.lead.details.report.wizard.form</field>
+        <field name="model">sh.crm.lead.details.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Crm Lead Details">
+                <group>
+                    <button name="print_crm_lead_entries_xls_report" string="Download Xls Report" type="object" class="oe_highlight" />
+                </group>
+                <footer>
+                    <button string="Close" class="oe_highlight" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_crm_lead_details_report_wizard_form_action" model="ir.actions.act_window">
+        <field name="name">Lead/Opportunity Xlsx Report</field>
+        <field name="res_model">sh.crm.lead.details.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_crm_lead_xls_entry" model="ir.actions.server">
+        <field name="name">Lead/Opportunity Xlsx Report</field>
+        <field name="model_id" ref="crm.model_crm_lead" />
+        <field name="binding_model_id" ref="crm.model_crm_lead" />
+        <field name="state">code</field>
+        <field name="code">action = records.action_crm_lead_xls_entry()</field>
+    </record>
+</odoo>

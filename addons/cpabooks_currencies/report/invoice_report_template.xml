@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_acc_move_currency_table_remove" inherit_id="l10n_ae.report_invoice_document">
+
+        <xpath expr="//div[@id='aed_amounts']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+    </template>
+</odoo>

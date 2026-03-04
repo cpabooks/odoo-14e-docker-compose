@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+         <menuitem name="Site Report"
+            id="menu_site_report_root" sequence="201" web_icon="cpabooks_site_report,static/description/icon.png"/>
+
+
+
+        <record id="site_report_form" model="ir.ui.view">
+            <field name="name">site.report.form</field>
+            <field name="model">site.report</field>
+            <field name="arch" type="xml">
+                <form string="Site Report">
+
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="project_no"/>
+                            <field name="location"/>
+                            <field name="issue_date" widget="date"/>
+                            <field name="rev_no"/>
+
+                        </group>
+                        <group>
+                            <field name="contact_no"/>
+                            <field name="plan_no"/>
+                            <field name="due_date" widget="date"/>
+                            <field name="rev_date" widget="date"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Site Report Details" name="site_report">
+                            <field name="site_report_line" widget="section_and_note_one2many">
+                                <tree string="Site Report Details" editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="product_qty"/>
+                                    <field name="remarks"/>
+
+                                </tree>
+
+                            </field>
+
+                            <div class="oe_clear"/>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="site_report_tree" model="ir.ui.view">
+            <field name="name">site.report.tree</field>
+            <field name="model">site.report</field>
+            <field name="arch" type="xml">
+                <tree string="Site Report" multi_edit="1">
+                    <field name="name"/>
+                    <field name="project_no"/>
+                    <field name="location"/>
+                    <field name="contact_no"/>
+                    <field name="plan_no"/>
+                    <field name="due_date" widget="date"/>
+<!--                    <field name="pc_no"/>-->
+
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="site_report_form_action" model="ir.actions.act_window">
+            <field name="name">Site Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">site.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="site_report_tree"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No Site Report found. Let's create one!
+
+              </p>
+            </field>
+        </record>
+
+
+
+
+
+
+        <menuitem id="menu_site_report_management" name="Site Report"
+            parent="menu_site_report_root" action="site_report_form_action" sequence="1" />
+
+</odoo>

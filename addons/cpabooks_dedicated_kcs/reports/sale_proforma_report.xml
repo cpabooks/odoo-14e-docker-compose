@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sale_report_template_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t[@t-set='address']" position="replace">
+        </xpath>
+
+
+        <xpath expr="//div[@class='page']" position="before">
+            <div class="row oe_mt8">
+                <div class="col-6"></div>
+<!--                <div class="col-6 text-right" style="line-height:.3cm;">-->
+                <div class="col-6 text-right">
+                    <div  t-field="doc.partner_id"
+                         t-options='{"widget": "contact", "fields": ["name","vat", "address"], "no_marker": True}'/>
+<!--                    <p  t-field="doc.partner_id.name"/>-->
+<!--                    <p  t-field="doc.partner_id.street"/>-->
+<!--                    <p  t-field="doc.partner_id.street2"/>-->
+<!--                    <p  t-field="doc.partner_id.city"/>-->
+<!--                    <p  t-field="doc.partner_id.country_id.name"/>-->
+<!--                    <p t-if="doc.partner_id.vat" style="display:inline-block">TRN :</p><p style="display:inline-block" t-field="doc.partner_id.vat"/>-->
+                </div>
+            </div>
+        </xpath>
+
+        <!--Quotation #:-->
+         <xpath expr="//h2" position="replace">
+                    <h2>
+                        <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+                        <span t-if="doc.state not in ['draft','sent']">Order#: </span>
+                        <span t-if="doc.state in ['draft','sent']">Quotation#: </span>
+                        </t>
+                        <t t-if="env.context.get('proforma', False) or is_pro_forma">
+                            <span>Pro-Forma Invoice#: </span>
+                        </t>
+                        <span t-field="doc.name"/>
+                    </h2>
+<!--              <span t-if="doc.company_id.id==4" class="mt16" style="font-size:30px;color:#00B0F0;">-->
+<!--              <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">-->
+<!--                    <span t-if="doc.state not in ['draft','sent']">Order#: </span>-->
+<!--                    <span t-if="doc.state in ['draft','sent']">Quotation#: </span>-->
+<!--                </t>-->
+<!--                <t t-if="env.context.get('proforma', False) or is_pro_forma">-->
+<!--                    <span>Pro-Forma Invoice#: </span>-->
+<!--                </t>-->
+<!--                <span t-field="doc.name"/>-->
+<!--             </span>-->
+<!--             <span t-if="doc.company_id.id in (1,7)" class="mt16" style="font-size:30px;color:#820000">-->
+<!--              <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">-->
+<!--                    <span t-if="doc.state not in ['draft','sent']">Order#: </span>-->
+<!--                    <span t-if="doc.state in ['draft','sent']">Quotation#: </span>-->
+<!--                </t>-->
+<!--                <t t-if="env.context.get('proforma', False) or is_pro_forma">-->
+<!--                    <span>Pro-Forma Invoice#: </span>-->
+<!--                </t>-->
+<!--                <span t-field="doc.name"/>-->
+<!--             </span>-->
+<!--               <span t-if="doc.company_id.id not in (1,4,7)" class="mt16" style="font-size:30px;color:#F3EB1A;">-->
+<!--              <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">-->
+<!--                    <span t-if="doc.state not in ['draft','sent']">Order#: </span>-->
+<!--                    <span t-if="doc.state in ['draft','sent']">Quotation#: </span>-->
+<!--                </t>-->
+<!--                <t t-if="env.context.get('proforma', False) or is_pro_forma">-->
+<!--                    <span>Pro-Forma Invoice#: </span>-->
+<!--                </t>-->
+<!--                <span t-field="doc.name"/>-->
+<!--             </span>-->
+         </xpath>
+        <!--Quotation #:-->
+
+        <!--Order Date Formating-->
+<!--        context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')-->
+        <xpath expr="//div[@id='informations']/div[2]/p" position="attributes">
+            <attribute name="t-options">{"widget": "date"}</attribute>
+<!--            <div t-if="doc.date_order and doc.state not in ['draft','sent']" class="col-auto mw-100 mb-2">-->
+<!--                    <strong>Order Date:</strong>-->
+<!--                    <p class="m-0" t-field="context_timestamp(doc.date_order).strftime('%d-%m-%Y')"/>-->
+<!--                </div>-->
+        </xpath>
+        <!--Order Date Formating-->
+
+        <!--Table Header Vertical align Center-->
+         <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_description']"
+               position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_description']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_quantity']"
+               position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_quantity']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_priceunit']"
+               position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_priceunit']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_discount']"
+               position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_discount']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_taxes']"
+               position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_taxes']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_subtotal']"
+               position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_subtotal']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+        <!--Table Header Vertical align Center-->
+
+        <!--Table body Vertical align Center-->
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[1]/td[@name='td_name']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[1]/td[@name='td_quantity']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[1]/td[@name='td_priceunit']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[1]/td[@groups='product.group_discount_per_so_line']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[1]/td[@name='td_taxes']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[1]/td[@name='td_subtotal']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[2]/td[@name='td_section_line']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[3]/td[@name='td_note_line']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+        <!--Table body Vertical align Center-->
+
+
+        <!--Table border single line thikness-->
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead" position="attributes">
+            <attribute name="style">border: 1px solid black;</attribute>
+        </xpath>
+<!--        <xpath expr="//table[@class='table table-sm o_main_table']" position="attributes">-->
+<!--            <attribute name="style">border: 0.2px solid black;</attribute>-->
+<!--        </xpath>-->
+        <!--Table border single line thikness-->
+
+        <!-- ON remove from small Table-->
+        <xpath expr="//td[@name='td_amount_by_group_label_3']/span[2]" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <!-- ON remove from small Table-->
+
+        <!--Total In small table bold and black-->
+         <xpath expr="//table[@class='table table-sm']/tr[@class='border-black o_total']" position="replace">
+            <t t-if="doc.company_id.id==5">
+                <tr class="border-black o_total">
+                    <td>
+                        <span style="color:black;font-weight:bold;">Total</span>
+                    </td>
+                    <td class="text-right">
+                        <span style="color:black;font-weight:bold;" class="text-nowrap" t-field="doc.amount_total"/>
+                    </td>
+                </tr>
+            </t>
+            <t t-if="doc.company_id.id!=5">
+                <tr class="border-black o_total">
+                    <td>
+                        <span style="font-weight:bold;">Total</span>
+                    </td>
+                    <td class="text-right">
+                        <span style="font-weight:bold;" class="text-nowrap" t-field="doc.amount_total"/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+        <!--Total In small table bold and black-->
+
+    </template>
+
+    <template id="report_sale_template_extend_for_serial"
+              inherit_id="serial_on_report.serial_no_saleorder_document_inherit">
+        <xpath expr="//th[@name='th_serial_no']" position="replace">
+<!--            <span>S. No.</span>-->
+            <t t-if="doc.company_id.id==5">
+                <th name="th_serial_no" class="text-center" style="text-transform: capitalize;vertical-align: middle;">
+                    <div style="width:100%;text-align:center;">
+                        <span>S. No.</span>
+                    </div>
+                </th>
+            </t>
+            <t t-if="doc.company_id.id!=5">
+                <th name="th_serial_no" class="text-center" style="text-transform: capitalize;vertical-align: middle;">
+                    <div style="width:50px;text-align:center;">
+                        <span>S. No.</span>
+                    </div>
+                </th>
+            </t>
+        </xpath>
+        <xpath expr="//td[@name='td_line_no']"  position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+    </template>
+</odoo>

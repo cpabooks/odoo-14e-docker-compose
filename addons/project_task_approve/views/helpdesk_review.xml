@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+
+        <!-- Action -->
+        <record id="action_review_ticket" model="ir.actions.act_window">
+            <field name="name">Pending Review</field>
+            <field name="res_model">helpdesk.ticket</field>
+            <field name="domain">['|', ('dev.user_id','=',uid), ('user_id','=',uid), ('ticket_state','=','draft')]</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No New Tickets!!
+                </p>
+            </field>
+        </record>
+
+        <record id="action_test_ticket" model="ir.actions.act_window">
+            <field name="name">Pending Dev_test</field>
+            <field name="res_model">helpdesk.ticket</field>
+            <field name="domain">[('ticket_state','=','test')]</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No New Tickets!!
+                </p>
+            </field>
+        </record>
+
+        <record id="action_update_ticket" model="ir.actions.act_window">
+            <field name="name">Pending Client_update</field>
+            <field name="res_model">helpdesk.ticket</field>
+            <field name="domain">[('ticket_state','=','updating')]</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No New Tickets!!
+                </p>
+            </field>
+        </record>
+
+        <record id="action_approval_ticket" model="ir.actions.act_window">
+            <field name="name">Pending Approval</field>
+            <field name="res_model">helpdesk.ticket</field>
+            <field name="domain">[('ticket_state','=','submit_for_approval')]
+            </field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No New Tickets!!
+                </p>
+            </field>
+        </record>
+
+        <!--3. Pending Dev_wip-->
+        <record id="action_dev_wip" model="ir.actions.act_window">
+            <field name="name">Pending Dev_wip</field>
+            <field name="res_model">helpdesk.ticket</field>
+            <field name="domain">[('ticket_state','=','dev')]
+            </field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No New Tickets!!
+                </p>
+            </field>
+        </record>
+
+        <!--6. Updated to clients-->
+        <record id="action_updated_clint" model="ir.actions.act_window">
+            <field name="name">Updated to clients</field>
+            <field name="res_model">helpdesk.ticket</field>
+            <field name="domain">[('ticket_state','=','done')]
+            </field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No New Tickets!!
+                </p>
+            </field>
+        </record>
+
+        <!--    2. Pending Submit For Approval    -->
+<!--
+        <record id="action_submit_for_approval" model="ir.actions.act_window">
+            <field name="name">Pending Submit For Approval</field>
+            <field name="res_model">helpdesk.ticket</field>
+            <field name="domain">[('ticket_state','=','draft')]
+            </field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No New Tickets!!
+                </p>
+            </field>
+        </record>
+-->
+
+        <!--    4. Pending Assign    -->
+<!--
+        <record id="action_pending_assign_ticket" model="ir.actions.act_window">
+            <field name="name">Pending Assign</field>
+            <field name="res_model">helpdesk.ticket</field>
+            <field name="domain">[('ticket_state','=','done')]
+            </field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No New Tickets!!
+                </p>
+            </field>
+        </record>
+-->
+
+        <record id="helpdesk.helpdesk_ticket_action_main_my" model="ir.actions.act_window">
+            <field name="name">My Tickets</field>
+            <field name="context">{'domain': ['|','|','|', ('dev.user_id','=',uid), ('dev_tester','=',uid), ('clint_updater','=',uid), ('user_id','=',uid),
+                ('ticket_state','!=','new')]}
+            </field>
+        </record>
+        <record id="helpdesk.helpdesk_ticket_action_main_tree" model="ir.actions.act_window">
+            <field name="name">All Tickets</field>
+        </record>
+
+
+        <!-- Menu Button -->
+        <menuitem id="review_menu_main" name="Inbox" sequence="-01"
+                  parent="helpdesk.menu_helpdesk_root">
+            <menuitem id="review_menu" name="1. Pending Review" action="action_review_ticket" sequence="01"/>
+<!--            <menuitem id="submit_menu" name="2. Pending Submit For Approval" action="action_submit_for_approval"
+                      sequence="02"/>-->
+            <menuitem id="approval_menu" name="2. Pending Approval" action="action_approval_ticket" sequence="03"/>
+<!--            <menuitem id="assign_menu" name="4. Pending dev. Assign" action="action_pending_assign_ticket" sequence="04"/>-->
+            <menuitem id="wip_menu" name="3. Pending Dev_wip" action="action_dev_wip" sequence="05"/>
+            <menuitem id="tester_menu" name="4. Pending Dev_test" action="action_test_ticket" sequence="06"/>
+            <menuitem id="updater_menu" name="5. Pending Client_update" action="action_update_ticket" sequence="07"/>
+            <menuitem id="updated_menu" name="6. Updated to clients" action="action_updated_clint" sequence="08"/>
+        </menuitem>
+
+    </data>
+</odoo>

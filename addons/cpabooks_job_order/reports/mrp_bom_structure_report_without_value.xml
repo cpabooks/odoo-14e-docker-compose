@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    <template id="mrp_bom_structure_without_value" inherit_id="mrp.report_mrp_bom" primary="True">-->
+    <!--        <xpath expr="//div[@class='container o_mrp_bom_report_page']/t[@t-if='data.get('components') or data.get('lines')']/div[@class='row']"-->
+    <!--               position="before">-->
+    <!--            <h2 class="text-center">-->
+    <!--                <span t-if="doc.state not in ['draft','sent']">-->
+    <!--                    <u>BoM Structure</u>-->
+    <!--                </span>-->
+    <!--            </h2>-->
+    <!--            <h5 name="mr_no" class="text-center" style="margin-top:-8px;font-size:18px;">-->
+    <!--                <strong>NO.</strong>-->
+    <!--                <span t-field="doc.name"/>-->
+    <!--            </h5>-->
+    <!--        </xpath>-->
+
+    <!--    </template>-->
+    <template id="header_add_in_mrp_bom_structure_without_value">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <h2 class="text-center">
+                            <span>
+                                <u>BoM Structure</u>
+                            </span>
+                        </h2>
+                        <h5 name="mr_no" class="text-center" style="margin-top:-8px;font-size:18px;">
+                            <strong>MR NO.</strong>
+                            <span t-field="o.name"/>
+                        </h5>
+
+                        <div name="client" class="row oe_mt16" t-if="o.partner_id">
+                            <div class="col-1">
+                                <strong>Client</strong>
+                            </div>
+                            <div class="col-11">
+                                <span>:</span>
+                                <span t-field="o.partner_id.name"/>
+                            </div>
+                        </div>
+                        <div name="panel" class="row" t-if="o.product_tmpl_id">
+                            <div class="col-1">
+                                <strong>Panel</strong>
+                            </div>
+                            <div class="col-11">
+                                <span>:</span>
+                                <span t-field="o.product_tmpl_id.name"/>
+                            </div>
+                        </div>
+                        <div name="job" class="row " t-if="o.code">
+                            <div class="col-1">
+                                <strong>Job No.</strong>
+                            </div>
+                            <div class="col-11">
+                                <span>:</span>
+                                <span t-field="o.code"/>
+                            </div>
+                        </div>
+                        <div name="job" class="row" t-if="o.date">
+                            <div class="col-1">
+                                <strong>Date</strong>
+                            </div>
+                            <div class="col-11">
+                                <span>:</span>
+                                <span t-field="o.date"/>
+                            </div>
+                        </div>
+
+                        <div class="row oe_mt16">
+                            <div class="col-lg-12">
+                                <div>
+                                    <table width="100%" class="o_mrp_bom_expandable">
+                                        <thead style="background-color:#def4fa;">
+                                            <tr>
+                                                <th class="text-center">SL. No.</th>
+                                                <th class="text-center">Material Description</th>
+                                                <th class="text-center">Unit of Measure</th>
+                                                <th class="text-center">Quantity</th>
+
+                                                <th class="text-center">Remarks</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-set="sr_no" t-value="1"/>
+                                            <tr t-foreach="o.bom_line_ids" t-as="data">
+
+                                                <td name="sr" style="border:1px solid gray;">
+                                                    <span t-esc="sr_no"/>
+                                                    <t t-set="sr_no" t-value="sr_no+1"/>
+                                                </td>
+                                                <td name="product" style="border:1px solid gray;">
+                                                    <span t-field="data.product_id.name"/>
+                                                </td>
+                                                <td class="text-center" name="unit" style="border:1px solid gray;">
+                                                    <span t-field="data.product_uom_id.name"/>
+                                                </td>
+                                                <td class="text-center" name="quantity" style="border:1px solid gray;">
+                                                    <span t-field="data.product_qty"/>
+                                                </td>
+                                                <td  style="border:1px solid gray;">
+                                                    <span t-field="data.remarks"/>
+                                                </td>
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <t t-set="signature" t-value="o.get_signature()"/>
+                        <div t-if="signature" class="row oe_mt64">
+                            <div class="col-4 text-left">
+
+                                <strong>
+                                    <span style="text-decoration:overline" t-field="signature.signature1"/>
+                                </strong>
+                            </div>
+                            <div class="col-4 text-center">
+                                <strong>
+                                    <span style="text-decoration:overline" t-field="signature.signature2"/>
+                                </strong>
+                            </div>
+                            <div class="col-4 text-right">
+                                <strong>
+                                    <span style="text-decoration:overline" t-field="signature.signature3"/>
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

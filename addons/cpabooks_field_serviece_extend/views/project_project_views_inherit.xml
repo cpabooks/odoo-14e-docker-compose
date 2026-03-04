@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="project_view_form_inherit_from_industry_sale" model="ir.ui.view">
+        <field name="name">project.view.form.inherit.from.industry.sale</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="industry_fsm_sale.project_view_form_inherit"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[contains(@class,'col-lg-6 o_setting_box')]" position="replace">
+                <div class="col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="allow_quotations"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="allow_quotations"/>
+                        <div class="text-muted">
+                            Create new quotations directly from tasks
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

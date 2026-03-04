@@ -1,0 +1,519 @@
+<odoo>
+  <data>
+
+      <record id="freight_cahrge_type_product_template_only_form_inherit" model="ir.ui.view">
+        <field name="name">freight.charge.type.product.template.only</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="charge_type"/>
+            </field>
+        </field>
+    </record>
+
+      <record id="freight_cahrge_type_product_form_inherit" model="ir.ui.view">
+        <field name="name">freight.charge.type.product.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="charge_type"/>
+            </field>
+        </field>
+    </record>
+
+   <!-- Freight field in Quotation inherit form -->
+    <record id="freight_field_in_quotation_form" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+                <field name ='partner_id' position="before">
+                    <field name="direction" widget="radio"/>
+                    <field name="transport"/>
+                    <field name="ocean_shipment_type" attrs="{'invisible': [('transport','!=','ocean')]}"/>
+                    <field name="inland_shipment_type" attrs="{'invisible': [('transport','!=','land')]}"/>
+
+<!--                    <field name="source_location_id"/>
+                    <field name="destination_location_id"/>-->
+
+<!--                    <field name="created_job" readonly='True'/>-->
+            </field>
+        </field>
+    </record>
+
+    <record id="freight_charge_form" model="ir.ui.view">
+        <field name="name">freight.charge.form</field>
+        <field name="model">freight.charge</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="details"/>
+                </group>
+                    <field name="charge_type" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="freight_order_line_form" model="ir.ui.view">
+        <field name="name">freight.quotation.line.form</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                <group>
+<!--                    <field name="product_id"/>-->
+                    <field name="port_of_loading"/>
+                    <field name="port_of_delivery"/>
+                </group>
+                    <field name="freight_details">
+                        <tree>
+                            <field name="order_line_id" invisible="1"/>
+                            <field name="charge_heading" domain="[('charge_type.name','=','Main Transport Charges')]" context="{'default_charge_type':1}"/>
+                            <field name="rate_basis"/>
+                            <field name="currency"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="freight_order_line_details_form" model="ir.ui.view">
+        <field name="name">freight.order.line.details.form</field>
+        <field name="model">freight.order.line.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                    <group>
+
+                        <field name="order_line_id" invisible="1"/>
+                        <field name="charge_heading" domain="[('charge_type','=',1)]" context="{'default_charge_type':1}"/>
+                        <field name="rate_basis" />
+                        <field name="amount" attrs="{'invisible': [('rate_basis', '=', 1)]}"/>
+                    <field name="container_lines"  attrs="{'invisible': [('rate_basis', '!=', 1)]}">
+                        <tree editable="bottom">
+                            <field name="container_type"/>
+                            <field name="container_freight"/>
+                        </tree>
+                    </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+      <record id="freight_quotation_line_details_list" model="ir.ui.view">
+        <field name="name">freight.order.line.details.list</field>
+        <field name="model">freight.order.line.details</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                    <field name="order_line_id"/>
+                    <field name="charge_heading"/>
+                    <field name="rate_basis"/>
+                    <field name="currency"/>
+                    <field name="amount" attrs="{'invisible': [('rate_basis', '=', 1)]}"/>
+                    <field name="container_lines" widget="many2many_tags"  attrs="{'invisible': [('rate_basis', '!=', 1)]}"/>
+<!--                    <field name="container_40"/>-->
+<!--                    <field name="container_40hc"/>-->
+            </tree>
+        </field>
+    </record>
+
+      <record id="freight_quotation_line_details_action" model="ir.actions.act_window">
+            <field name="name">Details</field>
+            <field name="res_model">freight.order.line.details</field>
+            <field name="view_mode">tree,form</field>
+          <field name="domain">[('charge_heading.charge_type.name','=','Main Transport Charges')]</field>
+        </record>
+
+      <record id="freight_destiantaion_charges_form" model="ir.ui.view">
+        <field name="name">freight.destination.charges.form</field>
+        <field name="model">freight.destination.charges</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                <group>
+                    <field name="country"/>
+                    <field name="state"/>
+                </group>
+                    <group>
+                        <field name="air"/>
+                        <field name="ocean"/>
+                        <field name="land"/>
+                    </group>
+                    <group>
+                        <field name="port_id" />
+                        <field name="charge_heading" domain="[('charge_type','=',2)]" context="{'default_charge_type':2}"/>
+                        <field name="rate_basis"/>
+                        <field name="currency"/>
+<!--                        todo hide the following line while rate basis is other than container-->
+                        <field name="charge" attrs="{'invisible': [('rate_basis', '=', 1)]}" />
+                    </group>
+                    <field name="container_lines" attrs="{'invisible': [('rate_basis', '!=', 1)]}">
+                        <tree editable="bottom">
+                            <field name="order_line_id" invisible="1"/>
+                            <field name="destination_charge_id" invisible="1"/>
+                            <field name="container_type"/>
+                            <field name="container_freight"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+      <record id="freight_destiantaion_charges_list" model="ir.ui.view">
+        <field name="name">freight.destination.charges.list</field>
+        <field name="model">freight.destination.charges</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="country"/>
+                <field name="state"/>
+                <field name="air"/>
+                <field name="ocean"/>
+                <field name="land"/>
+                <field name="port_id"/>
+                <field name="charge_heading"/>
+                <field name="rate_basis"/>
+                <field name="currency"/>
+<!--             todo hide the following line while rate basis is other than container-->
+                <field name="charge" />
+            </tree>
+        </field>
+    </record>
+
+      <record id="freight_destination_action" model="ir.actions.act_window">
+            <field name="name">Charge applicable for destination</field>
+            <field name="res_model">freight.destination.charges</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+      <menuitem name="Destination Charges" parent="freight.freight_configuration" id="menu_freight_destination_charge" action="freight_destination_action" sequence="1"/>
+
+      <record id="freight_order_line_container_line_form" model="ir.ui.view">
+        <field name="name">freight.order.line.container.line.form</field>
+        <field name="model">freight.order.line.container.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                <group>
+                    <field name="order_line_id" invisible="1"/>
+                    <field name="destination_charge_id" invisible="1"/>
+                </group>
+                    <group>
+                        <field name="container_type"/>
+                        <field name="container_freight"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+      <record id="freight_order_line_container_line_list" model="ir.ui.view">
+        <field name="name">freight.order.line.container.line.list</field>
+        <field name="model">freight.order.line.container.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                    <field name="order_line_id" invisible="1"/>
+                    <field name="destination_charge_id" invisible="1"/>
+                        <field name="container_type"/>
+                        <field name="container_freight"/>
+            </tree>
+        </field>
+    </record>
+
+      <record id="action_freight_order_line_container_line" model="ir.actions.act_window">
+            <field name="name">freight_order_line_container_line_action</field>
+            <field name="res_model">freight.order.line.container.line</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    <record id="freight_field_in_invoice_form" model="ir.ui.view">
+        <field name="name">account.move.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+                <field name ='partner_id' position="after">
+                    <field name="direction" widget="radio" invisible="1"/>
+                    <field name="transport" invisible="1"/>
+                    <field name="ocean_shipment_type" attrs="{'invisible': [('transport','!=','ocean')]}"/>
+                    <field name="inland_shipment_type" attrs="{'invisible': [('transport','!=','land')]}"/>
+                    <field name="inland_shipment_type" attrs="{'invisible': [('transport','!=','land')]}"/>
+                    <field name="freight_operation_id"  options="{'no_create': 1, 'no_edit': 1}"/>
+<!--                    <field name="source_location_id"/>
+                    <field name="destination_location_id"/>-->
+            </field>
+        </field>
+    </record>
+
+   <!-- Freight field in Quotation inherit tree -->
+    <record id="freight_field_in_quotation_tree" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                    <field name="direction" optional="show"/>
+                    <field name="transport" optional="show"/>
+                    <field name="ocean_shipment_type" optional="show"/>
+                    <field name="inland_shipment_type" optional="show"/>
+<!--                    <field name="source_location_id"/>
+                    <field name="destination_location_id"/>-->
+            </field>
+        </field>
+    </record>
+
+    <record id="freight_operation_line" model="ir.ui.view">
+        <field name="name">freight.operation.line.form</field>
+        <field name="model">freight.operation.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="operation_id" optional="show" style="text-align:center"/>
+                        <field name="product_id" string="Description" optional="show" style="text-align:center"/>
+                        <field name="product_uom_qty" optional="show" style="text-align:center" />
+                        <field name="port_of_loading" optional="show" style="text-align:center"/>
+                        <field name="port_of_delivery" optional="show" style="text-align:center"/>
+                        <field name="product_uom" optional="show" style="text-align:center"/>
+                        <field name="freight_item_qty" optional="show" style="text-align:center"/>
+                        <field name="freight_container_type" optional="show" style="text-align:center"/>
+                        <field name="freight_teus20ft" optional="hide" style="text-align:center"/>
+                        <field name="freight_ffe40ft" optional="hide" style="text-align:center"/>
+
+                        <field name="foreign_currency" optional="show" style="text-align:center"/>
+
+                        <field name="ex_currency_rate" optional="hide" style="text-align:center"/>
+                        <field name="rate_in_foreign_currency" optional="show" style="text-align:center"/>
+                        <field name="amount_in_foreign_currency" optional="show" style="text-align:center"/>
+                        <field name="freight_etd" optional="show" style="text-align:center"/>
+                        <field name="rate_validity" optional="show" style="text-align:center"/>
+                        <field name="price_unit" optional="show" style="text-align:center"/>
+                        <field name="price_subtotal" optional="show" style="text-align:right"/>
+
+                        <attribute optional="show" class="pos-center-align" name="string">Unt Rate (AED)</attribute>
+                        <attribute optional="show" class="pos-center-align" name="string">Amount (AED)</attribute>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Freight field in Account Move Invoice form view inherited in Sale order line  -->
+      <record id="freight_field_in_account_move_inherit" model="ir.ui.view">
+        <field name="name">account.move.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="after">
+                <field name="port_of_loading" optional="hide" style="text-align:center"/>
+                <field name="port_of_delivery" optional="hide" style="text-align:center"/>
+          <field name="freight_container_type" optional="hide" style="text-align:center"/>
+          <field name="freight_container_size" optional="hide" style="text-align:center"/>
+          <field name="rate_basis" optional="hide" style="text-align:center"/>
+                <field name="foreign_currency" optional="show" style="text-align:center"/>
+                <!--                  <field name="freight_teus20ft" optional="show" style="text-align:center"/>
+                                <field name="freight_ffe40ft" optional="show" style="text-align:center"/>
+                                <field name="rate_in_foreign_currency" optional="show" style="text-align:center"/>
+                                <field name="amount_in_foreign_currency" optional="show" style="text-align:center"/> -->
+                <field name="freight_etd" optional="hide" style="text-align:center"/>
+                <field name="rate_validity" optional="hide" style="text-align:center"/>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[@id='invoice_tab']" position="after">
+                <page id="freight_invoice_container_tab" string="Freight Container Lines" attrs="{'invisible': [('move_type', '=', 'entry')]}">
+                    <field name="freight_container_lines" >
+                        <tree editable="bottom" >
+                          <field name="container_type"/>
+                          <field name="container_size"/>
+                          <field name="qty"/>
+                        </tree>
+                    </field>
+                  </page>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page/field[@name='line_ids']/tree/field[@name='quantity']" position="after">
+                <field name="port_of_loading" optional="show" style="text-align:center"/>
+                <field name="port_of_delivery" optional="show" style="text-align:center"/>
+
+<!--                <field name="freight_container_type" optional="show" style="text-align:center"/>
+                <field name="freight_teus20ft" optional="show" style="text-align:center"/>
+                <field name="freight_ffe40ft" optional="show" style="text-align:center"/>
+                <field name="foreign_currency" optional="show" style="text-align:center"/>
+                <field name="rate_in_foreign_currency" optional="show" style="text-align:center"/>
+                <field name="amount_in_foreign_currency" optional="show" style="text-align:center"/> -->
+                <field name="freight_etd" optional="show" style="text-align:center"/>
+                <field name="rate_validity" optional="show" style="text-align:center"/>
+            </xpath>
+
+            <xpath expr="/form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="attributes">
+                <attribute optional="show" class="pos-center-align" name="string">Unt Rate (AED)</attribute>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page/field[@name='line_ids']/tree/field[@name='price_unit']" position="attributes">
+                <attribute optional="show" class="pos-center-align" name="string">Unt Rate (AED)</attribute>
+            </xpath>
+
+            <xpath expr="/form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position="attributes">
+                <attribute optional="show" class="pos-center-align" name="string">Amount (AED)</attribute>
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page/field[@name='line_ids']/tree/field[@name='price_subtotal']" position="attributes">
+                <attribute optional="show" class="pos-center-align" name="string">Amount (AED)</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+ <!-- Sale Quotation create job button  -->
+ <!-- for hide create job button  attrs="{'invisible': ['|', ('created_job', '>', 0), ('id', '=', False)]}"-->
+<!--hide create job button-->
+        <record id="action_create_freight_button" model="ir.ui.view">
+          <field name="name">sale.order.form.inherit</field>
+          <field name="model">sale.order</field>
+          <field name="inherit_id" ref="sale.view_order_form" />
+          <field name="priority">10</field>
+          <field name="arch" type="xml">
+              <button name="action_cancel" position="after">
+            		<button name="create_freight_job" string="Create Job" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}"/>
+            	</button>
+            </field>
+        </record>
+
+
+      <!-- Freight field in Quotation form view inherit in Sale order line  -->
+    <record id="freight_field_in_quotation_inherit" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="comodity"/>
+            </field>
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='product_id']" position="before">
+                <field name="selected" optional="show" style="text-align:center"/>
+            </xpath>
+
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
+
+<!--               <button name="open_to_form_view" type="object" string="Details"/>-->
+
+                <field name="port_of_loading" optional="show" style="text-align:center"/>
+                <field name="port_of_delivery" optional="show" style="text-align:center"/>
+                <field name="freight_container_type" optional="show" style="text-align:center"/>
+                <field name="rate_basis" optional="show" style="text-align:center"/>
+
+                <field name="freight_20ge" optional="show" style="text-align:center"/>
+                <field name="freight_40ge" optional="show" style="text-align:center"/>
+                <field name="freight_40hc" optional="show" style="text-align:center"/>
+
+                <field name="freight_teus20ft" optional="hide" style="text-align:center"/>
+                <field name="freight_ffe40ft" optional="hide" style="text-align:center" />
+                <field name="foreign_currency" optional="hide" style="text-align:center" />
+                <field name="ex_currency_rate" optional="hide" style="text-align:center" />
+                <field name="rate_in_foreign_currency" optional="hide" style="text-align:center"  attrs="{'invisible':[('rate_in_foreign_currency','=',0.0)]}"/>
+                <field name="amount_in_foreign_currency" optional="hide" style="text-align:center" attrs="{'invisible':[('amount_in_foreign_currency','=',0.0)]}"/>
+                <field name="freight_etd" optional="show" style="text-align:center"/>
+                <field name="rate_validity" optional="show" style="text-align:center"/>
+            </xpath>
+
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='product_uom_qty']" position="attributes">
+                <attribute optional="show" class="pos-center-align" name="string">Qty</attribute>
+            </xpath>
+
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                <attribute optional="show" class="pos-center-align" name="string">Description</attribute>
+            </xpath>
+
+
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='product_uom_qty']" position="replace">
+                 <field name="product_uom_qty" invisible="1"/>
+            </xpath>
+
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='price_unit']" position="replace">
+                 <field name="price_unit" invisible="1"/>
+            </xpath>
+
+
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='price_subtotal']" position="replace">
+                 <field name="price_subtotal" invisible="1"/>
+            </xpath>
+
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='tax_id']" position="attributes">
+                 <attribute name="optional">hide</attribute>
+            </xpath>
+
+             <xpath expr="//group[@name='sale_total']" position="replace">
+                 <group name = "sale_total" invisible="1">
+                 </group>
+            </xpath>
+
+
+<!--
+            <xpath expr="//group[@name='note_group']" position="after">
+               <div ><h2>Service Lines</h2></div>
+                 <field name="service_line" widget="section_and_note_one2many" mode="tree,kanban" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
+
+                    <tree editable="bottom">
+
+                       <control>
+                            <create name="add_product_control" string="Add a product"/>
+                            <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                            <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                        </control>
+
+                        <field name="selected" optional="show" style="text-align:center"/>
+                        <field name="product_id" optional="show"/>
+                        <field name="product_uom_qty" optional="show"/>
+
+                        <field name="port_of_loading" optional="show" style="text-align:center"/>
+                        <field name="port_of_delivery" optional="show" style="text-align:center"/>
+
+                        <field name="freight_20ge" optional="show" style="text-align:center"/>
+                        <field name="freight_40ge" optional="show" style="text-align:center"/>
+                        <field name="freight_40hc" optional="show" style="text-align:center"/>
+
+                        <field name="foreign_currency" optional="show"/>
+                        <field name="ex_currency_rate" optional="show"/>
+                        <field name="rate_in_foreign_currency" optional="show" style="text-align:center"/>
+                        <field name="amount_in_foreign_currency" optional="show" style="text-align:center"/>
+                        <field name="price_unit" optional="show" style="text-align:center"/>
+                        <field name="price_subtotal" optional="show" style="text-align:center"/>
+
+
+                   </tree>
+                </field>
+             </xpath>
+-->
+        </field>
+    </record>
+
+
+     <record id="freight_payable_select_in_account_tree" model="ir.ui.view">
+        <field name="name">account.move.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_in_invoice_tree"/>
+        <field name="arch" type="xml">
+            <field name="activity_ids" position="after">
+                    <field name="freight_select_payable" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="freight_payable_select_in_account_from" model="ir.ui.view">
+        <field name="name">account.move.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="invoice_date" position="before">
+                    <field name="freight_select_payable" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+
+  </data>
+</odoo>
+

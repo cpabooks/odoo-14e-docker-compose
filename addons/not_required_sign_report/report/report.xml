@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <!-- Signature bottom of quotation sale order pdf report -->
+    <template id="not_required_sign_sale_order_document_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@class='page']" position="after">
+             <div class="last-page" style="position: relative; min-height: 150px;">
+                  <table style="border: none; position:absolute; bottom:0; left: 0; font-size:14px;">
+                      <tr>
+                          <th style="text-align:left" width="100%">This is a system generated document and does not require signature </th>
+                      </tr>
+                  </table>
+              </div>
+        </xpath>
+    </template>
+
+
+        <!-- Signature bottom of Account Invoice pdf report -->
+    <template id="not_required_sign_invoice_document_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='qrcode']" position="after">
+             <div class="last-page" style="position: relative; min-height: 150px;">
+                  <table style="border: none; position:absolute; bottom:0; left: 0; font-size:14px;">
+                      <tr>
+                          <th style="text-align:left" width="100%"> This is a system generated document and does not require signature </th>
+                      </tr>
+                  </table>
+              </div>
+        </xpath>
+    </template>
+
+
+                <!-- Signature bottom of rfq pdf report -->
+    <template id="not_required_sign_rfq_document_inherit" inherit_id="purchase.report_purchasequotation_document">
+        <xpath expr="//div[@class='page']" position="after">
+             <div class="last-page" style="position: relative; min-height: 150px;">
+                  <table style="border: none; position:absolute; bottom:0; left: 0; font-size:14px;">
+                      <tr>
+                          <th style="text-align:left" width="100%"> This is a system generated document and does not require signature </th>
+                      </tr>
+                  </table>
+              </div>
+        </xpath>
+    </template>
+
+    <template id="not_required_sign_rfq_order_inherit" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//div[@class='page']" position="after">
+             <div class="last-page" style="position: relative; min-height: 150px;">
+                  <table style="border: none; position:absolute; bottom:0; left: 0; font-size:14px;">
+                      <tr>
+                          <th style="text-align:left" width="100%"> This is a system generated document and does not require signature </th>
+                      </tr>
+                  </table>
+              </div>
+        </xpath>
+    </template>
+
+
+  </data>
+</odoo>
+

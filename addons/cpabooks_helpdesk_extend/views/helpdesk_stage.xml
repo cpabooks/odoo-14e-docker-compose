@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="helpdesk_stage_form_view_inherit" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.stage.view.inherit</field>
+            <field name="model">helpdesk.stage</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_stage_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='fold']" position="after">
+                    <field name="ticket_state"/>
+                </xpath>
+
+                <xpath expr="//sheet/group" position="inside">
+                    <header name="buttons">
+                        <button name="action_select_all" type="object" string="Select All Team" class="oe_highlight"/>
+                    </header>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

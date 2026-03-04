@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		<record id="view_fsm_project_task_list_view_inherit" model="ir.ui.view">
+			<field name="name">view.fsm.project.task.list.view.inherit</field>
+			<field name="model">project.task</field>
+			<field name="inherit_id" ref="industry_fsm.project_task_view_list_fsm"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='planned_date_begin']" position="replace">
+					<field name="date_start" optional="hide"/>
+				</xpath>
+				<xpath expr="//field[@name='planned_date_end']" position="replace">
+					<field name="date_end" optional="hide"/>
+				</xpath>
+				<xpath expr="//field[@name='stage_id']" position="attributes">
+					<attribute name="string">Activity</attribute>
+				</xpath>
+				<xpath expr="//field[@name='stage_id']" position="after">
+					<field name="state" readonly="1" optional="hide"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

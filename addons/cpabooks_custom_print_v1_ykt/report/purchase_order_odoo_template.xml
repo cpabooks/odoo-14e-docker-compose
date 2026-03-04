@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="odoo_purchase_order_inherit" inherit_id="cpabooks_custom_print.report_purchaseorder_document">
+            <xpath expr="//div[@t-field='o.partner_id']" position="replace">
+                <div t-field="o.partner_id"
+                     t-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": True}'/>
+                <div t-if="o.partner_id.vat">
+                    <strong>TRN:</strong>
+                    <span t-field="o.partner_id.vat"/>
+                </div>
+            </xpath>
+            <xpath expr="//h5[@class='text-center']" position="replace">
+                <h5 class="text-center">
+                    <div t-if="o.company_id.vat">
+                        <u>
+                            <srong>TRN:</srong>
+                            <span t-field="o.company_id.vat"/>
+                        </u>
+                    </div>
+                    <div>
+                        <strong>LPO Number:</strong>
+                        <span t-field="o.name"/>
+                    </div>
+                </h5>
+            </xpath>
+        </template>
+    </data>
+</odoo>

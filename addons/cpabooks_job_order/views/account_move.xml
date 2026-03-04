@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_move_inherit_job_order" model="ir.ui.view">
+            <field name="name">account.move.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="professional_templates.account_move_inherit"/>
+            <field name="arch" type="xml">
+                <field name="po_no" position="after">
+                    <field name="job_order_ids" attrs="{'invisible':[('show_job_no','=',False)]}" widget="many2many_tags"/>
+                </field>
+                <field name="show_po_no" position="after">
+                    <field name="show_job_no"/>
+                </field>
+        </field>
+    </record>
+</odoo>

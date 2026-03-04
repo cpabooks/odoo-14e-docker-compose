@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="custom_sale_quotation_without_header">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="cpabooks_custom_print.headerless_header"/>
+                <t t-call="cpabooks_custom_print.footerless_footer"/>
+                <div>
+                    <t t-call="cpabooks_custom_print.report_saleorder_document_inherit_custom"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="custom_pro_forma_without_header">
+        <t t-call="web.html_container">
+            <t t-set="is_pro_forma" t-value="True"/>
+            <t t-set="docs" t-value="docs.with_context(proforma=True)"/>
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="cpabooks_custom_print.headerless_header"/>
+                <t t-call="cpabooks_custom_print.footerless_footer"/>
+                <div>
+                    <t t-call="cpabooks_custom_print.report_saleorder_document_inherit_custom"/>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

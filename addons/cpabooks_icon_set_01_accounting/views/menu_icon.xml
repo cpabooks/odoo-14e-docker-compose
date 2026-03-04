@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="account_accountant.menu_accounting" name="Accounting"
+          	  web_icon="cpabooks_icon_set_01_accounting,static/description/accounting.png"/>
+
+        <menuitem id="documents.menu_root" name="Documents"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/documents.png"/>
+
+        <menuitem id="sale.sale_menu_root" name="Sales"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/sales.png"/>
+
+        <menuitem id="purchase.menu_purchase_root" name="Purchase"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/purchase.png"/>
+
+        <menuitem id="bi_material_purchase_requisitions.menu_requisition" name="Requisitions"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/requisitions.png"/>
+
+        <menuitem id="stock.menu_stock_root" name="Inventory"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/inventory.png"/>
+
+        <menuitem id="project.menu_main_pm" name="Project"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/project.png"/>
+
+        <menuitem id="mail.menu_root_discuss" name="Discuss"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/discuss.png"/>
+
+        <menuitem id="calendar.mail_menu_calendar" name="Calendar"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/calendar.png"/>
+
+        <menuitem id="note.menu_note_notes" name="Notes"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/notes.png"/>
+
+        <menuitem id="contacts.menu_contacts" name="Contacts"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/contacts.png"/>
+
+        <menuitem id="hr_expense.menu_hr_expense_root" name="Expenses"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/expenses.png"/>
+
+        <menuitem id="base.menu_board_root" name="Dashboards"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/dashboard.png"/>
+
+        <menuitem id="crm.crm_menu_root" name="CRM"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/crm.png"/>
+
+        <menuitem name="Apps"
+                  id="base.menu_management"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/apps.png"/>
+
+        <menuitem name="Settings"
+                  id="base.menu_administration"
+                  web_icon="cpabooks_icon_set_01_accounting,static/description/settings.png"/>
+    </data>
+</odoo>

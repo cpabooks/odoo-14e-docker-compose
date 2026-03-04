@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--mis_budget form view-->
+    <record id="mis_budget_form_view" model="ir.ui.view">
+        <field name="name">MIS Budget</field>
+        <field name="model">mis.budget</field>
+        <field name="arch" type="xml">
+            <form string="Employee CTC and Formulas">
+
+                <header>
+                    <field name="is_ledger_loaded" invisible="1"/>
+                    <button string="Load Ledgers" title="Load Income line, expense line, customer line and vendor line"
+                            class="oe_highlight ms-2 me-2" type="object" name="load_ledgers"
+                            attrs="{'invisible': [('is_ledger_loaded', '=', True)]}"/>
+                    <button string="Clean Ledgers"
+                            title="Remove Income line, expense line, customer line and vendor line"
+                            class="oe_highlight ms-2 me-2" type="object" name="clean_ledgers"
+                            attrs="{'invisible': [('is_ledger_loaded', '=', False)]}"/>
+                </header>
+
+                <div class="row col-12 mt-3 mx-auto" style="padding:10px 0px">
+                    <div class="w-100">
+                        <label for="name" string="Name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                </div>
+
+                <notebook>
+                    <page name="budget_line" string="Budget Line">
+                        <!--Income Budget Line-->
+                        <h1>Income Budget Line</h1>
+                        <label for="is_repeat_income">Repeat Lines (Income)</label>
+                        <field name="is_repeat_income" string="Repeat Lines (Income)"/>
+                        <field name="income_budget_line_ids" string="Income" widget="one2many_list" editable="bottom">
+                            <tree editable="bottom">
+                                <button type="object" name="unlink" class="fa fa-trash-o"/>
+
+                                <!--Actual CY-->
+                                <field name="actual_cy_account" style="background-color:#A5A5A5 !important;"
+                                       optional="show"/>
+                                <field name="actual_cy_jan" sum="Total" optional="show"/>
+                                <field name="actual_cy_feb" sum="Total" optional="show"/>
+                                <field name="actual_cy_mar" sum="Total" optional="show"/>
+                                <field name="actual_cy_apr" sum="Total" optional="show"/>
+                                <field name="actual_cy_may" sum="Total" optional="show"/>
+                                <field name="actual_cy_jun" sum="Total" optional="show"/>
+                                <field name="actual_cy_jul" sum="Total" optional="show"/>
+                                <field name="actual_cy_aug" sum="Total" optional="show"/>
+                                <field name="actual_cy_sep" sum="Total" optional="show"/>
+                                <field name="actual_cy_oct" sum="Total" optional="show"/>
+                                <field name="actual_cy_nov" sum="Total" optional="show"/>
+                                <field name="actual_cy_dec" sum="Total" optional="show"/>
+                                <field name="actual_cy_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE" optional="show"/>
+
+                                <!--Actual LY-->
+                                <field name="actual_ly_account_id" style="background-color:#A5A5A5 !important;"
+                                       optional="show"/>
+                                <field name="actual_ly_jan" sum="Total" optional="show"/>
+                                <field name="actual_ly_feb" sum="Total" optional="show"/>
+                                <field name="actual_ly_mar" sum="Total" optional="show"/>
+                                <field name="actual_ly_apr" sum="Total" optional="show"/>
+                                <field name="actual_ly_may" sum="Total" optional="show"/>
+                                <field name="actual_ly_jun" sum="Total" optional="show"/>
+                                <field name="actual_ly_jul" sum="Total" optional="show"/>
+                                <field name="actual_ly_aug" sum="Total" optional="show"/>
+                                <field name="actual_ly_sep" sum="Total" optional="show"/>
+                                <field name="actual_ly_oct" sum="Total" optional="show"/>
+                                <field name="actual_ly_nov" sum="Total" optional="show"/>
+                                <field name="actual_ly_dec" sum="Total" optional="show"/>
+                                <field name="actual_ly_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE" optional="show"/>
+
+                                <!--Payment CYP-->
+                                <field name="payment_cyp_account" style="background-color:#A5A5A5 !important;"
+                                       optional="show"/>
+                                <field name="payment_cyp_jan" sum="Total" optional="show"/>
+                                <field name="payment_cyp_feb" sum="Total" optional="show"/>
+                                <field name="payment_cyp_mar" sum="Total" optional="show"/>
+                                <field name="payment_cyp_apr" sum="Total" optional="show"/>
+                                <field name="payment_cyp_may" sum="Total" optional="show"/>
+                                <field name="payment_cyp_jun" sum="Total" optional="show"/>
+                                <field name="payment_cyp_jul" sum="Total" optional="show"/>
+                                <field name="payment_cyp_aug" sum="Total" optional="show"/>
+                                <field name="payment_cyp_sep" sum="Total" optional="show"/>
+                                <field name="payment_cyp_oct" sum="Total" optional="show"/>
+                                <field name="payment_cyp_nov" sum="Total" optional="show"/>
+                                <field name="payment_cyp_dec" sum="Total" optional="show"/>
+                                <field name="payment_cyp_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE" optional="show"/>
+
+                                <!--Budget CY-->
+                                <field name="budget_cy_account" style="background-color:#A5A5A5 !important;"
+                                       optional="show"/>
+                                <field name="budget_cy_jan" sum="Total" optional="show"/>
+                                <field name="budget_cy_feb" sum="Total" optional="show"/>
+                                <field name="budget_cy_mar" sum="Total" optional="show"/>
+                                <field name="budget_cy_apr" sum="Total" optional="show"/>
+                                <field name="budget_cy_may" sum="Total" optional="show"/>
+                                <field name="budget_cy_jun" sum="Total" optional="show"/>
+                                <field name="budget_cy_jul" sum="Total" optional="show"/>
+                                <field name="budget_cy_aug" sum="Total" optional="show"/>
+                                <field name="budget_cy_sep" sum="Total" optional="show"/>
+                                <field name="budget_cy_oct" sum="Total" optional="show"/>
+                                <field name="budget_cy_nov" sum="Total" optional="show"/>
+                                <field name="budget_cy_dec" sum="Total" optional="show"/>
+                                <field name="budget_cy_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE" optional="show"/>
+
+                                <!--Budget LY-->
+                                <field name="budget_ly_account" style="background-color:#A5A5A5 !important;"
+                                       optional="show"/>
+                                <field name="budget_ly_jan" sum="Total" optional="show"/>
+                                <field name="budget_ly_feb" sum="Total" optional="show"/>
+                                <field name="budget_ly_mar" sum="Total" optional="show"/>
+                                <field name="budget_ly_apr" sum="Total" optional="show"/>
+                                <field name="budget_ly_may" sum="Total" optional="show"/>
+                                <field name="budget_ly_jun" sum="Total" optional="show"/>
+                                <field name="budget_ly_jul" sum="Total" optional="show"/>
+                                <field name="budget_ly_aug" sum="Total" optional="show"/>
+                                <field name="budget_ly_sep" sum="Total" optional="show"/>
+                                <field name="budget_ly_oct" sum="Total" optional="show"/>
+                                <field name="budget_ly_nov" sum="Total" optional="show"/>
+                                <field name="budget_ly_dec" sum="Total" optional="show"/>
+                                <field name="budget_ly_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE" optional="show"/>
+
+                                <field name="mis_id" invisible="1"/>
+                            </tree>
+                        </field>
+
+                        <!--Expense Budget Line-->
+                        <h1>Expense Budget Line</h1>
+                        <label for="is_repeat_expense">Repeat Lines (Expense)</label>
+                        <field name="is_repeat_expense" string="Repeat Lines (Expense)"/>
+                        <field name="expense_budget_line_ids" string="Expense" widget="one2many_list" editable="bottom">
+                            <tree editable="bottom">
+                                <button type="object" name="unlink" class="fa fa-trash-o"/>
+                                <!--Actual CY-->
+                                <field name="actual_cy_account" style="background-color:#A5A5A5 !important;"/>
+                                <field name="actual_cy_jan" sum="Total"/>
+                                <field name="actual_cy_feb" sum="Total"/>
+                                <field name="actual_cy_mar" sum="Total"/>
+                                <field name="actual_cy_apr" sum="Total"/>
+                                <field name="actual_cy_may" sum="Total"/>
+                                <field name="actual_cy_jun" sum="Total"/>
+                                <field name="actual_cy_jul" sum="Total"/>
+                                <field name="actual_cy_aug" sum="Total"/>
+                                <field name="actual_cy_sep" sum="Total"/>
+                                <field name="actual_cy_oct" sum="Total"/>
+                                <field name="actual_cy_nov" sum="Total"/>
+                                <field name="actual_cy_dec" sum="Total"/>
+                                <field name="actual_cy_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <!--Actual LY-->
+                                <field name="actual_ly_account_id" style="background-color:#A5A5A5 !important;"/>
+                                <field name="actual_ly_jan" sum="Total"/>
+                                <field name="actual_ly_feb" sum="Total"/>
+                                <field name="actual_ly_mar" sum="Total"/>
+                                <field name="actual_ly_apr" sum="Total"/>
+                                <field name="actual_ly_may" sum="Total"/>
+                                <field name="actual_ly_jun" sum="Total"/>
+                                <field name="actual_ly_jul" sum="Total"/>
+                                <field name="actual_ly_aug" sum="Total"/>
+                                <field name="actual_ly_sep" sum="Total"/>
+                                <field name="actual_ly_oct" sum="Total"/>
+                                <field name="actual_ly_nov" sum="Total"/>
+                                <field name="actual_ly_dec" sum="Total"/>
+                                <field name="actual_ly_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <!--Payment CYP-->
+                                <field name="payment_cyp_account"/>
+                                <field name="payment_cyp_jan" sum="Total" style="background-color:#A5A5A5 !important;"/>
+                                <field name="payment_cyp_feb" sum="Total"/>
+                                <field name="payment_cyp_mar" sum="Total"/>
+                                <field name="payment_cyp_apr" sum="Total"/>
+                                <field name="payment_cyp_may" sum="Total"/>
+                                <field name="payment_cyp_jun" sum="Total"/>
+                                <field name="payment_cyp_jul" sum="Total"/>
+                                <field name="payment_cyp_aug" sum="Total"/>
+                                <field name="payment_cyp_sep" sum="Total"/>
+                                <field name="payment_cyp_oct" sum="Total"/>
+                                <field name="payment_cyp_nov" sum="Total"/>
+                                <field name="payment_cyp_dec" sum="Total"/>
+                                <field name="payment_cyp_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <!--Budget CY-->
+                                <field name="budget_cy_account" style="background-color:#A5A5A5 !important;"/>
+                                <field name="budget_cy_jan" sum="Total"/>
+                                <field name="budget_cy_feb" sum="Total"/>
+                                <field name="budget_cy_mar" sum="Total"/>
+                                <field name="budget_cy_apr" sum="Total"/>
+                                <field name="budget_cy_may" sum="Total"/>
+                                <field name="budget_cy_jun" sum="Total"/>
+                                <field name="budget_cy_jul" sum="Total"/>
+                                <field name="budget_cy_aug" sum="Total"/>
+                                <field name="budget_cy_sep" sum="Total"/>
+                                <field name="budget_cy_oct" sum="Total"/>
+                                <field name="budget_cy_nov" sum="Total"/>
+                                <field name="budget_cy_dec" sum="Total"/>
+                                <field name="budget_cy_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <!--Budget LY-->
+                                <field name="budget_ly_account" style="background-color:#A5A5A5 !important;"/>
+                                <field name="budget_ly_jan" sum="Total"/>
+                                <field name="budget_ly_feb" sum="Total"/>
+                                <field name="budget_ly_mar" sum="Total"/>
+                                <field name="budget_ly_apr" sum="Total"/>
+                                <field name="budget_ly_may" sum="Total"/>
+                                <field name="budget_ly_jun" sum="Total"/>
+                                <field name="budget_ly_jul" sum="Total"/>
+                                <field name="budget_ly_aug" sum="Total"/>
+                                <field name="budget_ly_sep" sum="Total"/>
+                                <field name="budget_ly_oct" sum="Total"/>
+                                <field name="budget_ly_nov" sum="Total"/>
+                                <field name="budget_ly_dec" sum="Total"/>
+                                <field name="budget_ly_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <field name="mis_id" invisible="1"/>
+                            </tree>
+                        </field>
+
+                        <!--Customers-->
+                        <h1>Customers</h1>
+                        <label for="is_repeat_customer">Repeat Lines (Customer)</label>
+                        <field name="is_repeat_customer" string="Repeat Lines (Customer)"/>
+                        <field name="customer_line_ids" widget="one2many_list" string="Customers" editable="bottom">
+                            <tree editable="bottom">
+                                <button type="object" name="unlink" class="fa fa-trash-o"/>
+                                <!--Actual CY-->
+                                <field name="actual_cy_partner" style="background-color:#A5A5A5 !important;"/>
+                                <field name="opening" sum="Total"/>
+                                <field name="actual_cy_jan" sum="Total"/>
+                                <field name="actual_cy_feb" sum="Total"/>
+                                <field name="actual_cy_mar" sum="Total"/>
+                                <field name="actual_cy_apr" sum="Total"/>
+                                <field name="actual_cy_may" sum="Total"/>
+                                <field name="actual_cy_jun" sum="Total"/>
+                                <field name="actual_cy_jul" sum="Total"/>
+                                <field name="actual_cy_aug" sum="Total"/>
+                                <field name="actual_cy_sep" sum="Total"/>
+                                <field name="actual_cy_oct" sum="Total"/>
+                                <field name="actual_cy_nov" sum="Total"/>
+                                <field name="actual_cy_dec" sum="Total"/>
+                                <field name="actual_cy_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <!--Actual LY-->
+                                <field name="actual_ly_partner_id" style="background-color:#A5A5A5 !important;"/>
+                                <field name="actual_ly_jan" sum="Total"/>
+                                <field name="actual_ly_feb" sum="Total"/>
+                                <field name="actual_ly_mar" sum="Total"/>
+                                <field name="actual_ly_apr" sum="Total"/>
+                                <field name="actual_ly_may" sum="Total"/>
+                                <field name="actual_ly_jun" sum="Total"/>
+                                <field name="actual_ly_jul" sum="Total"/>
+                                <field name="actual_ly_aug" sum="Total"/>
+                                <field name="actual_ly_sep" sum="Total"/>
+                                <field name="actual_ly_oct" sum="Total"/>
+                                <field name="actual_ly_nov" sum="Total"/>
+                                <field name="actual_ly_dec" sum="Total"/>
+                                <field name="actual_ly_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <!--Payment CYP-->
+                                <field name="payment_cyp_partner" style="background-color:#A5A5A5 !important;"/>
+                                <field name="payment_cyp_jan" sum="Total"/>
+                                <field name="payment_cyp_feb" sum="Total"/>
+                                <field name="payment_cyp_mar" sum="Total"/>
+                                <field name="payment_cyp_apr" sum="Total"/>
+                                <field name="payment_cyp_may" sum="Total"/>
+                                <field name="payment_cyp_jun" sum="Total"/>
+                                <field name="payment_cyp_jul" sum="Total"/>
+                                <field name="payment_cyp_aug" sum="Total"/>
+                                <field name="payment_cyp_sep" sum="Total"/>
+                                <field name="payment_cyp_oct" sum="Total"/>
+                                <field name="payment_cyp_nov" sum="Total"/>
+                                <field name="payment_cyp_dec" sum="Total"/>
+                                <field name="payment_cyp_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <!--Budget CY-->
+                                <field name="budget_cy_partner" style="background-color:#A5A5A5 !important;"/>
+                                <field name="budget_cy_jan" sum="Total"/>
+                                <field name="budget_cy_feb" sum="Total"/>
+                                <field name="budget_cy_mar" sum="Total"/>
+                                <field name="budget_cy_apr" sum="Total"/>
+                                <field name="budget_cy_may" sum="Total"/>
+                                <field name="budget_cy_jun" sum="Total"/>
+                                <field name="budget_cy_jul" sum="Total"/>
+                                <field name="budget_cy_aug" sum="Total"/>
+                                <field name="budget_cy_sep" sum="Total"/>
+                                <field name="budget_cy_oct" sum="Total"/>
+                                <field name="budget_cy_nov" sum="Total"/>
+                                <field name="budget_cy_dec" sum="Total"/>
+                                <field name="budget_cy_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <!--Budget LY-->
+                                <field name="budget_ly_partner" style="background-color:#A5A5A5 !important;"/>
+                                <field name="budget_ly_jan" sum="Total"/>
+                                <field name="budget_ly_feb" sum="Total"/>
+                                <field name="budget_ly_mar" sum="Total"/>
+                                <field name="budget_ly_apr" sum="Total"/>
+                                <field name="budget_ly_may" sum="Total"/>
+                                <field name="budget_ly_jun" sum="Total"/>
+                                <field name="budget_ly_jul" sum="Total"/>
+                                <field name="budget_ly_aug" sum="Total"/>
+                                <field name="budget_ly_sep" sum="Total"/>
+                                <field name="budget_ly_oct" sum="Total"/>
+                                <field name="budget_ly_nov" sum="Total"/>
+                                <field name="budget_ly_dec" sum="Total"/>
+                                <field name="budget_ly_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <field name="mis_id" invisible="1"/>
+                            </tree>
+                        </field>
+
+                        <!--Vendor-->
+                        <h1>Vendor</h1>
+                        <label for="is_repeat_vendor">Repeat Lines (Vendor)</label>
+                        <field name="is_repeat_vendor" string="Repeat Lines (Vendor)"/>
+                        <field name="vendor_line_ids" widget="one2many_list" string="Vendors" editable="bottom">
+                            <tree editable="bottom">
+                                <button type="object" name="unlink" class="fa fa-trash-o"/>
+                                <!--Actual CY-->
+                                <field name="actual_cy_partner" style="background-color:#A5A5A5 !important;"/>
+                                <field name="opening" sum="Total"/>
+                                <field name="actual_cy_jan" sum="Total"/>
+                                <field name="actual_cy_feb" sum="Total"/>
+                                <field name="actual_cy_mar" sum="Total"/>
+                                <field name="actual_cy_apr" sum="Total"/>
+                                <field name="actual_cy_may" sum="Total"/>
+                                <field name="actual_cy_jun" sum="Total"/>
+                                <field name="actual_cy_jul" sum="Total"/>
+                                <field name="actual_cy_aug" sum="Total"/>
+                                <field name="actual_cy_sep" sum="Total"/>
+                                <field name="actual_cy_oct" sum="Total"/>
+                                <field name="actual_cy_nov" sum="Total"/>
+                                <field name="actual_cy_dec" sum="Total"/>
+                                <field name="actual_cy_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <!--Actual LY-->
+                                <field name="actual_ly_partner_id" style="background-color:#A5A5A5 !important;"/>
+                                <field name="actual_ly_jan" sum="Total"/>
+                                <field name="actual_ly_feb" sum="Total"/>
+                                <field name="actual_ly_mar" sum="Total"/>
+                                <field name="actual_ly_apr" sum="Total"/>
+                                <field name="actual_ly_may" sum="Total"/>
+                                <field name="actual_ly_jun" sum="Total"/>
+                                <field name="actual_ly_jul" sum="Total"/>
+                                <field name="actual_ly_aug" sum="Total"/>
+                                <field name="actual_ly_sep" sum="Total"/>
+                                <field name="actual_ly_oct" sum="Total"/>
+                                <field name="actual_ly_nov" sum="Total"/>
+                                <field name="actual_ly_dec" sum="Total"/>
+                                <field name="actual_ly_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <!--Payment CYP-->
+                                <field name="payment_cyp_partner" style="background-color:#A5A5A5 !important;"/>
+                                <field name="payment_cyp_jan" sum="Total"/>
+                                <field name="payment_cyp_feb" sum="Total"/>
+                                <field name="payment_cyp_mar" sum="Total"/>
+                                <field name="payment_cyp_apr" sum="Total"/>
+                                <field name="payment_cyp_may" sum="Total"/>
+                                <field name="payment_cyp_jun" sum="Total"/>
+                                <field name="payment_cyp_jul" sum="Total"/>
+                                <field name="payment_cyp_aug" sum="Total"/>
+                                <field name="payment_cyp_sep" sum="Total"/>
+                                <field name="payment_cyp_oct" sum="Total"/>
+                                <field name="payment_cyp_nov" sum="Total"/>
+                                <field name="payment_cyp_dec" sum="Total"/>
+                                <field name="payment_cyp_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <!--Budget CY-->
+                                <field name="budget_cy_partner" style="background-color:#A5A5A5 !important;"/>
+                                <field name="budget_cy_jan" sum="Total"/>
+                                <field name="budget_cy_feb" sum="Total"/>
+                                <field name="budget_cy_mar" sum="Total"/>
+                                <field name="budget_cy_apr" sum="Total"/>
+                                <field name="budget_cy_may" sum="Total"/>
+                                <field name="budget_cy_jun" sum="Total"/>
+                                <field name="budget_cy_jul" sum="Total"/>
+                                <field name="budget_cy_aug" sum="Total"/>
+                                <field name="budget_cy_sep" sum="Total"/>
+                                <field name="budget_cy_oct" sum="Total"/>
+                                <field name="budget_cy_nov" sum="Total"/>
+                                <field name="budget_cy_dec" sum="Total"/>
+                                <field name="budget_cy_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <!--Budget LY-->
+                                <field name="budget_ly_partner" style="background-color:#A5A5A5 !important;"/>
+                                <field name="budget_ly_jan" sum="Total"/>
+                                <field name="budget_ly_feb" sum="Total"/>
+                                <field name="budget_ly_mar" sum="Total"/>
+                                <field name="budget_ly_apr" sum="Total"/>
+                                <field name="budget_ly_may" sum="Total"/>
+                                <field name="budget_ly_jun" sum="Total"/>
+                                <field name="budget_ly_jul" sum="Total"/>
+                                <field name="budget_ly_aug" sum="Total"/>
+                                <field name="budget_ly_sep" sum="Total"/>
+                                <field name="budget_ly_oct" sum="Total"/>
+                                <field name="budget_ly_nov" sum="Total"/>
+                                <field name="budget_ly_dec" sum="Total"/>
+                                <field name="budget_ly_total" sum="Total"
+                                       style="color:#006100; background-color:#C6EFCE"/>
+
+                                <field name="mis_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+
+                    <!--Forecast-->
+                    <page name="forecast_line" string="Forecast">
+                        <header name="forecast_line_header">
+                            <button name="action_load_forecast_line" string="Load Forecast" type="object"/>
+                        </header>
+                        <group>
+                            <group>
+                                <field name="forecast_mon_cy"/>
+                            </group>
+                            <group>
+                                <field name="forecast_mon_cyp"/>
+                            </group>
+                        </group>
+                        <!--Forecast Income-->
+                        <h2 class="text-center bg-primary p-2 mt-2 text-white"> Forecast Income </h2>
+                        <field name="forecast_line" widget="one2many">
+                            <tree editable="bottom">
+                                <field name="mis_id" invisible="1"/>
+                                <field name="income_account_id" style="background-color:#A5A5A5 !important;"/>
+                                <field name="income_opening" sum="Total"/>
+                                <field name="income_cy" sum="Total"/>
+                                <field name="income_cyp" sum="Total"/>
+                                <field name="income_receipt" sum="Total"/>
+                            </tree>
+                        </field>
+
+                        <!--Forecast Expense-->
+                        <h2 class="text-center bg-primary p-2 mt-2 text-white"> Forecast Expenses </h2>
+                        <field name="forecast_line_expense" widget="one2many">
+                            <tree editable="bottom">
+                                <field name="mis_id" invisible="1"/>
+                                <field name="expense_account_id" style="background-color:#A5A5A5 !important;"/>
+                                <field name="expense_opening" sum="Total"/>
+                                <field name="expense_cy" sum="Total"/>
+                                <field name="expense_cyp" sum="Total"/>
+                                <field name="expense_receipt" sum="Total"/>
+                            </tree>
+                        </field>
+
+                        <!--Forecast Vendor-->
+                        <h2 class="text-center bg-primary p-2 mt-2 text-white"> Forecast Vendors </h2>
+                        <field name="forecast_line_vendor" widget="one2many">
+                            <tree editable="bottom">
+                                <field name="mis_id" invisible="1"/>
+                                <field name="partner_id" style="background-color:#A5A5A5 !important;"/>
+                                <field name="opening" sum="Total"/>
+                                <field name="cy" sum="Total"/>
+                                <field name="cyp" sum="Total"/>
+                                <field name="receipt" sum="Total"/>
+                            </tree>
+                        </field>
+
+                        <!--Forecast Customer-->
+                        <h2 class="text-center bg-primary p-2 mt-2 text-white"> Forecast Customers </h2>
+                        <field name="forecast_line_customer" widget="one2many">
+                            <tree editable="bottom">
+                                <field name="mis_id" invisible="1"/>
+                                <field name="partner_id" style="background-color:#A5A5A5 !important;"/>
+                                <field name="opening" sum="Total"/>
+                                <field name="cy" sum="Total"/>
+                                <field name="cyp" sum="Total"/>
+                                <field name="receipt" sum="Total"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <!--mis_budget action-->
+    <data>
+        <record id="action_mis_budget" model="ir.actions.act_window">
+            <field name="name">MIS Budget</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mis.budget</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="view_id" ref="cpabooks_tally.account_tree_view"/>-->
+            <!--<field name="inherit_id" ref="account.action_account_form"/>-->
+        </record>
+    </data>
+</odoo>

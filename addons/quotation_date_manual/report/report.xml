@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="manual_date_report_document_inherit" inherit_id="sale.report_saleorder_document">
+            <!--<xpath expr="//div[@name='expiration_date']" position="before">-->
+            <xpath expr="//div[@class='col-auto mw-100 mb-2'][2]" position="replace">
+                <div class="col-auto mw-100 mb-2" t-if="doc.manual_date" name="manual_date">
+                    <strong>Create Date</strong>
+                    <p class="m-0" t-field="doc.manual_date"/>
+                </div>
+            </xpath>
+
+        </template>
+
+
+
+<!--
+        <template id="manual_date_invoice_document_inherit" inherit_id="account.report_invoice_document">
+            <xpath expr="//div[@name='invoice_date']" position="after">
+                        <div class="col-auto mw-100 mb-2" t-if="o.manual_date" name="manual_date">
+                            <strong>Create Date</strong>
+                            <p class="m-0" t-field="o.manual_date"/>
+                        </div>
+            </xpath>
+        </template>
+-->
+
+    </data>
+</odoo>

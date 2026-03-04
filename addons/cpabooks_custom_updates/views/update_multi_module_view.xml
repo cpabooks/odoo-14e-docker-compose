@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--Views-->
+        <!--update history list view-->
+        <record id="module_update_history_list_view" model="ir.ui.view">
+            <field name="name">module.update.history.list.view</field>
+            <field name="model">update.multi.module</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <header>
+                        <button name="action_update_modules" type="object" class="oe_highlight" string="Update"/>
+                    </header>
+                    <field name="module_id"/>
+                    <field name="category_id"/>
+                    <field name="module_name"/>
+                    <field name="state"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_module_update_history" model="ir.actions.act_window">
+            <field name="name">Update Modules</field>
+            <field name="res_model">update.multi.module</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- Root Menu -->
+        <menuitem
+                id="menu_update_modules_root"
+                name="Update Modules"
+                web_icon="cpabooks_custom_updates,static/description/icon.png"
+                sequence="10"
+                groups="base.group_system"
+        />
+
+        <!-- Second Main Menu -->
+        <menuitem
+                id="menu_update_modules_main_2"
+                name="Update Modules"
+                parent="menu_update_modules_root"
+                sequence="30"
+                action="action_module_update_history"/>
+    </data>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="sequence_for_timesheet_template" model="ir.sequence">
+            <field name="name">Timesheet Template Sequence</field>
+            <field name="code">sequence_for_timesheet_template</field>
+            <field name="prefix">Template - </field>
+            <field name="padding">2</field>
+        </record>
+    </data>
+</odoo>

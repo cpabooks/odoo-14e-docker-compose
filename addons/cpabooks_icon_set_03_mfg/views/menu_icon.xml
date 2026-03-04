@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="mrp.menu_mrp_root" name="Manufacturing"
+          web_icon="cpabooks_icon_set_03_mfg,static/description/manufacturing.png"/>
+
+        <menuitem id="cpabooks_switchgear_custom.menu_flowchart_kanban_root" name="Flowchart"
+              web_icon="cpabooks_icon_set_03_mfg,static/description/flowchart.png"/>
+
+        <menuitem id="quality_control.menu_quality_root" name="Quality"
+              web_icon="cpabooks_icon_set_03_mfg,static/description/quality.png"/>
+    </data>
+</odoo>

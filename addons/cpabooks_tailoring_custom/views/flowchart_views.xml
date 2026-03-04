@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    <record id="flowchart_tailor_kanban_form_view" model="ir.ui.view">-->
+<!--        <field name="name">flowchart.tailor.kanban.form.view</field>-->
+<!--        <field name="model">flowchart.tailor.kanban</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form string="Flowchart" create="false" edit="false">-->
+<!--                <sheet>-->
+<!--                    <group>-->
+<!--                        <field name="name"/>-->
+<!--                    </group>-->
+<!--                </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="flowchart_tailor_kanban_view" model="ir.ui.view">
+        <field name="name">flowchart.tailor.kanban.view</field>
+        <field name="model">flowchart.tailor.kanban</field>
+        <field name="arch" type="xml">
+            <kanban create="false">
+                <field name="name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card" style="width: 100%;">
+                            <div class="oe_kanban_content">
+                                <br/>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <h3 class="text-info ">REGISTRATION</h3>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="ENQUIRY REGISTRATION" class="btn btn-info col-10">
+                                                ENQUIRY REGISTRATION
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="CLOTH COSTING SHEET" class="btn btn-info col-10">
+                                                CLOTH COSTING SHEET
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="MEASUREMENT" class="btn btn-info col-10">
+                                                MEASUREMENT
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="QUATATION" class="btn btn-info col-10">
+                                                QUATATION
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="QUATATION APPROVALS" class="btn btn-info col-10">
+                                                QUATATION APPROVALS
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="QUATATION REVISIONS" class="btn btn-info col-10">
+                                                QUATATION REVISIONS
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <h3 class="text-success ">SAMPLE &amp; LPO</h3>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="SAMPLE MAKING" class="btn btn-success col-10">
+                                                SAMPLE MAKING
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="SAMPLE SUBMISSION" string="JOB ORDER (JOB COSTING)" class="btn btn-success col-10">
+                                                SAMPLE SUBMISSION
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="SAMPLE APPROVAL" class="btn btn-success col-10">
+                                                SAMPLE APPROVAL
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="BILL OF MATERIAL (MANUFACTURING)" class="btn btn-success col-10">
+                                                BILL OF MATERIAL (MANUFACTURING)
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="LPO" class="btn btn-success col-10">
+                                                LPO
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="CONTRACT WITH FIXED PRICE LPO" class="btn btn-success col-10">
+                                                CONTRACT WITH FIXED PRICE LPO
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="OTHER LPO" class="btn btn-success col-10">
+                                                OTHER LPO
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <h3 class="text-danger ">PRODUCTION &amp; DELIVERY</h3>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="PRODUCTION" class="btn btn-danger col-10">
+                                                PRODUCTION
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="CUTTING" class="btn btn-danger col-10">
+                                                CUTTING
+                                            </button>
+                                        </div>
+<!--                                        <div class="mt16">-->
+<!--                                            <button name="action_stock_picking_incoming" type="object" string="STITCHING" class="btn btn-danger col-10">-->
+<!--                                                STITCHING-->
+<!--                                            </button>-->
+<!--                                        </div>-->
+<!--                                        <div class="mt16">-->
+<!--                                            <button name="action_stock_picking_outgoing" type="object" string="SUBLIMATION" class="btn btn-danger col-10">-->
+<!--                                                SUBLIMATION-->
+<!--                                            </button>-->
+<!--                                        </div>-->
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="STITCHING" class="btn btn-danger col-10">
+                                                STITCHING
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="SUBLIMATION" class="btn btn-danger col-10">
+                                                SUBLIMATION
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="action_stock_picking_outgoing" type="object" string="EMBROIDERY/PRINTING" class="btn btn-danger col-10">
+                                                EMBROIDERY/PRINTING
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="action_stock_picking_outgoing" type="object" string="IRONING" class="btn btn-danger col-10">
+                                                IRONING
+                                            </button>
+                                        </div>
+                                         <div class="mt16">
+                                            <button name="action_stock_picking_outgoing" type="object" string="PACKING" class="btn btn-danger col-10">
+                                                PACKING
+                                            </button>
+                                        </div>
+                                         <div class="mt16">
+                                            <button name="action_stock_picking_outgoing" type="object" string="DELIVERY NOTE" class="btn btn-danger col-10">
+                                                DELIVERY NOTE
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <h3 class="text-warning ">ACCOUNTS</h3>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="CUSTOMER INVOICE" class="btn btn-warning col-10">
+                                                CUSTOMER INVOICE
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="CUSTOMER RECEIPTS" class="btn btn-warning col-10">
+                                                CUSTOMER RECEIPTS
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="BILLS ENTRY (ACCOUNTING)" class="btn btn-warning col-10">
+                                                BILLS ENTRY (ACCOUNTING)
+                                            </button>
+                                        </div>
+                                        <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="SUPPLIER INVOICE" class="btn btn-warning col-10">
+                                                SUPPLIER INVOICE
+                                            </button>
+                                        </div>
+                                         <div class="mt16">
+                                            <button name="%(crm.crm_lead_action_pipeline)d" type="action" string="SUPPLIER PAYMENTS" class="btn btn-warning col-10">
+                                                SUPPLIER PAYMENTS
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_flowchart_tailor_kanban" model="ir.actions.act_window">
+        <field name="name">Tailor Flowchart</field>
+        <field name="res_model">flowchart.tailor.kanban</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="flowchart_tailor_kanban_view"/>
+    </record>
+
+    <menuitem
+        id="menu_flowchart_tailor_kanban_root"
+        name="Tailor Flowchart"
+        sequence="5"/>
+<!--    web_icon="cpabooks_switchgear_custom,static/description/icon.png"-->
+
+    <menuitem
+        id="menu_flowchart_tailor_kanban"
+        name="Tailor Flowchart"
+        action="action_flowchart_tailor_kanban"
+        parent="cpabooks_tailoring_custom.menu_flowchart_tailor_kanban_root"
+        sequence="1"/>
+</odoo>

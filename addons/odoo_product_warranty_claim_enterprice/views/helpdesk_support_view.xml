@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="helpdesk_ticket_view_form_warranty_tab_custom" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.warranty</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+<!--            <xpath expr="//field[@name='company_id']" position="after">-->
+            <xpath expr="//sheet/group" position="inside">
+                <group name="warraty_info" string="Warranty Info">
+                    <field name="custom_warranty_id" />
+                    <field name="custom_phone"/>
+                    <field name="custom_warranty_number"/>
+                    <field name="custom_serial_number" />
+                    <field name="custom_contract_reference" />
+                    <field name="custom_warranty_start_date" />
+                    <field name="custom_warranty_end_date" />
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='partner_email']" position="after">
+                 <field name="custom_category"/>
+            </xpath>
+            <xpath expr="//div[@class='oe_button_box']" position="inside"> 
+                <button class="oe_stat_button" type="object"
+                        name="action_show_warranty_product" string="Warranty" icon="fa-pencil-square"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <menuitem id="menu_helpdesk_warranty_claim" 
+                name="Warranty" parent="helpdesk.menu_helpdesk_root" 
+                sequence="5"/>
+        
+    <menuitem id="menu_helpdesk_warranty_customer_claim" name="Customer Warranties" 
+            action="action_product_warranty_claim_custom" parent="menu_helpdesk_warranty_claim" 
+            sequence="2"/>
+</odoo>

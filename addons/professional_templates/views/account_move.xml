@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_move_inherit" model="ir.ui.view">
+            <field name="name">account.move.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="delivery_address" attrs="{'invisible':['|',('show_delivery_address','=',False), ('move_type','=', 'entry')]}"/>
+                    <field name="delivery_person" attrs="{'invisible':['|',('show_delivery_address','=',False), ('move_type','=', 'entry')]}"/>
+                    <field name="delivery_date" attrs="{'invisible':['|',('show_delivery_address','=',False), ('move_type','=', 'entry')]}"/>
+                </field>
+
+                <xpath expr="//field[@name = 'invoice_vendor_bill_id']" position="after">
+                    <field name="show_project" invisible="1"/>
+                    <field name="project_id" attrs="{'invisible':[('show_project','=',False)]}"/>
+<!--                    <field name="po_no" widget='many2many_tags' attrs="{'invisible':[('show_po_no','=',False)]}"/>-->
+                    <field name="lpo_no"  attrs="{'invisible':[('show_po_no','=',False)]}"/>
+<!--                    <field name="job_no" attrs="{'invisible':[('show_job_no','=',False)]}"/>-->
+                    <field name="show_subject" invisible="1"/>
+                    <field name="subject" attrs="{'invisible':[('show_subject','=',False)]}"/>
+                    <field name="payment_mode" attrs="{'invisible':[('move_type','=', 'entry')]}"/>
+                    <field name="delivery_mode" attrs="{'invisible':['|',('move_type','=', 'entry'),('show_delivery_address','=',False)]}"/>
+                </xpath>
+
+                <xpath expr="//page[@id='other_tab']/group[@id='other_tab_group']" position="after">
+
+                    <group id="report_visibility_group">
+                        <group string="Report Visibility" name="report_visibility">
+                            <field name="show_title"/>
+                            <field name="show_trn"/>
+                            <field name="show_theme_color"/>
+                            <field name="show_due_date"/>
+                            <field name="show_sales_person"/>
+                            <field name="show_additional_note"/>
+                            <field name="show_delivery_address"/>
+                            <field name="show_subject"/>
+                            <field name="show_project"/>
+                            <field name="show_po_no"/>
+<!--                            <field name="show_job_no"/>-->
+                            <field name="for_left"/>
+                            <field name="for_right"/>
+                            <field name="hide_global_discount"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='narration']" position="after">
+                    <group>
+                        <group>
+                            <field name="additional_note" placeholder="Additional Note" nolabel="1" attrs="{'invisible':[('show_additional_note','=',False)]}"/>
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_move_tree_pt" model="ir.ui.view">
+            <field name="name">account.move.tree.pt</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_date']" position="before">
+                    <!--             <field name="invoice_partner_display_name" position="after">-->
+                    <field name="subject" string="Subject"
+                           invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')"
+                           groups="base.group_user" optional="hide"/>
+                    <field name="lpo_no"
+                           invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')"
+                           groups="base.group_user" optional="hide"/>
+
+                </xpath>
+            </field>
+        </record>
+
+        <!--New inheritance for Delivery No.-->
+<!--        <record id="account_move_form_delivery_inherit" model="ir.ui.view">-->
+<!--            <field name="name">account.move.form.delivery.inherit</field>-->
+<!--            <field name="model">account.move</field>-->
+<!--            <field name="inherit_id" ref="cpabooks_accounting_automation.account_move_form_inherited"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='invoice_origin']" position="after">-->
+<!--                    <field name="job_no"/>-->
+<!--                    <field name="delivery_no"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

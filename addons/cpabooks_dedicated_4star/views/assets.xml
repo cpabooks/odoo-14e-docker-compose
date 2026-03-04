@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="assets_backend" name="Contact Import Export Asset" inherit_id="web.assets_backend">
+		<xpath expr="." position="inside">
+			<!--            <link rel="stylesheet" href="/cpabooks_dedicated_4star/static/src/css/drag_drop.css"/>-->
+			<!--            <script type="text/javascript" src="/cpabooks_dedicated_4star/static/src/js/drag_drop.js"></script>-->
+			<!--            <script type="text/javascript" src="/cpabooks_dedicated_4star/static/src/js/drag_drop_controller.js"></script>-->
+			<script type="text/javascript" src="/cpabooks_dedicated_4star/static/src/js/drag_drop_kanban.js"></script>
+		</xpath>
+	</template>
+</odoo>

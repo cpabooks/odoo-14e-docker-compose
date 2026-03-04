@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="sale_crm_lead_form_view_extend" model="ir.ui.view">
+        <field name="name">sale.crm.lead.form.view.extend</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="multi_salesman" widget="many2many_tags"/>
+                    <field name="multi_sales_team" widget="many2many_tags"/>
+                </xpath>
+        </field>
+    </record>
+
+    <record id="crm_case_tree_view_oppor_inherit_drose" model="ir.ui.view">
+        <field name="name">crm.lead.tree.opportunity.inherit.drose</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+             <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="multi_salesman" widget="many2many_tags"/>
+                    <field name="multi_sales_team" widget="many2many_tags"/>
+                </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,4 @@
+"id","code","name","country","state","air","ocean","land","active"
+"freight_port_Ningbo","Ning","Ningbo","China","","True","True","True","True"
+"freight_port_shanghai","Shang","Shanghai","China","","True","True","True","True"
+"freight_port_Jabel_ali","Jbl","Jabel Ali","United Arab Emirates","","True","True","True","True"

@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+
+        <template id="documents_portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs">
+            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+                <li t-if="page_name == 'document_list_view'" class="breadcrumb-item">Documents</li>
+            </xpath>
+        </template>
+
+
+        <template id="document_portal_view" inherit_id="portal.portal_my_home">
+            <xpath expr="//div[@class='o_portal_my_home']" position="inside">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="url">/my/documents</t>
+                    <t t-set="title">Documents</t>
+                    <t t-set="placeholder_count" t-value="'documents_count'"/>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="documents_list_view_template">
+            <t t-call="portal.portal_layout">
+                <t t-call="portal.portal_table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Owner</th>
+                            <th>Workspace</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="documents" t-as="doc">
+                            <tr>
+                                <td class="text-left">
+                                    <t t-esc="doc.name"/>
+                                </td>
+                                <td class="text-left">
+                                    <t t-esc="doc.owner_id.name"/>
+                                </td>
+                                <td class="text-left">
+                                    <t t-if="doc.folder_id.parent_folder_id">
+                                        <span>
+                                            <t t-esc="doc.folder_id.parent_folder_id.name"/>/
+                                            <t t-esc="doc.folder_id.name"/>
+                                        </span>
+                                    </t>
+                                    <t t-else="" t-esc="doc.folder_id.name"/>
+                                </td>
+                                <td class="text-left">
+                                    <a target="_blank" rel="noopener noreferrer" t-attf-href="/my/documents/#{doc.id}/preview">
+                                        <i class="ml-2 fa fa-eye"/>
+                                    </a>
+                                    <a target="_blank" rel="noopener noreferrer" t-attf-href="/my/documents/#{doc.id}/download">
+                                        <i class="ml-2 fa fa-cloud-download"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

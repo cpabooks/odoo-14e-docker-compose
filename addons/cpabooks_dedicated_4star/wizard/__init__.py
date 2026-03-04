@@ -1,0 +1,1 @@
+from . import bulk_res_partner_export_wizard

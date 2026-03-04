@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    signature number on invoice-->
+    <template id="signature_in_invoice_report_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='qrcode']" position="after">
+            <div class="last-page" style="position: relative;min-height:150px;">
+                <table style="border: none; position:absolute; bottom:0; left: 0; font-size:12px;">
+                    <tr>
+                        <th style="line-height: 1.6;" width="100%">
+                            <br/>
+                            ...................................................................
+                            <br/>
+                            For,
+                            <strong t-field="o.company_id.name"></strong>
+                        </th>
+                        <th style="text-align:right" width="100%">
+                            <br/>
+                            ...................................................................
+                            <br/>
+                            <strong>Receiver Name &#38; Signature</strong>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@class='last-page']" position="after">
+
+            <t t-if="o.bank_detail_enable == True">
+                <t t-foreach="request.env['res.company'].search([])" t-as="obj">
+                    <t t-if="obj.iban_number2">
+                        <div class="top-page" style="position: relative;min-height:150px;">
+                            <table style="border: none; position:absolute; bottom:-250px; left: 0; font-size:12px;">
+                                <thead>
+                                    <tr>
+                                        <th name="th_bank_details">
+                                            <span style="font-size: 16px;text-decoration: underline;">
+                                                <t t-esc="obj.bank_details_header"></t>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="padding-top:-5px;">
+                                        <td>
+                                            <h5 style="font-size:14px">
+                                                <span t-esc="obj.iban_number2"/>
+                                            </h5>
+                                            <h5 style="font-size:14px">
+                                                <span t-esc="obj.iban_number3"/>
+                                            </h5>
+                                            <h5 style="font-size:14px">
+                                                <span t-esc="obj.iban_number"/>
+                                            </h5>
+                                            <h5 style="font-size:14px">
+                                                <span t-esc="obj.address_line_1"/>
+                                            </h5>
+                                            <t t-if="obj.address_line_2">
+                                                <h5 style="font-size:14px">
+                                                    <span t-esc="obj.address_line_2"/>
+                                                </h5>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+
+        </xpath>
+    </template>
+</odoo>

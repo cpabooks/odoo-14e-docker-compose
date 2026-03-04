@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="inherit_project_task_form_view" model="ir.ui.view">
+            <field name="name">inherit.project.task.form.view</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='recurrence']/group" position="after">
+                    <footer>
+                        <button type="object" name="action_launch_activity_create_wizard" string="Create Activity"
+                                class="oe_highlight"/>
+                    </footer>
+                </xpath>
+
+                <!--Smart button for activity count in project-->
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_activity" type="object" class="oe_stat_button" icon="fa-tasks"
+                            attrs="{'invisible' : [('activity_count', '=', 0)]}">
+                        <field name="activity_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+	    
+        <record id="inherit_view_task_tree2" model="ir.ui.view">
+            <field name="name">inherit.view.task.tree2</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+	            <xpath expr="//field[@name='activity_ids']" position="attributes">
+		            <attribute name="optional">hide</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='activity_ids']" position="before">
+		            <field name="activity_count"/>
+	            </xpath>
+            </field>
+        </record>
+	    
+
+
+        <!--Project Task timesheet inherit-->
+        <record id="project_task_timesheet_form_view_inherited" model="ir.ui.view">
+            <field name="name">project.task.timesheet.form.view.inherited</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='timesheet_ids']/tree/field['task_id']" position="after">
+                    <field name="activity_id" optional="1"/>
+                </xpath>
+                <xpath expr="//field[@name='planned_hours']" position="after">
+                    <field name="activity_planned_hours"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

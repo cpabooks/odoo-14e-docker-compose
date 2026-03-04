@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payment_receipt_document_inherit" inherit_id="account.report_payment_receipt_document">
+<!--        <xpath expr="//table[1]/thead/tr/th[3]" position="after">-->
+        <xpath expr="//t/div[@class='page']/table/thead/tr/th[3]" position="after">
+            <th><span>Cheque No.</span></th>
+            <th><span>Cheque Date</span></th>
+        </xpath>
+        <xpath expr="//t/div[@class='page']/table/tbody/tr/td[3]" position="after">
+            <td><span t-field="o.cheque_no"/></td>
+            <td><span t-field="o.cheque_date"/></td>
+        </xpath>
+<!--        <xpath expr="//t/div[@class='page']/div[2]/div[2]" position="replace">-->
+<!--            <div class="col-6" t-if="o.ref">-->
+<!--                <strong>Memo: </strong><span t-field="o.ref"/>-->
+<!--            </div>-->
+<!--        </xpath>-->
+        <xpath expr="//t/div[@class='page']/div[2]/div[2]" position="attributes">
+            <attribute name="style">display:none;</attribute>
+
+        </xpath>
+    </template>
+</odoo>

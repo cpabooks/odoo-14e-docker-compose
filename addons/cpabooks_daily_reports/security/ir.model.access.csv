@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_daily_invoice_report,access_daily_invoice_report,model_daily_invoice_report,,1,1,1,1
+access_daily_transaction_report,access_daily_transaction_report,model_daily_transaction_report,,1,1,1,1
+access_daily_sales_analysis_report,access_daily_sales_analysis_report,model_daily_sales_analysis,,1,1,1,1
+access_rent_contract,access_rent_contract,model_rent_contract,,1,1,1,1
+access_payment_number_line,access_payment_number_line,model_payment_number_line,,1,1,1,1
+access_rent_monthly_amount_line,access_rent_monthly_amount_line,model_rent_monthly_amount_line,,1,1,1,1

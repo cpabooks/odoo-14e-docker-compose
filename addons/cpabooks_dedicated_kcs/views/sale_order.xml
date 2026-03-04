@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="sale_tree_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <field name="amount_total" position="after">
+                <field name="currency_rate" digits="[16,2]"/>
+                <field name="total_in_aed" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                <!--<field name="amount_due" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>-->
+                <field name="is_proforma" optional="hide"/>
+
+            </field>
+        </field>
+    </record>
+	
+	<record id="view_quotation_tree_with_onboarding_inherit" model="ir.ui.view">
+		<field name="name">view.quotation.tree.with.onboarding.inherit</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_quotation_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//tree" position="inside">
+				<header>
+					<button name="action_compute_inv_pay_amt"
+					        type="object"
+					        string="Recompute"
+					        class="oe_highlight"/>
+				</header>
+				<field name="invoiced_amount" optional="show"/>
+				<field name="paid_amount" optional="show"/>
+				<field name="due_amount" optional="show"/>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="sale_form_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_title']" position="after">
+                <div class="o_row">
+                    <h3>
+                        <label for="is_proforma"/>
+                        <field name="is_proforma"/>
+                    </h3>
+                </div>
+
+            </xpath>
+            <field name="amount_total" position="after">
+                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                    <label for="amount_due"/>
+                </div>
+                <field name="amount_due" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            </field>
+
+            <button name="action_cancel" position="after">
+                <button name="action_proforma" type="object" string="Proforma Invoice" attrs="{'invisible': [('is_proforma', '=', True)]}"/>
+            </button>
+        </field>
+    </record>
+
+    <record id="sale_order_tree_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order.tree.view.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="amount_total" position="after">
+                <field name="amount_due" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                <field name="is_proforma" optional="hide"/>
+
+            </field>
+	        <xpath expr="//tree" position="inside">
+		        <header>
+			        <button name="action_compute_inv_pay_amt"
+			                type="object"
+			                string="Recompute"
+			                class="oe_highlight"/>
+		        </header>
+		        <field name="invoiced_amount" optional="show"/>
+		        <field name="paid_amount" optional="show"/>
+		        <field name="due_amount" optional="show"/>
+	        </xpath>
+        </field>
+    </record>
+
+     <record id="sale_order_view_search_inherit_quotation_kcs" model="ir.ui.view">
+            <field name="name">sale.order.search.inherit.quotation.kcs</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <filter string="Proforma Invoice" name="proforma_invoice" domain="[('is_proforma', '=', True)]"/>
+                </xpath>
+            </field>
+        </record>
+</odoo>

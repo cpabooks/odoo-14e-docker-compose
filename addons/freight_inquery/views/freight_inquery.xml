@@ -1,0 +1,106 @@
+<odoo>
+  <data>
+<!--
+    <menuitem name="Inquiry" parent="freight_operations" id="freight_inquiry" action="view_freight_inquiry_action" sequence="1"/>
+-->
+
+    <record model="ir.ui.view" id="view_freight_inquiry_form">
+            <field name="name">freight.inquiry.form</field>
+            <field name="model">freight.inquiry</field>
+            <field name="arch" type="xml">
+                <form string="Inquiries">
+
+<!--                <header>
+                    <field name="stage_id" widget="statusbar"/>
+                    <button class="oe_stat_button" type="object" name="create_invoices" string="Create Invoice"/>
+                </header>-->
+
+                    <sheet>
+<!--                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="button_quotation" type="object" icon="fa-bars"> <field name="quotation_count" string="Quotation"  widget="statinfo" icon="fa-usd"/></button>
+                            <button class="oe_stat_button" name="button_services" type="object" icon="fa-bars"><field name="service_count" string="Services"  widget="statinfo" icon="fa-usd"/> </button>
+                            <button class="oe_stat_button" name="button_customer_invoices" type="object" icon="fa-money"><field name="invoice_count" string="Invoices"  widget="statinfo" icon="fa-usd"/></button>
+                            <button class="oe_stat_button" name="button_vendor_bills" type="object" icon="fa-money"> <field name="vendor_bill_count" string="Vendor Bills"  widget="statinfo" icon="fa-usd"/></button>
+                        </div>-->
+                        <h1><div><field name="name" string="Inquiry No." readonly="1"/></div></h1>
+                        <group string="Inquiry">
+                            <group>
+<!--                                <field name="quotation_id" string="Quotation No." readonly="1"/>
+                                <field name="operation" invisible="1"/>
+                                <field name="direction" widget="radio" />-->
+                            </group>
+                        </group>
+                        <group string="Information">
+                        </group>
+                        <group>
+                            <group string="Customer">
+                                <field name="customer_id" required="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Inquiry Lines">
+                                <field name="freight_inquiry_line_ids" widget="section_and_note_one2many" mode="tree,kanban">
+
+                                <tree string="Operation Lines" editable="bottom">
+                                            <field name="product_id"/>
+                                            <field name="port_of_loading"/>
+                                            <field name="port_of_delivery"/>
+                                            <field name="freight_20ge"/>
+                                            <field name="freight_40ge"/>
+                                            <field name="freight_40hc"/>
+
+                                </tree>
+                                </field>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+              </form>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="view_freight_inquiry_line_form">
+            <field name="name">freight.inquiry.line.form</field>
+            <field name="model">freight.inquiry.line</field>
+            <field name="arch" type="xml">
+                <form string="Inquiry Lines">
+                    <field name="product_id"/>
+                    <field name="port_of_loading"/>
+                    <field name="port_of_delivery"/>
+                </form>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="view_freight_operation_line_tree">
+            <field name="name">freight.inquiry.line.tree</field>
+            <field name="model">freight.inquiry.line</field>
+            <field name="arch" type="xml">
+                <tree string="Inquiry Lines">
+                    <field name="product_id"/>
+                    <field name="port_of_loading"/>
+                    <field name="port_of_delivery"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_freight_inquiry_action" model="ir.actions.act_window" >
+            <field name="name">Inquiry</field>
+            <field name="res_model">freight.inquiry</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new port.
+              </p>
+            </field>
+        </record>
+
+
+  </data>
+</odoo>
+

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <function model="ctc.report.formula" name="action_create_ctc_line"/>
+    </data>
+</odoo>

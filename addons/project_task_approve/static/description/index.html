@@ -1,0 +1,74 @@
+<section class="oe_container" charset="UTF-8">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#875A7B;">Approving finishing/completion of tasks</h2>
+        <div>
+            This module helps to prevent closing task without approval by project manager (or another user).
+        </div>
+        <h4>How it works:</h4>
+        <div class="oe_span16">
+            <div>Project manager can set approver and end stage for project.</div>
+            <img src="form_setting.png" alt="Project Form View" width="100%"/>
+            <hr>
+            <div>When assigned user want to mark a task as completed/finished the system ask send task to approve.</div>
+            <img src="raise_user_error.png" alt="Raise User Error" width="100%"/>
+            <hr>
+            <div>
+                Assigned user should click "Send to Approve" in the task form view or in dropdown menu of kanban card.
+            </div>
+            <img src="kanban_card_button.png" alt="Kanban Card Button" width="100%"/>
+            <br/><br/>
+            <img src="form_view_button.png" alt="Form View Button" width="100%"/>
+            <div>
+                The task moves to approval and kanban state will be set as "done" (Ready for next stage).
+                It also helps to quickly find tasks which are under approval.
+            </div>
+            <hr>
+            <div>
+                After assigned user's click approver will receive request to approve completion of task and should
+                check if the task is completed properly. After checking approver click the button "Approve Task"
+            </div>
+            <img src="kanban_card_approve.png" alt="Kanban Card Approve" width="100%"/>
+            <br/><br/>
+            <img src="form_view_approve.png" alt="Form View Approve" width="100%"/>
+            <hr>
+            <div>
+                After approval the task will be moved to end stage (defined is the project settings) and assigned user
+                will receive a notification.
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <div class="row">
+        <div class="col-12 oe_spaced">
+            <p>
+                Please note that to send email notifications to approvers
+                an outgoing email server should be configured.
+            </p>
+            <p>
+                If your Mail Transfer Agent (MTA) supports SRS (Sender Rewriting Scheme), your users can send and receive notification.
+                However, that is more complex and requires more technical knowledge.
+            </p>
+            <p>
+                Instead, you can install additional module to
+                <a href="https://apps.odoo.com/apps/modules/14.0/xf_replace_email_params/">Replace "Email From" and "Reply To" parameters</a>
+                of outgoing emails.
+            </p>
+        </div>
+    </div>
+
+    <!-- Contacts -->
+    <div class="row">
+        <div class="col-12 oe_spaced">
+            <div class="text-center">
+                <img src="https://erp.xfanis.dev/web/logo/project_task_approve/14" alt="Logo" width="200">
+            </div>
+            <div class="oe_slogan text-center">
+                Contact me for Support, Customization, Implementation:<br/>
+                <b>Email</b>: <a href="mailto:odoo@xfanis.dev">odoo@xfanis.dev</a><br/>
+                <b>Telegram</b>: https://t.me/xfanis<br/>
+                <b>Twitter</b>: https://twitter.com/XFanis_Dev<br/>
+            </div>
+        </div>
+    </div>
+</div>

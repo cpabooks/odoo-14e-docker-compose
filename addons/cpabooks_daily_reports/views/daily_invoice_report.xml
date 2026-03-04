@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="daily_invoice_report_form">
+            <field name="name">daily.invoice.report</field>
+            <field name="model">daily.invoice.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="main col-lg-12 row mx-auto">
+                            <div class="child col-lg-6">
+                                <p class="col-12">Print Report For-
+                                    <field name="invoice_bill_options" nolabel="1"/>
+                                </p>
+                            </div><!--end child-->
+                            <div class="child col-lg-6">
+                                <p class="col-12">OR Print Report For- <br/>
+                                     from<field name="start_date" nolabel="1"/> to <field name="end_date" nolabel="1"/>
+                                </p>
+                            </div><!--end child-->
+                        </div><!--end main-->
+                        <footer>
+                            <button string="Print PDF" class="oe_highlight" type="object" name="check_report"/>
+                            <button special="cancel" string="Cancel" class="btn-primary"/>
+                        </footer>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_daily_invoice_report">
+            <field name="name">Daily Invoice Reports</field>
+            <field name="res_model">daily.invoice.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_action_daily_invoice_report" action="action_daily_invoice_report"
+                  parent="account.menu_finance_receivables" name="Daly Invoice Report" sequence="100"/>
+
+    </data>
+</odoo>

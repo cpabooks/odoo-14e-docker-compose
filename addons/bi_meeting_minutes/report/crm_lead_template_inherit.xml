@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="inherit_template_print_crm_lead_opportunity_document"
+              inherit_id="sh_print_lead.template_print_crm_lead_opportunity_document">
+        <xpath expr="//table[tr/td/strong[text()='Internal Notes :']]" position="replace">
+            <table class="p-3" width="100%">
+                <tr>
+                    <td width="100%" align="left" style="font-family: 'Helvetica'; font-size: 16px;">
+                        <strong>Internal Notes :</strong>
+                        <ul t-if="doc.description">
+                            <t t-set="counter" t-value="1"/>
+                            <t t-foreach="doc.description" t-as="desc_line">
+                                <li>
+                                    <span style="color:#0080ff;"><b>Update</b><t t-esc="counter"/>:
+                                    </span>
+                                    <t t-esc="desc_line.desc_line"/>
+                                    <t t-set="counter" t-value="counter + 1"/>
+                                </li>
+                                <hr></hr>
+                            </t>
+                        </ul>
+                        <span t-if="not doc.description" style="color:red;">
+                            <i>No Internal Notes Available!!</i>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </xpath>
+    </template>
+</odoo>

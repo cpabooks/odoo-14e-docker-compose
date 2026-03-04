@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--SOA AGING FORM VIEW-->
+        <record id="soa_aging_wizard_form_view" model="ir.ui.view">
+            <field name="name">soa.aging.wizard.form.view</field>
+            <field name="model">soa.aging.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button type="object" name="action_partner_aging_statement" string="OK" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--ACTION FOR WIZARD-->
+        <record id="action_soa_aging_wizard" model="ir.actions.act_window">
+            <field name="name">SOA Aging</field>
+            <field name="res_model">soa.aging.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</odoo>

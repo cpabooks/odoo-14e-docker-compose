@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sale_quotation_acme" inherit_id="cpabooks_custom_print.report_saleorder_document_inherit_custom">
+        <xpath expr="//table[hasclass('o_main_table')]/thead/tr/th[@name='th_description']" position="before">
+                 <th name="th_product" class="text-center"><strong>Product</strong></th>
+            </xpath>
+
+        <xpath expr="//tbody[hasclass('sale_tbody')]/t[@t-foreach='doc.order_line']/tr/t[@t-if='not line.display_type']/td[@name='td_name']" position="before">
+            <td  name="td_product" class="text-left"><span t-field="line.product_id.name"/></td>
+        </xpath>
+    </template>
+</odoo>

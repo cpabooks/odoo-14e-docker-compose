@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="create_activity_wizard_form_view" model="ir.ui.view">
+            <field name="name">create.activity.wizard.form.view</field>
+            <field name="model">activity.create.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="number"/>
+                                <field name="activity_type_id" widget="selection"/>
+                            </group>
+                            <group>
+                                <field name="task_id"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button type="object" name="action_create" string="Create" class="oe_highlight"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_create_activity_wizard" model="ir.actions.act_window">
+            <field name="name">Create Activity</field>
+            <field name="res_model">activity.create.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

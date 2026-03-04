@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Custom Template-->
+    <template id="a4_cpabooks">
+        <!--Custom Header-->
+        <div class="header report_header_style">
+            <div class="column " style="border-bottom: 5px solid #20a8c7;">
+                <div class="row">
+                    <img style="max-width:40px"
+                         t-attf-src="data:image/*;base64,{{res_company.logo}}"
+                         t-att-alt="res_company.name"
+                    />
+                    <h2>
+                        <t t-esc="res_company.name"/>
+                    </h2>
+                </div>
+                <blockquote class="blockquote text-right">
+                    <p class="mb-0">
+                        PWays Daily Sales Reports
+                    </p>
+                </blockquote>
+            </div>
+        </div>
+        <!--Content-->
+        <div class="article o_report_layout_standard">
+            <t t-out="0"/>
+        </div>
+        <!--Custom Footer-->
+        <div class="footer o_standard_footer">
+            <div class="column" style="border-top: 5px solid #20a8c7;">
+                <div style="width:300px">
+                    <p>
+                        <t class="text-left" t-esc="res_company.phone"/>
+                    </p>
+                    <p>
+                        <t class="text-left" t-esc="res_company.street"/>,
+                        <t class="text-left" t-esc="res_company.city"/>,
+                        <t class="text-left" t-esc="res_company.country_id.name"/>
+                    </p>
+                </div>
+
+                <blockquote class="blockquote text-right">
+                    <footer class="blockquote-footer">Powered by
+                        <cite title="Source Title">Price Way</cite>
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+    </template>
+</odoo>

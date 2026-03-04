@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="quotation_common_template_inherit_header_logo" inherit_id="professional_templates_v1.SO_common_document">
+            <xpath expr="//div[@class='header col-12 float-left']" position="replace">
+                <div class="header col-12 float-left" t-attf-style="padding-left:0px; padding-right:0px; color:{{style.text_color}};font-size:{{int(style.header_font)}}px;font-family:{{style.font_family}};border-bottom:{{'1px solid ' + style.theme_color if style.header else ''}}">
+                <t t-if="company.header_logo">
+                    <div class="text-center" style="margin-top: 8px;">
+                        <span t-field="company.header_logo" t-options="{'widget': 'image', 'style': 'max-width: 1280px; max-height: 200px;'}"/>
+                    </div>
+                </t>
+                <t t-else="">
+                    <t t-if="style.header">
+                        <div class="col-4 float-left" style="padding-left:0px;margin-top: 8px;margin-bottom:8px;">
+                            <span t-if="style.logo">
+                                <span itemprop="image" t-field="style.logo" t-options="{'widget': 'image', 'style': 'max-width: 300px; max-height: 140px;'}"/>
+
+                            </span>
+                             <span t-if="not style.logo and company.logo">
+                                <span itemprop="image" t-field="company.logo" t-options='{"widget": "image", "style": "float:right;max-width: 300px; max-height: 140px;"}'/>
+                            </span>
+                            <span t-if="not style.logo and not company.logo">
+                                <span itemprop="image" t-field="company.logo" t-options='{"widget": "image", "style": "float:right;max-width: 300px; max-height: 140px;"}'/>
+                            </span>
+                        </div>
+                        <div class="col-4 text-center" style="padding-left:0px;">
+                            <h4 t-field="doc.project_title" t-attf-style="background-color:{{style.theme_color}};color:{{style.theme_txt_color}};"/>
+                        </div>
+                        <div class="col-4 mb8 float-right" style="padding-bottom:2px;padding-right:0px;">
+                            <div class="float-right" style="width:auto;padding-left:15px;padding-top:20px;">
+                                <t t-call="professional_templates_v1.company_address"/>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </div>
+
+            </xpath>
+        </template>
+    </data>
+</odoo>

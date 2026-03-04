@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_warranty_registration,employee_warranty_registration,model_product_warranty_registration,base.group_user,1,0,0,0
+access_sale_warranty_registration,sale_warranty_registration,model_product_warranty_registration,sales_team.group_sale_salesman,1,1,1,1

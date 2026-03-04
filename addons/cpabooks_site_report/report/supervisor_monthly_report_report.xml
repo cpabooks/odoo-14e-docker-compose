@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <report
+        id="report_supervisor_monthly_report"
+        string="Supervisor monthly Report"
+        model="supervisor.monthly.report"
+        report_type="qweb-pdf"
+        name="cpabooks_site_report.supervisor_monthly_report"
+        file="cpabooks_site_report.supervisor_monthly_report"
+
+    />
+<!--     paperformat = "cpabooks_site_report.paperformat_site_report"-->
+
+     <template id="supervisor_monthly_report">
+        <t t-call="web.external_layout">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                         <h2 class="text-center">
+                            <span><u>SUPERVISOR MONTHLY REPORT</u></span>
+
+                        </h2>
+
+                        <div class="row oe_mt16">
+                            <div class="col-6">
+                                <strong>Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/>  </strong>
+                            </div>
+                            <div class="col-6">
+                            <strong><t t-esc="o.name"/></strong>
+                            </div>
+
+                    </div>
+
+                     <table class="table table-sm table-bordered" style="font-size: 15px; font-family:FreeSerif;">
+                        <tbody>
+                            <tr>
+                                <td style="width:20%;background-color:#d9dbda;"><b>Name:</b></td>
+                                <td style="width:40%;"><t t-esc="o.name"/></td>
+                                <td style="width:20%;background-color:#d9dbda;"><b>Contact Number:</b></td>
+                                <td style="width:20%;"><t t-esc="o.contact_no"/></td>
+                            </tr>
+                             <tr>
+                                <td style="width:20%;background-color:#d9dbda;"><b>Project:</b></td>
+                                <td style="width:40%;"><t t-esc="o.project_no.name"/></td>
+                                <td style="width:20%;background-color:#d9dbda;"><b>Plan Number:</b></td>
+                                <td style="width:20%;"><t t-esc="o.plan_no"/></td>
+                            </tr>
+                             <tr>
+                                <td style="width:20%;background-color:#d9dbda;"><b>Location:</b></td>
+                                <td style="width:40%;"><t t-esc="o.location"/></td>
+                                <td style="width:20%;background-color:#d9dbda;"><b>Due Date:</b></td>
+                                <td style="width:20%;"><span t-field="o.due_date" t-options='{"format": "dd/MM/yyyy"}'/></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <br/>
+                    <h5 t-if="o.supervisor_monthly_report_line"><u>Materials Used:</u></h5>
+                    <table class="table table-sm  table-bordered" style="font-size: 15px; font-family:FreeSerif;">
+                        <thead>
+<!--                            <tr>-->
+                                <th>SR.#</th>
+                                <th>ITEM#</th>
+                                 <th>REQ QTY</th>
+                                <th>ISSUED QTY</th>
+                                <th>BALANCE QTY</th>
+                                <th>REMARKS</th>
+<!--                            </tr>-->
+                        </thead>
+                        <tbody>
+                            <t t-set="count" t-value="0"/>
+                            <t t-foreach="o.supervisor_monthly_report_line" t-as="val">
+                                <t t-set="count" t-value="count+1"/>
+                            <tr>
+                                <td><t t-esc="count"/> </td>
+                                <td><t t-esc="val.product_id.name"/> </td>
+                                <td><t t-esc="val.req_qty"/> </td>
+                                <td><t t-esc="val.issued_qty"/> </td>
+                                <td><t t-esc="val.balance_qty"/> </td>
+                                <td><t t-esc="val.remarks"/> </td>
+                            </tr>
+                        </t>
+                        </tbody>
+
+
+                    </table>
+
+                    <h5 t-if="o.description"><u>Description:</u></h5>
+                    <div t-if="o.description" class="row">
+                        <div  class="col-12" ><span style="border-bottom: 1px dashed #000;"  t-field="o.description"/></div>
+                    </div>
+                    <h5  class="mt-4"><u>Photo Section:</u></h5>
+                        <div class="container">
+                            <t t-foreach="o.images" t-as="image">
+                                    <img t-att-src="'data:image/png;base64,%s' % to_text(image.image)" style="height: 4cm; width:7.3cm; margin:5px;"/>
+
+                            </t>
+                        </div>
+
+
+                    <h5 t-if="o.recommendation" class="mt-4"><u>Recommendations / Suggestions:</u></h5>
+                    <div t-if="o.recommendation" class="row">
+                        <div  class="col-12" ><span style="border-bottom: 1px dashed #000;"  t-field="o.recommendation"/></div>
+                    </div>
+
+
+                    <table class="table table-sm table-bordered  mt-5" style="font-size: 15px; font-family:FreeSerif; width:80%;margin-left:auto;margin-right:auto;">
+                        <thead>
+                            <th></th>
+                            <th style="text-align:center"><b>Prepared By</b></th>
+                            <th style="text-align:center"><b>Approved By</b></th>
+                        </thead>
+                        <tbody>
+                            <tr>
+
+                                <td style="text-align:center"><b>Name</b></td>
+                                <td><span t-field="o.create_uid.name"/></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center"><b>Signature</b></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                    <h5  class="mt-4"><u>For External Use Only:</u></h5>
+                     <table  class="table table-sm table-bordered " style="font-size: 15px; font-family:FreeSerif;width:80%;margin-left:auto;margin-right:auto;">
+                        <thead>
+                            <th></th>
+                            <th style="text-align:center">Send To</th>
+                            <th style="text-align:center">Receipt By</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+
+                                <td style="text-align:center"><b>Name</b></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center"><b>Signature</b></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                             <tr >
+                                <td style="text-align:center; height:60px;"><b>Stamp</b></td>
+                                <td colspan="2" style=" height:60px;"></td>
+
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                        <div class="mt-5" style="font-size: 17px; font-family:FreeSerif;">
+                            <pre>This document is directed specifically to the recipient of this message and other parties authorized to receive it. This document may contain information and therefore if you are not among the authorized persons, please delete this message and inform us immediately
+
+Please note that disclosing, copying or distributing the contents of this message is against the law and is not authorized at all, and please note that this message cannot be approved to perform any legal obligation unless it is stated in it.
+</pre>
+                                <pre>هذا المستند  موجه بشكل خاص إلى مستقبل هذه الرسالة والأطراف الأخرى المخولة باستلامه. قد تحتوي هذ المستند على معلومات وعليه فإذا لم تكن من ضمن الأشخاص المخولين بالاستلام، يرجى حذف هذه الرسالة وإبلاغنا بشكل فوري..</pre>
+                               <pre>يرجى العلم بأن الإفصاح أو نسخ أو توزيع محتويات هذه الرسالة يعتبر مخالفا للقانون وغير مخول به مطلقا، كما يرجى العلم بأنه لا يمكن اعتماد هذه الرسالة لإجراء أي التزام قانوني ما لم يرد فيها ما ينص على ذلك.</pre>
+
+                        </div>
+
+                    </div>
+
+                </t>
+
+            </t>
+        </t>
+    </template>
+</odoo>

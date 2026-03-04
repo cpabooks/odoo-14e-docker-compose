@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="hr_rule_hourly_pay_on_timesheet" model="hr.salary.rule">
+            <field name="name">Hourly Pay on Timesheet</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">HPOT</field>
+            <field name="category_id" ref="cpabooks_payroll_automation.CHPOT"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_timesheet"/>
+            <field name="amount_python_compute">result = contract.hourly_wage
+            </field>
+        </record>
+
+<!--        <record id="hr_rule_basic_hourly_pay_on_basic" model="hr.salary.rule">-->
+<!--            <field name="name">Hourly Pay on Basic</field>-->
+<!--            <field name="sequence" eval="1"/>-->
+<!--            <field name="code">HPOB</field>-->
+<!--            <field name="category_id" ref="cpabooks_payroll_automation.CHPOB"/>-->
+<!--            <field name="condition_select">none</field>-->
+<!--            <field name="amount_select">code</field>-->
+<!--            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_basic"/>-->
+<!--            <field name="amount_python_compute">result=contract.salary_per_h*employee.getDuration(payslip)-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="hr_rule_basic_hourly_pay_on_basic" model="hr.salary.rule">
+            <field name="name">Basic Salary</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">BASIC</field>
+            <field name="category_id" ref="hr_payroll.BASIC"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_basic"/>
+            <field name="amount_python_compute">result=contract.wage
+            </field>
+        </record>
+
+        <record id="hr_rule_basic_pay_site_staff" model="hr.salary.rule">
+            <field name="name">Basic Pay Site Staff</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">BPSS</field>
+            <field name="category_id" ref="cpabooks_payroll_automation.CBPSS"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_site_staff"/>
+            <field name="amount_python_compute">result=contract.salary_per_h*employee.getDuration(payslip)
+            </field>
+        </record>
+
+        <record id="hr_rule_basic_pay_office_staff" model="hr.salary.rule">
+            <field name="name">Basic Pay Office Staff</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">BPOS</field>
+            <field name="category_id" ref="cpabooks_payroll_automation.CBPOS"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_office_staff"/>
+            <field name="amount_python_compute">result = payslip.paid_amount
+            </field>
+        </record>
+
+<!--        <record id="hr_rule_hot_salary" model="hr.salary.rule">-->
+<!--            <field name="name">HOT Salary</field>-->
+<!--            <field name="sequence" eval="1"/>-->
+<!--            <field name="code">HOTSAL</field>-->
+<!--            <field name="category_id" ref="hr_payroll.ALW"/>-->
+<!--            <field name="condition_select">none</field>-->
+<!--            <field name="amount_select">code</field>-->
+<!--            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_timesheet"/>-->
+<!--            <field name="amount_python_compute">result = employee.get_hot_overtime(employee.id, payslip.date_from,-->
+<!--                payslip.date_to)*1.50-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record id="hr_rule_not_salary" model="hr.salary.rule">-->
+<!--            <field name="name">NOT Salary</field>-->
+<!--            <field name="sequence" eval="1"/>-->
+<!--            <field name="code">NOTSAL</field>-->
+<!--            <field name="category_id" ref="hr_payroll.ALW"/>-->
+<!--            <field name="condition_select">none</field>-->
+<!--            <field name="amount_select">code</field>-->
+<!--            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_timesheet"/>-->
+<!--            <field name="amount_python_compute">result = employee.get_not_overtime(employee.id, payslip.date_from,-->
+<!--                payslip.date_to)*1.25-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="hr_rule_hot_salary_II" model="hr.salary.rule">
+            <field name="name">HOT Salary</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">HOTSAL</field>
+            <field name="category_id" ref="cpabooks_payroll_automation.HOTSAL"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_basic"/>
+<!--            <field name="amount_python_compute">result = employee.get_hot_overtime(employee.id, payslip.date_from,-->
+<!--                payslip.date_to)*1.50-->
+<!--            </field> -->
+            <field name="amount_python_compute">result = employee.get_hot_overtime(employee.id, payslip.date_from, payslip.date_to)*payslip.contract_id.hot_rate*contract.salary_per_h
+            </field>
+        </record>
+
+        <record id="hr_rule_not_salary_II" model="hr.salary.rule">
+            <field name="name">NOT Salary</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">NOTSAL</field>
+            <field name="category_id" ref="cpabooks_payroll_automation.NOTSAL"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_basic"/>
+<!--            <field name="amount_python_compute">result = employee.get_not_overtime(employee.id, payslip.date_from,-->
+<!--                payslip.date_to)*1.25-->
+<!--            </field>-->
+            <field name="amount_python_compute">result = employee.get_not_overtime(employee.id, payslip.date_from,
+                payslip.date_to)*payslip.contract_id.not_rate*contract.salary_per_h
+            </field>
+        </record>
+
+        <record id="hr_rule_food_allowance_I" model="hr.salary.rule">
+            <field name="name">Food Allowance</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">FOODALLW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_basic"/>
+            <field name="amount_python_compute">result = contract.food_allowance
+            </field>
+        </record>
+
+        <record id="hr_rule_telephone_allowance_I" model="hr.salary.rule">
+            <field name="name">Telephone Allowance</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">TELALLW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_basic"/>
+            <field name="amount_python_compute">result = contract.telephone_allowance
+            </field>
+        </record>
+
+        <record id="hr_rule_vehicle_allowance_I" model="hr.salary.rule">
+            <field name="name">Vehicle Allowance</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">VEHALLW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_basic"/>
+            <field name="amount_python_compute">result = contract.vehicle_allowance
+            </field>
+        </record>
+
+        <record id="hr_rule_other_allowance_I" model="hr.salary.rule">
+            <field name="name">Other Allowance</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">OTHALLW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_basic"/>
+            <field name="amount_python_compute">result = contract.other_allowance
+            </field>
+        </record>
+
+        <record id="hr_rule_absent_I" model="hr.salary.rule">
+            <field name="name">Absent</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">ABSENT</field>
+            <field name="category_id" ref="cpabooks_payroll_automation.ABSENT"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="sequence">211</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_basic"/>
+            <field name="amount_python_compute">result = employee.get_absent_overtime(employee.id, payslip.date_from,
+                payslip.date_to)*payslip.struct_id.not_rate
+            </field>
+        </record>
+
+        <record id="hr_rule_leave_with_pay_I" model="hr.salary.rule">
+            <field name="name">Leave With Pay</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">LWP</field>
+            <field name="category_id" ref="cpabooks_payroll_automation.LWP"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="sequence">212</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_basic"/>
+            <field name="amount_python_compute">result = employee.get_leave_with_pay(employee.id, payslip.date_from,payslip.date_to)* contract.salary_per_h
+            </field>
+        </record>
+
+        <record id="hr_rule_leave_with_out_pay_I" model="hr.salary.rule">
+            <field name="name">Leave With Out Pay</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">LWOP</field>
+            <field name="category_id" ref="cpabooks_payroll_automation.LWOP"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="sequence">213</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_hourly_pay_on_basic"/>
+            <field name="amount_python_compute">result = employee.get_leave_with_out_pay(employee.id, payslip.date_from,payslip.date_to)* contract.salary_per_h
+            </field>
+        </record>
+
+        <record id="hr_rule_food_allowance_II" model="hr.salary.rule">
+            <field name="name">Food Allowance</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">FOODALLW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_office_staff"/>
+            <field name="amount_python_compute">result = contract.food_allowance
+            </field>
+        </record>
+
+        <record id="hr_rule_telephone_allowance_II" model="hr.salary.rule">
+            <field name="name">Telephone Allowance</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">TELALLW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_office_staff"/>
+            <field name="amount_python_compute">result = contract.telephone_allowance
+            </field>
+        </record>
+
+        <record id="hr_rule_vehicle_allowance_II" model="hr.salary.rule">
+            <field name="name">Vehicle Allowance</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">VEHALLW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_office_staff"/>
+            <field name="amount_python_compute">result = contract.vehicle_allowance
+            </field>
+        </record>
+
+        <record id="hr_rule_other_allowance_II" model="hr.salary.rule">
+            <field name="name">Other Allowance</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">OTHALLW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_office_staff"/>
+            <field name="amount_python_compute">result = contract.other_allowance
+            </field>
+        </record>
+
+        <record id="hr_rule_leave_with_pay_II" model="hr.salary.rule">
+            <field name="name">Leave With Pay</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">LWP</field>
+            <field name="category_id" ref="cpabooks_payroll_automation.LWP"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="sequence">80</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_office_staff"/>
+            <field name="amount_python_compute">result = employee.get_leave_with_pay(employee.id, payslip.date_from,payslip.date_to)* contract.salary_per_h
+            </field>
+        </record>
+        <record id="hr_rule_leave_with_out_pay_II" model="hr.salary.rule">
+            <field name="name">Leave With Out Pay</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">LWOP</field>
+            <field name="category_id" ref="cpabooks_payroll_automation.LWOP"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="sequence">213</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_office_staff"/>
+            <field name="amount_python_compute">result = employee.get_leave_with_out_pay(employee.id, payslip.date_from,payslip.date_to)* contract.salary_per_h
+            </field>
+        </record>
+
+        <record id="hr_rule_food_allowance_III" model="hr.salary.rule">
+            <field name="name">Food Allowance</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">FOODALLW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_site_staff"/>
+            <field name="amount_python_compute">result = contract.food_allowance
+            </field>
+        </record>
+
+        <record id="hr_rule_telephone_allowance_III" model="hr.salary.rule">
+            <field name="name">Telephone Allowance</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">TELALLW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_site_staff"/>
+            <field name="amount_python_compute">result = contract.telephone_allowance
+            </field>
+        </record>
+
+        <record id="hr_rule_vehicle_allowance_III" model="hr.salary.rule">
+            <field name="name">Vehicle Allowance</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">VEHALLW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_site_staff"/>
+            <field name="amount_python_compute">result = contract.vehicle_allowance
+            </field>
+        </record>
+
+        <record id="hr_rule_other_allowance_III" model="hr.salary.rule">
+            <field name="name">Other Allowance</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">OTHALLW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_site_staff"/>
+            <field name="amount_python_compute">result = contract.other_allowance
+            </field>
+        </record>
+
+         <record id="hr_rule_leave_with_pay_III" model="hr.salary.rule">
+            <field name="name">Leave With Pay</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">LWP</field>
+            <field name="category_id" ref="cpabooks_payroll_automation.LWP"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="sequence">80</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_site_staff"/>
+            <field name="amount_python_compute">result = employee.get_leave_with_pay(employee.id, payslip.date_from,payslip.date_to)* contract.salary_per_h
+            </field>
+        </record>
+        <record id="hr_rule_leave_with_out_pay_III" model="hr.salary.rule">
+            <field name="name">Leave With Out Pay</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">LWOP</field>
+            <field name="category_id" ref="cpabooks_payroll_automation.LWOP"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="sequence">213</field>
+            <field name="struct_id" ref="cpabooks_payroll_automation.structure_basic_pay_site_staff"/>
+            <field name="amount_python_compute">result = employee.get_leave_with_out_pay(employee.id, payslip.date_from,payslip.date_to)* contract.salary_per_h
+            </field>
+        </record>
+
+    </data>
+</odoo>

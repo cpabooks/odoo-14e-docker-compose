@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_lead_view_form_inherit_custom_print" model="ir.ui.view">
+        <field name="name">crm.lead.view.form.inherit.custom_print</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+	        <xpath expr="//group[1]/group[2]" position="inside">
+		        <field name="next_action"/>
+		        <field name="next_action_date"/>
+		        <field name="last_action"/>
+		        <field name="summary_note"/>
+	        </xpath>
+	        
+            <button name="%(crm.crm_lead_lost_action)d" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="placeholder">opportunity name/Opportunity for/Task name</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]/h1" position="before">
+                <h1>
+                    <field name="enquiry_number" attrs="{'readonly':[('system_admin','=',False)]}"/>
+                    <field name="system_admin" invisible="1"/>
+                </h1>
+            </xpath>
+            <field name="phone_state" position="after">
+                <field name="customer_ref"/>
+            </field>
+
+            <field name="company_id" position="after">
+                <field name="project_id"/>
+                <field name="crm_date"/>
+            </field>
+
+            <xpath expr="//page[@name='lead']/group/group[1]" position="after">
+                <group string="Consultant Company Information">
+                    <field name="consultant_company_name"/>
+                    <label for="consultant_street_page_lead" string="Address"/>
+                    <div class="o_address_format">
+                        <field name="consultant_street" id="consultant_street_page_lead" placeholder="Street..."
+                               class="o_address_street"/>
+                        <field name="consultant_street2" placeholder="Street 2..." class="o_address_street"/>
+                        <field name="consultant_city" placeholder="City" class="o_address_city"/>
+                        <field name="consultant_state_id" class="o_address_state" placeholder="State"
+                               options='{"no_open": True}'/>
+                        <field name="consultant_zip" placeholder="ZIP" class="o_address_zip"/>
+                        <field name="consultant_country_id" placeholder="Country" class="o_address_country"
+                               options='{"no_open": True, "no_create": True}'/>
+                    </div>
+                    <field name="consultant_website" widget="url" placeholder="e.g. https://www.cpabooks.org"/>
+                    <field name="consultant_lang_id" options="{'no_create': True}"/>
+                </group>
+            </xpath>
+
+            <xpath expr="//page[@name='lead']/group/group[3]" position="after">
+                <group string="Client Company information">
+                    <field name="client_company_name"/>
+                    <label for="client_street_page_lead" string="Address"/>
+                    <div class="o_address_format">
+                        <field name="client_street" id="client_street_page_lead" placeholder="Street..."
+                               class="o_address_street"/>
+                        <field name="client_street2" placeholder="Street 2..." class="o_address_street"/>
+                        <field name="client_city" placeholder="City" class="o_address_city"/>
+                        <field name="client_state_id" class="o_address_state" placeholder="State"
+                               options='{"no_open": True}'/>
+                        <field name="client_zip" placeholder="ZIP" class="o_address_zip"/>
+                        <field name="client_country_id" placeholder="Country" class="o_address_country"
+                               options='{"no_open": True, "no_create": True}'/>
+                    </div>
+                    <field name="client_website" widget="url" placeholder="e.g. https://www.cpabooks.org"/>
+                    <field name="client_lang_id" options="{'no_create': True}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="crm_case_tree_view_oppor_inherit_custom_print" model="ir.ui.view">
+        <field name="name">crm.lead.tree.opportunity.inherit.custom_print</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="default_order">create_date desc</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="enquiry_number"/>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="next_action" optional="show"/>
+                <field name="next_action_date" optional="show"/>
+                <field name="last_action" optional="show"/>
+            </xpath>
+            <field name="email_from" position="before">
+                <field name="customer_ref"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="crm_lead_search_view_extend" model="ir.ui.view">
+        <field name="name">crm.lead.search.view.extend</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="enquiry_number"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_crm_lead_form_view_extend" model="ir.ui.view">
+        <field name="name">sale.crm.lead.form.view.extend</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <button name="action_sale_quotations_new" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <xpath expr="//button[@name='action_sale_quotations_new']" position="attributes">
+                <attribute name="attrs">{'invisible':[('quotation_count','>',0)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

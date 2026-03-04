@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <function model="visa.product" name="action_create_default_visa_product"/>
+    <function model="visa.product" name="action_attach_existing_vehicle_product"/>
+    <function model="visa.product" name="action_attach_existing_visa_analytic_acc"/>
+</odoo>

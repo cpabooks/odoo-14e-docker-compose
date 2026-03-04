@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="account.action_account_payments_payable" model="ir.actions.act_window">
+        <field name="name">Payment Voucher</field>
+        <field name="domain">[('payment_type','=','outbound'),('partner_type','=','supplier')]</field>
+    </record>
+    <record id="account.action_account_payments" model="ir.actions.act_window">
+        <field name="name">Receipt Voucher</field>
+        <field name="domain">[('payment_type','=','inbound'),('partner_type','=','customer')]</field>
+    </record>
+
+
+    <menuitem id="account.menu_action_account_payments_payable" action="account.action_account_payments_payable"  sequence="20" parent="account.menu_finance_payables"/>
+    <menuitem id="account.menu_action_account_payments_receivable" action="account.action_account_payments"  sequence="15" parent="account.menu_finance_receivables"/>
+</odoo>

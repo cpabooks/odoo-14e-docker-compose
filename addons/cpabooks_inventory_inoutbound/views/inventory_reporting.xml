@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem name="Reporting" id="menu_stock_reporting_root" sequence="30"
+            groups="stock.group_stock_manager,stock.group_stock_user"
+            web_icon="cpabooks_inventory_inoutbound,static/description/icon.png"/>
+
+    <menuitem action="eq_inventory_valuation_report.action_wizard_inventory_valuation_qty" id="menu_stock_reporting_inventory_menu"
+                  parent="cpabooks_inventory_inoutbound.menu_stock_reporting_root" sequence="2"/>
+
+</odoo>

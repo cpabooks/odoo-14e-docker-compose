@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_quotation_inherit" model="ir.ui.view">
+        <field name="name">sale.quotation.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="show_job_order_button" invisible="1"/>
+                <button name="confirm_sale_order" type="object" string="Confirm" class="oe_highlight" attrs="{'invisible':['|',('state','not in',('draft','sent')),('job_quotation','=',False)]}"/>
+                <button name="action_create_job_order" type="object"
+                            string="Create Job Order" class="oe_highlight"
+                            attrs="{'invisible': ['|','|',('state','!=','sale'),('job_quotation', '=', False),('show_job_order_button','=',False)]}"/>
+			</xpath>
+            <xpath expr="//button[@name='action_confirm'][1]" position="attributes">
+                <attribute name="attrs">{'invisible':['|',('job_quotation','=',True),('state', 'not in', ['sent'])]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm'][2]" position="attributes">
+                <attribute name="attrs">{'invisible':['|',('job_quotation','=',True),('state', 'not in', ['draft'])]}</attribute>
+            </xpath>
+
+<!--            <xpath expr="//button[@name='332'][1]" position="attributes">-->
+<!--            <xpath expr="//button[@string='Create Invoice'][1]" position="attributes">-->
+<!--                <attribute name="attrs">{'invisible':[('invoice_status','=','no')]}</attribute>-->
+<!--            </xpath>-->
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="show_job_order" type="object" class="oe_stat_button" icon="fa-cubes" attrs="{'invisible': [('job_quotation', '=', False)]}">
+                    <field name="job_count" widget="statinfo" string="Job Orders"/>
+                </button>
+            </xpath>
+
+            <field name="partner_id" position="after">
+                <field name="job_quotation" invisible="1"/>
+            </field>
+
+<!--            <field name="make_detail" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </field>-->
+
+<!--            <field name="delivery_detail" position="after">-->
+<!--                <field name="breaker"/>-->
+<!--                <field name="elr"/>-->
+<!--                <field name="enclosure"/>-->
+<!--                <field name="brand"/>-->
+<!--            </field>-->
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
+                <field name="remaining_qty" readonly="1" force_save="1" attrs="{'invisible': [('parent.job_quotation', '=', False)]}" invisible="1"/>
+                <field name="job_order_qty" readonly="1" force_save="1" attrs="{'invisible': [('parent.job_quotation', '=', False)]}" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='qty_delivered']" position="attributes">
+                <attribute name="attrs">{'column_invisible':[('parent.state', 'not in', ['draft','sale', 'done'])],'readonly':[(True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']" position="attributes">
+                <attribute name="attrs">{'column_invisible':[('parent.state', 'not in', ['draft','sale', 'done'])]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="is_technical_submittal"/>
+                <field name="direct_sale" attrs="{'readonly':[('state','!=','draft')]}"/>
+            </xpath>
+
+
+            <xpath expr="//page[@name='other_information']" position="after">
+                <page string="Technical Submittal" name="technical_submittal" attrs="{'invisible': [('is_technical_submittal', '=', False)]}">
+                    <group>
+                        <group>
+                            <field name="ts_project"/>
+                            <field name="ts_location"/>
+                            <field name="ts_owner"/>
+                            <field name="ts_project_mgmt"/>
+                            <field name="ts_consultant"/>
+                            <field name="ts_mep_consultant"/>
+                            <field name="ts_main_consultant"/>
+                            <field name="ts_mep_contractor"/>
+                            <field name="ts_designed_panels"/>
+                            <field name="ts_reference_no"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_quotation_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.quotation.tree.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+				<field name="job_quotation" readonly="1" invisible="1"/>
+			</xpath>
+        </field>
+    </record>
+
+<!--     <record id="sale_quotation_normal_tree_inherit" model="ir.ui.view">-->
+<!--        <field name="name">sale.quotation.normal.tree.inherit</field>-->
+<!--        <field name="model">sale.order</field>-->
+<!--        <field name="inherit_id" ref="sale.view_order_tree"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='name']" position="after">-->
+<!--				<field name="job_quotation"/>-->
+<!--			</xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="job_quotation" model="ir.actions.act_window">
+        <field name="name">Job Quotation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('sale.view_quotation_tree_with_onboarding')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('sale.view_order_form')})]"/>
+        <field name="domain">[('job_quotation', '=', True)]</field>
+        <field name="context">{'default_job_quotation': True}</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            <!-- Add Text Here -->
+          </p>
+        </field>
+    </record>
+
+
+<!--    <menuitem id="job_quotation" name="Job Quotation"  action="job_quotation" parent="sale.sale_order_menu" sequence="2"/>-->
+</odoo>

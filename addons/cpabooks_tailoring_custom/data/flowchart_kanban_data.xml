@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="flowchart_kanban_data_2" model="flowchart.tailor.kanban">
+        <field name="name">Tailoring Flowchart</field>
+    </record>
+</odoo>

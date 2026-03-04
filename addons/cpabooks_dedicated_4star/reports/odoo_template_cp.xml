@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="odoo_template_cp_inherit" inherit_id="professional_templates_v1.PO_13_document">
+        <xpath expr="//h2" position="replace">
+            <t t-if="o.purchase_type == 'import'">
+                <h2 class="text-center">
+                    <!--                        <span t-if="o.state == 'draft'"><u>Request for Quotation</u></span>-->
+                    <span t-if="o.state == 'draft'">
+                        <u>Import Purchase Order</u>
+                    </span>
+                    <span t-if="o.state in ['sent', 'to approve']">
+                        <u>Import Purchase Order</u>
+                    </span>
+                    <span t-if="o.state in ['purchase', 'done']">
+                        <u>Import Purchase Order</u>
+                    </span>
+                    <span t-if="o.state == 'cancel'">
+                        <u>Cancelled Import Purchase Order</u>
+                    </span>
+                </h2>
+            </t>
+            <t t-else="">
+                <h2 class="text-center">
+                    <!--                        <span t-if="o.state == 'draft'"><u>Request for Quotation</u></span>-->
+                    <span t-if="o.state == 'draft'">
+                        <u>Purchase Order</u>
+                    </span>
+                    <span t-if="o.state in ['sent', 'to approve']">
+                        <u>Local Purchase Order</u>
+                    </span>
+                    <span t-if="o.state in ['purchase', 'done']">
+                        <u>Local Purchase Order</u>
+                    </span>
+                    <span t-if="o.state == 'cancel'">
+                        <u>Cancelled Purchase Order</u>
+                    </span>
+                </h2>
+            </t>
+
+        </xpath>
+    </template>
+</odoo>

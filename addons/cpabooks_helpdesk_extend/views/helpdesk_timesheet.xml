@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="helpdesk_timesheets_inherit" model="ir.ui.view">
+            <field name="name">helpdesk.timesheets.inherit</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='task_id']" position="after">
+                    <field name="sub_task"/>
+                    <!--                    <field name="module_id" invisible="1"/>-->
+                    <field name="tech_module"/>
+                </xpath>
+                <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='name']" position="after">
+                    <field name="plan_time"/>
+                </xpath>
+                <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='name']" position="attributes">
+                    <attribute name="style">max-width:300px;</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="helpdesk_view_form_inherit" model="ir.ui.view">
+            <field name="name">helpdesk.view.form.inherit</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='task_id']" position="after">
+                    <field name="module_id" context="{'custom_search': 1}"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_report_inherit_for_signature" inherit_id="sale.report_saleorder_document">
+
+        <xpath expr="//div[@class='page']" position="after">
+            <t t-set="warm_regards_val" t-value="doc.get_warm_regards_cp()"/>
+            <div name="warm_regards" class="row oe_mt16 position-relative" t-if="warm_regards_val">
+                <div style="z-index:-1;" class="col-12">
+                    <b>
+                        <span t-field="doc.warm_regards"/>
+                    </b>
+                </div>
+                <!--Stamp-->
+                <div style="left:1cm; z-index:10; bottom:-50px; opacity: 1;" class="col-12 position-absolute">
+                    <img style="height:4cm;width:4cm;" t-if="doc.stamp" t-att-src="image_data_uri(doc.stamp)"
+                         class="rounded" alt="Stamp"/>
+                </div>
+            </div>
+
+            <t t-set="signature" t-value="doc.get_signature()"/>
+
+
+            <div t-if="signature" class="row oe_mt64" name="signature">
+                <!-- <div class="col-4 text-left" t-if="signature.signature1">
+                     <strong><span style="text-decoration:overline" t-field="signature.signature1"/></strong>
+                 </div>
+                 <div class="col-4 text-center" t-if="signature.signature2">
+                     <strong><span style="text-decoration:overline" t-field="signature.signature2"/></strong>
+                 </div>
+                 <div class="col-4 text-right" t-if="signature.signature3">
+                     <strong><span style="text-decoration:overline" t-field="signature.signature3"/></strong>
+                 </div>-->
+                <div t-if="doc.prepared_by" style="" class="col-4 text-left  position-relative">
+                    <div style="float:left" class="w-100 text-left">
+                        <img style="width:200px;" t-if="doc.prepared_by.user_signature"
+                             t-att-src="image_data_uri(doc.prepared_by.user_signature)"
+                             alt="Signature"/>
+
+                    </div>
+                    <div style="float:left;  bottom:0px" class="w-100 text-left position-absolute ">
+                        <strong style="text-decoration:overline;">
+                            <span t-field="signature.signature1"/>
+                            <b>
+                                <span t-field="doc.prepared_by.name"/>
+                            </b>
+                        </strong>
+                    </div>
+                </div>
+                <div class="col-4 text-center">
+                    <strong>
+                        <span style="text-decoration:overline" t-field="signature.signature2"/>
+                    </strong>
+                </div>
+                <div t-if="doc.approve_by" class="col-4 text-right  position-relative">
+
+                    <div style="float:right" class="w-100">
+                        <img style="width:200px;" t-if="doc.approve_by.user_signature"
+                             t-att-src="image_data_uri(doc.approve_by.user_signature)"
+                             alt="Signature"/>
+
+                    </div>
+                    <div style="float:right;  bottom:0px" class="w-100 text-center position-absolute ">
+                        <strong style="text-decoration:overline;">
+                            <span class="border" t-field="signature.signature3"/>
+                            <b>
+                                <span class="border" t-field="doc.approve_by.name"/>
+                            </b>
+                        </strong>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

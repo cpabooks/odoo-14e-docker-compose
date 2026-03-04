@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_views_moves_forms_amg" model="ir.ui.view">
+        <field name="name">account.move.inherit.amg</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='journal_div']" position="after">
+                <field name="vehicle_name"/>
+                <field name="vehicle_no"/>
+                <label for="kilometer"/>
+                <div name="kilometer_div" class="d-flex">
+                    <field name="kilometer"/>
+                    <span class="oe_inline o_form_label mx-3 oe_read_only">KM</span>
+                    <span class="oe_inline o_form_label mr-3 ml-5 oe_edit_only"> KM </span>
+                </div>
+                <field name="claim_no"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

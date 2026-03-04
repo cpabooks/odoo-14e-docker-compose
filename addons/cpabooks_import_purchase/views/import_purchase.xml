@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+         <menuitem name="Import Purchase"
+            id="menu_import_purchase_root"/>
+
+
+
+        <record id="import_purchase_form" model="ir.ui.view">
+            <field name="name">import.purchase.form</field>
+            <field name="model">import.purchase</field>
+            <field name="arch" type="xml">
+                <form string="Import Purchase">
+
+                <sheet>
+                     <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="partner_ref"/>
+                            <field name="currency_id"/>
+
+                        </group>
+                        <group>
+                            <field name="date_approve"/>
+                            <field name="date_planned"/>
+                            <field name="company_id" invisible="1"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Import Purchase Details" name="import_purchase">
+                            <field name="import_purchase_line"
+                                widget="section_and_note_one2many">
+                                <tree string="Import Purchase Details" editable="bottom">
+<!--                                    <control>-->
+<!--                                        <create name="add_product_control" string="Add a product"/>-->
+<!--                                        <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>-->
+<!--                                        <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>-->
+<!--                                    </control>-->
+                                    <field name="product_id"/>
+                                    <field name="product_qty"/>
+                                    <field name="rate"/>
+                                    <field name="total_usd"/>
+                                    <field name="conv_rate"/>
+                                    <field name="aed_amount"/>
+                                    <field name="labour_aed"/>
+                                    <field name="freight_aed"/>
+                                    <field name="clearance_aed"/>
+                                    <field name="bank_other_changes_aed"/>
+                                    <field name="per_unit_aed"/>
+                                    <field name="stock_valuation"/>
+
+                                </tree>
+
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="amount_total"/>
+                                </div>
+                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </group>
+<!--                            <field name="notes" class="oe_inline" placeholder="Define your terms and conditions ..."/>-->
+                            <div class="oe_clear"/>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="import_purchase_tree" model="ir.ui.view">
+            <field name="name">import.purchase.tree</field>
+            <field name="model">import.purchase</field>
+            <field name="arch" type="xml">
+                <tree string="Import Purchse" multi_edit="1">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="currency_id"/>
+                    <field name="date_approve"/>
+                    <field name="date_planned"/>
+                    <field name="amount_total"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="import_purchase_form_action" model="ir.actions.act_window">
+            <field name="name">Import Purchase</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">import.purchase</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="import_purchase_tree"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No Import Purchase found. Let's create one!
+
+              </p>
+            </field>
+        </record>
+
+
+
+
+
+
+        <menuitem id="menu_import_purchase_management" name="Import Purchase"
+            parent="menu_import_purchase_root" action="import_purchase_form_action" sequence="1" />
+
+</odoo>

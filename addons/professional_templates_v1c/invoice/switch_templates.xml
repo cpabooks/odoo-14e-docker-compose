@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+        <template id="report_invoice">
+            <t t-call="web.report_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+                    <t t-set="style" t-value="o.style or res_company.df_style or user.env.ref('professional_templates_v1c.df_style_for_all_reports')"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_0_document'" t-call="professional_templates_v1c.INVOICE_0_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_1_document'" t-call="professional_templates_v1c.INVOICE_1_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_2_document'" t-call="professional_templates_v1c.INVOICE_2_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_3_document'" t-call="professional_templates_v1c.INVOICE_3_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_4_document'" t-call="professional_templates_v1c.INVOICE_4_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_5_document'" t-call="professional_templates_v1c.INVOICE_5_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_6_document'" t-call="professional_templates_v1c.INVOICE_6_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_7_document'" t-call="professional_templates_v1c.INVOICE_7_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_8_document'" t-call="professional_templates_v1c.INVOICE_8_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_9_document'" t-call="professional_templates_v1c.INVOICE_9_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_10_document'" t-call="professional_templates_v1c.INVOICE_10_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_11_document'" t-call="professional_templates_v1c.INVOICE_11_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_13_document'" t-call="professional_templates_v1c.INVOICE_13_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_common_document'" t-call="professional_templates_v1c.INVOICE_common_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_14_document'" t-call="professional_templates_v1c.INVOICE_14_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="style.template_inv.key =='professional_templates_v1c.INVOICE_15_document'" t-call="professional_templates_v1c.INVOICE_15_document" t-lang="o.partner_id.lang"/>
+<!--                    <t t-if="not style" t-call="account.report_invoice_document_with_payments" t-lang="o.partner_id.lang"/>-->
+                </t>
+            </t>
+        </template>
+</data>
+</odoo>

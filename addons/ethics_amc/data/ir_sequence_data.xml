@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--
+        AMC Sequences
+        -->
+        <record id="seq_ethics_amc" model="ir.sequence">
+            <field name="name">Ethics Amc</field>
+            <field name="code">ethics.amc</field>
+            <field name="prefix">AMC</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_amc_software" model="ir.sequence">
+            <field name="name">Amc Product</field>
+            <field name="code">amc.software</field>
+            <field name="prefix">SW</field>
+            <field name="padding">6</field>
+            <field name="number_next_actual">123</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="ir_cron_software_expiration" model="ir.cron">
+            <field name="name">AMC : Product Expire Mail Send</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="model_ethics_amc"/>
+            <field name="code">model._run_send_email_expiration()</field>
+            <field name="state">code</field>
+        </record>
+
+        <template id="software_expiration">
+            <div>
+            <p>Hello <t t-esc="partner.name"/>,</p>
+            <p>Your (<t t-esc="software.name"/>)<t t-esc="software.product_id.name"/> Product Expire on <t t-esc="software.expiery_date"/>. please process for the renewal or contact to our customer care.</p>
+            <p>
+            </p>
+            <p>Thank you</p>
+            </div>
+        </template>
+    </data>
+</odoo>

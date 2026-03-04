@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+    <template id="assets_backend" name="helpdesk_assets" inherit_id="web.assets_backend">
+        <xpath expr="//script[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/cpabooks_helpdesk_extend/static/src/scss/helpdesk.scss"/>
+        </xpath>
+    </template>
+    </data>
+
+</odoo>

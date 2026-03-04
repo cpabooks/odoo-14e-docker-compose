@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="CHPOT" model="hr.salary.rule.category">
+            <field name="name">Hourly Pay on Timesheet</field>
+            <field name="code">CHPOT</field>
+        </record>
+
+        <record id="CHPOB" model="hr.salary.rule.category">
+            <field name="name">Hourly Pay on Basic</field>
+            <field name="code">CHPOB</field>
+        </record>
+
+        <record id="CBPSS" model="hr.salary.rule.category">
+            <field name="name">Basic Pay Site Staff</field>
+            <field name="code">CBPSS</field>
+        </record>
+
+        <record id="CBPOS" model="hr.salary.rule.category">
+            <field name="name">Basic Pay Office Staff</field>
+            <field name="code">CBPOS</field>
+        </record>
+
+        <record id="HOTSAL" model="hr.salary.rule.category">
+            <field name="name">HOT Salary</field>
+            <field name="code">HOTSAL</field>
+        </record>
+
+        <record id="NOTSAL" model="hr.salary.rule.category">
+            <field name="name">NOT Salary</field>
+            <field name="code">NOTSAL</field>
+        </record>
+
+        <record id="ABSENT" model="hr.salary.rule.category">
+            <field name="name">Absent</field>
+            <field name="code">ABSENT</field>
+        </record>
+
+        <record id="LWP" model="hr.salary.rule.category">
+            <field name="name">Leave With Pay</field>
+            <field name="code">LWP</field>
+        </record>
+
+        <record id="LWOP" model="hr.salary.rule.category">
+            <field name="name">Leave With Out Pay</field>
+            <field name="code">LWOP</field>
+        </record>
+
+        <record id="ALW" model="hr.salary.rule.category">
+            <field name="name">Allowance</field>
+            <field name="code">ALW</field>
+        </record>
+
+        <record id="NET" model="hr.salary.rule.category">
+            <field name="name">NET</field>
+            <field name="code">NET</field>
+        </record>
+    </data>
+</odoo>

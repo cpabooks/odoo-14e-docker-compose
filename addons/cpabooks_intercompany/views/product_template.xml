@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_template_form_extend" model="ir.ui.view">
+        <field name="name">view.product.template.form.extend</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <field name="uom_id" position="after">
+                <field name="system_admin" invisible="1"/>
+            </field>
+            <xpath expr="//field[@name='uom_id']" position="attributes">
+                <attribute name="attrs">{'readonly':[('id','!=',False),('system_admin','=',False)]}</attribute>
+                <attribute name="options">{'no_open':True}</attribute>
+
+            </xpath>
+            <xpath expr="//field[@name='uom_po_id']" position="attributes">
+                <attribute name="attrs">{'readonly':[('id','!=',False),('system_admin','=',False)]}</attribute>
+                <attribute name="options">{'no_open':True}</attribute>
+
+            </xpath>
+<!--            <xpath expr="//page[@name='variants']" position="attributes">-->
+<!--                <attribute name="groups"></attribute>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+
+     <record id="view_product_product_form_extend" model="ir.ui.view">
+        <field name="name">view.product.product.form.extend</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='uom_id']" position="attributes">
+                <attribute name="attrs">{'readonly':[('id','!=',False)]}</attribute>
+                <attribute name="options">{'no_open':True}</attribute>
+
+            </xpath>
+            <xpath expr="//field[@name='uom_po_id']" position="attributes">
+                <attribute name="attrs">{'readonly':[('id','!=',False)]}</attribute>
+                <attribute name="options">{'no_open':True}</attribute>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

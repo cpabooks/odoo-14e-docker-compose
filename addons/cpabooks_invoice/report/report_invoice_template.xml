@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_inherit_account" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='informations']/div[@name='due_date']" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+        <xpath expr="//p[@name='payment_communication']" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+    </template>
+
+    <template id="report_invoice_document_inherit_ae" inherit_id="l10n_ae.report_invoice_document">
+        <xpath expr="//div[@id='aed_amounts']" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+    </template>
+</odoo>

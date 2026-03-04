@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="cpabooks_site_report.menu_site_report_root" name="Site Report"
+              web_icon="cpabooks_icon_set_03_contracting,static/description/site_report.png"/>
+
+    </data>
+</odoo>

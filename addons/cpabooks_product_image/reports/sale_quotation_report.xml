@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sale_quotation_inherit" inherit_id="cpabooks_custom_print.report_saleorder_document_inherit_custom">
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_description']"
+               position="after">
+            <th t-if="doc.print_product_image" name="th_image" align="center">Image</th>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t[3]/tr/t[1]/td[@name='td_name']"
+               position="after">
+            <td t-if="doc.print_product_image" name="td_image" align="center">
+                <img t-if="line.image" t-attf-src="data:image/png;base64,{{ line.image }}"
+                     style="max-width: 130px; max-height: 120px; min-width: 120px; min-height: 130px"/>
+            </td>
+        </xpath>
+    </template>
+
+<!--     <template id="report_sale_quotation_optional_inherit" inherit_id="sale_management.report_saleorder_document_inherit_sale_management">-->
+<!--        <xpath expr="//table[@name='table_optional_products']/thead/tr/th[@name='th_option_name']"-->
+<!--               position="after">-->
+<!--            <th t-if="doc.print_product_image" name="th_option_image">Image</th>-->
+<!--        </xpath>-->
+
+<!--        <xpath expr="////table[@name='table_optional_products']/tbody/tr/td[@name='td_option_name']"-->
+<!--               position="after">-->
+<!--            <td t-if="doc.print_product_image" name="td_option_image" align="center">-->
+<!--                <img t-if="option.image" t-attf-src="data:image/png;base64,{{ option.image }}"-->
+<!--                     style="max-width: 130px; max-height: 120px; min-width: 120px; min-height: 130px"/>-->
+<!--            </td>-->
+<!--        </xpath>-->
+<!--    </template>-->
+</odoo>

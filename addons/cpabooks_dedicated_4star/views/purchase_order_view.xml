@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		<record id="purchase_order_form_view_inherit" model="ir.ui.view">
+			<field name="name">purchase.order.form.view.inherit</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='currency_id']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//div[contains(@class, 'oe_button_box')]" position="inside">
+					<button type="object" name="action_view_landed_cost_invoices" class="oe_stat_button"
+					        icon="fa-pencil-square-o"
+					        attrs="{'invisible':['|', ('landed_invoice_count', '=', 0), ('state', '=', 'draft')]}">
+						<field name="landed_invoice_count" widget="statinfo" string="Landed Vendor Bills"/>
+						<!--                        <field name="invoice_ids" invisible="1"/>-->
+					</button>
+				</xpath>
+				<xpath expr="//header" position="inside">
+					<button name="action_create_landed_cost_bills" type="object" string="Create Landed Cost Bills"
+					        attrs="{'invisible':['|', ('landed_invoice_count', '!=', 0), ('state', '=', 'draft')]}"
+					        class="od_hightLight" groups="cpabooks_dedicated_4star.group_import_purchase_user"/>
+				</xpath>
+				<xpath expr="//group/group[2]/field[@name='date_order']" position="before">
+					<field name="purchase_type" groups="cpabooks_dedicated_4star.group_import_purchase_user"/>
+				</xpath>
+				<xpath expr="//group/group[2]" position="inside">
+					<field name="calculation_type" groups="cpabooks_dedicated_4star.group_import_purchase_user"
+					       attrs="{'invisible': [('purchase_type', '!=', 'import')]}"/>
+					<field name="fr_currency_id" groups="cpabooks_dedicated_4star.group_import_purchase_user"
+					       attrs="{'invisible': [('purchase_type', '!=', 'import')]}"/>
+				</xpath>
+				<xpath expr="//page[@name='products']/field[@name='order_line']" position="before">
+<!--					<button type="object" name="action_final_import_purchase" string=" Final Import Purchase"-->
+<!--					        class="btn btn-link fa fa-rotate-left"-->
+<!--					        groups="cpabooks_dedicated_4star.group_import_purchase_user"-->
+<!--					        attrs="{'invisible': [('purchase_type', '!=', 'import')]}"/>-->
+					
+					<button type="object" name="action_final_import_purchase_xl" string=" Load Import Purchase"
+					        class="btn btn-link fa fa-rotate-left ms-2"
+					        groups="cpabooks_dedicated_4star.group_import_purchase_user"
+					        attrs="{'invisible': [('purchase_type', '!=', 'import')]}"/>
+				</xpath>
+				
+				<xpath expr="//page[@name='products']/field[@name='order_line']/tree" position="inside">
+					<field name="import_id" invisible="1"/>
+					<field name="vol_id" invisible="1"/>
+				</xpath>
+				
+				<xpath expr="//page[@name='products']" position="before">
+					<!--Import purchase line-->
+					
+					<!--Landed cost input-->
+					<page name="landed_cost_input_line" groups="cpabooks_dedicated_4star.group_import_purchase_user"
+					      string="Landed Cost Input" attrs="{'invisible': [('purchase_type', '!=', 'import')]}">
+						<field name="landed_cost_input_line" editable="bottom" widget="section_and_note_one2many">
+							<tree string="Landed Cost Input Lines" name="landed_cost_input_list_view" editable="bottom">
+								<field name="order_id" invisible="1"/>
+								<field name="partner_id" context="{'default_supplier_rank': 1}"
+								       domain="[('supplier_rank', '&gt;=', 1)]"/>
+								<field name="product_id"/>
+								<field name="name" widget="section_and_note_text"/>
+								<field name="product_qty" optional="show"/>
+								<field name="fr_price_unit" optional="show"/>
+								<field name="amount" optional="show" sum="Total"/>
+								<field name="fr_currency_id" optional="show"/>
+								<field name="fr_rate" optional="show"/>
+								<field name="amount_in_aed" optional="show" sum="Total"/>
+								<field name="company_id" optional="hide"/>
+							</tree>
+						</field>
+					</page>
+					
+					<!--Calculation by volume-->
+					
+					<!--CALCULATION BY VOLUME XL-->
+					<page name="calculation_by_volume_xl" groups="cpabooks_dedicated_4star.group_import_purchase_user"
+					      attrs="{'invisible': ['|',  ('purchase_type', '!=', 'import'), ('calculation_type', '!=', 'by_volume')]}"
+					      string="Calc Volume">
+						<field name="cal_vol_ids" editable="bottom" widget="section_and_note_one2many">
+							<tree editable="bottom">
+								<field name="order_id" invisible="1"/>
+								<field name="product_id"/>
+								<field name="product_qty"/>
+								<field name="fr_rate"/>
+								<field name="sub_total"/>
+								<field name="conv_rate"/>
+								<field name="current_rate" sum="Total"/>
+								<field name="cbm_per_unit"/>
+								<field name="total_cbm" sum="Total"/>
+								<field name="freight" sum="Total"/>
+								<field name="prod_rate_aed"/>
+							</tree>
+						</field>
+					</page>
+					
+					<!--Calculation weight line-->
+					<page name="calc_wight_line_xl" groups="cpabooks_dedicated_4star.group_import_purchase_user"
+					      string="Calc Weight"
+					      attrs="{'invisible': ['|',  ('purchase_type', '!=', 'import'), ('calculation_type', '!=', 'by_weight')]}">
+						<field name="calc_weight_ids" editable="bottom" widget="section_and_note_one2many">
+							<tree string="Calculation By Weight Lines" name="calculation_by_weight_list_view"
+							      editable="bottom">
+								<field name="order_id" invisible="1"/>
+								<field name="product_id"/>
+								<field name="product_qty"/>
+								<field name="fr_rate"/>
+								<field name="sub_total"/>
+								<field name="conv_rate"/>
+								<field name="current_rate" sum="Total"/>
+								<field name="weight_per_unit"/>
+								<field name="total_weight"/>
+								<field name="freight" sum="Total"/>
+								<field name="prod_rate_aed"/>
+							</tree>
+						</field>
+					</page>
+				</xpath>
+				
+				<xpath expr="//page[@name='purchase_delivery_invoice']" position="after">
+					<!--not needed-->
+					<page name="import_purchase_line" groups="cpabooks_dedicated_4star.group_import_purchase_user"
+					      string="xx Import Purchase" attrs="{'invisible': [('purchase_type', '!=', 'import')]}">
+						<field name="import_purchase_line" editable="bottom" widget="section_and_note_one2many">
+							<tree string="Import Purchase Lines" name="import_purchase_tree_view" editable="bottom">
+								<field name="order_id" invisible="1"/>
+								<field name="product_id"/>
+								<field name="name" widget="section_and_note_text"/>
+								<field name="product_qty" optional="show"/>
+								<field name="fr_price_unit" optional="show"/>
+								<field name="amount" optional="show" sum="Total"/>
+								<field name="fr_currency_id" optional="show"/>
+								<field name="fr_rate" optional="show"/>
+								<field name="amount_in_aed" optional="show" sum="Total"/>
+								<field name="company_id" optional="hide"/>
+							</tree>
+						</field>
+					</page>
+					
+					<page name="calculation_weight_line" groups="cpabooks_dedicated_4star.group_import_purchase_user"
+					      string="xx Calculation By Weight"
+					      attrs="{'invisible': ['|',  ('purchase_type', '!=', 'import'), ('calculation_type', '!=', 'by_weight')]}">
+						<field name="calculation_weight_line" editable="bottom" widget="section_and_note_one2many">
+							<tree string="Calculation By Weight Lines" name="calculation_by_weight_list_view"
+							      editable="bottom">
+								<field name="import_id" invisible="1"/>
+								<field name="order_id" invisible="1"/>
+								<field name="currency_id" invisible="1"/>
+								<field name="fr_currency_id" invisible="1"/>
+								<field name="product_id"/>
+								<field name="name"/>
+								<field name="weight_per_unit" sum="Total"/>
+								<field name="total_weight" sum="Total"/>
+								<field name="landed_cost_aed" sum="Total"/>
+								<field name="landed_cost_per_unit" sum="Total"/>
+								<field name="material_cost_per_unit" sum="Total"/>
+								<field name="final_unit_price" sum="Total"/>
+								<field name="company_id" optional="hide"/>
+							</tree>
+						</field>
+					</page>
+					
+					<page name="calculation_volume_line" groups="cpabooks_dedicated_4star.group_import_purchase_user"
+					      string="xx Calculation By Volume"
+					      attrs="{'invisible': ['|',  ('purchase_type', '!=', 'import'), ('calculation_type', '!=', 'by_volume')]}">
+						<field name="calculation_volume_line" editable="bottom" widget="section_and_note_one2many">
+							<tree string="Calculation By Volume Lines" name="calculation_by_volume_list_view"
+							      editable="bottom">
+								<field name="import_id" invisible="1"/>
+								<field name="order_id" invisible="1"/>
+								<field name="currency_id" invisible="1"/>
+								<field name="fr_currency_id" invisible="1"/>
+								<field name="product_id"/>
+								<field name="name"/>
+								<field name="product_qty" sum="Total"/>
+								<field name="volume_per_unit"/>
+								<field name="total_volume"/>
+								<field name="landed_cost_aed" sum="Total"/>
+								<field name="import_purchase_total" sum="Total"/>
+								<field name="amount_total" sum="Total"/>
+								<field name="landed_cost_per_unit" sum="Total"/>
+								<field name="material_cost_per_unit" sum="Total"/>
+								<field name="price_unit_final_aed" sum="Total"/>
+								<field name="company_id" optional="hide"/>
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

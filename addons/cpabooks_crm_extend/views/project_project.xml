@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		<!--INHERIT PROJECT FORM VIEW-->
+		<record id="view_project_form_inherit" model="ir.ui.view">
+			<field name="name">view.project.form.inherit</field>
+			<field name="model">project.project</field>
+			<field name="inherit_id" ref="project.edit_project"/>
+			<field name="arch" type="xml">
+				<xpath expr="//page[@name='settings']/group/group[1]/field[@name='user_id']" position="before">
+					<field name="crm_amount"/>
+				</xpath>
+			</field>
+		</record>
+		
+		<!--INHERIT PROJECT LIST VIEW-->
+		<record id="view_project_custom_extend" model="ir.ui.view">
+			<field name="name">project.project.tree.inherit</field>
+			<field name="model">project.project</field>
+			<field name="inherit_id" ref="project.view_project"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="after">
+					<field name="crm_amount" optional="hide" sum="Total"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+
+from . import models
+from . import sale_subscription
+from . import sale_subscription_template
+from . import product_product

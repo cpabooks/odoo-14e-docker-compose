@@ -1,0 +1,5 @@
+id,name,details,charge_type/id
+freight_charge_1,Sea Freight,Sea freight,freight_in_quotation.freight_charge_type_1
+freight_charge_2,BUC Bunker Charge,BUC Bunker Charge,freight_in_quotation.freight_charge_type_1
+freight_charge_3,Gulf Risk Administration Fees,Gulf Risk Administration Fees,freight_in_quotation.freight_charge_type_1
+freight_charge_4,NOC Charge,NOC Charge,freight_in_quotation.freight_charge_type_2

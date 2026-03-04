@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_quotation_service_line,access.quotation.service.line,model_quotation_service_line,base.group_user,1,1,1,1
+access_freight_order_line_details,access_freight_order_line_details,model_freight_order_line_details,base.group_user,1,1,1,1
+access_freight_charge_type,access_freight_charge_type,model_freight_charge_type,base.group_user,1,1,1,1
+access_freight_charge,access_freight_charge,model_freight_charge,base.group_user,1,1,1,1
+access_freight_order_line_container_line,access_freight_order_line_container_line,model_freight_order_line_container_line,base.group_user,1,1,1,1
+access_freight_destination_charges,access_freight_destination_charges,model_freight_destination_charges,base.group_user,1,1,1,1
+access_freight_invoice_group,access_freight_invoice_group,model_freight_invoice_group,base.group_user,1,1,1,1
+access_freight_invoice_containers,access_freight_invoice_containers,model_freight_invoice_containers,base.group_user,1,1,1,1

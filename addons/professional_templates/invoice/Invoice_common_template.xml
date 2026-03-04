@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="INVOICE_common_document" name="Invoice Common Template">
+            <!-- Multicompany -->
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"/>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <t t-set="background_clr" t-value="style.theme_color"/>
+            <t t-if="not o.show_theme_color">
+                <t t-set="background_clr" t-value=""/>
+            </t>
+            <div class="header col-12 float-left"
+                 t-attf-style="padding-left:0px; padding-right:0px; color:{{style.text_color}};font-size:{{int(style.header_font)}}px;font-family:{{style.font_family}};border-bottom:1px solid {{style.theme_color}}">
+                <!--                <t t-if="company.header_logo">-->
+                <!--                    <div class="text-center" style="margin-top: 8px;">-->
+                <!--                        <span t-field="company.header_logo" t-options="{'widget': 'image', 'style': 'max-width: 1280px; max-height: 200px;'}"/>-->
+                <!--                    </div>-->
+                <!--                </t>-->
+                <!--                <t t-else="">-->
+                <t t-if="style.header">
+                    <div class="col-4 float-left" style="padding-left:0px;margin-top: 8px;margin-bottom:8px;">
+                        <span t-if="style.logo">
+                            <span itemprop="image" t-field="style.logo"
+                                  t-options="{'widget': 'image', 'style': 'max-width: 300px; max-height: 140px;'}"/>
+
+                        </span>
+                        <span t-if="not style.logo and company.logo">
+                            <span itemprop="image" t-field="company.logo"
+                                  t-options='{"widget": "image", "style": "float:right;max-width: 300px; max-height: 140px;"}'/>
+                        </span>
+                        <span t-if="not style.logo and not company.logo">
+                            <span itemprop="image" t-field="company.logo"
+                                  t-options='{"widget": "image", "style": "float:right;max-width: 300px; max-height: 140px;"}'/>
+                        </span>
+                    </div>
+                    <div class="col-4 text-center" style="padding-left:0px;">
+                        <h4 t-field="o.project_title"
+                            t-attf-style="background-color:{{style.theme_color}};color:{{style.theme_txt_color}};"/>
+                    </div>
+                    <div class="col-4 mb8 float-right" style="padding-bottom:2px;padding-right:0px;">
+                        <div class="float-right" style="width:auto;padding-left:15px;padding-top:20px;">
+                            <t t-call="professional_templates.company_address"/>
+                        </div>
+                    </div>
+                </t>
+                <!--                </t>-->
+            </div>
+            <div id="article_id" class="article page" t-attf-data-oe-model="account.move" t-attf-data-oe-id="{{o.id}}"
+                 t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.body_font)}}px !important;font-family:{{style.font_family}} !important;">
+                <!--                <h2 class="text-center" t-attf-style="color:{{style.theme_color}}">-->
+                <t t-set="display_taxes" t-value="any([y.tax_ids for y in o.invoice_line_ids])"/>
+                <h2 class="text-center" t-attf-style="color:{{style.name_color}}" t-if="o.show_title">
+                    <span t-if="o.move_type == 'out_invoice' and o.state == 'posted' and display_taxes">
+                        <u>TAX INVOICE</u>
+                    </span>
+                    <span t-if="o.move_type == 'out_invoice' and o.state == 'posted' and not display_taxes">
+                        <u>INVOICE</u>
+                    </span>
+                    <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">
+                        <u>Draft Invoice</u>
+                    </span>
+                    <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">
+                        <u>Cancelled Invoice</u>
+                    </span>
+                    <span t-if="o.move_type == 'out_refund'">
+                        <u>Credit Note</u>
+                    </span>
+                    <span t-if="o.move_type == 'in_refund'">
+                        <u>Vendor Credit Note</u>
+                    </span>
+                    <span t-if="o.move_type == 'in_invoice'">
+                        <u>Vendor Bill</u>
+                    </span>
+                </h2>
+
+                <h5 class="text-center" style="margin-top:-8px;font-size:18px;" t-if="o.show_trn">
+                    <div t-if="o.move_type == 'out_invoice' and o.company_id.vat">
+                        <strong>TRN:</strong>
+                        <span t-field="o.company_id.vat"/>
+                    </div>
+                </h5>
+
+                <h5 class="text-center" style="margin-top:-8px;font-size:18px;"
+                    t-if="o.move_type=='out_invoice' and o.show_delivery_address">
+                    <div t-if="o.move_type == 'out_invoice' and o.name">
+                        <strong>Invoice No:</strong>
+                        <span t-field="o.name"/>
+                    </div>
+                </h5>
+                <div t-if="o.move_type == 'out_invoice' and o.show_delivery_address" class="text-right oe_inline"
+                     t-attf-style="font-size:{{int(style.body_font)+2}}px;margin-top:-30px;">
+                    <strong>Invoice Date:</strong>
+                    <span t-field="o.invoice_date"/>
+                </div>
+
+
+                <div class="col-12"
+                     t-attf-style="white-space:pre-line;color:#{style.wm_color};left:#{style.leftpadding}mm; top:#{style.toppadding}mm;font-size:#{style.fontsize}px; opacity:#{style.opacity};z-index:-99; -webkit-transform:rotate(-#{style.rotate}deg);position:fixed;">
+                    <t t-esc="style.wm_eval(o, time, user, res_company)"/>
+                </div>
+                <div class="col-12"
+                     t-attf-style="white-space:pre-line;color:#{style.wm_color};left:#{style.leftpadding}mm; top:#{style.toppadding}mm;font-size:#{style.fontsize}px; opacity:#{style.opacity};z-index:-99; -webkit-transform:rotate(-#{style.rotate}deg);position:fixed;">
+                    <t t-esc="style.wm_eval(o, time, user, res_company)"/>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-7" t-attf-style="border:1px solid black;">
+                            <div t-attf-style="display:inline;width:auto;padding:4px; color:{{style.name_color}};font-size:{{int(style.body_font)+2}}px;font-weight:bold;">
+
+                                <span>
+                                    <span t-if="o.move_type == 'in_invoice'">
+                                        <span class="fa fa-file-text-o" t-if="not style.is_icon_hide"/>
+                                        Vendor Details:
+                                    </span>
+                                    <span t-else="">
+                                        <span class="fa fa-file-text-o" t-if="not style.is_icon_hide"/>
+                                        Customer Details:
+                                    </span>
+                                </span>
+                            </div>
+
+                            <!--                        <div name="partner_name" style="padding-left:3px;">-->
+                            <!--                            <span class="fa fa-user "/>-->
+                            <!--                            <span t-field="o.partner_id.name"/>-->
+                            <!--                        </div>-->
+                            <div name="partner_name" style="padding-left:3px;">
+                                <!--                            <span class="fa fa-user "/>-->
+                                <strong>Name:</strong>
+                                <span t-field="o.partner_id.name"
+                                      t-attf-style="font-weight:bold !important;text-transform: uppercase !important;"
+                                      t-if="style.is_customer_bold and style.is_customer_upper"/>
+                                <span t-field="o.partner_id.name" t-attf-style="font-weight:bold !important"
+                                      t-if="style.is_customer_bold and not style.is_customer_upper"/>
+                                <span t-field="o.partner_id.name" t-attf-style="text-transform: uppercase !important;"
+                                      t-if="not style.is_customer_bold and style.is_customer_upper"/>
+                                <span t-field="o.partner_id.name"
+                                      t-if="not style.is_customer_bold and not style.is_customer_upper"/>
+                            </div>
+                            <!--                            <div t-if="o.project_id and o.show_project" style="padding-left:3px;" name="project">-->
+                            <!--                                <span class="fa fa-th-large"/>-->
+                            <!--                                <span t-field="o.project_id.name"/>-->
+                            <!--                            </div>-->
+                            <address t-field="o.partner_id" t-if="o.partner_id.street or o.partner_id.street2 or o.partner_id.city or o.partner_id.state_id
+                            or o.partner_id.zip or o.partner_id.country_id or o.partner_id.phone or o.partner_id.email or o.partner_id.website"
+                                     style="margin-bottom:0px;"
+                                     t-options='{"widget": "contact", "fields": ["address", "phone", "mobile", "email", "website"], "no_marker": false}'/>
+                            <div t-attf-style="margin-left:2px;" name="trn">
+                                <span t-if="o.partner_id.vat">
+                                    <strong>TRN:</strong>
+                                    <span t-field="o.partner_id.vat"/>
+                                </span>
+                            </div>
+                            <!--                        <div t-attf-style="margin-left:2px;">-->
+                            <!--                            <span t-if="o.partner_id.vat">VAT:-->
+                            <!--                                <span t-field="o.partner_id.vat"/>-->
+                            <!--                            </span>-->
+                            <!--                        </div>-->
+                        </div>
+                        <div name="with_show_delivery_address"
+                             t-if="o.show_delivery_address and o.move_type=='out_invoice'" class="col-5"
+                             t-attf-style="border:1px solid black;background-color:{{background_clr}}; color:{{style.theme_txt_color}};">
+                            <t t-set="div_style"
+                               t-value="'color:{};font-size:{}px; width:100%;'.format(style.theme_txt_color,int(style.body_font)+2)"/>
+                            <div t-attf-style="display:inline;width:auto;padding:4px;font-size:{{int(style.body_font)+2}}px;font-weight:bold;">
+                                <span>
+                                    <span class="fa fa-file-text-o" t-if="not style.is_icon_hide"/>
+                                    Receiver Details:
+                                </span>
+                            </div>
+                            <t t-set="receiver_details" t-value="o._get_receiver_details()"/>
+                            <div name="receiver_name" style="padding-left:3px;">
+                                <strong>Name:</strong>
+                                <!--                                <span t-field="receiver_details.receiver_id.name"/>-->
+                                <span t-field="o.delivery_address.name"/>
+                            </div>
+                            <address t-field="o.delivery_address" t-if="o.delivery_address.street or o.delivery_address.street2 or o.delivery_address.city or o.delivery_address.state_id
+                            or o.delivery_address.zip or o.delivery_address.country_id or o.delivery_address.phone or o.delivery_address.email or o.delivery_address.website"
+                                     style="margin-bottom:0px;"
+                                     t-options='{"widget": "contact", "fields": ["address", "phone",  "email", "website"], "no_marker": false}'/>
+                            <div name="delivery_date" style="padding-left:3px;">
+                                <strong>Delivery Date:</strong>
+                                <!--                                <span t-field="receiver_details.scheduled_date"/>-->
+                                <span t-field="o.delivery_date"/>
+                            </div>
+                            <div name="delivery_mode" style="padding-left:3px;">
+                                <strong>Delivery Mode:</strong>
+                                <span t-field="o.delivery_mode.name"/>
+                            </div>
+                            <div name="delivery_person" style="padding-left:3px;">
+                                <strong>Delivery Person:</strong>
+                                <!--                                <span t-field="receiver_details.sender_id.name"/>-->
+                                <span t-field="o.delivery_person.name"/>
+                            </div>
+                            <div t-if="o.lpo_no and o.show_po_no" t-attf-style="{{div_style}}">
+                                <strong style="white-space:nowrap;">PO No:</strong>
+                                <!--                                <span t-esc="', '.join(map(lambda x: (x.name), o.po_no))" id="po_no_ids"/>-->
+                                <span t-field="o.lpo_no"/>
+                            </div>
+
+
+                        </div>
+
+                        <div name="without_show_delivery_address" t-else="" class="col-5"
+                             t-attf-style="border:1px solid black;background-color:{{background_clr}}; color:{{style.theme_txt_color}};">
+                            <t t-set="div_style"
+                               t-value="'color:{};font-size:{}px; width:100%;'.format(style.theme_txt_color,int(style.body_font)+2)"/>
+                            <div id="invoice_title" t-attf-style="{{div_style}};margin-top:2px !important;">
+                                <strong style="white-space:nowrap;" t-if="o.move_type == 'out_invoice'">Invoice No:
+                                </strong>
+                                <strong style="white-space:nowrap;" t-if="o.move_type == 'out_refund'">Refund Number:
+                                </strong>
+                                <strong style="white-space:nowrap;" t-if="o.move_type == 'in_refund'">Vendor Refund
+                                    Number:
+                                </strong>
+                                <strong style="white-space:nowrap;" t-if="o.move_type == 'in_invoice'">Vendor Bill:
+                                </strong>
+                                <!--                            <span t-if="o.state == 'draft'">Draft</span>-->
+                                <!--                            <span t-if="o.state == 'cancel'">Cancelled</span>-->
+                                <!--                            <span t-if="o.move_type == 'out_invoice'">Invoice</span>-->
+                                <!--                            <span t-if="o.move_type == 'out_refund'">Refund</span>-->
+                                <!--                            <span t-if="o.move_type == 'in_refund'">Vendor Refund</span>-->
+                                <!--                            <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>-->
+                                <span t-field="o.name"/>
+                            </div>
+
+                            <div t-if="o.invoice_date" t-attf-style="{{div_style}}">
+                                <strong style="white-space:nowrap;">Invoice Date:</strong>
+                                <span t-field="o.invoice_date"/>
+                            </div>
+
+                            <div t-if="o.lpo_no and o.show_po_no" t-attf-style="{{div_style}}">
+                                <strong style="white-space:nowrap;">PO No:</strong>
+                                <!--                                <span t-esc="', '.join(map(lambda x: (x.name), o.po_no))" id="po_no_ids"/>-->
+                                <span t-field="o.lpo_no"/>
+                            </div>
+                            <div t-if="o.invoice_origin" t-attf-style="{{div_style}}" name="invoice_origin">
+                                <strong style="white-space:nowrap;">Quote Ref:</strong>
+                                <span t-field="o.invoice_origin"/>
+                            </div>
+                            <!--Added new field delivery_no-->
+                            <!--                            <div t-if="o.job_no and o.show_job_no" t-attf-style="{{div_style}}">-->
+                            <!--                                <strong style="white-space:nowrap;">Job No:</strong>-->
+                            <!--                                <span t-field="o.job_no"/>-->
+                            <!--                            </div>-->
+
+                            <div t-if="o.delivery_no" t-attf-style="{{div_style}}">
+                                <strong style="white-space:nowrap;">Delivery No:</strong>
+                                <span t-field="o.delivery_no"/>
+                            </div>
+
+                            <div t-if="o.project_id and o.show_project" t-attf-style="{{div_style}}">
+                                <strong style="white-space:nowrap;">Project Name:</strong>
+                                <span t-field="o.project_id.name"/>
+                            </div>
+                            <div t-if="o.invoice_payment_term_id" t-attf-style="{{div_style}}">
+                                <strong style="white-space:nowrap;">Terms:</strong>
+                                <span t-field="o.invoice_payment_term_id.name"/>
+                            </div>
+
+                            <!--                        <div t-if="o.invoice_date_due and o.show_due_date" t-attf-style="{{div_style}}">-->
+                            <!--                            <strong style="white-space:nowrap;">Due Date:</strong>-->
+                            <!--                            <span t-field="o.invoice_date_due"/>-->
+                            <!--                        </div>-->
+                            <div t-if="o.sudo().user_id and o.show_sales_person" t-attf-style="{{div_style}}">
+                                <strong style="white-space:nowrap;">Salesperson:</strong>
+                                <span t-field="o.sudo().user_id"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--                <div class="col-12 float-left mt8 mb8"-->
+                <!--                     t-attf-style="padding-left:0px; padding-right:0px;border:1px solid black;min-height:180px;max-height:500px;">&lt;!&ndash;start of wrapper &ndash;&gt;-->
+
+                <!--                    <div t-attf-style="border-right:1px solid black;"-->
+                <!--                         class="col-7 mt8 mb8 float-left">-->
+                <!--                        &lt;!&ndash;                        <div t-attf-style="display:inline;width:auto;padding:4px; color:{{style.theme_color}};font-size:{{int(style.body_font)+2}}px;font-weight:bold;">&ndash;&gt;-->
+                <!--                        <div t-attf-style="display:inline;width:auto;padding:4px; color:{{style.name_color}};font-size:{{int(style.body_font)+2}}px;font-weight:bold;">-->
+                <!--                            <span>-->
+                <!--                                <span class="fa fa-file-text-o" t-if="not style.is_icon_hide"/>-->
+                <!--                                Customer:-->
+                <!--                            </span>-->
+                <!--                        </div>-->
+
+                <!--&lt;!&ndash;                        <div name="partner_name" style="padding-left:3px;">&ndash;&gt;-->
+                <!--&lt;!&ndash;                            <span class="fa fa-user "/>&ndash;&gt;-->
+                <!--&lt;!&ndash;                            <span t-field="o.partner_id.name"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+                <!--                        <div name="partner_name" style="padding-left:3px;">-->
+                <!--                            <span class="fa fa-user "/>-->
+                <!--                            <span t-field="o.partner_id.name" t-attf-style="font-weight:bold !important;text-transform: uppercase !important;" t-if="style.is_customer_bold and style.is_customer_upper"/>-->
+                <!--                            <span t-field="o.partner_id.name" t-attf-style="font-weight:bold !important" t-if="style.is_customer_bold and not style.is_customer_upper"/>-->
+                <!--                            <span t-field="o.partner_id.name" t-attf-style="text-transform: uppercase !important;" t-if="not style.is_customer_bold and style.is_customer_upper"/>-->
+                <!--                            <span t-field="o.partner_id.name" t-if="not style.is_customer_bold and not style.is_customer_upper"/>-->
+                <!--                        </div>-->
+                <!--                        <div t-if="o.project_id" style="padding-left:3px;">-->
+                <!--                            <span class="fa fa-th-large"/>-->
+                <!--                            <span t-field="o.project_id.name"/>-->
+                <!--                        </div>-->
+                <!--                        <address t-field="o.partner_id" style="margin-bottom:0px;"-->
+                <!--                                 t-options='{"widget": "contact", "fields": ["address", "phone",  "email", "website"], "no_marker": false}'/>-->
+                <!--                        <div t-attf-style="margin-left:2px;">-->
+                <!--                            <span t-if="o.partner_id.vat">VAT:-->
+                <!--                                <span t-field="o.partner_id.vat"/>-->
+                <!--                            </span>-->
+                <!--                        </div>-->
+
+
+                <!--                    </div>-->
+
+                <!--                    &lt;!&ndash;                    {{style.theme_color}}&ndash;&gt;-->
+                <!--                    <div class="col-5 mt8 mb8 float-right"-->
+                <!--                         t-attf-style="background-color:{{background_clr}}; color:{{style.theme_txt_color}};">-->
+                <!--                        &lt;!&ndash;                    <div class="col-5 mt8 mb8 float-right" t-attf-style="background-color:{{style.theme_color}} !important; color:{{style.theme_txt_color}}">&ndash;&gt;-->
+                <!--                        <t t-set="div_style"-->
+                <!--                           t-value="'color:{};font-size:{}px; width:100%;'.format(style.theme_txt_color,int(style.body_font)+2)"/>-->
+                <!--                        <div id="invoice_title" t-attf-style="{{div_style}};margin-top:2px !important;">-->
+                <!--                            <strong style="white-space:nowrap;" t-if="o.move_type == 'out_invoice'">Invoice No:-->
+                <!--                            </strong>-->
+                <!--                            <strong style="white-space:nowrap;" t-if="o.move_type == 'out_refund'">Refund Number:-->
+                <!--                            </strong>-->
+                <!--                            <strong style="white-space:nowrap;" t-if="o.move_type == 'in_refund'">Vendor Refund-->
+                <!--                                Number:-->
+                <!--                            </strong>-->
+                <!--                            <strong style="white-space:nowrap;" t-if="o.move_type == 'in_invoice'">Vendor Bill:</strong>-->
+                <!--                            &lt;!&ndash;                            <span t-if="o.state == 'draft'">Draft</span>&ndash;&gt;-->
+                <!--                            &lt;!&ndash;                            <span t-if="o.state == 'cancel'">Cancelled</span>&ndash;&gt;-->
+                <!--                            &lt;!&ndash;                            <span t-if="o.move_type == 'out_invoice'">Invoice</span>&ndash;&gt;-->
+                <!--                            &lt;!&ndash;                            <span t-if="o.move_type == 'out_refund'">Refund</span>&ndash;&gt;-->
+                <!--                            &lt;!&ndash;                            <span t-if="o.move_type == 'in_refund'">Vendor Refund</span>&ndash;&gt;-->
+                <!--                            &lt;!&ndash;                            <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>&ndash;&gt;-->
+                <!--                            <span t-field="o.name"/>-->
+                <!--                        </div>-->
+
+                <!--                        <div t-if="o.invoice_date" t-attf-style="{{div_style}}">-->
+                <!--                            <strong style="white-space:nowrap;">Invoice Date:</strong>-->
+                <!--                            <span t-field="o.invoice_date"/>-->
+                <!--                        </div>-->
+
+                <!--                        <div t-if="o.po_no" t-attf-style="{{div_style}}">-->
+                <!--                            <strong style="white-space:nowrap;">PO No:</strong>-->
+                <!--                            <span t-field="o.po_no"/>-->
+                <!--                        </div>-->
+                <!--                        <div t-if="o.invoice_origin" t-attf-style="{{div_style}}">-->
+                <!--                            <strong style="white-space:nowrap;">Quote Ref:</strong>-->
+                <!--                            <span t-field="o.invoice_origin"/>-->
+                <!--                        </div>-->
+                <!--                        <div t-if="o.project_id" t-attf-style="{{div_style}}">-->
+                <!--                            <strong style="white-space:nowrap;">Project Name:</strong>-->
+                <!--                            <span t-field="o.project_id.name"/>-->
+                <!--                        </div>-->
+                <!--                        <div t-if="o.invoice_payment_term_id" t-attf-style="{{div_style}}">-->
+                <!--                            <strong style="white-space:nowrap;">Terms:</strong>-->
+                <!--                            <span t-field="o.invoice_payment_term_id.name"/>-->
+                <!--                        </div>-->
+
+                <!--                        <div t-if="o.invoice_date_due and o.show_due_date" t-attf-style="{{div_style}}">-->
+                <!--                            <strong style="white-space:nowrap;">Due Date:</strong>-->
+                <!--                            <span t-field="o.invoice_date_due"/>-->
+                <!--                        </div>-->
+                <!--                        <div t-if="o.sudo().user_id and o.show_sales_person" t-attf-style="{{div_style}}">-->
+                <!--                            <strong style="white-space:nowrap;">Salesperson:</strong>-->
+                <!--                            <span t-field="o.sudo().user_id"/>-->
+                <!--                        </div>-->
+
+
+                <!--                        &lt;!&ndash;                        <div t-if="o.invoice_origin" t-attf-style="{{div_style}}">&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                            <strong style="white-space:nowrap;">Source Doc:</strong>&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                            <span t-field="o.invoice_origin"/>&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                        </div>&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                        <div t-if="o.fiscal_position_id" t-attf-style="{{div_style}}">&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                            <strong style="white-space:nowrap;">Customer Ref:</strong>&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                            <span t-field="o.fiscal_position_id"/>&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                        </div>&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                        <div t-if="o.invoice_payment_term_id" t-attf-style="{{div_style}}">&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                            <strong style="white-space:nowrap;">Payment Terms:</strong>&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                            <span t-field="o.invoice_payment_term_id"/>&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                        </div>&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                        <div t-if="o.ref" t-attf-style="{{div_style}}">&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                            <strong style="white-space:nowrap;">Reference:</strong>&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                            <span t-field="o.ref"/>&ndash;&gt;-->
+                <!--                        &lt;!&ndash;                        </div>&ndash;&gt;-->
+                <!--                    </div>-->
+
+
+                <!--                </div>-->
+                <!--end of wrapper2-->
+                <!-- DATA-->
+                <!--                <t t-call="professional_templates.invoice_lines"/>-->
+
+                <div name="master_table">
+                    <t t-call="professional_templates.invoice_lines_common_template"/>
+                </div>
+                <br/>
+                <div t-if="o.narration" class="row" name="note">
+                    <div class="col-2">
+                        <strong>Note:</strong>
+                    </div>
+                    <br/>
+                    <div class="col-10">
+                        <span t-field="o.narration"/>
+                    </div>
+                </div>
+                <!--                <div name="bank_detail" class="row"></div>-->
+                <div t-if="o.additional_note and o.show_additional_note" class="row oe_mt16" name="additional_note">
+                    <div class="col-2" t-attf-style="text-decoration: underline;">
+                        <strong>Additional Note:</strong>
+                    </div>
+                    <br/>
+                    <div class="col-10">
+                        <span t-field="o.additional_note"/>
+                    </div>
+                </div>
+                <div calss="row" name="for_block">
+                    <t t-if="o.for_left and not o.for_right">
+                        <p class="text-left">For,
+                            <span t-esc="o.company_id.name"/>
+                        </p>
+                    </t>
+                    <t t-if="o.for_right">
+                        <p class="text-right">For,
+                            <span t-esc="o.company_id.name"/>
+                        </p>
+                    </t>
+                </div>
+                <div name="signature"></div>
+                <!--                <div class="row" name="receiver_declaration" t-if="o.receiver_declaration and o.show_receiver_declaration">-->
+                <!--                    <div class="col-4"></div>-->
+                <!--                    <div class="col-4"></div>-->
+                <!--                    <div class="col-4 text-left">-->
+                <!--                        <span t-field="o.receiver_declaration"/>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--/DATA-->
+            </div><!--End of PAGE-->
+            <!--FOOTER -->
+            <div class="footer"
+                 t-attf-style="font-size:{{style.footer_font}}px !important;font-family:{{style.font_family}} !important;">
+                <t t-call="professional_templates.company_footer"/>
+            </div>
+            <!--/FOOTER-->
+        </template>
+    </data>
+</odoo>

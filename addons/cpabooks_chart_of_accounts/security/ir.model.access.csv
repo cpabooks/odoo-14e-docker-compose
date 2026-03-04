@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_function_call,function_call,model_function_call,base.group_user,1,1,1,1
+access_coa_create,coa_create,model_coa_create,base.group_user,1,1,1,1
+access_success_message_wizard,success_message_wizard,model_success_message_wizard,base.group_user,1,1,1,1

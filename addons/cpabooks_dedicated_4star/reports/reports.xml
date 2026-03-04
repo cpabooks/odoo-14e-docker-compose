@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--Header footer less-->
+        <template id="header_less_header">
+            <div t-attf-class="header">
+            </div>
+        </template>
+        <template id="footer_less_footer">
+            <div class="footer">
+            </div>
+        </template>
+
+        <record id="action_report_invoice_dot_matrix" model="ir.actions.report">
+            <field name="name">Dot Matrix</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cpabooks_dedicated_4star.invoice_line_template</field>
+            <field name="report_file">cpabooks_dedicated_4star.invoice_line_template</field>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="print_report_name">'Invoice %s' % (object.name)</field>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ir_cron_remove_user_history" model="ir.cron">
+            <field name="name">Base: Remove User Login History Records</field>
+            <field name='interval_number' eval="1"/>
+            <field name="interval_type">months</field>
+            <field name="numbercall" eval="-1"></field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S')" />
+            <field name="model_id" ref="model_res_users"/>
+            <field name="state">code</field>
+            <field name="code">model.run_remove_user_login_history()</field>
+            <field name="doall" eval="False"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="inherit_view_hr_payslip_form" model="ir.ui.view">
+		<field name="name">hr.payslip.form</field>
+		<field name="model">hr.payslip</field>
+		<field name="inherit_id" ref="hr_payroll.view_hr_payslip_form" />
+		<field name="arch" type="xml">
+			<button name="action_payslip_cancel" position="attributes">
+				<attribute name="groups">eq_payslip_cancel.res_group_cancel_payslip
+				</attribute>
+				<attribute name="states">draft,done,verify,paid</attribute>
+			</button>
+		</field>
+	</record>
+
+	<record id="inherit_hr_payroll_hr_payslip_run_form" model="ir.ui.view">
+		<field name="name">hr.payslip.run.form</field>
+		<field name="model">hr.payslip.run</field>
+		<field name="inherit_id" ref="hr_payroll.hr_payslip_run_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//header" position="inside">
+				<button string="Cancel" name="action_cancel_batch" type="object"
+					groups="eq_payslip_cancel.res_group_cancel_payslip" attrs="{'invisible': [('state', '=', 'cancel')]}" />
+			</xpath>
+		</field>
+	</record>
+
+	<record id="hr_payroll.action_hr_payroll_cancel_payroll" model="ir.actions.server">
+		<field name="groups_id"
+			eval="[(6, 0, [ref('eq_payslip_cancel.res_group_cancel_payslip')])]" />
+	</record>
+
+</odoo>

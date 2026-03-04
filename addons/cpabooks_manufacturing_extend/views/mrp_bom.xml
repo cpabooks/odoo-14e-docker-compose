@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_bom_form_view_inherit_job_order" model="ir.ui.view">
+        <field name="name">mrp.bom.form.inherit.job.order</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <field name="product_tmpl_id" position="before">
+                <field name="partner_id" string="Client"/>
+            </field>
+            <field name="product_tmpl_id" position="attributes">
+                <attribute name="string">Panel</attribute>
+            </field>
+             <field name="code" position="attributes">
+                <attribute name="string">Job No.</attribute>
+            </field>
+
+            <xpath expr="//div[@class='o_row']" position="after">
+                <field name="date"/>
+            </xpath>
+
+            <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='product_uom_id']" position="after">
+                <field name="remarks"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="mrp_bom_form_view_inherit_from_switchgear" model="ir.ui.view">
+        <field name="name">mrp.bom.form.inherit.from.switchgear</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="cpabooks_switchgear_custom.mrp_bom_form_view_inherit_switchgear_custom"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="replace">
+<!--                <attribute name="style">display:none;</attribute>-->
+            </field>
+
+        </field>
+    </record>
+</odoo>

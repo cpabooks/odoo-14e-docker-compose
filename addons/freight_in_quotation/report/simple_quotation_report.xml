@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_freight_report_saleorder" model="ir.actions.report">
+            <field name="name">Freight Query</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">freight_in_quotation.report_freight_quotation</field>
+            <field name="report_file">freight_in_quotation.report_freight_quotation</field>
+<!--            <field name="print_report_name">(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)</field>-->
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="upper_table">
+            <table class="table table-sm o_main_table">
+                        <tr >
+                        <th name="th_description" class="text-left" colspan="10" t-attf-style="background-color: #C9C9C6;">
+                            <t t-esc="line.port_of_loading.name"  /> - <t t-esc="line.port_of_delivery.name" /></th>
+                        </tr>
+                        <tr >
+                        <td> Via Port Of Loading <t t-esc="line.port_of_loading.name"  />
+                            <br/>Via Port Of DIscharge <t t-esc="line.port_of_delivery.name"/>
+                        </td>
+                        <td>Currency</td>
+                        <t t-foreach="freight_datas['containers']" t-as="container">
+                            <td><t t-esc="container.name"/></td>
+                        </t>
+                    </tr>
+                        <t t-foreach="line.freight_details" t-as="rec">
+                            <t t-if="rec.rate_basis.name=='Container'">
+
+                                <tr>
+                                    <td>
+<!--                                        <t t-esc="rec.charge_type.name"/>-->
+                                    </td>
+                                    <td><t t-esc="rec.rate_basis.name"/></td>
+                                    <td><t t-esc="rec.currency.name"/></td>
+<!--                                    <td><t t-esc="rec.container_20"/></td>-->
+                                    <td>
+<!--                                        <t t-esc="rec.container_40"/>-->
+                                    </td>
+                                    <td>
+<!--                                        <t t-esc="rec.container_40hc"/>-->
+                                    </td>
+                                </tr>
+                            </t>
+                    </t>
+                        <tr>
+                        <td>All-In Rate Total</td>
+                        <td>currensy to set</td>
+                        <td>total 20 ft</td>
+                        <td>total 40 ft</td>
+                        <td>total 40 hc</td>
+                    </tr>
+                    </table>
+        </template>
+
+        <template id="report_freight_quotation">
+            <t t-call="web.html_container">
+                 <t t-foreach="docs" t-as="doc">
+                        <t t-call="web.external_layout">
+        <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+        <t t-set="address">
+            <div t-field="doc.partner_id"
+                t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+            <p t-if="doc.partner_id.vat"><t t-esc="doc.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="doc.partner_id.vat"/></p>
+        </t>
+        <t t-if="doc.partner_shipping_id == doc.partner_invoice_id
+                             and doc.partner_invoice_id != doc.partner_id
+                             or doc.partner_shipping_id != doc.partner_invoice_id">
+            <t t-set="information_block">
+                <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Invoicing and Shipping Address:</strong>
+                <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Invoicing Address:</strong>
+                <div t-field="doc.partner_invoice_id"
+                t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
+                    <strong>Shipping Address:</strong>
+                    <div t-field="doc.partner_shipping_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                </t>
+            </t>
+        </t>
+        <div class="page">
+            <div class="oe_structure"/>
+
+            <h2 class="mt16">
+                <span t-field="doc.name"/>
+            </h2>
+
+            <div class="row mt32 mb32" id="informations">
+                <div t-if="doc.client_order_ref" class="col-auto mw-100 mb-2">
+                    <strong>Your Reference:</strong>
+                    <p class="m-0" t-field="doc.client_order_ref"/>
+                </div>
+                <div t-if="doc.date_order and doc.state not in ['draft','sent']" class="col-auto mw-100 mb-2">
+                    <strong>Order Date:</strong>
+                    <p class="m-0" t-field="doc.date_order"/>
+                </div>
+                <div t-if="doc.date_order and doc.state in ['draft','sent']" class="col-auto mw-100 mb-2">
+                    <strong>Quotation Date:</strong>
+                    <p class="m-0" t-field="doc.date_order" t-options='{"widget": "date"}'/>
+                </div>
+                <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto mw-100 mb-2" name="expiration_date">
+                    <strong>Expiration:</strong>
+                    <p class="m-0" t-field="doc.validity_date"/>
+                </div>
+                <div t-if="doc.user_id.name" class="col-auto mw-100 mb-2">
+                    <strong>Salesperson:</strong>
+                    <p class="m-0" t-field="doc.user_id"/>
+                </div>
+            </div>
+
+            <!-- Is there a discount on at least one line? -->
+            <t t-set="display_discount" t-value="any(l.discount for l in doc.order_line)"/>
+
+            <t t-foreach="freight_datas['orders']" t-as="order">
+                <t t-foreach="freight_datas[order]['orderLines']" t-as="orderLine" >
+                    <table class="table table-sm o_main_table">
+                        <tr>
+                            <td colspan="10" t-attf-style="background-color: #1F4FE9;color:white">
+                                <t t-esc="orderLine.port_of_loading.name"/>
+                                -
+                                <t t-esc="orderLine.port_of_delivery.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td t-attf-style="background-color: #C8CCD7;">
+                                Via Port of Loading <t t-esc="orderLine.port_of_loading.name"/><br/>
+                                Via Port of Discharge <t t-esc="orderLine.port_of_delivery.name"/>
+                            </td>
+                            <td t-attf-style="background-color: #C8CCD7;">Currency</td>
+                            <t t-foreach="freight_datas[order][orderLine]['containers']" t-as="container">
+                                <td t-attf-style="background-color: #C8CCD7;"><t t-esc="container.name"/></td>
+                            </t>
+                        </tr>
+                        <t t-foreach="freight_datas[order][orderLine]['chargeTypes']" t-as="charge">
+                            <tr>
+                                <td>
+                                    <t t-esc="charge.name"/>
+                                </td>
+                                <td><t t-esc="orderLine.foreign_currency.name"/>
+                                </td>
+                                <t t-foreach="freight_datas[order][orderLine]['containers']" t-as="container">
+                                    <td><t t-esc="freight_datas[order][orderLine][charge][container]"/></td>
+                                </t>
+                            </tr>
+                        </t>
+
+                        <tr><td>Destination Charge</td>
+                            <td><t t-esc="default_currency.name"/></td>
+                            <t t-foreach="freight_datas[order][orderLine]['containers']" t-as="container">
+                                <td>
+                                    <t t-set="destination_charge_for_container" t-value="destination_charge[order][orderLine.port_of_delivery]['shipmentCharge_local']"/>
+                                    <t t-if="container in destination_charge[order][orderLine.port_of_delivery]['containers']">
+                                        <t t-set="destination_charge_for_container" t-value="destination_charge_for_container+destination_charge[order][orderLine.port_of_delivery]['containers'][container]['charge_local']"/>
+                                    </t>
+                                    <t t-esc="round(destination_charge_for_container,2)"/>
+                                </td>
+                            </t>
+                        </tr>
+                        <tr><td>All In rate Total</td><td><t t-esc="default_currency.name"/></td>
+                            <t t-foreach="freight_datas[order][orderLine]['containers']" t-as="container">
+                                <td>
+                                    <t t-set="destination_freight_for_container" t-value="destination_charge[order][orderLine.port_of_delivery]['shipmentCharge_local']+(freight_datas[order][orderLine][container]/convert_currency(orderLine.foreign_currency.id,default_currency.id))"/>
+                                    <t t-if="container in destination_charge[order][orderLine.port_of_delivery]['containers']">
+                                        <t t-set="destination_freight_for_container" t-value="destination_freight_for_container+
+                                                                    destination_charge[order][orderLine.port_of_delivery]['containers'][container]['charge_local'] "/>
+
+                                    </t>
+                                    <t t-esc="round(destination_freight_for_container,2)"/>
+                                </td>
+                            </t>
+                        </tr>
+
+                    </table>
+                </t>
+
+                <table>
+                    <tr>
+                        <td colspan="2" t-attf-style="background-color: #1F4FE9;color:white">
+                            Rate of exchange (for indication only
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Currency</td>
+                        <td>rate</td>
+                    </tr>
+                    <t t-set="used_curr" t-value="used_currency(order,destination_charge,freight_datas)"/>
+                    <t t-foreach="used_curr" t-as="curr">
+                        <tr>
+                            <td><t t-esc="curr.name"/></td>
+                            <td><t t-esc="round(1/used_curr[curr],4)"/></td>
+                        </tr>
+                    </t>
+                </table>
+
+                <br/>
+                <br/>
+                <br/>
+                <t t-foreach="freight_datas['chargeTypes']" t-as="charge" >
+
+                    <table class="table table-sm o_main_table">
+                        <tr>
+                            <td colspan="10" t-attf-style="background-color: #1F4FE9;color:white">
+                                <t t-esc="charge.name"/>
+                            </td>
+                        </tr>
+                        <t t-foreach="freight_datas[order]['orderLines']" t-as="orderLine">
+                            <tr>
+                                <td  t-attf-style="background-color: #C8CCD7;">
+                                    <t t-esc="orderLine.port_of_loading.name"/>
+                                    -
+                                    <t t-esc="orderLine.port_of_delivery.name"/>
+                                </td>
+                                <td t-attf-style="background-color: #C8CCD7;">Rate Basis</td>
+                                <td t-attf-style="background-color: #C8CCD7;">Currency</td>
+                                <t t-foreach="freight_datas[order][orderLine]['containers']" t-as="container">
+                                    <td t-attf-style="background-color: #C8CCD7;"><t t-esc="container.name"/></td>
+                                </t>
+                            </tr>
+                            <t t-foreach="freight_datas[order][orderLine]['freightLines']" t-as="freightLine">
+                                <t t-if="freightLine.charge_heading.charge_type==charge">
+                                    <tr>
+                                        <td>
+
+                                            <t t-esc="freightLine.charge_heading.name"/>
+                                        </td>
+                                        <td>
+
+                                            <t t-esc="freightLine.rate_basis.name"/>
+                                        </td>
+                                        <td>
+
+                                            <t t-esc="orderLine.foreign_currency.name"/>
+                                        </td>
+                                        <t t-foreach="freight_datas[order][orderLine]['containers']" t-as="container">
+                                            <td>
+                                                <t t-if="container in freight_datas[order][orderLine][freightLine] ">
+                                                    <t t-esc="freight_datas[order][orderLine][freightLine][container]"/>
+                                                </t>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>
+
+                            </t>
+                        </t>
+                    </table>
+                </t>
+                <t t-foreach="freight_datas['orders']" t-as="order" >
+                    <t t-foreach="destination_charge[order]['ports']" t-as="port">
+                        <table class="table table-sm o_main_table">
+                            <tr>
+                                <td colspan="10" t-attf-style="background-color: #1F4FE9;color:white">
+                                    Destination Charges<br/><t t-esc="port.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td t-attf-style="background-color: #C8CCD7;">services</td>
+                                <td t-attf-style="background-color: #C8CCD7;">RateBasis</td>
+                                <td t-attf-style="background-color: #C8CCD7;">Currency</td>
+<!--                                todo here apply the logic for containers-->
+                                <t t-foreach="destination_charge[order][port]['containers']" t-as="container">
+                                       <td t-attf-style="background-color: #C8CCD7;">
+                                           <t t-esc="container.name"/></td>
+                                   </t>
+                            </tr>
+                            <t t-foreach="destination_charge[order][port]['ChargeLines']" t-as="charge">
+                               <tr>
+                                   <td><t t-esc="charge.charge_heading.name"/></td>
+                                   <td><t t-esc="charge.rate_basis.name"/></td>
+                                   <td><t t-esc="charge.currency.name"/></td>
+                                   <t t-set="colspan" t-value="len(destination_charge[order][port]['containers'])"/>
+                                   <t t-if="charge.rate_basis.name !='Container'">
+                                       <td    align="center" style="border:1px solid black;"   t-att-colspan="colspan"  ><t t-esc="charge.charge"/></td>
+                                   </t>
+                                   <t t-else="">
+
+                                       <t t-foreach="destination_charge[order][port]['containers']" t-as="container">
+                                           <td>
+                                               <t t-foreach="charge.container_lines" t-as="container_line">
+                                                   <t t-if="container_line.container_type==container">
+                                                       <t t-esc="container_line.container_freight"/>
+                                                   </t>
+
+                                               </t>
+                                           </td>
+                                       </t>
+                                   </t>
+
+                               </tr>
+                            </t>
+                        </table>
+                    </t>
+                </t>
+            </t>
+
+            <div t-if="doc.signature" class="mt32 ml64 mr4" name="signature">
+                <div class="offset-8">
+                    <strong>Signature</strong>
+                </div>
+                <div class="offset-8">
+                    <img t-att-src="image_data_uri(doc.signature)" style="max-height: 4cm; max-width: 8cm;"/>
+                </div>
+                <div class="offset-8 text-center">
+                    <p t-field="doc.signed_by"/>
+                </div>
+            </div>
+
+            <div class="oe_structure"/>
+
+            <p t-field="doc.note" />
+            <p t-if="doc.payment_term_id.note">
+                <span t-field="doc.payment_term_id.note"/>
+            </p>
+            <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.sudo().note">
+                <strong>Fiscal Position Remark:</strong>
+                <span t-field="doc.fiscal_position_id.sudo().note"/>
+            </p>
+        </div>
+    </t>
+                    </t>
+            </t>
+        </template>
+
+
+
+
+
+
+
+
+
+
+
+    </data>
+</odoo>

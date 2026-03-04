@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <function name="set_all_prod_description" model="product.template"/>
+    </data>
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--     Inherit Account Move Form View-->
+<!--    <record id="view_stock_picking_form_inherit" model="ir.ui.view">-->
+<!--        <field name="name">stock.picking.form.inherit</field>-->
+<!--        <field name="model">stock.picking</field>-->
+<!--        <field name="inherit_id" ref="stock.view_picking_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//notebook/page[@name='operations']/field[@name='move_ids_without_package']/tree/field[@name='product_uom']" position="after">-->
+<!--                <field name="remarks"/>-->
+<!--            </xpath>-->
+<!--            <field name="origin" position="after">-->
+<!--                <field name="lpo_number"/>-->
+<!--            </field>-->
+<!--        </field>-->
+<!--    </record>-->
+
+
+        <record model="ir.ui.view" id="supplier_item_code_product_form_inherit">
+            <field name="name">product.template.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//h1" position="after">
+                    <label class="oe_edit_only" for="prod_description" string="Product Description"/>
+                    <h1><field name="prod_description" placeholder="Product Description"/></h1>
+                </xpath>
+                <xpath expr="//field[@name='barcode']" position="after">
+                    <field name="supplier_item_code" string="Supplier Item Code"/>
+                    <field name="default_code" string="Part Number"/>
+                </xpath>
+                <xpath expr="//field[@name='default_code']" position="replace">
+
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="supplier_item_code_product_product_form_inherit">
+            <field name="name">product.product.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//h1" position="after">
+                    <label class="oe_edit_only" for="prod_description" string="Product Description"/>
+                    <h1><field name="prod_description" placeholder="Product Description"/></h1>
+                </xpath>
+                <xpath expr="//field[@name='barcode']" position="after">
+                    <field name="supplier_item_code" string="Supplier Item Code"/>
+                </xpath>
+            </field>
+        </record>
+</odoo>

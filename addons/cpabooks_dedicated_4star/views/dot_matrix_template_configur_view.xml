@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<!-- FORM VIEW FOR DOT MATRIX TEMPLATE CONFIGURATION -->
+		<record id="view_dot_matrix_template_form" model="ir.ui.view">
+			<field name="name">dot.matrix.template.form</field>
+			<field name="model">dot.matrix.template</field>
+			<field name="arch" type="xml">
+				<form string="Dot Matrix Template">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="name" placeholder="Template Name"/>
+							</h1>
+						</div>
+						
+						<group>
+							<group string="Font">
+								<field name="font_family"/>
+								<field name="body_font_size"/>
+								<field name="email_font_size"/>
+								<field name="body_font_unit"/>
+								<field name="font_weight"/>
+							</group>
+							<group string="Page">
+								<field name="unit"/>
+							</group>
+						</group>
+						
+						<group string="Top Box">
+							<group string="Left Box Elements">
+								<field name="cust_code_margin_top"/>
+								<field name="cust_code_margin_left"/>
+								<field name="trn_margin_top"/>
+								<field name="trn_margin_left"/>
+								<field name="name_margin_top"/>
+								<field name="name_margin_left"/>
+								<field name="tel_margin_top"/>
+								<field name="tel_margin_left"/>
+								<field name="territory_margin_top"/>
+								<field name="territory_margin_left"/>
+								<field name="mobile_margin_top"/>
+								<field name="mobile_margin_left"/>
+								<field name="whatsapp_margin_top"/>
+								<field name="whatsapp_margin_left"/>
+								<field name="email_margin_top"/>
+								<field name="email_margin_left"/>
+								<field name="emirates_margin_top"/>
+								<field name="emirates_margin_left"/>
+							</group>
+							
+							<group string="Right Box Elements">
+								<field name="inv_margin_top"/>
+								<field name="inv_margin_left"/>
+								<field name="date_margin_top"/>
+								<field name="date_margin_left"/>
+								<field name="do_margin_top"/>
+								<field name="do_margin_left"/>
+								<field name="lpo_margin_top"/>
+								<field name="lpo_margin_left"/>
+								<field name="co_margin_top"/>
+								<field name="co_margin_left"/>
+								<field name="payment_terms_margin_top"/>
+								<field name="payment_terms_margin_left"/>
+								<field name="ship_to_margin_top"/>
+								<field name="ship_to_margin_left"/>
+								<field name="page_no_margin_top"/>
+								<field name="page_no_margin_left"/>
+							</group>
+						</group>
+						
+						<group string="Table">
+							<group>
+								<h4>Adjust Table</h4>
+								<field name="table_height"/>
+								<field name="row_number"/>
+								<h4 class="mt-2">Adjust Row Elements</h4>
+								<field name="row_unit" string="Row Height Unit"/>
+								<field name="row_height"/>
+								<field name="row_name_char_count"/>
+							</group>
+							<group string="Total Row">
+								<field name="total_exc_tax_padding_right"/>
+								<field name="total_tax_amt_padding_right"/>
+								<field name="total_net_amt_padding_right"/>
+							</group>
+							<group string="Column Widths">
+								<field name="sr_width"/>
+								<field name="sr_padding_right"/>
+								<field name="name_width"/>
+								<field name="name_padding_left"/>
+								<field name="qty_width"/>
+								<field name="qty_padding_right"/>
+								<field name="rate_excl_width"/>
+								<field name="rate_excl_padding_right"/>
+								<field name="rate_incl_width"/>
+								<field name="rate_incl_padding_right"/>
+								<field name="disc_width"/>
+								<field name="disc_padding_right"/>
+								<field name="taxable_width"/>
+								<field name="taxable_padding_right"/>
+								<field name="vat_width"/>
+								<field name="vat_margin_top"/>
+								<field name="vat_margin_right"/>
+								<field name="vat_amt_width"/>
+								<field name="vat_amt_padding_right"/>
+								<field name="net_amount_width"/>
+								<field name="net_amount_padding_right"/>
+							</group>
+							<group string="Aging Bucket">
+								<field name="bucket_top"/>
+								<field name="bucket_right"/>
+								<field name="bucket_bottom"/>
+								<field name="bucket_left"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<!-- ACTION FOR DOT MATRIX TEMPLATE CONFIGURATION -->
+		<record id="action_dot_matrix_template_configuration" model="ir.actions.act_window">
+			<field name="name">Dot Matrix Template Configuration</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">dot.matrix.template</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+	</data>
+</odoo>

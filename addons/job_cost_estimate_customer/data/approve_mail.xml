@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--Email template -->
+        <record id="approve_mail" model="mail.template">
+            <field name="name">Approve Estimate - Send by Email</field>
+<!--            <field name="email_from">${(object.company_id.email)}</field>-->
+            <field name="subject">${object.company_id.name} ${object.state in ('draft', 'sent') and 'Estimate' or 'Order'} (Ref ${object.number or 'n/a' })</field>
+<!--            <field name="email_to">${object.partner_id.email}</field>-->
+            <field name="model_id" ref="job_cost_estimate_customer.model_sale_estimate_job"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<p>Dear,
+
+
+<p>
+This quotation is approved with the following notes to incorporate/ consider.
+ Kindly consider a communication to understand the notes if you have any confusion.
+ Else, please proceed with the comments incorporated and instructions adhered.
+
+
+</p>
+
+    <br/><br/>
+
+<p>Thank you,</p>
+
+
+]]></field>
+        </record>
+
+    </data>
+</odoo>
+

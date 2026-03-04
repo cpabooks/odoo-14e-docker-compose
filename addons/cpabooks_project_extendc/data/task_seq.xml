@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="sequence_for_task" model="ir.sequence">
+            <field name="name">Sequence For Task</field>
+            <field name="code">sequence_for_task</field>
+            <field name="padding">4</field>
+            <field name="prefix">TID-%(year)s-</field>
+        </record>
+    </data>
+</odoo>

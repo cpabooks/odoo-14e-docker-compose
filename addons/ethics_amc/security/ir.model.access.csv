@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ethics_amc,access_ethics_amc,model_ethics_amc,base.group_user,1,1,1,0
+access_ethics_plan,access_ethics_plan,model_ethics_plan,base.group_user,1,1,1,0
+access_amc_software,access_amc_software,model_amc_software,base.group_user,1,1,1,0
+access_ethics_amc_setting,access_ethics_amc,model_ethics_amc,base.group_erp_manager,1,1,1,1
+access_ethics_amc_admin,access_ethics_amc,model_ethics_amc,base.group_system,1,1,1,1

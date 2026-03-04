@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="professional_sale_order_inherit" model="ir.ui.view">
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="analytic_account_id" position="after">
+                    <field name="show_attention"/>
+                    <field name="attention_left"/>
+                    <field name="attention_right"/>
+                    <field name="show_order_date"/>
+                    <field name="show_expiration"/>
+                    <field name="show_asset_no"/>
+                    <field name="show_greeting_note"/>
+                    <field name="show_exclusion"/>
+                    <field name="show_validity"/>
+                    <field name="show_warranty"/>
+                    <field name="show_po_no"/>
+                    <field name="show_part"/>
+                </field>
+                <xpath expr="//group[@name='partner_details']" position="inside">
+                    <field name="lpo_no" attrs="{'invisible':[('show_po_no','=',False)]}"/>
+<!--                    <field name="po_ids" widget="many2many_tags" attrs="{'invisible':[('show_po_no','=',False)]}"/>-->
+                </xpath>
+                <xpath expr="//field[@name='date_order'][1]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div[@class='o_td_label'][1]" position="attributes">
+                    <attribute name="style">display:none;</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_order'][2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div[@class='o_td_label'][2]" position="attributes">
+                    <attribute name="style">display:none;</attribute>
+                </xpath>
+                <field name="validity_date" position="before">
+                    <div class="o_td_label" groups="base.group_no_one"
+                         attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}">
+                        <label for="date_order" string="Quotation Date"/>
+                    </div>
+                    <field name="date_order" nolabel="1" groups="base.group_no_one"
+                           attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}"/>
+                    <div class="o_td_label" attrs="{'invisible': [('state', 'in', ['draft', 'sent'])]}">
+                        <label for="date_order" string="Order Date"/>
+                    </div>
+                    <field name="date_order"
+                           attrs="{'required': [('state', 'in', ['sale', 'done'])], 'invisible': [('state', 'in', ['draft', 'sent'])]}"
+                           nolabel="1"/>
+                </field>
+                <xpath expr="//group[@name='partner_details']" position="inside">
+                    <field name="asset_no" attrs="{'invisible':[('show_asset_no','=',False)]}"/>
+                    <field name="greeting_note" attrs="{'invisible':[('show_greeting_note','=',False)]}"/>
+                    <field name="exclusion" attrs="{'invisible':[('show_exclusion','=',False)]}"/>
+                </xpath>
+
+
+                <field name="partner_id" position="after">
+                    <field name="cust_project_id" invisible="1"/>
+                </field>
+
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="is_technical_spec"/>
+                </xpath>
+
+                <xpath expr="//field[@name='validity_date']" position="after">
+                    <field name="warranty"/>
+                    <!--                    <field name="job"/>-->
+                    <!--                    <field name="delivery"/>-->
+
+                </xpath>
+
+<!--                <xpath expr="//field[@name='order_line']/tree" position="inside">-->
+<!--                    <field name="show_part"/>-->
+<!--                </xpath>-->
+
+
+                <xpath expr="//page[@name='other_information']" position="after">
+                    <page name="technical_spec_page" string="Technical Spec"
+                          attrs="{'invisible': [('is_technical_spec', '=', False)]}">
+                        <field name="technical_spec" widget="section_and_note_one2many" mode="tree">
+                            <tree editable="bottom">
+                                <control>
+                                    <create name="add_line_control" string="Add a line"/>
+                                    <create name="add_section_control" string="Add a section"
+                                            context="{'default_display_type': 'line_section'}"/>
+                                    <!--                                <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>-->
+                                </control>
+                                <field name="sequence" widget="handle"/>
+                                <field name="display_type" invisible="1"/>
+                                <field name="name" widget="section_and_note_text" optional="show"
+                                       attrs="{'invisible':[('display_type','=',False)]}" string="Selection"/>
+                                <field name="label_name"/>
+                                <field name="description"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+<!--                <xpath expr="//group[@name='sale_info']" position="inside">-->
+<!--                    <field name="show_part"/>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+    </data>
+</odoo>

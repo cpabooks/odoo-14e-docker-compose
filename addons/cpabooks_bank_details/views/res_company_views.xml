@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_inherit_bank" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.bank</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page[1]" position="after">
+                <page string="Company Bank Details" name="bank_details">
+                    <group string="Bank Details" name="bank_details_group">
+                        <field name="bank_name"/>
+                        <field name="bank_account_number"/>
+                        <field name="bank_iban_number"/>
+                        <field name="bank_address"/>
+                        <field name="bank_branch"/>
+                    </group>
+                </page>
+                <page string="Configure Document Layout" name="config_document_layout">
+                      <button name="%(web.action_base_document_layout_configurator)d" string="Configure Document Layout" type="action" class="oe_link" icon="fa-arrow-right"/>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+</odoo>
+

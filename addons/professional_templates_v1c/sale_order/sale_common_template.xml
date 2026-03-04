@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="SO_common_document" name="Quotation Common Template">
+			<!-- Multicompany -->
+			<t t-if="o and 'company_id' in o">
+				<t t-set="company" t-value="o.company_id"/>
+			</t>
+			<t t-if="not o or not 'company_id' in o">
+				<t t-set="company" t-value="res_company"/>
+			</t>
+			
+			<t t-set="background_clr" t-value="style.theme_color"/>
+			
+			<!--            <div class="header col-12 float-left"-->
+			<!--                 t-attf-style="padding-left:0px; padding-right:0px; color:{{style.text_color}};font-size:{{int(style.header_font)}}px;font-family:{{style.font_family}};border-bottom:1px solid {{style.theme_color}}">-->
+			<!--                &lt;!&ndash;                <t t-if="company.header_logo">&ndash;&gt;-->
+			<!--                &lt;!&ndash;                    <div class="text-center" style="margin-top: 8px;">&ndash;&gt;-->
+			<!--                &lt;!&ndash;                        <span t-field="company.header_logo" t-options="{'widget': 'image', 'style': 'max-width: 1280px; max-height: 200px;'}"/>&ndash;&gt;-->
+			<!--                &lt;!&ndash;                    </div>&ndash;&gt;-->
+			<!--                &lt;!&ndash;                </t>&ndash;&gt;-->
+			<!--                &lt;!&ndash;                <t t-else="">&ndash;&gt;-->
+			<!--                <t t-if="style.header">-->
+			<!--                    <div class="col-4 float-left" style="padding-left:0px;margin-top: 8px;margin-bottom:8px;">-->
+			<!--                        <span t-if="style.logo">-->
+			<!--                            <span itemprop="image" t-field="style.logo"-->
+			<!--                                  t-options="{'widget': 'image', 'style': 'max-width: 300px; max-height: 140px;'}"/>-->
+			
+			<!--                        </span>-->
+			<!--                        <span t-if="not style.logo and company.logo">-->
+			<!--                            <span itemprop="image" t-field="company.logo"-->
+			<!--                                  t-options='{"widget": "image", "style": "float:right;max-width: 300px; max-height: 140px;"}'/>-->
+			<!--                        </span>-->
+			<!--                        <span t-if="not style.logo and not company.logo">-->
+			<!--                            <span itemprop="image" t-field="company.logo"-->
+			<!--                                  t-options='{"widget": "image", "style": "float:right;max-width: 300px; max-height: 140px;"}'/>-->
+			<!--                        </span>-->
+			<!--                    </div>-->
+			<!--                    <div class="col-4 text-center" style="padding-left:0px;">-->
+			<!--                        <h4 t-field="doc.project_title"-->
+			<!--                            t-attf-style="background-color:{{style.theme_color}};color:{{style.theme_txt_color}};"/>-->
+			<!--                    </div>-->
+			<!--                    <div class="col-4 mb8 float-right" style="padding-bottom:2px;padding-right:0px;">-->
+			<!--                        <div class="float-right" style="width:auto;padding-left:15px;padding-top:20px;">-->
+			<!--                            <t t-call="professional_templates_v1c.company_address"/>-->
+			<!--                        </div>-->
+			<!--                    </div>-->
+			<!--                </t>-->
+			<!--                &lt;!&ndash;                </t>&ndash;&gt;-->
+			<!--            </div>-->
+			
+			<!--replaced-->
+			<div class="header col-12 float-left"
+			     t-attf-style="padding-left:0px; padding-right:0px; color:{{style.text_color}};font-size:{{int(style.header_font)}}px;font-family:{{style.font_family}};border-bottom:{{'1px solid ' + style.theme_color if style.header else ''}}">
+				<t t-if="company.header_logo">
+					<div class="text-center" style="margin-top: 8px;">
+						<span t-field="company.header_logo"
+						      t-options="{'widget': 'image', 'style': 'max-width: 1280px; max-height: 200px;'}"/>
+					</div>
+				</t>
+				<t t-else="">
+					<t t-if="style.header">
+						<div class="col-4 float-left" style="padding-left:0px;margin-top: 8px;margin-bottom:8px;">
+							<span t-if="style.logo">
+								<span itemprop="image" t-field="style.logo"
+								      t-options="{'widget': 'image', 'style': 'max-width: 300px; max-height: 140px;'}"/>
+							
+							</span>
+							<span t-if="not style.logo and company.logo">
+								<span itemprop="image" t-field="company.logo"
+								      t-options='{"widget": "image", "style": "float:right;max-width: 300px; max-height: 140px;"}'/>
+							</span>
+							<span t-if="not style.logo and not company.logo">
+								<span itemprop="image" t-field="company.logo"
+								      t-options='{"widget": "image", "style": "float:right;max-width: 300px; max-height: 140px;"}'/>
+							</span>
+						</div>
+						<div class="col-4 text-center" style="padding-left:0px;">
+							<h4 t-field="doc.project_title"
+							    t-attf-style="background-color:{{style.theme_color}};color:{{style.theme_txt_color}};"/>
+						</div>
+						<div class="col-4 mb8 float-right" style="padding-bottom:2px;padding-right:0px;">
+							<div class="float-right" style="width:auto;padding-left:15px;padding-top:20px;">
+								<t t-call="professional_templates_v1c.company_address"/>
+							</div>
+						</div>
+					</t>
+				</t>
+			</div>
+			
+			<div class="article page" t-attf-data-oe-model="account.move" t-attf-data-oe-id="{{doc.id}}"
+			     t-attf-style="color:{{style.text_color}} !important;font-size:{{int(style.body_font)}}px !important;font-family:{{style.font_family}} !important;">
+				<!--                t-if="o.show_title"-->
+				<h2 class="text-center" t-attf-style="color:{{style.name_color}}">
+					<t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+						<span t-if="doc.state not in ['draft','sent']">
+							QUOTATION
+						</span>
+						<span t-if="doc.state in ['draft','sent']">
+							QUOTATION
+						</span>
+					</t>
+					<t t-if="env.context.get('proforma', False) or is_pro_forma">
+						<span>
+							PRO-FORMA INVOICE
+						</span>
+					</t>
+				</h2>
+				<div t-if="doc.company_id.vat" class="w-100 text-center">
+					TRN:
+					<span t-esc="doc.company_id.vat"/>
+				</div>
+				
+				<!--                #trn chk need to give t-if="o.show_trn"-->
+				<!--                <h5 name="quotation_no" class="text-center" style="margin-top:-8px;font-size:18px;">-->
+				<!--                    <strong>NO.</strong>-->
+				<!--                    <span t-field="doc.name"/>-->
+				<!--                </h5>-->
+				
+				
+				<div class="col-12"
+				     t-attf-style="white-space:pre-line;color:#{style.wm_color};left:#{style.leftpadding}mm; top:#{style.toppadding}mm;font-size:#{style.fontsize}px; opacity:#{style.opacity};z-index:-99; -webkit-transform:rotate(-#{style.rotate}deg);position:fixed;">
+					<t t-esc="style.wm_eval(o, time, user, res_company)"/>
+				</div>
+				<div class="col-12"
+				     t-attf-style="white-space:pre-line;color:#{style.wm_color};left:#{style.leftpadding}mm; top:#{style.toppadding}mm;font-size:#{style.fontsize}px; opacity:#{style.opacity};z-index:-99; -webkit-transform:rotate(-#{style.rotate}deg);position:fixed;">
+					<t t-esc="style.wm_eval(o, time, user, res_company)"/>
+				</div>
+				
+				<div class="container-fluid">
+					<div class="row">
+						<div t-attf-style="border:1px solid black;;min-height:180px;max-height:500px;"
+						     class="col-7 mt8 mb8 float-left">
+							<!--                        <div t-attf-style="display:inline;width:auto;padding:4px; color:{{style.theme_color}};font-size:{{int(style.body_font)+2}}px;font-weight:bold;">-->
+							<div t-attf-style="display:inline;width:auto;padding:4px; color:{{style.name_color}};font-size:{{int(style.body_font)+2}}px;font-weight:bold;">
+								<span>
+									<span class="fa fa-file-text-o" t-if="not style.is_icon_hide"/>
+									Customer:
+								</span>
+							</div>
+							<!--Customer Code-->
+							<!--                            <div name="partner_code" t-if="doc.partner_id.cust_code" style="padding-left:3px;">-->
+							<!--                                <span class="fa fa-th-large"/>-->
+							<!--                                <span t-field="doc.partner_id.cust_code"/>-->
+							<!--                            </div>-->
+							<div name="partner_name" style="padding-left:3px;">
+								<span class="fa fa-user "/>
+								<span t-field="doc.partner_id.name"
+								      t-attf-style="font-weight:bold !important;text-transform: uppercase !important;"
+								      t-if="style.is_customer_bold and style.is_customer_upper"/>
+								<span t-field="doc.partner_id.name" t-attf-style="font-weight:bold !important"
+								      t-if="style.is_customer_bold and not style.is_customer_upper"/>
+								<span t-field="doc.partner_id.name" t-attf-style="text-transform: uppercase !important;"
+								      t-if="not style.is_customer_bold and style.is_customer_upper"/>
+								<span t-field="doc.partner_id.name"
+								      t-if="not style.is_customer_bold and not style.is_customer_upper"/>
+							</div>
+							
+							<div name="project" t-if="doc.cust_project_id" style="padding-left:3px;display:none;">
+								<span class="fa fa-th-large"/>
+								<span t-field="doc.cust_project_id.name"/>
+							</div>
+							
+							
+							<address t-field="doc.partner_id" style="margin-bottom:0px;"
+							         t-options='{"widget": "contact", "fields": ["address", "phone",  "email", "website"], "no_marker": false}'/>
+							<div t-attf-style="margin-left:2px;">
+								<span t-if="doc.partner_id.vat">TRN:
+									<span t-field="doc.partner_id.vat"/>
+								</span>
+							</div>
+							<div name="attention" t-if="doc.attention and doc.show_attention and doc.attention_left"
+							     t-attf-style="{{div_style}}">
+								<strong style="white-space:nowrap;">Attention:</strong>
+								<span t-field="doc.attention"/>
+							</div>
+						
+						
+						</div>
+						
+						<!--                    {{style.theme_color}}-->
+						<div class="col-5 mt8 mb8 float-right"
+						     t-attf-style="border:1px solid black;background-color:{{background_clr}}; color:{{style.theme_txt_color}};;min-height:178px;max-height:500px;">
+							<!--                    <div class="col-5 mt8 mb8 float-right" t-attf-style="background-color:{{style.theme_color}} !important; color:{{style.theme_txt_color}}">-->
+							<t t-set="div_style"
+							   t-value="'color:{};font-size:{}px; width:100%;'.format(style.theme_txt_color,int(style.body_font)+2)"/>
+							<div id="invoice_title" t-attf-style="{{div_style}};margin-top:2px !important;">
+								
+								<t t-if="env.context.get('proforma', False) or is_pro_forma">
+									<strong style="white-space:nowrap;">Pro-forma Invoice Number:</strong>
+								</t>
+								<t t-else="">
+									<strong style="white-space:nowrap;">Quote No:</strong>
+								</t>
+								<span t-field="doc.name"/>
+							</div>
+							
+							<div name="attention" t-if="doc.attention and doc.show_attention and doc.attention_right"
+							     t-attf-style="{{div_style}}">
+								<strong style="white-space:nowrap;">Attention:</strong>
+								<span t-field="doc.attention"/>
+							</div>
+							<div t-if="doc.enquiry_number" t-attf-style="{{div_style}}">
+								<strong style="white-space:nowrap;">Enquiry Number:</strong>
+								<span t-field="doc.enquiry_number"/>
+							</div>
+							<!--                        <div t-if="doc.date_order and doc.show_order_date" t-attf-style="{{div_style}}">-->
+							<div t-if="doc.date_order" t-attf-style="{{div_style}}" name="quote_date">
+								<strong style="white-space:nowrap;">Quote Date:</strong>
+								<span t-field="doc.date_order"/>
+							</div>
+							<div t-if="doc.lpo_no" t-attf-style="{{div_style}}" name="lpo_no">
+								<strong style="white-space:nowrap;">PO No:</strong>
+								<span t-field="doc.lpo_no"/>
+							</div>
+							<!--                        date for rads-->
+							<!--                        <div t-attf-style="{{div_style}}" name="create_date">-->
+							<!--                            <strong style="white-space:nowrap;">Create Date:</strong>-->
+							<!--                            <span t-field="doc.create_date"/>-->
+							<!--                        </div>-->
+							<div t-if="doc.validity_date and doc.state in ['draft', 'sent'] and doc.show_expiration"
+							     t-attf-style="{{div_style}}">
+								<strong style="white-space:nowrap;">Expiration:</strong>
+								<span t-field="doc.validity_date"/>
+							</div>
+							<div t-if="doc.user_id.name" t-attf-style="{{div_style}}" name="salesperson">
+								<strong style="white-space:nowrap;">Salesperson:</strong>
+								<span t-field="doc.user_id.name"/>
+							</div>
+							<div t-if="doc.asset_no and doc.show_asset_no" t-attf-style="{{div_style}}" name="asset_no">
+								<strong style="white-space:nowrap;">Asset No:</strong>
+								<span t-field="doc.asset_no"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+				<!--                <div class="col-12 float-left mt8 mb8"-->
+				<!--                     t-attf-style="padding-left:0px; padding-right:0px;border:1px solid black;">&lt;!&ndash;start of wrapper &ndash;&gt;-->
+				
+				<!--                    -->
+				
+				
+				<!--                </div>-->
+				
+				<div>
+					<t t-call="professional_templates_v1c.sales_lines_common_template"/>
+				</div>
+				
+				<span t-if="doc.is_technical_spec and doc.technical_spec"
+				      t-attf-style="font-size:18px;font-weight:bold;text-decoration:underline;">Technical Spec:
+				</span>
+				<table t-if="doc.is_technical_spec" class="table table-sm" t-attf-style="color:{{style.text_color}};"
+				       name="spec_table">
+					<t t-set="spec_td_style" t-value="'border: 1px solid #a6a6a6 !important;'"></t>
+					<t t-foreach="doc.technical_spec" t-as="spec">
+						<t t-if="spec.display_type=='line_section'">
+							<tr>
+								<td name="spec_section_name_td" t-att-colspan="99"
+								    t-attf-style="color: black;font-weight:bold;text-decoration:underline;{{spec_td_style}}">
+									<span t-field="spec.name"/>:
+								</td>
+							</tr>
+						</t>
+						<t t-else="">
+							<tr>
+								<td t-attf-style="color: {{doc.company_id.primary_color}};font-weight:bold;{{spec_td_style}};text-align:center;">
+									<span t-esc="spec.label_name.name"/>
+								</td>
+								<td t-attf-style="{{spec_td_style}}">
+									<span t-esc="spec.description.name"/>
+								</td>
+							</tr>
+						</t>
+					</t>
+				
+				</table>
+				
+				
+				<div name="extra_part">
+					<div name="validity" class="row" style="line-height:20px;" t-if="doc.validity_date">
+						<div class="col-2">
+							<strong>Validity</strong>
+							<span class="float-right">:</span>
+						</div>
+						<div class="col-10">
+							<span t-field="doc.validity_date"/>
+						</div>
+					</div>
+					<div name="payment" class="row" style="line-height:20px;" t-if="doc.payment_term_id">
+						<div class="col-2">
+							<strong>Payment</strong>
+							<span class="float-right">:</span>
+						</div>
+						<div class="col-10">
+							<span t-field="doc.payment_term_id"/>
+						</div>
+					</div>
+					<div name="delivery" class="row" style="line-height:20px;" t-if="doc.delivery_detail">
+						<div class="col-2">
+							<strong>Delivery</strong>
+							<span class="float-right">:</span>
+						</div>
+						<div class="col-10">
+							<span t-field="doc.delivery_detail"/>
+						</div>
+					</div>
+					<div name="make" class="row" style="line-height:20px;" t-if="doc.make_detail">
+						<div class="col-2">
+							<strong>Make</strong>
+							<span class="float-right">:</span>
+						</div>
+						<div class="col-10">
+							<span t-field="doc.make_detail"/>
+						</div>
+					</div>
+					<div name="exclusion_m" class="row" style="line-height:20px;"
+					     t-if="doc.exclusion and doc.show_exclusion">
+						<div class="col-2">
+							<strong>Exclusion</strong>
+							<span class="float-right">:</span>
+						</div>
+						<div class="col-10">
+							<span t-field="doc.exclusion"/>
+						</div>
+					</div>
+					
+					<!--
+										<div name="tc_note" class="row" style="line-height:20px;" t-if="doc.note">
+											<div class="col-2">
+												<strong>Note</strong>
+												<span class="float-right">:</span>
+											</div>
+											<div class="col-10">
+												<span t-field="doc.note"/>
+											</div>
+										</div>
+					-->
+					<!--TC note was replaced below-->
+					
+					<div class="oe_mt32 row" t-if="doc.bank_detail_enable and doc.company_id.bank_name"
+					     t-attf-style="margin-left:1px;page-break-inside:avoid;">
+						<span t-attf-style="text-decoration: underline;font-size:18px;font-weight:bold;">Bank Details
+						</span>
+						<br/>
+						<t t-if="doc.company_id.bank_name">
+							<span t-field="doc.company_id.bank_name"/>
+							<br/>
+						</t>
+						<t t-if="doc.company_id.bank_account_number">
+							<span t-field="doc.company_id.bank_account_number"/>
+							<br/>
+						</t>
+						<t t-if="doc.company_id.bank_iban_number">
+							<span t-field="doc.company_id.bank_iban_number"/>
+							<br/>
+						</t>
+						<t t-if="doc.company_id.bank_address">
+							<span t-field="doc.company_id.bank_address"/>
+							<br/>
+						</t>
+						<t t-if="doc.company_id.bank_branch">
+							<span t-field="doc.company_id.bank_branch"/>
+						</t>
+					</div>
+					
+					
+					<!--Notes Main div-->
+					<div name="Note" class="row position-relative" style="line-height:20px;">
+						
+						<!--Note-->
+						<div class="col-12 mt-4">
+							<span t-field="doc.note"/>
+						</div>
+					</div>
+					
+					<t t-set="warm_regards_val" t-value="doc.get_warm_regards_cp()"/>
+					<div name="warm_regards" class="row oe_mt16 position-relative" t-if="warm_regards_val">
+						<!--Stamp-->
+						<div t-attf-style="color:{{style.text_color}}" class="col-12">
+							<span t-field="doc.warm_regards"/>
+						</div>
+					</div>
+					
+					<!--    Signature    -->
+					<t t-set="signature" t-value="doc.get_signature()"/>
+					<div t-if="signature" class="row oe_mt64" style="top:10px" name="signature">
+						<div t-if="doc.prepared_by" style="" class="col-4 text-left  position-relative">
+							<div style="float:left" class="w-100 text-left">
+								<img style="width:200px;" t-if="doc.prepared_by.user_signature"
+								     t-att-src="image_data_uri(doc.prepared_by.user_signature)"
+								     alt="Signature"/>
+							
+							</div>
+							<div style="float:left;  bottom:0px" class="w-100 text-left position-absolute ">
+								<strong style="text-decoration:overline;">
+									<span t-field="signature.signature1"/>
+									<b>
+										<span t-field="doc.prepared_by.name"/>
+									</b>
+								</strong>
+							</div>
+						</div>
+						<div class="col-4 text-center">
+							<div class="col-12 position-absolute">
+								<img style="width:4cm;" t-if="doc.stamp"
+								     t-att-src="image_data_uri(doc.stamp)"
+								     class="rounded" alt="Stamp"/>
+							</div>
+						</div>
+						<div t-if="doc.approve_by" class="col-4 text-right  position-relative">
+							
+							<div style="float:right" class="w-100">
+								<img style="width:200px;" t-if="doc.approve_by.user_signature"
+								     t-att-src="image_data_uri(doc.approve_by.user_signature)"
+								     alt="Signature"/>
+							
+							</div>
+							<div style="float:right;  bottom:0px" class="w-100 text-center position-absolute ">
+								<strong style="text-decoration:overline;">
+									<span class="border" t-field="signature.signature3"/>
+									<b>
+										<span class="border" t-field="doc.approve_by.name"/>
+									</b>
+								</strong>
+							</div>
+						</div>
+					</div>
+				
+				
+				</div>
+				
+				<!--                style="line-height:20px;" -->
+				<!--                t-attf-style="line-height:15px;"-->
+				<style>
+					#note_css li{
+					line-height:10px;
+					}
+					#note_css p{
+					line-height:10px;
+					white-space: pre-wrap;
+					}
+					#note_css ol{
+					margin-left:45px;
+					}
+				</style>
+				
+				<t t-set="t_and_c_val" t-value="doc.get_t_and_c()"/>
+				<div name="note1" class="row mt-2" t-if="t_and_c_val and not doc.is_html_empty(t_and_c_val)">
+					
+					<div class="col-12" t-raw="doc.t_and_c" widget="html" id="note_css"/>
+				
+				</div>
+				<!--                <t t-set="warm_regards_val" t-value="doc.get_warm_regards()"/>-->
+				<!--                <div name="warm_regards" class="row oe_mt16" t-if="warm_regards_val">-->
+				<!--                    <div class="col-12">-->
+				<!--                        <b><span t-field="doc.warm_regards"/></b>-->
+				<!--                    </div>-->
+				<!--                </div>-->
+				
+				
+				<div name="Note" class="row" style="line-height:20px;">
+				
+				</div>
+				
+				<!--Bank Details_PT-->
+			
+			
+			</div><!--End of PAGE-->
+			<!--FOOTER -->
+			<div class="footer"
+			     t-attf-style="font-size:{{style.footer_font}}px !important;font-family:{{style.font_family}} !important;">
+				<t t-call="professional_templates_v1c.company_footer"/>
+			</div>
+			<!--/FOOTER-->
+		</template>
+	</data>
+</odoo>

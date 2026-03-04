@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="invoice_type_amc" model="invoice.type">
+            <field name="name">AMC</field>
+        </record>
+        <record id="invoice_type_others" model="invoice.type">
+            <field name="name">Others</field>
+        </record>
+
+    </data>
+
+</odoo>

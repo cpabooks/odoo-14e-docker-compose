@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		<template id="certificate_report_template" name="Payment Certificate">
+			<t t-call="web.html_container">
+				<t t-call="web.external_layout">
+					<style>
+						table {
+						width: 100%;
+						border-collapse: collapse;
+						margin-top: 15px;
+						}
+						th, td {
+						border: 1px solid #000;
+						padding: 8px;
+						text-align: left;
+						}
+						td {
+						
+						}
+						th {
+						background-color: #f2f2f2;
+						font-weight: bold;
+						text-align: center;
+						}
+						.text-right {
+						text-align: right;
+						}
+						.text-center {
+						text-align: center;
+						}
+						.bold {
+						font-weight: bold;
+						}
+						.bold-top-border {
+						border-top: 4px solid black !important;
+						}
+					</style>
+					
+					
+					<t t-foreach="docs" t-as="doc">
+						<h2 class="p-2 mb-2 text-center">Payment Certificate</h2>
+						<div class="row m-1">
+							<!--Left Division-->
+							<div class="col-7 p-2 border border-2 border-dark">
+								<strong>Partner Details -</strong>
+								<h5 class="text-bold" t-esc="doc.partner_id.name"></h5>
+								<strong t-if="doc.partner_id.vat">TRN:</strong>
+								<span t-if="doc.partner_id.vat" t-esc="doc.partner_id.vat"/>
+								<t t-if="doc.partner_id">
+									<address t-field="doc.partner_id"
+									         style="margin-bottom:0px;"
+									         t-options='{"widget": "contact", "fields": ["address", "phone", "mobile", "email", "website"], "no_marker": false}'/>
+								</t>
+							</div>
+							<!--Right Division-->
+							<div class="col-5 p-2 border border-2 border-dark  ">
+								<div class="w-100 d-flex flex-wrap">
+									<div class=" w-50">
+										<strong>PC No</strong>
+										<span class="float-right">
+											<b>:</b>
+										</span>
+									</div>
+									<div class=" w-50 pl-2">
+										<span t-esc="doc.name"/>
+									</div>
+								</div>
+								<div class="w-100 d-flex flex-wrap" t-if="doc.payment_ref">
+									<div class=" w-50">
+										<strong>Payment Ref. No</strong>
+										<span class="float-right">
+											<b>:</b>
+										</span>
+									</div>
+									<div class=" w-50 pl-2">
+										<span t-esc="doc.payment_ref"/>
+									</div>
+								</div>
+								<div t-if="doc.date" class="w-100 d-flex flex-wrap">
+									<div class=" w-50">
+										<strong>Date</strong>
+										<span class="float-right">
+											<b>:</b>
+										</span>
+									</div>
+									<div class=" w-50 pl-2">
+										<span t-esc="doc.date"/>
+									</div>
+								</div>
+								<div t-if="doc.payment_type" class="w-100 d-flex flex-wrap">
+									<div class=" w-50">
+										<strong>Type</strong>
+										<span class="float-right">
+											<b>:</b>
+										</span>
+									</div>
+									<div class=" w-50 pl-2">
+										<span t-esc="dict(outbound='Send Money', inbound='Receive Money').get(doc.payment_type, 'Unknown')"/>
+									</div>
+								</div>
+								<div t-if="doc.journal_id" class="w-100 d-flex flex-wrap">
+									<div class="w-50">
+										<strong>Journal</strong>
+										<span class="float-right">
+											<b>:</b>
+										</span>
+									</div>
+									<div class="w-50 pl-2">
+										<span t-esc="doc.journal_id.name"/>
+									</div>
+								</div>
+								<div t-if="doc.cheque_no" class="w-100 d-flex flex-wrap">
+									<div class=" w-50">
+										<strong>Cheque No.</strong>
+										<span class="float-right">
+											<b>:</b>
+										</span>
+									</div>
+									<div class=" w-50 pl-2">
+										<span t-esc="doc.cheque_no"/>
+									</div>
+								</div>
+								<div t-if="doc.cheque_date" class="w-100 d-flex flex-wrap">
+									<div class=" w-50">
+										<span class="float-right">
+											<b>:</b>
+										</span>
+										<strong>Deposit/TT Date</strong>
+									</div>
+									<div class=" w-50 pl-2">
+										<span t-esc="doc.cheque_date"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!--Items-->
+						<div class="w-100 mt-4">
+							<h4>Invoice Details</h4>
+							<table class="table table-sm">
+								<thead>
+									<th class="text-center">Sr No.</th>
+									<th class="text-center">Bills No.</th>
+									<th class="text-center">Bill Ref.</th>
+									<th class="text-center">Date</th>
+									<!--<th class="text-center">Project</th>-->
+									<th class="text-center">Inv. Total</th>
+									<th class="text-center">Balance Due</th>
+									<th class="text-center">PC Amount</th>
+								</thead>
+								<tbody>
+									<t t-set="counter" t-value="0"/>
+									<t t-set="total_alc_amt" t-value="0"/>
+									<t t-set="total_blc_amt" t-value="0"/>
+									<t t-set="total_inv_amt" t-value="0"/>
+									<t t-foreach="doc.adv_line_ids.filtered(lambda line: line.allocation != 0.0)"
+									   t-as="line">
+										<t t-set="counter" t-value="counter + 1"/>
+										<t t-set="total_alc_amt" t-value="total_alc_amt + line.allocation"/>
+										<t t-set="total_blc_amt" t-value="total_blc_amt + line.balance_amount"/>
+										<t t-set="total_inv_amt"
+										   t-value="total_inv_amt + abs(line.invoice_id.amount_total_signed)"/>
+										<tr>
+											<td class="text-center">
+												<span t-esc="counter"/>
+											</td>
+											<td>
+												<span t-esc="line.invoice_id.name"/>
+											</td>
+											<td>
+												<span t-esc="line.invoice_id.ref"/>
+											</td>
+											<td class="text-right">
+												<span t-esc="line.date"/>
+											</td>
+											<!--                                            <td class="text-center">-->
+											<!--                                                <span t-esc="line.invoice_id.psf"/>-->
+											<!--                                            </td>-->
+											<td class="text-right">
+												<span t-esc="'{:,.2f}'.format(abs(line.invoice_id.amount_total_signed))"/>
+											</td>
+											<td class="text-right">
+												<span t-esc="'{:,.2f}'.format(line.balance_amount)"/>
+											</td>
+											<td class="text-right">
+												<span t-esc="'{:,.2f}'.format(line.allocation)"/>
+											</td>
+										</tr>
+									</t>
+									<tr t-attf-style="border: none !important;">
+										<td colspan="3"
+										    t-attf-style="border: none !important; border-top: none !important; border-right: none !important; border-bottom: none !important; border-left: none !important;"></td>
+										<th class="text-center">TOTAL</th>
+										<th class="text-right">
+											<strong t-esc="'{:,.2f}'.format(total_inv_amt)"/>
+										</th>
+										<th class="text-right">
+											<strong t-esc="'{:,.2f}'.format(total_blc_amt)"/>
+										</th>
+										<th class="text-right">
+											<strong t-esc="'{:,.2f}'.format(total_alc_amt)"/>
+										</th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
+						<!--Products-->
+						<div class="w-100">
+							<h4>Service Details</h4>
+							<table class="table table-sm">
+								<thead>
+									<tr>
+										<th class="text-center">#</th>
+										<th class="text-center" width="18%">Bills No.</th>
+										<th class="text-center" width="10%">Month</th>
+										<th class="text-center" width="15%">Project</th>
+										<th class="text-center" width="15%">PO Ref.</th>
+										<th class="text-center" width="20%">Trade Name</th>
+										<th class="text-center" width="4%">Qty</th>
+										<th class="text-center" width="4%">Rate</th>
+										<!--<th class="text-center" width="4%">Amount Before Tax</th>-->
+										<th class="text-center" width="4%">Tax</th>
+										<th class="text-center" width="4%">Total Invoice Amount</th>
+									</tr>
+								</thead>
+								<tbody>
+									<t t-set="inv_count" t-value="0"/>
+									<t t-set="total_price_unit_amt" t-value="0"/>
+									<t t-set="total_price_subtotal_amt" t-value="0"/>
+									<t t-set="total_qty" t-value="0"/>
+									<!--<t t-set="total_tax_amt" t-value="0"/>-->
+									<t t-set="total_taxed_amt" t-value="0"/>
+									<t t-foreach="doc.adv_line_ids.filtered(lambda line: line.allocation != 0)"
+									   t-as="inv">
+										<t t-foreach="inv.invoice_id.invoice_line_ids" t-as="item">
+											<t t-set="amt_tax"
+											   t-value="(((item.price_subtotal * item.tax_ids[0].amount) / 100)) if item.tax_ids else 0.0"/>
+											<t t-set="amt_with_tax" t-value="item.price_subtotal + amt_tax"/>
+											<t t-set="inv_count" t-value="inv_count + 1"/>
+											<t t-set="total_qty" t-value="total_qty + item.quantity"/>
+											<t t-set="total_price_unit_amt"
+											   t-value="total_price_unit_amt + item.price_unit"/>
+											<t t-set="total_price_subtotal_amt"
+											   t-value="total_price_subtotal_amt + item.price_subtotal"/>
+											<t t-set="total_taxed_amt" t-value="total_taxed_amt + amt_with_tax"/>
+											<tr>
+												<td class="text-center">
+													<t t-esc="inv_count"/>
+												</td>
+												<td class="">
+													<span t-esc="inv.invoice_id.name"/>
+												</td>
+												<td style="font-size: 14px !important;" class="text-right">
+													<span t-esc="inv.invoice_id.date.strftime('%b %d')"/>
+												</td>
+												<td class="text-center">
+													<span t-esc="item.psf"/>
+												</td>
+												<td class="text-right">
+													<span t-esc="inv.invoice_id.lpo_no"/>
+												</td>
+												<td class="">
+													<span t-esc="item.name"/>
+												</td>
+												<td class="text-right">
+													<span t-esc="'{:,.2f}'.format(item.quantity)"/>
+												</td>
+												<td class="text-right">
+													<span t-esc="'{:,.2f}'.format(item.price_unit)"/>
+												</td>
+												<!--<td class="text-right">
+													<span t-esc="'{:,.2f}'.format(item.price_subtotal)"/>
+												</td>-->
+												<td class="text-right" style="font-size: 14px !important;">
+													<span t-if="item.tax_ids">
+														<t t-esc="'{:,.0f}'.format(item.tax_ids[0].amount)"/>
+														%
+													</span>
+													<span t-else="">-</span>
+												</td>
+												<td class="text-right">
+													<t t-esc="'{:,.2f}'.format(amt_with_tax)"/>
+												</td>
+											</tr>
+										</t>
+									</t>
+									<tr>
+										<td colspan="10"></td>
+									</tr>
+									<!--<tr>
+										<td colspan="11"></td>
+									</tr>-->
+									<tr>
+										<th>1.</th>
+										<td colspan="5" class="text-left">
+											<strong>Total</strong>
+										</td>
+										<td class="text-right">
+											<t t-esc="'{:,.2f}'.format(total_qty)"/>
+										</td>
+										<td class="text-right">
+											<t t-esc="'{:,.2f}'.format(total_price_unit_amt)"/>
+										</td>
+										<!--<td class="text-right">
+											<t t-esc="'{:,.2f}'.format(total_price_subtotal_amt)"/>
+										</td>-->
+										<td class="text-right"> <!--<t t-esc="total_price_subtotal_amt"/>--> </td>
+										<td class="text-right">
+											<t t-esc="'{:,.2f}'.format(total_taxed_amt)"/>
+										</td>
+									</tr>
+									
+									<tr class="border-top">
+										<th>2.</th>
+										<td colspan="8">
+											<strong>Less: Previous Balance</strong>
+										</td>
+										<td class="text-right">
+											<strong t-esc="'{:,.2f}'.format(doc.previous_balance)"/>
+										</td>
+									</tr>
+									<tr class="border-top">
+										<th>3.</th>
+										<td colspan="8">
+											<strong>Less: Other Deduction
+												<t t-if="doc.deduction_reason">(<strong t-esc="doc.deduction_reason"/>)
+												</t>
+											</strong>
+										</td>
+										<td class="text-right">
+											<strong t-esc="'{:,.2f}'.format(doc.other_dedication)"/>
+										</td>
+									</tr>
+									<tr class="border-top">
+										<th>4.</th>
+										<td colspan="8">
+											<strong>Net Amount of TT</strong>
+										</td>
+										<td class="text-right">
+											<t t-set="net_amt"
+											   t-value="total_taxed_amt - doc.previous_balance - doc.other_dedication"/>
+											<strong t-esc="'{:,.2f}'.format(net_amt)"/>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
+						<div class="w-100 mt-4">
+							<strong>Amount in Word:</strong>
+							<span t-esc="doc.num_word"/>
+						</div>
+						
+						<div class="row mt-5">
+							<div class="col-5">
+								<div class="row mb-2">
+									<div class="col-5 pr-1">
+										<span class="float-right">:</span>
+										<b>Prepared by</b>
+									</div>
+									<div class="col-7 p-0">
+										<span t-if="doc.prepared_by" t-esc="doc.prepared_by.name"/>
+										<span t-else=""
+										      t-attf-style="display:inline-block; width:100%; border-bottom:1px dotted black !important;"/>
+									</div>
+								</div>
+								<div class="row mb-2">
+									<div class="col-5 pr-1">
+										<span class="float-right">:</span>
+										<b>Checked by</b>
+									</div>
+									<div class="col-7 p-0">
+										<span t-if="doc.checked_by" t-esc="doc.checked_by.name"/>
+										<span t-else=""
+										      t-attf-style="display:inline-block; width:100%; border-bottom:1px dotted black !important;"/>
+									</div>
+								</div>
+								<div class="row mb-2">
+									<div class="col-5 pr-1">
+										<span class="float-right">:</span>
+										<b>Approved by</b>
+									</div>
+									<div class="col-7 p-0">
+										<span t-if="doc.approve_by" t-esc="doc.approve_by.name"/>
+										<span t-else=""
+										      t-attf-style="display:inline-block; width:100%; border-bottom:1px dotted black !important;"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-7">
+								<div class="row mb-2">
+									<div class="col-5 pr-1">
+										<span class="float-right">:</span>
+										<b>Receiver Signature and Date</b>
+									</div>
+									<div class="col-7 pl-0">
+										<span t-attf-style="display:inline-block; width:100%; border-bottom:1px dotted black !important;"/>
+									</div>
+								</div>
+								<div class="row mb-2">
+									<div class="col-5 pr-1">
+										<span class="float-right">:</span>
+										<b>Telephone Number</b>
+									</div>
+									<div class="col-7 pl-0">
+										<span t-attf-style="display:inline-block; width:100%; border-bottom:1px dotted black !important;"/>
+									</div>
+								</div>
+								<div class="row mt-5">
+									<div class="col-5 pr-1">
+										<span class="float-right">:</span>
+										<b>Stamp</b>
+									</div>
+									<div class="col-7 pl-0">
+										<span t-attf-style="display:inline-block; width:100%; border-bottom:1px dotted black !important;"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+					</t>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>

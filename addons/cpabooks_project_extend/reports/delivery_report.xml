@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    <template id="report_delivery_slip_project_extend" inherit_id="cpabooks_delivery_slip.report_delivery_document_custom">-->
+<!--        <xpath expr="//div[@name='customer_address']/div[2]" position="attributes">-->
+<!--            <attribute name="class">col-6 mt-5</attribute>-->
+<!--&lt;!&ndash;            <attribute name="style">margin-top:20px;</attribute>&ndash;&gt;-->
+<!--        </xpath>-->
+<!--        <xpath expr="//div[@name='customer_address']/div[2]" position="inside">-->
+<!--              <div t-if="o.project_id"> <strong>Project/Job: </strong><span t-esc="o.project_id.name"/> </div>-->
+
+<!--        </xpath>-->
+
+<!--    </template>-->
+</odoo>

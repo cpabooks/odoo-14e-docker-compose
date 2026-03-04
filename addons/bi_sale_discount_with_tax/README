@@ -1,0 +1,13 @@
+
+=> 14.0.0.1 : 
+	- Solved issue of traceback generated on registering payment.
+
+=> 14.0.0.2 : 
+	- Solved the issue of on confirming invoice generated from sale order with discount show warning of debit and credit is not same that means journal entries are not balanced.
+	- Solved the issue of amount is not showing in proper column in report of invoice.
+
+=> 14.0.0.3 : rec not defined issue solved 
+
+14.0.0.4 ==>1. fixed issue of invoice when we registered payment then it moves to "In partial payment" not into "paid" stage
+2.fixed issue of debit credit warning for untax amount.
+3.added bydefault config as 'tax'.

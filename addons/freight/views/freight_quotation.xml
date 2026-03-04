@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+<record model="ir.ui.view" id="view_freight_quotation_form">
+            <field name="name">freight.quotation.form</field>
+            <field name="model">freight.quotation</field>
+            <field name="arch" type="xml">
+                <form string="Operations">
+                    <sheet>
+                        <h1><div><field name="name" string="Quotation No." readonly="1"/></div></h1>
+                        <group string="Operation">
+                            <group>
+                                <field name="operation" invisible="1"/>
+                                <field name="direction" widget="radio" />
+                            </group>
+                            <group>
+                                <field name="transport" widget="radio"/>
+                                <field name="ocean_shipment_type" widget="radio" attrs="{'invisible': [('transport','!=','ocean')]}"/>
+                                <field name="inland_shipment_type" widget="radio" attrs="{'invisible': [('transport','!=','land')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+              </form>
+            </field>
+        </record>
+
+
+
+<!--
+        <record model="ir.ui.view" id="view_freight_operation_line_form">
+            <field name="name">freight.operation.line.form</field>
+            <field name="model">freight.operation.line</field>
+            <field name="arch" type="xml">
+                <form string="Operations Lines">
+                    <field name="product_id"/>
+                    <field name="product_uom_qty"/>
+                    <field name="product_uom"/>
+                    <field name="port_of_loading"/>
+                    <field name="port_of_delivery"/>
+                  <field name="freight_item_qty"/>
+                    <field name="freight_container_type"/>
+                    <field name="freight_teus20ft"/>
+                    <field name="freight_ffe40ft"/>
+                    <field name="freight_etd"/>
+                    <field name="rate_validity"/>
+                    <field name="price_unit"/>
+                    <field name="price_subtotal"/>
+                  <field name="foreign_currency"/>
+                    <field name="rate_in_foreign_currency"/>
+                    <field name="amount_in_foreign_currency"/>
+                </form>
+            </field>
+        </record>
+-->
+
+        <record id="view_freight_quotation" model="ir.actions.act_window" >
+            <field name="name">Freight Quotation</field>
+            <field name="res_model">freight.quotation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new Quotation.
+              </p>
+            </field>
+        </record>
+
+
+<menuitem name="Quotation" parent="freight_operations" id="freight_quotation" action="view_freight_quotation" sequence="2"/>
+
+
+
+</data>
+</odoo>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_standard_payment_receipt">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page">
+                <h2 class="text-center oe_mb32" style="text-decoration: underline;">
+                    <span t-if="o.partner_type == 'customer'">Receipt Voucher</span>
+                    <span t-if="o.partner_type == 'supplier'">Payment Voucher</span>
+                </h2>
+                <div class="row mt-3">
+                    <div class="col-6" t-if="o.date">
+                        <h5>Date:
+                            <span style="border-bottom: 4px dashed #000;" t-field="o.date"/>
+                        </h5>
+                    </div>
+                    <div class="col-6 text-right" t-if="o.name">
+                        <h5>No.
+                            <span t-field="o.name"/>
+                        </h5>
+                    </div>
+
+                </div>
+                <div class="row mt-5">
+                    <div class="col-3" t-if="o.partner_type == 'customer'">Received from Mr./M/s.</div>
+                    <div class="col-3" t-if="o.partner_type == 'supplier'">Payment to Mr./M/s.</div>
+                    <div style="border-bottom: 4px dashed #000;" class="col-9">
+                        <span t-field="o.partner_id"/>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-2">A Sum of Dirhams</div>
+                    <div style="border-bottom: 4px dashed #000;" class="col-10">
+                        <span t-field="o.num_word"/>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-2">Cash/Cheque No:</div>
+                    <div style="border-bottom: 4px dashed #000;" class="col-2">
+                        <span t-if="o.cheque_no" t-field="o.cheque_no"/>
+                        <span t-else="">Cash</span>
+                    </div>
+                    <div class="col-2">Drawn On:</div>
+                    <div style="border-bottom: 1px dotted #000;" class="col-3">
+                        <span t-if="o.partner_bank_id" t-field="o.partner_bank_id.acc_number"/>
+                        <span t-else="" t-field="o.clint_bank"/>
+                    </div>
+
+                    <div class="col-1">Dated:</div>
+                    <div style="border-bottom: 4px dashed #000;" class="col-2"></div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-1">Being</div>
+                    <div style="border-bottom: 4px dashed #000;" class="col-10">
+                        <span t-field="o.ref"/>
+                    </div>
+                </div>
+                <div class="row mt-4 mb-4">
+                    <div class="col-1">Dhs.:</div>
+                    <div style="border-bottom: 4px dashed #000;" class="col-3">
+                        <span t-field="o.amount"/>
+                    </div>
+                </div>
+            </div>
+            <t t-set="signature" t-value="o.get_signature()"/>
+
+            <div t-if="signature" class="row oe_mt64 ">
+                <div class="col-4 text-left" t-if="signature.signature1">
+
+                    <strong>
+                        <span style="text-decoration:overline" t-field="signature.signature1"/>
+                    </strong>
+                </div>
+                <div class="col-4 text-center" t-if="signature.signature2">
+                    <strong>
+                        <span style="text-decoration:overline" t-field="signature.signature2"/>
+                    </strong>
+                </div>
+                <div class="col-4 text-right" t-if="signature.signature3">
+                    <strong>
+                        <span style="text-decoration:overline" t-field="signature.signature3"/>
+                    </strong>
+                </div>
+            </div>
+
+        </t>
+
+
+    </template>
+
+    <template id="report_standard_payment_voucher">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
+                <t t-call="cpabooks_payment_voucher.report_standard_payment_receipt" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

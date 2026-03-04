@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="common_invoice_template_job_order" inherit_id="professional_templates.INVOICE_common_document">
+        <xpath expr="//div[@name='without_show_delivery_address']/div[@name='invoice_origin']" position="after">
+            <div t-if="o.job_order_ids and o.show_job_no" t-attf-style="{{div_style}}">
+                <strong style="white-space:nowrap;">Job No:</strong>
+                <span t-esc="', '.join(map(lambda x: (x.name), o.job_order_ids))" id="job_order_ids"/>
+<!--                <span t-field="o.job_no"/>-->
+            </div>
+        </xpath>
+    </template>
+</odoo>

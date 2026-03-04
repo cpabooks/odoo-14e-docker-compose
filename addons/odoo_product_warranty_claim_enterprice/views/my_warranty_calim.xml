@@ -1,0 +1,167 @@
+<odoo>
+    
+    <template id="thanks_mail_send_custom_claim_enterprice" name="Thanks">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure"/>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8" style="margin-top: 50px;">
+                                <div class="alert alert-success">
+                                    <h3>We have received your support ticket request.</h3>
+                                    <h5>
+                                        Your ticket number is
+<!--                                        <t t-esc="support.name"/>-->
+                                        <span>#<t t-esc="support.id"/></span>
+                                        please note it for further communication and you will also receive email from our
+                                        support team shortly, Please reply to that email for feature conversation.
+                                        <br/>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class="container">
+                                <a t-attf-href="/helpdesk/ticket/#{support.id}?{{ keep_query() }}" class="btn btn-primary pull-right mb32"><span class="hidden-xs">View Ticket</span></a>
+                            </p>
+                        </div>
+                    </div>
+            </t>
+        </template>
+    
+    <template id="tickets_followup_inherit_warranty_number" name="my ticket: project menu
+        entry" inherit_id="helpdesk.tickets_followup" priority="28">
+       <xpath expr="//t[@t-set='card_body']" position="inside">
+                <div class='row'>
+                    <strong class="col-md-2">Warranty Number</strong>
+                    <div class="col-md-4">
+                        <address t-field="ticket.custom_warranty_number"/>
+                    </div>
+                    <strong class="col-md-2">Serial Number</strong>
+                    <div class="col-md-4">
+                        <address t-field="ticket.custom_serial_number"/>
+                    </div>
+                </div>
+                <div class='row'>
+                    <strong class="col-md-2">Warranty Start Date</strong>
+                    <div class="col-md-4">
+                        <address t-field="ticket.custom_warranty_start_date"/>
+                    </div>
+                    <strong class="col-md-2">Warranty End Date</strong>
+                    <div class="col-md-4">
+                        <address t-field="ticket.custom_warranty_end_date"/>
+                    </div>
+                </div>
+                <div class='row'>
+                    <strong class="col-md-2">SO / Contract Reference</strong>
+                    <div class="col-md-4">
+                        <address t-field="ticket.custom_contract_reference"/>
+                    </div>
+                    <strong class="col-md-2">Category</strong>
+                    <div class="col-md-4">
+                        <address t-field="ticket.custom_category"/>
+                    </div>
+                </div>
+        </xpath>
+    </template>
+    
+    <template id="portal_my_warranty_claim_enterprice" name="Portal My Warranty Claim Requests" inherit_id="portal.portal_my_home" priority="28">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+             <!-- <li class="list-group-item">
+                <span class="badge" t-esc="warranty_claim_count"/>
+                <a href="/my/warranty_claims">Warranties </a>
+            </li> -->
+            <!-- <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Warranties</t>
+                <t t-set="url" t-value="'/my/warranty_claims_enterprice'"/>
+                <t t-set="count" t-value="warranty_claim_count"/>
+            </t> -->
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Warranties</t>
+                <t t-set="url" t-value="'/my/warranty_claims_enterprice'"/>
+                <t t-set="placeholder_count" t-value="'warranty_claim_count'"/>
+            </t>
+        </xpath>
+    </template>
+    
+     <template id="portal_my_claims_enterprice" name="Portal My Claim Requests" inherit_id="portal.portal_my_home" priority="28">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+             
+            <!-- <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Claims</t>
+                <t t-set="url" t-value="'/my/claims_enterprice'"/>
+                <t t-set="count" t-value="claim_count"/>
+            </t> -->
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Claims</t>
+                <t t-set="url" t-value="'/my/claims_enterprice'"/>
+                <t t-set="placeholder_count" t-value="'claim_count'"/>
+            </t>
+        </xpath>
+    </template>
+    
+    <template id="display_warranty_claims_enterprice" name="Display Warranty Claim">
+        <t t-call="portal.portal_layout">
+         <div class="col-md-4 text-left">
+             <a href="/helpdesk_support_ticket_inherit_warranty_claim" class="btn btn-success">
+                    Create Warranty Claim Request
+             </a>
+             <!--<a href="/create_warranty_claims" class="btn btn-success">
+                    Create Warranty Claim Request
+             </a>-->
+        </div>
+        <h3 class="page-header">Your Warranty</h3>
+            <table class="table table-hover o_my_status_table">
+                <thead>
+                  <tr class="active">
+                    <th>Number</th>
+                    <th>Sale Order</th>
+                    <th>Customer</th>
+                    <th>Serial Number</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Unit of Measure</th>
+                    <th>Warranty Start Date </th>
+                    <th>Warranty End Date </th>
+                  </tr>
+                </thead>
+                <t t-foreach="warranty_claims" t-as="claim">
+                    <tr>
+                        <td>
+                            <span t-field="claim.name"/>
+                        </td>
+                        <td>
+                            <span t-field="claim.sale_order_id"/>
+                        </td>
+                        <td>
+                            <span t-field="claim.partner_id.name"/>
+                        </td>
+                        <td>
+                            <span t-field="claim.serial_number"/>
+                        </td>
+                        <td>
+                            <span t-field="claim.product_id.name"/>
+                        </td>
+                        <td>
+                            <span t-field="claim.quantity"/>
+                        </td>
+                        <td>
+                            <span t-field="claim.uom_id.id"/>
+                        </td>
+                        <td>
+                            <span t-field="claim.start_date"/>
+                        </td>
+                        <td>
+                            <span t-field="claim.end_date"/>
+                        </td>
+                    </tr>
+                </t>
+            </table>
+             </t>
+    </template>
+    
+</odoo>

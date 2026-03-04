@@ -1,0 +1,4 @@
+Version:
+ 13.0.0.1 ==> Improved _action_done method of stock.move and Create manual account.move for delivery orders
+
+ 13.0.0.2 ==> fixed issue in picking after confirm purchase order and added validation for backdate and also improve code.

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="planning_view_tree_inherit" model="ir.ui.view">
+            <field name="name">planning.view.tree.inherit</field>
+            <field name="model">planning.slot</field>
+            <field name="inherit_id" ref="planning.planning_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='allocated_hours']" position="before">
+                    <field name="plan_diff" optional="show"/>
+                    <field name="plan_emp" optional="show" widget="float_time" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='allocated_hours']" position="after">
+                    <field name="hrs_spent" optional="show" widget="float_time"/>
+                </xpath>
+                <xpath expr="//field[@name='allocated_hours']" position="attributes">
+                    <attribute name="string">Plan Hrs.</attribute>
+                    <attribute name="readonly">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='allocated_percentage']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='project_id']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='start_datetime']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='end_datetime']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='task_id']" position="after">
+                    <field name="name" optional="show"/>
+                    <field name="status" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="planning_slot_form_view_inherit" model="ir.ui.view">
+            <field name="name">planning.slot.form.view.inherit</field>
+            <field name="model">planning.slot</field>
+            <field name="inherit_id" ref="planning.planning_view_form_in_gantt"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <attribute name="placeholder">To Do</attribute>
+                </xpath>
+
+                <xpath expr="//div[@class='o_row']" position="after">
+                    <div>
+                        <field name="name"/>
+                    </div>
+                </xpath>
+
+                <xpath expr="//field[@name='allocated_hours']" position="after">
+                    <field name="status"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="planning.planning_action_my_calendar" model="ir.actions.act_window">
+            <field name="view_mode">tree,calendar,gantt,form,kanban</field>
+        </record>
+    </data>
+</odoo>

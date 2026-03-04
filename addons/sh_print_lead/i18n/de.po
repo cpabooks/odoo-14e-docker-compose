@@ -1,0 +1,271 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_print_lead
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.1alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-26 10:07+0000\n"
+"PO-Revision-Date: 2020-10-26 10:07+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid ""
+"<span align=\"center\" style=\"font-family: 'Helvetica';font-size: 16px;font-weight:bold;\">Marketing Details</span>                                                                       \n"
+" \t\t\t\t\t\t   \t   <br/><br/>"
+msgstr ""
+"<span align=\"center\" style=\"font-family: 'Helvetica';font-size: 16px;font-weight:bold;\">Marketing-Details</span>                                                                       \n"
+" \t\t\t\t\t\t   \t   <br/><br/>"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid ""
+"<span align=\"center\" style=\"font-family: 'Helvetica';font-size: 16px;font-weight:bold;\">Meeting Details</span>                                                                       \n"
+" \t\t\t\t\t\t   \t   <br/><br/>"
+msgstr ""
+"<span align=\"center\" style=\"font-family: 'Helvetica';font-size: 16px;font-weight:bold;\">Besprechungsdetails</span>                                                                       \n"
+" \t\t\t\t\t\t   \t   <br/><br/>"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid ""
+"<span align=\"center\" style=\"font-family: 'Helvetica';font-size: 16px;font-weight:bold;\">Quotation Details</span>                                                                       \n"
+" \t\t\t\t\t\t   \t\t<br/><br/>"
+msgstr ""
+"<span align=\"center\" style=\"font-family: 'Helvetica';font-size: 16px;font-weight:bold;\">Angebotsdetails</span>                                                                       \n"
+" \t\t\t\t\t\t   \t\t<br/><br/>"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "<strong>Internal Notes : </strong>"
+msgstr "<strong>Interne Hinweise: </strong>"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Address :"
+msgstr "Adresse :"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Attendees"
+msgstr "Teilnehmer"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Campaign"
+msgstr "Kampagne"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Company Name:"
+msgstr "Name der Firma:"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Contact Name :"
+msgstr "Kontaktname :"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Customer"
+msgstr "Kunde"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Customer :"
+msgstr "Kunde:"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Customer Name:"
+msgstr "Kundenname:"
+
+#. module: sh_print_lead
+#: model:ir.model.fields,field_description:sh_print_lead.field_crm_lead__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Duration"
+msgstr "Dauer"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Email :"
+msgstr "Email :"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.sh_crm_lead_print_form_view_inherit
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "End Date"
+msgstr "Endtermin"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Exp. Revenue :"
+msgstr "Exp. Einnahmen:"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Expected Closing :"
+msgstr "Voraussichtlicher Abschluss:"
+
+#. module: sh_print_lead
+#: model:ir.model.fields,field_description:sh_print_lead.field_crm_lead__id
+msgid "ID"
+msgstr "ICH WÜRDE"
+
+#. module: sh_print_lead
+#: model:ir.model.fields,field_description:sh_print_lead.field_crm_lead____last_update
+msgid "Last Modified on"
+msgstr "Zuletzt geändert am"
+
+#. module: sh_print_lead
+#: model:ir.model,name:sh_print_lead.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "Lead / Opportunity"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Leads #"
+msgstr "Führt #"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Location"
+msgstr "Ort"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Medium"
+msgstr "Mittel"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.sh_crm_lead_print_form_view_inherit
+msgid "Meeting"
+msgstr "Treffen"
+
+#. module: sh_print_lead
+#: model:ir.model.fields,field_description:sh_print_lead.field_crm_lead__calendar_meeting_ids
+msgid "Meeting Ids"
+msgstr "Besprechungs-IDs"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.sh_crm_lead_print_form_view_inherit
+msgid "Meetings"
+msgstr "Treffen"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Mobile :"
+msgstr "Handy, Mobiltelefon :"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Opportunity #"
+msgstr "Gelegenheit #"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Order Date"
+msgstr "Bestelldatum"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Phone :"
+msgstr "Telefon:"
+
+#. module: sh_print_lead
+#: model:ir.actions.report,name:sh_print_lead.report_print_crm_lead_opportunity
+msgid "Print Lead/Opportunity"
+msgstr "Lead / Opportunity drucken"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Priority :"
+msgstr "Priorität:"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Probability :"
+msgstr "Wahrscheinlichkeit:"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.sh_crm_lead_print_form_view_inherit
+msgid "Quotation"
+msgstr "Zitat"
+
+#. module: sh_print_lead
+#: model:ir.model.fields,field_description:sh_print_lead.field_crm_lead__sale_quotation_ids
+msgid "Quotation Ids"
+msgstr "Angebots-IDs"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.sh_crm_lead_print_form_view_inherit
+msgid "Quotations"
+msgstr "Zitate"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Referred By"
+msgstr "Empfohlen von"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.sh_crm_lead_print_form_view_inherit
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Sale Order"
+msgstr "Verkaufsauftrag"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Sales Channel :"
+msgstr "Verkaufskanal :"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Salesperson"
+msgstr "Verkäufer"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Salesperson :"
+msgstr "Verkäufer :"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Source"
+msgstr "Quelle"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.sh_crm_lead_print_form_view_inherit
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Start Date"
+msgstr "Anfangsdatum"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "State"
+msgstr "Zustand"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Subject"
+msgstr "Gegenstand"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Total"
+msgstr "Gesamt"
+
+#. module: sh_print_lead
+#: model_terms:ir.ui.view,arch_db:sh_print_lead.template_print_crm_lead_opportunity_document
+msgid "Website :"
+msgstr "Webseite :"

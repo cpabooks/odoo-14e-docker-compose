@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="cpabooks_disclaimer_form_view" model="ir.ui.view">
+            <field name="name">cpabooks.disclaimer.form.view</field>
+            <field name="model">cpabooks.disclaimer</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="disclaimer"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+	    
+	    <!--DISCLAIMER DEFAULT DATA-->
+        <record id="cpabooks_disclaimer_default_data" model="cpabooks.disclaimer">
+            <field name="disclaimer"></field>
+        </record>
+	    
+        <!-- Action -->
+        <record id="action_cpabooks_disclaimer" model="ir.actions.act_window">
+            <field name="name">Disclaimer</field>
+            <field name="res_model">cpabooks.disclaimer</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <!-- Reference the default record -->
+            <field name="res_id" eval="ref('professional_templates_v1c.cpabooks_disclaimer_default_data')"/>
+            <field name="context">{'create': False}</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem
+            id="menu_cpabooks_disclaimer"
+            name="Disclaimer Delivery Note"
+            parent="sale.menu_sale_config"
+            action="action_cpabooks_disclaimer"
+            sequence="0"/>
+    </data>
+</odoo>

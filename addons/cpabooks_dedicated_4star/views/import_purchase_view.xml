@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="action_import_purchase_view" model="ir.actions.act_window">
+            <field name="name">Import Purchase</field>
+            <field name="res_model">purchase.order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="domain">[("purchase_type", "=", "import")]</field>
+            <field name="context">{"default_purchase_type": "import"}</field>
+        </record>
+    </data>
+</odoo>

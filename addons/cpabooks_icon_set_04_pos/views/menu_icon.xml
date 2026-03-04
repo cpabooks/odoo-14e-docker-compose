@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="point_of_sale.menu_point_root" name="Point of Sale"
+          web_icon="cpabooks_icon_set_04_pos,static/description/point_of_sale.png"/>
+    </data>
+</odoo>

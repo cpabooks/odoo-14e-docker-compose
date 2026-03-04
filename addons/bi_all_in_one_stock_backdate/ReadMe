@@ -1,0 +1,16 @@
+
+Version:
+ 13.0.0.1 ==> Removed the hardcoded journal_id line from stock move object and it will work dynamically now.
+
+ 13.0.0.2 ==> Changed field names and class names and put required if condition in wizard.
+
+
+13.0.0.3==> Removed conflict methods from the code and improved code of mrp according to v13
+
+13.0.0.4===>Improved _action_done method.
+
+ 13.0.0.5 ==>Improve code of scrap,manufacturing,inventory adjustment backdate.
+
+13.0.0.6==>gave condition for future date and improved code.
+
+13.0.0.7 ==>solved issue of manufacturing with routing and scrap reference .

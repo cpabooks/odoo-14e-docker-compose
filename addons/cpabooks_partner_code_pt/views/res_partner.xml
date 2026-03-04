@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="ke_res_partner_inherit1" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//page[@name = 'internal_notes']" position="inside">-->
+<!--                    <field name="delivery_instructions" placeholder="Delivery Instructions..."/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//page[@name='sales_purchases']//field[@name = 'ref']" position="before">-->
+<!--                    <field name="style"/>-->
+<!--                </xpath>-->
+                <field name="vat" position="after">
+                    <field name="cust_code"/>
+                </field>
+            </field>
+        </record>
+
+           <record id="ke_res_partner_tree_inherit1" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="display_name" position="after">
+                    <field name="cust_code"/>
+                </field>
+            </field>
+        </record>
+
+            <record id="ke_res_partner_search_inherit1" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="cust_code"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

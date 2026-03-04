@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="employee_ctc_report_form" model="ir.ui.view">
+            <field name="name">employee.ctc.report.form</field>
+            <field name="model">emp.ctc.report</field>
+            <field name="arch" type="xml">
+                <form string="Employee CTC Report">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="file_type" widget="radio" options="{'horizontal': true}"
+                                       attrs="{'invisible':[('file','!=',False)],'required':[('file','=',False)] }"/>
+                                <field name="file" filename="file_name" readonly="1"
+                                       attrs="{'invisible':[('file','=',False)]}"/>
+                                <field name="file_name" invisible="1"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="employee_ctc_report" string="Export Report" type="object" class="btn-primary"
+                                    attrs="{'invisible':[('file','!=',False)]}"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Employee CTC Report"
+                    res_model="emp.ctc.report"
+                    binding_model="hr.payslip"
+                    view_mode="form"
+                    binding_views="list"
+                    target="new"
+                    id="action_employee_ctc"
+        />
+
+        <record model="ir.actions.server" id="action_employee_ctc_action_menu">
+            <field name="name">Employee CTC Report</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                "type": "ir.actions.act_window",
+                "view_type": "form",
+                "view_mode": "form",
+                "res_model": "emp.ctc.report",
+                'target': 'new',
+                'res_id': False,
+                }
+            </field>
+        </record>
+    </data>
+</odoo>

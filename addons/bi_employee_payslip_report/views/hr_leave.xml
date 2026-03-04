@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_leave_form_extend" model="ir.ui.view">
+        <field name="name">hr.leave.form.extend</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager"/>
+        <field name="arch" type="xml">
+              <xpath expr="//field[@name='name']" position="after">
+                    <field name="type_for" force_save="1"/>
+              </xpath>
+
+        </field>
+    </record>
+
+    <record id="hr_leave_tree_extend" model="ir.ui.view">
+        <field name="name">hr.leave.tree.extend</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_tree"/>
+        <field name="arch" type="xml">
+              <xpath expr="//field[@name='name']" position="after">
+                    <field name="type_for"/>
+              </xpath>
+        </field>
+    </record>
+
+     <record id="hr_leave_main_form_extend" model="ir.ui.view">
+        <field name="name">hr.leave.main.form.extend</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+        <field name="arch" type="xml">
+              <xpath expr="//button[@name='action_draft']" position="attributes">
+                  <attribute name="attrs">{'invisible': [('state', '=', 'draft')]}</attribute>
+<!--                  'invisible': [('state', 'not in', ['confirm', 'refuse'])]-->
+              </xpath>
+        </field>
+    </record>
+</odoo>

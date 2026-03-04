@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="mai_purchase_margin_form_view">
+			<field name="name">mai.purchase.margin.form.view</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='notes']" position="before">
+					<group>
+						<field name="margin_culculate" widget='monetary' options="{'currency_field': 'currency_id'}" />
+
+						<field name="margin_custom" widget='monetary' options="{'currency_field': 'currency_id'}" />
+					</group>
+				</xpath>
+
+				<xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="after">
+					<field name="line_margin" />
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>

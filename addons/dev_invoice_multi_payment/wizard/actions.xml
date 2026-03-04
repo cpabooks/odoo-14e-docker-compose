@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- ACTION FOR RECEIPT VOUCHER (Customer) -->
+        <record id="action_invoice_multipayment" model="ir.actions.act_window">
+            <field name="name">Register Payment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bulk.inv.payment</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dev_invoice_multi_payment.dev_bulk_invoice_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <!-- ACTION FOR RECEIPT VOUCHER (Supplier) -->
+        <!--        <record id="action_bulk_invoice_multi_payment_bill" model="ir.actions.act_window">-->
+        <!--            <field name="name">Register Payment</field>-->
+        <!--            <field name="type">ir.actions.act_window</field>-->
+        <!--            <field name="res_model">bulk.inv.payment</field>-->
+        <!--            <field name="view_mode">form</field>-->
+        <!--            <field name="view_id" ref="dev_invoice_multi_payment.dev_bulk_invoice_view"/>-->
+        <!--            <field name="context">{'default_payment_type': 'outbound', 'default_partner_type': 'supplier'}</field>-->
+        <!--            <field name="target">new</field>-->
+        <!--        </record>-->
+
+        <!-- MENU ITEM FOR CUSTOMER INVOICE PAYMENTS -->
+        <menuitem action="action_invoice_multipayment"
+                  string="Multi Payment"
+                  id="menu_invoice_multipayment"
+                  sequence="03"
+                  parent="account.menu_finance_receivables"/>
+
+        <!-- MENU ITEM FOR SUPPLIER BILL PAYMENTS -->
+<!--        <menuitem action="action_bulk_invoice_multi_payment_bill"-->
+<!--                  string="Multi Payment"-->
+<!--                  id="menu_bill_multipayment"-->
+<!--                  sequence="03"-->
+<!--                  parent="account.menu_finance_payables"/>-->
+    </data>
+</odoo>

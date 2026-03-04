@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="account_move_inherit_payment_type" model="ir.ui.view">
+            <field name="name">account.move.inherit.payment.type</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[1]" position="inside">
+                    <field name="payment_type_journal_id" widget="selection" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

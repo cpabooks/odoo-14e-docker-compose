@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_layout_standard_footer" inherit_id="web.external_layout_boxed">
+        <xpath expr="//div[@t-attf-class='footer o_boxed_footer o_company_#{company.id}_layout']/div[@class='text-center']"
+               position="before">
+            <br></br>
+        </xpath>
+
+        <xpath expr="//div[@t-attf-class='footer o_boxed_footer o_company_#{company.id}_layout']/div[@class='text-center']/ul[@class='list-inline']"
+               position="replace">
+            <ul align="center">
+                <li t-if="company.phone" class="list-inline-item">
+                    <span t-field="company.phone"/>
+                </li>
+            </ul>
+            <ul align="center">
+                <li t-if="company.email" class="list-inline-item">
+                    <span t-field="company.email"/>
+                </li>
+                <li t-if="company.website" class="list-inline-item">
+                    <span t-field="company.website"/>
+                </li>
+                <li t-if="company.vat" class="list-inline-item"><t t-esc="company.country_id.vat_label or 'Tax ID'"/>:
+                    <span t-field="company.vat"/>
+                </li>
+            </ul>
+
+        </xpath>
+    </template>
+
+    <template id="external_layout_standard_header" inherit_id="web.external_layout_boxed">
+        <xpath expr="//div[@name='company_address']" position="replace">
+            <!--            <div name="company_address" class="float-right mb4" style="line-height:.3cm;">-->
+            <div name="company_address" class="float-right mb4">
+                <span class="company_address" t-field="company.partner_id"
+                      t-options='{"widget": "contact", "fields": ["address", "name","phone","email"], "no_marker": true}'/>
+                <!--                    <t t-if="company.partner_id">-->
+                <!--                    <p  t-field="company.partner_id.name"/>-->
+                <!--                    <p  t-field="company.partner_id.street"/>-->
+                <!--                    <p  t-field="company.partner_id.street2"/>-->
+                <!--                    <p  t-field="company.partner_id.city"/>-->
+                <!--                    <p  t-field="company.partner_id.country_id.name"/>-->
+                <!--                    <p  t-field="company.partner_id.phone"/>-->
+                <!--                    <p  t-field="company.partner_id.email"/>-->
+                <!--                    </t>-->
+
+
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_invoice_template_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//p[@name='comment']" position="after">
+            <t t-set="count" t-value="0"/>
+            <t t-foreach="o.bank_details" t-as="bank">
+                <t t-set="count" t-value="count+1"/>
+                <div style="text-decoration:underline;margin-top:15px;">
+                    <span>Payment Option (<span t-esc="count"/>):
+                    </span>
+                </div>
+                <div>
+                    <t t-if="bank.bank_name">
+                        1.
+                        <span t-field="bank.bank_name"/>
+                    </t>
+                </div>
+                <div>
+                    <span t-if="bank.bank_account_number or bank.bank_iban_number">•</span>
+                    <span t-field="bank.bank_account_number"/>
+                    <span t-if="bank.bank_account_number and bank.bank_iban_number">,</span>
+                    <span t-field="bank.bank_iban_number"/>
+
+                </div>
+
+                <div>
+                    <t t-if="bank.bank_address">
+                        •
+                        <span t-field="bank.bank_address"/>
+                    </t>
+                </div>
+                <div>
+                    <t t-if="bank.bank_branch">
+                        2.
+                        <span t-field="bank.bank_branch"/>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+
+          <xpath expr="//t[@t-set='address']" position="attributes">
+          <attribute name="t-if">False</attribute>
+        </xpath>
+
+        <xpath expr="//div[@class='page']" position="before">
+            <div class="row oe_mt8">
+
+                <div class="col-6"></div>
+                <!--                <div class="col-6 text-right" style="line-height:.3cm;">-->
+                <div class="col-6 text-right">
+                    <div t-field="o.partner_id"
+                         t-options='{"widget": "contact", "fields": ["name","vat", "address"], "no_marker": True}'/>
+                    <!--                    <p  t-field="o.partner_id.name"/>-->
+                    <!--                    <p  t-field="o.partner_id.street"/>-->
+                    <!--                    <p  t-field="o.partner_id.street2"/>-->
+                    <!--                    <p  t-field="o.partner_id.city"/>-->
+                    <!--                    <p  t-field="o.partner_id.country_id.name"/>-->
+                    <!--                    <p t-if="o.partner_id.vat" style="display:inline-block">TRN :</p><p style="display:inline-block" t-field="o.partner_id.vat"/>-->
+
+
+                </div>
+
+
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@class='page']/h2" position="replace">
+            <h2>
+                <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Tax Invoice#:</span>
+                <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Tax Draft Invoice#:</span>
+                <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Tax Cancelled Invoice#:</span>
+                <span t-if="o.move_type == 'out_refund'">Credit Note</span>
+                <span t-if="o.move_type == 'in_refund'">Vendor Credit Note</span>
+                <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>
+                <span t-if="o.name != '/'" t-field="o.name"/>
+            </h2>
+        </xpath>
+
+
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_description']"
+               position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_description']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_quantity']"
+               position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_quantity']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_priceunit']"
+               position="attributes">
+            <attribute name="t-attf-class">text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}
+            </attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_priceunit']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_price_unit']"
+               position="attributes">
+            <attribute name="t-attf-class">text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}
+            </attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_price_unit']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_taxes']" position="attributes">
+            <attribute name="t-attf-class">text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}
+            </attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_taxes']" position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_subtotal']"
+               position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_subtotal']"
+               position="attributes">
+            <attribute name="style">vertical-align: middle;</attribute>
+        </xpath>
+        <!--Main Table Data-->
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[1]/td[3]"
+               position="attributes">
+            <!--            <attribute name="style">vertical-align: middle;</attribute>-->
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[1]/td[4]"
+               position="attributes">
+            <attribute name="t-attf-class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[1]/td[5]"
+               position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[1]/td[6]"
+               position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[1]/td[7]"
+               position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <!--Main Table Data-->
+
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead" position="attributes">
+            <attribute name="style">border-bottom: 1px solid black;</attribute>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-sm']/tr[@class='border-black o_total']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+
+        <xpath expr="//t[@t-as='amount_by_group']" position="after">
+            <t t-if="o.company_id.id==5">
+                <tr class="border-black o_total">
+                    <td>
+                        <span style="color:black;font-weight:bold;">Total</span>
+                    </td>
+                    <td class="text-right">
+                        <span style="color:black;font-weight:bold;" class="text-nowrap" t-field="o.amount_total"/>
+                    </td>
+                </tr>
+            </t>
+            <t t-if="o.company_id.id!=5">
+                <tr class="border-black o_total">
+                    <td>
+                        <span style="font-weight:bold;">Total</span>
+                    </td>
+                    <td class="text-right">
+                        <span style="font-weight:bold;" class="text-nowrap" t-field="o.amount_total"/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+
+        <!--        <xpath expr="//table[@class='table table-sm']/tr[@class='border-black o_total']/td[1]/strong" position="attributes">-->
+        <!--            <attribute name="style">color:black;</attribute>-->
+        <!--        </xpath>-->
+        <!--        <xpath expr="//table[@class='table table-sm']/tr[@class='border-black o_total']/td[2]/span" position="attributes">-->
+        <!--            <attribute name="style">color:black;</attribute>-->
+        <!--        </xpath>-->
+
+    </template>
+
+
+    <template id="report_invoice_template_extend_for_serial"
+              inherit_id="serial_on_report.serial_no_invoice_document_inherit">
+        <xpath expr="//th[@name='th_serial_no']" position="replace">
+            <t t-if="o.company_id.id==5">
+                <th name="th_serial_no" class="text-center" style="text-transform: capitalize;vertical-align: middle;">
+                    <div style="width:100%;text-align:center;">
+                        <span>S. No.</span>
+                    </div>
+                </th>
+            </t>
+            <t t-if="o.company_id.id!=5">
+                <th name="th_serial_no" class="text-center" style="text-transform: capitalize;vertical-align: middle;">
+                    <div style="width:50px;text-align:center;">
+                        <span>S. No.</span>
+                    </div>
+                </th>
+            </t>
+        </xpath>
+    </template>
+
+    <!--    BANK DETAILS CUSTOMIZE-->
+    <template id="report_invoice_template_extend_for_bank_details"
+              inherit_id="cpabooks_bank_details.report_invoice_document_inherit_bank_details">
+        <xpath expr="//t[@t-if='o.bank_detail_enable']" position="replace">
+
+            <!--            <t t-foreach="o.company_id.bank_details" t-as="bank">-->
+            <!--                 <div class="card" style="display: inline-block;width:48%;">-->
+            <!--                            <div class="card-header">-->
+            <!--                                <h5 style="text-decoration: underline;">Bank Details</h5>-->
+            <!--                            </div>-->
+            <!--                           <div class="card-body">-->
+            <!--                               <div>-->
+            <!--                                <t t-if="bank.bank_name">-->
+            <!--                                    <span t-field="bank.bank_name"/>-->
+            <!--                                </t>-->
+            <!--                               </div>-->
+            <!--                                <div>-->
+            <!--                                    <t t-if="bank.bank_account_number">-->
+            <!--                                    <span t-field="bank.bank_account_number"/>-->
+            <!--                                    </t>-->
+            <!--                                </div>-->
+            <!--                                <div>-->
+            <!--                                     <t t-if="bank.bank_iban_number">-->
+            <!--                                    <span t-field="bank.bank_iban_number"/>-->
+            <!--                                    </t>-->
+            <!--                                </div>-->
+            <!--                                <div>-->
+            <!--                                     <t t-if="bank.bank_address">-->
+            <!--                                    <span t-field="bank.bank_address"/>-->
+            <!--                                    </t>-->
+            <!--                                </div>-->
+            <!--                                <div>-->
+            <!--                                     <t t-if="bank.bank_branch">-->
+            <!--                                    <span t-field="bank.bank_branch"/>-->
+            <!--                                    </t>-->
+            <!--                                </div>-->
+            <!--                               <div>-->
+            <!--                                     <t t-if="bank.company_id">-->
+            <!--                                    <span t-field="bank.company_id"/>-->
+            <!--                                    </t>-->
+            <!--                                </div>-->
+            <!--                           </div>-->
+            <!--                        </div>-->
+            <!--            </t>-->
+
+
+        </xpath>
+
+    </template>
+
+    <template id="report_invoice_document_inherit" inherit_id="l10n_ae.report_invoice_document">
+        <xpath expr="//p[@t-if=&quot;o.company_id.country_id.code == 'AE' and o.partner_id.country_id.code != 'AE' and o.env.ref('l10n_ae.gcc_countries_group') in o.partner_id.country_id.country_group_ids&quot;]"
+               position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+    </template>
+
+
+</odoo>

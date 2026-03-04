@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_delivery_status_tree" model="ir.ui.view">
+            <field name="name">account.move.tree.inherited</field>
+            <field name="model">account.move</field>
+            <field name="priority" eval="30"/>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree//field[@name='payment_state']" position="before">
+                    <field name="delivery_state" widget="badge" decoration-success="delivery_state == 'delivered'"
+                           decoration-info="delivery_state == 'done'" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

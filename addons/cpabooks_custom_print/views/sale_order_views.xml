@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Sale Order Form View -->
+    <record id="view_order_form_inherit_custom_print" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.custom_print</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="enquiry_number"/>
+                <field name="attention"/>
+                <field name="subject"/>
+                <field name="delivery_detail"/>
+                <field name="make_detail"/>
+            </xpath>
+            <xpath expr="//field[@name='note']" position="before">
+                <group colspan="4" attrs="{'invisible': [('amount_total', '&lt;=', 0)]}">
+                    <div class="oe_inline">
+                        <label for="num_word" style="margin-right: 8px;"/>
+                        <field name="num_word"/>
+                    </div>
+                </group>
+            </xpath>
+<!--            <xpath expr="//field[@name='order_line']/tree/field[@name='type']" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//field[@name='order_line']/tree/field[@name='qty_delivered']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

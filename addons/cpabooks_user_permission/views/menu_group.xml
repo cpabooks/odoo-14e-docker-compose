@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sale.sale_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('sales_team.group_sale_salesman'))]"/>
+    </record>
+
+    <record id="bi_material_purchase_requisitions.menu_requisition" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('purchase.group_purchase_user'))]"/>
+    </record>
+
+    <record id="planning.planning_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('planning.group_planning_user'))]"/>
+    </record>
+
+    <record id="planning.planning_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(3,ref('base.group_user'))]"/>
+    </record>
+
+    <record id="hr.menu_hr_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(3,ref('base.group_user'))]"/>
+    </record>
+
+    <record id="hr_holidays.menu_hr_holidays_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(3,ref('base.group_user'))]"/>
+    </record>
+
+    <record id="hr_holidays.menu_hr_holidays_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('hr_holidays.group_hr_holidays_responsible'))]"/>
+    </record>
+
+    <record id="hr_expense.menu_hr_expense_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('hr_expense.group_hr_expense_team_approver'))]"/>
+    </record>
+
+    <record id="cpabooks_switchgear_custom.menu_flowchart_kanban_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('cpabooks_user_permission.group_flowchart'))]"/>
+    </record>
+
+    <record id="base.menu_board_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4,ref('cpabooks_user_permission.group_dashboard'))]"/>
+    </record>
+
+    <record id="base.menu_board_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(3,ref('base.group_user'))]"/>
+    </record>
+
+</odoo>

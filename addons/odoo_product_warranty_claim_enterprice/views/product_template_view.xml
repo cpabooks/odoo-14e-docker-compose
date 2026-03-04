@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_warranty_claim_template_form_custom" model="ir.ui.view">
+        <field name="name">product.template.warranty</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="warranty" string="Warranty">
+                    <group>
+                        <group>
+                            <field name="custom_allow_warranty"/>
+                            <label for="custom_warranty_interval" string="Warranty Period" attrs="{'invisible': [('custom_allow_warranty', '!=', True)]}"/>
+                            <div attrs="{'invisible': [('custom_allow_warranty', '!=', True)]}">
+                                <field name="custom_warranty_interval" class="oe_inline"/>
+                                <field name="custom_warranty_rule_type" class="oe_inline"/>
+                            </div>
+                            <field name="custom_warranty_type" attrs="{'invisible': [('custom_allow_warranty', '!=', True)]}"/>
+                            <field name="custom_warranty_cost" attrs="{'invisible': ['|',('custom_warranty_type', '=', 'free'), ('custom_allow_warranty', '!=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="custom_renew_warranty" attrs="{'invisible': [('custom_allow_warranty', '!=', True)]}"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_warranty_claim_product_form_custom" model="ir.ui.view">
+        <field name="name">product.template.warranty</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="warranty" string="Warranty">
+                    <group>
+                        <group>
+                            <field name="custom_allow_warranty"/>
+                            <label for="custom_warranty_interval" string="Warranty Period" attrs="{'invisible': [('custom_allow_warranty', '!=', True)]}"/>
+                            <div attrs="{'invisible': [('custom_allow_warranty', '!=', True)]}">
+                                <field name="custom_warranty_interval" class="oe_inline"/>
+                                <field name="custom_warranty_rule_type" class="oe_inline"/>
+                            </div>
+                            <field name="custom_warranty_type" attrs="{'invisible': [('custom_allow_warranty', '!=', True)]}"/>
+                            <field name="custom_warranty_cost" attrs="{'invisible': ['|',('custom_warranty_type', '=', 'free'), ('custom_allow_warranty', '!=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="custom_renew_warranty" attrs="{'invisible': [('custom_allow_warranty', '!=', True)]}"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

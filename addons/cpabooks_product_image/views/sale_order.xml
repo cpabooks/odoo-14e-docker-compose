@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_inherit" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!--            <xpath expr="//notebook/page[@name='other_information']/group[1]/group[@name='sale_info']/field[@name='invoice_status'][2]" position="after">-->
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="print_product_image" widget="boolean_toggle" help="This will hide the Product image in pdf if Unchecked"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                <field name="image_name" invisible="1"/>
+                <field name="image" widget="image" filename="image_name" options='{"size": [120, 120]}'/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_task_scope,access_project_task_scope,model_project_task_scope,base.group_user,1,1,1,1
+access_project_task_priority,access_project_task_priority,model_project_task_priority,base.group_user,1,1,1,1
+access_project_task_frequency,access_project_task_frequency,model_project_task_frequency,base.group_user,1,1,1,1
+access_project_location,access_project_location,model_project_location,base.group_user,1,1,1,1
+access_task_update_wizard,access_task_update_wizard,model_task_update_wizard,base.group_user,1,1,1,1
+access_task_report_wizard,access_task_report_wizard,model_task_report_wizard,base.group_user,1,1,1,1

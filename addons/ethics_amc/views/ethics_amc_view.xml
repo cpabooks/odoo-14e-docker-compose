@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="ethics_amc_form_view">
+            <field name="name">ethics.amc.form.view</field>
+            <field name="model">ethics.amc</field>
+            <field name="arch" type="xml">
+                <form string="AMC">
+                    <header>
+                        <button name="set_submit" string="Submit" type="object"
+                                attrs="{'invisible': [('status', '!=', 'draft')]}" class="oe_highlight"/>
+                        <button name="create_invoice" string="Create Invoice" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('status', '!=', 'running')]}"/>
+                        <button name="amc_expired" string="Expired" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('status', '=', 'expired')]}"/>
+                        <button name="amc_renew" string="Expired &amp; Renew" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('status', '!=', 'running')]}"/>
+                        <field name="status" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="go_to_invoice" type="object" class="oe_stat_button" icon="fa-pencil-square-o"
+                                    attrs="{'invisible': [('invoice_count', '=', 0)]}">
+                                <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                            </button>
+                        </div>
+                        <h1 style="width:50%">
+                            <field name="name" placeholder="Name" required="1" class="o_not_full"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="customer_id" attrs="{'readonly': [('status', '!=', 'draft')]}"
+                                       filename='filename'/>
+                            </group>
+                            <group>
+                                <field name="user_id" attrs="{'readonly': [('status', '!=', 'draft')]}"
+                                       options="{'no_create': True}"/>
+                            </group>
+                        </group>
+                        <group name="sub_store_ref" string="Sub Store Reference">
+                            <group>
+                                <field name="store_name"/>
+                                <field name="store_code"/>
+                                <field name="contact_person"/>
+                                <field name="mobile"/>
+                                <field name="email"/>
+                            </group>
+                            <group>
+                                <field name="area"/>
+                                <field name="city"/>
+                                <field name="state_id"/>
+                                <field name="country_id"/>
+                                <field name="is_invoice" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Product(s)" name="lines">
+                                <field name="line_ids" attrs="{'readonly': [('status', '!=', 'draft')]}">
+                                    <tree string="Product" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="product_id"/>
+                                        <field name="quantity"/>
+                                        <field name="installation_date"/>
+                                        <field name="renew_date"/>
+                                        <field name="plan_id" options="{'no_create': True}"/>
+                                        <field name="expiery_date" readonly="1"/>
+                                        <field name="pre_expiry_date" optional="hide"/>
+                                        <field name="partner_id" optional="hide"/>
+                                    </tree>
+                                </field>
+                                <div class="oe_clear"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ethics_amc_tree_view" model="ir.ui.view">
+            <field name="name">ethics.amc.view</field>
+            <field name="model">ethics.amc</field>
+            <field name="arch" type="xml">
+                <tree string="AMC">
+                    <field name="name"/>
+                    <field name="customer_id"/>
+                    <field name="status"/>
+                    <field name="user_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_amc_search" model="ir.ui.view">
+            <field name="name">ethics.amc.search</field>
+            <field name="model">ethics.amc</field>
+            <field name="arch" type="xml">
+                <search string="AMC">
+                    <field name="name"/>
+                    <field name="is_invoice"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Invoice" name="invoice" domain="[('is_invoice','!=', False)]"/>
+                        <filter string="No Invoice" name="no_invoice" domain="[('is_invoice','=', False)]"/>
+                        <filter string="Status" name="status" domain="[]" context="{'group_by': 'status'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_ethics_amc" model="ir.actions.act_window">
+            <field name="name">AMC</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ethics.amc</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'ethics_amc_search_mode': 'no_invoice'}</field>
+        </record>
+
+        <menuitem id="menu_ethics_amc_parent"
+                  name="AMC"
+                  web_icon="ethics_amc,static/description/amc.png"
+                  sequence="5" groups="sales_team.group_sale_salesman_all_leads"/>
+
+        <menuitem id="menu_ethics_amc"
+                  name="AMC"
+                  action="action_ethics_amc"
+                  parent="menu_ethics_amc_parent"
+                  sequence="1"/>
+
+        <record id="ethics_plan_form_view" model="ir.ui.view">
+            <field name="name">ethics.plan.view.form</field>
+            <field name="model">ethics.plan</field>
+            <field name="arch" type="xml">
+                <form string="Plan">
+                    <sheet>
+                        <group>
+                            <label for="name"/>
+                            <h2>
+                                <field name="name"/>
+                            </h2>
+                            <group>
+
+                            </group>
+                            <group>
+                                <field name="months"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ethics_plan_tree_view" model="ir.ui.view">
+            <field name="name">ethics.plan.view</field>
+            <field name="model">ethics.plan</field>
+            <field name="arch" type="xml">
+                <tree string="Plan">
+                    <field name="name"/>
+                    <field name="months"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_ethics_plan" model="ir.actions.act_window">
+            <field name="name">Plan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ethics.plan</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="menu_ethics_plan"
+                  name="Plan"
+                  action="action_ethics_plan"
+                  parent="menu_ethics_amc_parent"
+                  groups="sales_team.group_sale_salesman_all_leads"
+                  sequence="2"/>
+
+        <record id="ethics_amc_software_tree_view" model="ir.ui.view">
+            <field name="name">amc.software.view.tree</field>
+            <field name="model">amc.software</field>
+            <field name="arch" type="xml">
+                <tree string="AMC Products List">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="quantity"/>
+                    <field name="installation_date"/>
+                    <field name="renew_date"/>
+                    <field name="plan_id"/>
+                    <field name="expiery_date"/>
+                    <field name="pre_expiry_date"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_amc_software_search" model="ir.ui.view">
+            <field name="name">amc.software.search</field>
+            <field name="model">amc.software</field>
+            <field name="arch" type="xml">
+                <search string="AMC Products">
+                    <field name="product_id"/>
+                    <field name="installation_date"/>
+                    <field name="renew_date"/>
+                    <field name="expiery_date"/>
+                    <group expand="0" string="Group By">
+                        <filter name="product_id" string="Product"
+                                domain="[]" context="{'group_by': 'product_id'}"/>
+                        <filter name="installation_date" string="Installation Date"
+                                domain="[]" context="{'group_by': 'installation_date'}"/>
+                        <filter name="renew_date" string="Renew Date"
+                                domain="[]" context="{'group_by': 'renew_date'}"/>
+                        <filter name="expiery_date" string="Expiry Date"
+                                domain="[]" context="{'group_by': 'expiery_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_ethics_amc_software" model="ir.actions.act_window">
+            <field name="name">AMC Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">amc.software</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="ethics_amc_software_tree_view"/>
+        </record>
+
+        <menuitem id="menu_amc_product"
+                  name="AMC Products"
+                  action="action_ethics_amc_software"
+                  parent="menu_ethics_amc_parent"
+                  groups="sales_team.group_sale_salesman_all_leads"
+                  sequence="3"/>
+
+        <record id="invoice_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_user_id']" position="after">
+                    <field name="amc_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

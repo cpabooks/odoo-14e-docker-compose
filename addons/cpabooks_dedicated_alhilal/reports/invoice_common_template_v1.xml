@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="invoice_common_template_v1_inherit"
+                  inherit_id="professional_templates_v1.INVOICE_common_document">
+            <xpath expr="//div[@name='signature']" position="replace">
+
+                <!--signature section start-->
+                <div t-if="signature" class="row oe_mt64" style="top:10px" name="signature">
+                    <!--signature 1-->
+                    <div t-if="o.prepared_by" style="" class="col-4 text-left  position-relative">
+                        <div style="float:left" class="w-100 text-left">
+                            <img style="width:200px;" t-if="o.prepared_by.user_signature"
+                                 t-att-src="image_data_uri(o.prepared_by.user_signature)"
+                                 alt="Signature"/>
+
+                        </div>
+                        <div style="float:left;  bottom:0px" class="w-100 text-left position-absolute ">
+                            <strong style="text-decoration:overline;">
+                                <span t-field="signature.signature1"/>
+                                <b>
+                                    <span t-field="o.prepared_by.name"/>
+                                </b>
+                            </strong>
+                        </div>
+                    </div>
+                    <div t-else="" class="col-4">
+
+                    </div> <!--signature 1-->
+
+                    <div class="col-4">
+                    </div>
+
+                    <!--signature 3-->
+                    <div class="col-4 d-flex align-items-end" style="position:relative;">
+                        <div t-if="o.approve_by" class="w-100 ">
+                            <div style="" class="w-100 d-flex justify-content-center">
+                                <img style="width:200px;" t-if="o.approve_by.user_signature"
+                                     t-att-src="image_data_uri(o.approve_by.user_signature)"
+                                     alt="Signature"/>
+
+                            </div>
+                            <div style=" float-right bottom:0px" class="w-100 text-center signature ">
+                                <strong style="text-decoration:overline;">
+                                    <span class="" t-field="signature.signature3"/>
+                                    <b>
+                                        <span class="" t-field="o.approve_by.name"/>
+                                    </b>
+                                </strong>
+                            </div>
+                        </div>
+                        <div t-else="" class="col-4">
+                        </div><!--signature 3-->
+
+                        <div class="w-100 text-center" t-attf-style="opacity:#{style.stamp_visibility}; position:absolute;z-index:2;top:-50px; right:0;">
+                            <div class="d-flex justify-content-end align-item-start">
+                                <img style="width:6cm;" t-if="o.stamp"
+                                     t-att-src="image_data_uri(o.stamp)"
+                                     class="rounded" alt="Stamp"/>
+                            </div>
+                        </div><!--stamp-->
+
+                    </div>
+
+                    <!--stamp-->
+                </div>
+
+                <div class="row oe_mt64" style="margin-top:100px;" name="signature">
+                    <!--signature 2-->
+                    <div t-if="signature and signature.signature2" class="col-6 mt-5 text-left  position-relative">
+                        <div style="" class="w-100">
+                            <div class="d-flex justify-content-start" style="gap:10px;">
+                                <div class="" style="font-size:700;" t-field="signature.signature2"/> &#160;
+                                <div style="border-bottom:1px dotted black; width:200px;"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    <div t-else="" class="col-4 text-left  position-relative">-->
+                    <!--                    </div>&lt;!&ndash;signature 2&ndash;&gt;-->
+
+
+                    <div t-if="o.is_show_receiver" class="col-6 mt-5">
+                        <div class="w-100">
+                            <div class="d-flex justify-content-start mb-2">
+                                <div class="w-25" style="font-weight: bold;">Received By
+                                    <span class="float-right">:
+                                    </span>
+                                </div>
+                                <div class="w-75" style="border-bottom:1px dotted black;"/>
+                            </div><!--Received-->
+                            <div class="d-flex justify-content-start mb-2">
+                                <div class="w-25" style="font-weight: bold;">Name
+                                    <span class="float-right">:</span>
+                                </div>
+                                <div class="w-75" style="border-bottom:1px dotted black;"/>
+                            </div><!--Name-->
+                            <div class="d-flex justify-content-start mb-2">
+                                <div class="w-25" style="font-weight: bold;">Date
+                                    <span class="float-right">:</span>
+                                </div>
+                                <div class="w-75" style="border-bottom:1px dotted black;"/>
+                            </div><!--Date-->
+                            <div class="d-flex justify-content-start mb-2">
+                                <div class="w-25" style="font-weight: bold;">Mobile
+                                    <span class="float-right">:</span>
+                                </div>
+                                <div class="w-75" style="border-bottom:1px dotted black;"/>
+                            </div><!--Mobile-->
+                        </div>
+                    </div>
+                    <div t-else="" class="col-6"></div>
+                </div>
+                <!--signature section end-->
+            </xpath>
+            <!--removed signature 2 from existing-->
+            <xpath expr="//div[@name='signature2']" position="replace">
+                <span></span>
+            </xpath>
+
+            <!--add invoice ref-->
+            <xpath expr="//div[@id='invoice_title']" position="after">
+                <div t-if="o.move_type == 'out_invoice' and o.ref">
+                    <strong style="white-space:nowrap;">Invoice Ref:</strong>
+                    <span t-field="o.ref"/>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

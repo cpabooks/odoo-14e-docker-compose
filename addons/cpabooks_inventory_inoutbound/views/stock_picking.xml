@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_picking_form_driver" model="ir.ui.view">
+        <field name="name">stock.picking.driver</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="driver_name"  attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+                <field name="vehicle_no" attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='location_dest_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='location_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='forecast_availability']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='location_dest_id']" position="after">
+                <field name="warehouse_ref"/>
+            </xpath>
+
+            <xpath expr="//field[@name='origin']" position="replace">
+                <field name="origin" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="declaration_no" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                <field name="container_no" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                <field name="invoice_no" attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']"
+                   position="replace">
+                <field name="quantity_done" string="Qty (Actual)" attrs="{'readonly': [('is_quantity_done_editable', '=', False)]}"/> <!---->
+            </xpath>
+
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom_qty']"
+                   position="replace">
+                <field name="product_uom_qty" string="Qty"
+                       attrs="{'column_invisible':[('parent.picking_type_code', '=', 'outgoing')]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='description_picking']"
+                   position="replace">
+                <field name="description_picking" attrs="{'column_invisible':1}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']" position="after">
+                <field name="short_excess_qty" string="Qty (Short/Excess)" force_save="1"
+                       attrs="{'column_invisible':[('parent.picking_type_code', '=', 'outgoing')]}"/>
+                <field name="container_status"
+                       attrs="{'column_invisible':[('parent.picking_type_code', '=', 'outgoing')]}"/>
+            </xpath>
+
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <button name="set_draft" string="Draft" type="object" groups="base.group_system,base.group_erp_manager"/>
+            </xpath>
+
+            <xpath expr="//field[@name='date_done']" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="inventory_overview_tree_inherit" model="ir.ui.view">
+        <field name="name">inventory.overview.tree.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="lot_no_id" optional="show"/>
+                <field name="container_no" optional="show"/>
+                <field name="lot_no_qty_done" optional="show"/>
+            </xpath>
+
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="scheduled_date" optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="stock.action_report_delivery" model="ir.actions.report">
+        <field name="paperformat_id" ref="cpabooks_inventory_inoutbound.paperformat_delivery_slip_inventory"/>
+    </record>
+</odoo>

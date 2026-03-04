@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="project_project_approve" model="ir.ui.view">
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="name">project.project.approval.form</field>
+            <field name="model">project.project</field>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page name="approval" string="Approval">
+                        <group>
+                            <field name="approve_task_completion"/>
+                        </group>
+                        <group attrs="{'invisible': [('approve_task_completion', '=', False)]}">
+                            <field name="approver_user_id"
+                                   attrs="{'required': [('approve_task_completion', '!=', False)]}"/>
+                            <field name="end_stage_id"
+                                   attrs="{'required': [('approve_task_completion', '!=', False)]}"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+
+        <record id="project_task_approve_form" model="ir.ui.view">
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="name">project.task.approval.form</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+                <field name="stage_id" position="before">
+                    <field name="is_approver" invisible="True"/>
+                    <button name="action_send_to_approve" type="object" string="Send to Approve"
+                            confirm="Please confirm you want to send to approve completed task"
+                            attrs="{'invisible': ['|', ('approve_task_completion', '=', False), ('approval_state', '!=', False)]}"/>
+                    <button name="action_approve" type="object" string="Approve Task"
+                            confirm="Please confirm you want to approve completion of task"
+                            attrs="{'invisible': ['|', '|', ('approve_task_completion', '=', False), ('approval_state', '!=', 'open'), ('is_approver', '=', False)]}"/>
+                </field>
+
+                <field name="partner_id" position="after">
+                    <field name="approve_task_completion" invisible="True"/>
+                    <field name="is_pm" invisible="True"/>
+                    <field name="approver_user_id"
+                           attrs="{'required': [('approve_task_completion', '!=', False)], 'invisible': [('approve_task_completion', '=', False)], 'readonly':[('is_pm', '!=', True)]}"/>
+                    <field name="approval_state" attrs="{'invisible': [('approve_task_completion', '=', False)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="project_task_approve_kanban" model="ir.ui.view">
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="name">project.task.approval.kanban</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+                <field name="stage_id" position="after">
+                    <field name="approve_task_completion"/>
+                    <field name="approval_state"/>
+                </field>
+                <xpath expr="//div[@class='dropdown-menu']/a[1]" position="before">
+                    <a t-if="record.approve_task_completion.raw_value and record.approval_state.raw_value == false"
+                       type="object" role="menuitem" class="dropdown-item" name="action_send_to_approve">
+                        Send to Approve
+                    </a>
+                    <a t-if="record.approve_task_completion.raw_value and record.approval_state.raw_value == 'open'"
+                       type="object" role="menuitem" class="dropdown-item" name="action_approve"
+                       context="{'tag':'reload'}">
+                        Approve Task
+                    </a>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

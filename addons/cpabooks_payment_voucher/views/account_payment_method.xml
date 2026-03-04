@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record model="ir.ui.view" id="payment_method_tree_view">
+        <field name="name">payment.method.tree</field>
+        <field name="model">account.payment.method</field>
+        <field name="arch" type="xml">
+            <!-- Add create="1" here -->
+            <tree string="Payment Method" create="1" edit="1">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="payment_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="payment_method_form_view">
+        <field name="name">payment.method.form</field>
+        <field name="model">account.payment.method</field>
+        <field name="arch" type="xml">
+            <!-- Add create="1" here -->
+            <form string="Payment Method" create="1" edit="1">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code" required="1"/>
+                            <field name="payment_type" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="create_payment_method" model="ir.actions.act_window">
+        <field name="name">Payment Methods</field>
+        <field name="res_model">account.payment.method</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help">Create and manage payment methods.</field>
+    </record>
+
+    <menuitem id="menu_payment_method" parent="account.root_payment_menu"
+              action="create_payment_method" groups="base.group_user"/>
+
+</odoo>

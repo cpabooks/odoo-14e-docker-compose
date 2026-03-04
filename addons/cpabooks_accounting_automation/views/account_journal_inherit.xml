@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <function model="account.journal" name="action_change_payment_debit_credit_id_method"/>
+                <function model="account.journal" name="action_print"/>
+
+        <record id="account_journal_inherit" model="ir.ui.view">
+            <field name="name">account.journal.inherit.tree</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <header>
+                        <button type="object" name="create_journals_from_coa" string="reset journals"
+                                class="oe_highlight m-2"
+                                groups="base.group_system"/>
+                    </header>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>
+

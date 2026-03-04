@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="inv_common_template_inherit_ds" inherit_id="professional_templates.INVOICE_common_document">
+            <!--            <xpath expr="//t[@t-call='professional_templates.invoice_lines']" position="after">-->
+            <!--            <xpath expr="//div[@class='article page']" position="inside">-->
+            <xpath expr="//div[@name='signature']" position="after">
+                <!--            <xpath expr="//div[@name='note']" position="after">-->
+
+                <t t-set="is_mod_install" t-value="o._check_isntallation()"/>
+                <t t-set="signature" t-value="o.get_signature()"/>
+
+                <div t-if="signature and not o.prepare_by" class=" oe_mt64 last-page" name="signature"
+                     t-attf-style="page-break-inside: always;margin-top:20px;">
+                    <div class="row">
+                        <div class="col-4 text-left">
+                            <strong>
+                                <span style="text-decoration:overline" t-field="signature.signature1"/>
+                            </strong>
+                        </div>
+                        <div class="col-4 text-center">
+
+                            <strong>
+                                <span style="text-decoration:overline" t-field="signature.signature2"/>
+                            </strong>
+                            <t t-if="o.prepare_by.user_stamp">
+                                <div name="signature_logo">
+                                    <img t-att-src="'data:image/png;base64,%s' % to_text(o.prepare_by.user_stamp)"
+                                         style="height: 4cm; min-width: 4cm;"/>
+                                </div>
+                            </t>
+
+
+                        </div>
+                        <div class="col-4 text-right" t-if="signature.signature3">
+                            <strong>
+                                <span style="text-decoration:overline" t-field="signature.signature3"/>
+                            </strong>
+
+                        </div>
+                    </div>
+                    <div class="row" name="receiver_declaration"
+                         t-if="o.receiver_declaration and o.show_receiver_declaration">
+                        <div class="col-4"></div>
+                        <div class="col-4"></div>
+                        <div class="col-4 text-right">
+                            <span t-field="o.receiver_declaration"/>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <t t-set="signature" t-value="o.get_signature()"/>
+                <div t-if="signature and  o.prepare_by" class="row oe-mt64 last-page" name="signature"
+                     style="page-break-inside: always;">
+                    <div class="col-4 text-left">
+                        <t t-if="o.prepare_by.user_signature">
+                            <div name="prepare_by_signature">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(o.prepare_by.user_signature)"
+                                     style="height: 1cm; max-width: 5cm;min-width:5cm"/>
+                            </div>
+                        </t>
+                    </div>
+
+                    <div class="col-4 text-center"></div>
+
+                    <div class="col-4 text-right" style="height:100px;">
+                        <t t-if="o.approve_by.user_signature">
+                            <div name="approve_by_signature">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(o.approve_by.user_signature)"
+                                     style="height: 1cm; max-width: 5cm;min-width:5cm"/>
+                            </div>
+                        </t>
+                    </div>
+
+                </div>
+                <div t-if="signature and  o.prepare_by" class="row oe-mt64 last-page" name="signature"
+                     style="page-break-inside: always; margin-top:-55px;">
+                    <div class="col-4 text-left">
+                        <strong>
+                            <span style="text-decoration:overline">Prepared By
+                                <span t-field="o.prepare_by.name"/>
+                            </span>
+                        </strong>
+                    </div>
+                    <div class="col-4 text-center">
+                        <strong>
+                            <span style="text-decoration:overline" t-field="signature.signature2"/>
+                        </strong>
+                    </div>
+                    <div class="col-4 text-right" style="height:100px;">
+
+                        <strong style="margin-top:30px;">
+                            <span style="text-decoration:overline">Approved By
+                                <span t-field="o.approve_by.name"/>
+                            </span>
+                        </strong>
+                    </div>
+
+                </div>
+                <!--                <t t-if="is_mod_install">-->
+                <div t-attf-style="display:none;" t-if="signature and  o.prepare_by" class="row oe-mt64 last-page"
+                     name="signature_logo_div"
+                     style="page-break-inside: always; margin-top:-55px;">
+                    <div class="col-4 text-center"></div>
+                    <div class="col-4 text-center">
+                        <t t-if="o.prepare_by.user_stamp">
+                            <div name="signature_logo">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(o.prepare_by.user_stamp)"
+                                     style="height: 4cm; min-width: 4cm;"/>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="col-4 text-center"></div>
+                </div>
+                <!--                </t>-->
+
+
+            </xpath>
+        </template>
+    </data>
+</odoo>

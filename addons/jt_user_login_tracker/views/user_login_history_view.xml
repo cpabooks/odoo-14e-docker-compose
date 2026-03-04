@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- user.login.history search view -->
+        <record id="view_search_user_login_history" model="ir.ui.view">
+            <field name="name">user.login.history.search.view</field>
+            <field name="model">user.login.history</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="login_time" string="Login Time"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Login Date" name='login_date' context="{'group_by':'login_time'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- user.login.history form view -->
+        <record id="view_form_user_login_history" model="ir.ui.view">
+            <field name="name">user.login.history.form.view</field>
+            <field name="model">user.login.history</field>
+            <field name="arch" type="xml">
+                <form edit="false" create="false" delete="false">
+                    <sheet>
+                        <group>
+                            <field name="login_time" string="Login Time"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- user.login.history tree view -->
+        <record id="view_tree_user_login_history" model="ir.ui.view">
+            <field name="name">user.login.history.tree.view</field>
+            <field name="model">user.login.history</field>
+            <field name="arch" type="xml">
+                <tree edit="false" create="false" delete="false">
+                    <field name="login_time" string="Login Time"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

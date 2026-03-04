@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!-- Form View for Bulk Invoice Payment -->
+        <record id="dev_bulk_invoice_view" model="ir.ui.view">
+            <field name="name">bulk.invoice.payment.view</field>
+            <field name="model">bulk.inv.payment</field>
+            <field name="arch" type="xml">
+                <form string="Multiple Invoice Payment">
+                    <group>
+                        <group>
+                            <field name="payment_type" readonly="1" force_save="1"/>
+                            <field name="partner_type" readonly="1" force_save="1"/>
+                            <field name="journal_id"/>
+                            <field name="cheque_no"/>
+                            <field name="cheque_date"/>
+                        </group>
+                        <group>
+                            <field name="get_inv_date"/>
+                            <field name="payment_date"/>
+                            <field name="communication"/>
+                        </group>
+                    </group>
+                    <separator string="Invoices"/>
+                    <field name="invoice_ids">
+                        <tree editable="bottom">
+                            <field name="invoice_id"/>
+                            <field name="partner_id" optional="hide"/>
+                            <field name="amount" sum="Total"/>
+                            <field name="paid_amount" sum="Total"/>
+                            <field name="woff_account"/>
+                            <field name="woff_amount" sum="Total"/>
+                            <field name="due_amount" sum="Total"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button string="Process" name="process_payment" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Act Window Linked with Account Move -->
+        <act_window id="action_bulk_invoice_payment"
+                    name="Multiple Invoice Payment"
+                    res_model="bulk.inv.payment"
+                    binding_model="account.move"
+                    view_mode="form"
+                    target="new"
+        />
+    </data>
+</odoo>

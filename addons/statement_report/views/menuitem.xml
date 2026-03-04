@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--MENU FOR SOA AGING WIZARD-->
+        <menuitem id="menu_soa_aging_main"
+                  name="SOA Aging"
+                  parent="account.menu_finance_reports"
+                  action="action_soa_aging_wizard"
+                  groups="base.group_user"
+                  sequence="-99"
+        />
+    </data>
+</odoo>

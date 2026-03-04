@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="job_estimation_form_inherit" model="ir.ui.view">
+            <field name="name">Job Estimation Form View Inherit for Style</field>
+            <field name="model">job.estimate</field>
+            <field name="inherit_id" ref="cost_estimate_customer_ld.job_estimate_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='job_type_id']" position="after">
+                    <field name="style" string="Estimation Style"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

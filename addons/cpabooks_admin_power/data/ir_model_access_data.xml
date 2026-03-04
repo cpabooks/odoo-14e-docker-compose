@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <function name="action_set_partner_access" model="ir.model.access"/>
+        <function name="action_set_product_access" model="ir.model.access"/>
+        <function name="get_bill_invoice_access" model="ir.model.access"/>
+        <function name="action_assign_all_users_to_invoice_access" model="ir.model.access"/>
+        <function name="get_res_lang_group_all" model="ir.model.access"/>
+    </data>
+</odoo>

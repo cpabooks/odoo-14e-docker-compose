@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <function model="hr.salary.rule" name="action_update_salary_rule_debit_credit"/>
+    <function model="hr.salary.rule" name="create_salary_journal"/>
+<!--    <function model="hr.salary.rule" name="create_extra_effort_deduction_rule"/>-->
+<!--    <function model="salary.code.setup" name="default_setup_for_all_salary_structure"/>-->
+</odoo>

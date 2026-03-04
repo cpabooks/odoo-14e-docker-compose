@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="job_estimate_extend" model="ir.ui.view">
+        <field name="name">job.estimate.extend</field>
+        <field name="model">job.estimate</field>
+        <field name="inherit_id" ref="cost_estimate_customer_ld.job_estimate_form_view"/>
+        <field name="arch" type="xml">
+             <field name="total_labour_estimate" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="bom_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="bom_reference" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="bom_product_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <button name="action_create_bom" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+
+            <xpath expr="//field[@name='material_estimation_ids']/tree/field[@name='discount']" position="before">
+                <field name="profit_per"/>
+                <field name="profit_amount" invisible="1"/>
+                <field name="overhead_per"/>
+                <field name="overhead_amount" invisible="1"/>
+                <field name="discount_amount" invisible="1"/>
+
+            </xpath>
+
+            <field name="total_overhead_estimate" position="before">
+                <field name="total_profit_amount" widget="monetary"/>
+            </field>
+
+            <field name="total_overhead_estimate" position="after">
+                <field name="total_discount_amount" widget="monetary"/>
+                <field name="total_labour_estimate" widget="monetary"/>
+            </field>
+
+        </field>
+    </record>
+</odoo>

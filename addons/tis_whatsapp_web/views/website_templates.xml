@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="footer_custom_whatsapp" inherit_id="website.layout" name="Footer">
+        <xpath expr="//div[@id='wrapwrap']" position="before">
+            <t t-if="website.whatsapp_no">
+                <a t-att-href="website.get_url(website.whatsapp_no)" target="_blank">
+                    <img class="col-md-6 rISBZc M4dUYb icon-chat appear"
+                         style="bottom:8%; right:5%; width:100px; height:70px; position:fixed; z-index: 1000;"
+                         src="/tis_whatsapp_web/static/description/messageicon.png"/>
+                </a>
+                <div class="d-xl-none">
+                    <a t-att-href="website.get_api_url(website.whatsapp_no)" target="_blank">
+                        <img class="col-md-6 rISBZc M4dUYb icon-chat appear"
+                             style="bottom:8%; right:5%; width:100px; height:70px; position:fixed; z-index: 1000;"
+                             src="/tis_whatsapp_web/static/description/messageicon.png"/>
+                    </a>
+                </div>
+            </t>
+            <t t-else="">
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

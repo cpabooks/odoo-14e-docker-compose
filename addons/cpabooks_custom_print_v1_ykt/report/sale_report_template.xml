@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    <template id="report_sale_quotation_main_ykt" inherit_id="allinone_print_digital_sign_app.sale_qweb_report">-->
+    <!--        <xpath expr="//table[@class='table table-sm;page-break-inside: avoid;']/tr/img" position="attributes">-->
+    <!--            <attribute name="style">display:none;</attribute>-->
+    <!--        </xpath>-->
+    <!--        <xpath expr="//table[@class='table table-sm;page-break-inside: avoid;']" position="attributes">-->
+    <!--            <attribute name="style">display:none;</attribute>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+    <template id="report_sale_quotation_ykt"
+              inherit_id="cpabooks_custom_print.report_saleorder_document_inherit_custom">
+
+        <!--region        main table-->
+        <!--        Vat colum hide-->
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr/th[@name='th_taxes']"
+               position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t[3]/tr/t[1]/td[@name='td_taxes']"
+               position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <!--        Vat colum hide-->
+
+
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[1]/td[@name='td_name']/span"
+               position="after">
+            <div>
+                <img t-if="line.image" t-attf-src="data:image/png;base64,{{ line.image }}"
+                     style="max-width: 300px; max-height: 200px; min-width: 300px; min-height: 200px"/>
+            </div>
+        </xpath>
+
+
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t/tr/t[1]/td[@name='td_unit']"
+               position="replace">
+            <td name="td_unit" class="text-center">
+                <span t-field="line.uom_text"/>
+            </td>
+        </xpath>
+        <!--endregion        main table-->
+        <!--region QUOTATION DATE-->
+        <xpath expr="//div[@name='quotation_date']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <!--endregion-->
+        <!--region Enquiry No-->
+        <xpath expr="//div[@name='Enquiry_No']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <!--endregion-->
+
+        <!--region QUOTATION NO-->
+        <xpath expr="//h5[@name='quotation_no']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//div[@name='customer_address']" position="attributes">
+            <attribute name="class">row</attribute>
+        </xpath>
+        <xpath expr="//div[@name='customer_address']" position="before">
+            <div name="quotation_no" class="row oe_mt16">
+                <h5 class="col-8">
+                    <strong>NO.</strong>
+                    <span t-field="doc.name"/>
+                </h5>
+
+            </div>
+            <div name="quotation_date" class="row" t-if="doc.date_order and doc.state in ['draft','sent']">
+                <div class="col-8">
+                    <strong>Date:</strong>
+                    <span class="m-0" t-field="doc.date_order" t-options='{"widget": "date"}'/>
+                </div>
+
+            </div>
+        </xpath>
+
+        <!--endregion-->
+
+        <!--region message-->
+        <xpath expr="//table[@class='table table-sm o_main_table']" position="before">
+            <div name="message" class="row">
+                <div class="col-12 mb-3">
+                    <span t-field="doc.message_box"/>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t[3]/tr" position="attributes">
+            <attribute name="style">border-style: solid;</attribute>
+        </xpath>
+        <!--        <xpath expr="//table[@class='table table-sm o_main_table']" position="attributes">-->
+        <!--            <attribute name="class">table table-sm o_main_table table-bordered</attribute>-->
+        <!--        </xpath>-->
+        <!--endregion-->
+
+        <!--region attention,subject,validity,delivery,make,payment,Note-->
+        <xpath expr="//div[@name='attention']" position="replace">
+            <div name="attention" class="row oe_mt16">
+                <div class="col-2">
+                    <strong class="pull-left">Attention</strong>
+                    <span class="pull-right">:</span>
+                </div>
+                <div class="col-10">
+                    <span t-field="doc.attention"/>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@name='subject']" position="replace">
+            <div name="subject" class="row">
+                <div class="col-2">
+                    <strong class="pull-left">Subject</strong>
+                    <span class="pull-right">:</span>
+                </div>
+                <div class="col-10">
+                    <span t-field="doc.subject"/>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@name='validity']" position="replace">
+            <div name="validity" class="row" style="line-height:20px;">
+                <div class="col-2">
+                    <strong class="pull-left">Validity</strong>
+                    <span class="pull-right">:</span>
+                </div>
+                <div class="col-10">
+                    <span t-field="doc.validity_date"/>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@name='delivery']" position="replace">
+            <div name="delivery" class="row" style="line-height:20px;">
+                <div class="col-2">
+                    <strong class="pull-left">Delivery</strong>
+                    <span class="pull-right">:</span>
+                </div>
+                <div class="col-10">
+                    <span t-field="doc.delivery_detail"/>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@name='make']" position="replace">
+            <div name="make" class="row" style="line-height:20px;">
+                <div class="col-2">
+                    <strong class="pull-left">Make</strong>
+                    <span class="pull-right">:</span>
+                </div>
+                <div class="col-10">
+                    <span t-field="doc.make_detail"/>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@name='payment']" position="replace">
+            <div name="payment" class="row" style="line-height:20px;">
+                <div class="col-2">
+                    <strong class="pull-left">Payment</strong>
+                    <span class="pull-right">:</span>
+                </div>
+                <div class="col-10">
+                    <span t-field="doc.payment_term_id"/>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@name='note']" position="replace">
+            <div name="Note" class="row" style="line-height:20px;">
+                <!--                <div class="col-2">-->
+                <!--                    <strong class="pull-left">General Note</strong>-->
+                <!--                    <span class="pull-right">:</span>-->
+                <!--                </div>-->
+                <div class="col-12 mt-4">
+                    <b>
+                        <span t-field="doc.note"/>
+                    </b>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[@name='Note']" position="before">
+            <div name="exclusive_inclusive" class="row" style="line-height:20px;">
+                <div class="col-2">
+                    <strong class="pull-left" t-field="doc.exclusion_or_inclusion"/>
+                    <span class="pull-right">:</span>
+                </div>
+                <div class="col-10">
+                    <span t-field="doc.exclusion_or_inclusion_body"/>
+                </div>
+            </div>
+            <!--             <div name="warm_regards" class="row oe_mt16">-->
+            <!--                <div class="col-12">-->
+            <!--                    <span t-field="doc.warm_regards"/>-->
+            <!--                </div>-->
+
+            <!--            </div>-->
+        </xpath>
+        <!--        <xpath expr="//div[@name='Note']" position="replace">-->
+        <!--            <div name="Note" class="row" style="line-height:20px;">-->
+        <!--                <div class="col-2">-->
+        <!--                    <strong class="pull-left">General Note</strong>-->
+        <!--                    <span class="pull-right">:</span>-->
+        <!--                </div>-->
+        <!--                <div class="col-10">-->
+        <!--                    <span t-field="doc.note"/>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            <div name="exclusive_inclusive" class="row" style="line-height:20px;">-->
+        <!--                <div class="col-2">-->
+        <!--                    <span class="pull-left" t-field="doc.exclusion_or_inclusion"/>-->
+        <!--                    <span class="pull-right">:</span>-->
+        <!--                </div>-->
+        <!--                <div class="col-10">-->
+        <!--                    <span t-field="doc.exclusion_or_inclusion_body"/>-->
+        <!--                </div>-->
+        <!--            </div>-->
+
+        <!--            <div name="warm_regards" class="row oe_mt16">-->
+        <!--                <div class="col-12">-->
+        <!--                    <span t-field="doc.warm_regards"/>-->
+        <!--                </div>-->
+
+        <!--            </div>-->
+        <!--            <div name="signature_logo" class="row">-->
+        <!--                <div class="col-12">-->
+        <!--                    <img t-att-src="'data:image/png;base64,%s' % to_text(doc.digital_signature)"-->
+        <!--                         style="height: 1.5cm; max-width: 12cm;min-width:6cm"/>-->
+        <!--                    <img t-att-src="'data:image/png;base64,%s' % to_text(doc.digital_logo)"-->
+        <!--                         style="height: 3cm; max-width: 6cm;"/>-->
+        <!--                </div>-->
+
+        <!--            </div>-->
+
+        <!--            <div class="col-3 text-center" style="margin-top:-10px;">-->
+        <!--                <span t-field="doc.create_uid.name"/>-->
+        <!--            </div>-->
+
+
+        <!--        </xpath>-->
+        <!--endregion-->
+        <!--region hide delivery detail,make detail-->
+        <xpath expr="//div[@name='delivery']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//div[@name='make']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+
+        <!--endregion-->
+
+
+    </template>
+</odoo>

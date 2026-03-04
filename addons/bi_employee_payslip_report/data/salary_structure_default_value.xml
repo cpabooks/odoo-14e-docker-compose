@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <function model="hr.payroll.structure" name="action_set_structure_default_value"/>
+    <function model="hr.contract" name="action_set_contact_default_hot_not"/>
+</odoo>

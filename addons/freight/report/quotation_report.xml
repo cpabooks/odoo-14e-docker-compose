@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_freight_report_saleorder" model="ir.actions.report">
+            <field name="name">Freight Quotation</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">freight.report_freight_quotation</field>
+            <field name="report_file">freight.report_freight_quotation</field>
+            <!--            <field name="print_report_name">(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)</field>-->
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+        <template id="report_freight_quotation">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+                        <t t-set="address">
+                            <div t-field="doc.partner_id"
+                                 t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                            <p t-if="doc.partner_id.vat"><t t-esc="doc.company_id.country_id.vat_label or 'Tax ID'"/>:
+                                <span t-field="doc.partner_id.vat"/>
+                            </p>
+                        </t>
+                        <t t-if="doc.partner_shipping_id == doc.partner_invoice_id
+                             and doc.partner_invoice_id != doc.partner_id
+                             or doc.partner_shipping_id != doc.partner_invoice_id">
+                            <t t-set="information_block">
+                                <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Invoicing and Shipping
+                                    Address:
+                                </strong>
+                                <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Invoicing Address:
+                                </strong>
+                                <div t-field="doc.partner_invoice_id"
+                                     t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
+                                    <strong>Shipping Address:</strong>
+                                    <div t-field="doc.partner_shipping_id"
+                                         t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                </t>
+                            </t>
+                        </t>
+                        <div class="page">
+                        <div class="oe_structure"/>
+
+                        <h2 class="mt16">
+                            <span t-field="doc.name"/>
+                        </h2>
+
+                        <div class="row mt32 mb32" id="informations">
+                            <div t-if="doc.client_order_ref" class="col-auto mw-100 mb-2">
+                                <strong>Your Reference:</strong>
+                                <p class="m-0" t-field="doc.client_order_ref"/>
+                            </div>
+                            <div t-if="doc.date_order and doc.state not in ['draft','sent']"
+                                 class="col-auto mw-100 mb-2">
+                                <strong>Order Date:</strong>
+                                <p class="m-0" t-field="doc.date_order"/>
+                            </div>
+                            <div t-if="doc.date_order and doc.state in ['draft','sent']" class="col-auto mw-100 mb-2">
+                                <strong>Quotation Date:</strong>
+                                <p class="m-0" t-field="doc.date_order" t-options='{"widget": "date"}'/>
+                            </div>
+                            <div t-if="doc.validity_date and doc.state in ['draft', 'sent']"
+                                 class="col-auto mw-100 mb-2" name="expiration_date">
+                                <strong>Expiration:</strong>
+                                <p class="m-0" t-field="doc.validity_date"/>
+                            </div>
+                            <div t-if="doc.user_id.name" class="col-auto mw-100 mb-2">
+                                <strong>Salesperson:</strong>
+                                <p class="m-0" t-field="doc.user_id"/>
+                            </div>
+                        </div>
+
+                        <!-- Is there a discount on at least one line? -->
+                        <t t-set="display_discount" t-value="any(l.discount for l in doc.order_line)"/>
+
+                        <t t-foreach="reportData['orders']" t-as="order">
+
+                            <!--                    <t t-set="TotalOtherCharge" t-value="otherChargeTotal(order,port,reportData['containers'])"/>-->
+                            <table class="table table-sm o_main_table" t-attf-style=" border-bottom: 4px double #333;
+                                                                                    padding: 10px 0;">
+                                <tr>
+                                    <td colspan="4" t-attf-style="background-color: #FACA0B;color:black">
+                                        FREIGHT CHARGES SUMMERY
+                                    </td>
+                                    <td t-attf-style="background-color: #FACA0B;color:black">Comodity</td>
+                                    <td colspan="10" t-attf-style="background-color: #FACA0B;color:black">
+                                        <t t-esc="order.comodity"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td t-attf-style="background-color: #C8CCD7;">
+                                        Item Description
+                                    </td>
+                                    <td t-attf-style="background-color: #C8CCD7;">
+                                        POL
+                                    </td>
+                                    <td t-attf-style="background-color: #C8CCD7;">
+                                        POD
+                                    </td>
+                                    <td t-attf-style="background-color: #C8CCD7;">
+                                        Cont. Type
+                                    </td>
+                                    <t t-foreach="reportData['containers']" t-as="container">
+                                        <td t-attf-style="background-color: #C8CCD7;text-align:right">
+                                            <t t-esc="reportData[order]['lines'][0].fields_get()[container]['string']"/>
+                                        </td>
+                                    </t>
+                                    <td t-attf-style="background-color: #C8CCD7;text-align:center">ETD</td>
+                                    <td t-attf-style="background-color: #C8CCD7;">Rate Validity</td>
+
+                                </tr>
+                                <t t-foreach="reportData['ports']" t-as="port">
+                                    <t t-set="TotalMainCharge"
+                                       t-value="mainchargeTotal(order,port,reportData['containers'])"/>
+                                    <tr>
+
+                                        <td>Main Carier Charge</td>
+                                        <td>
+                                            <t t-esc="port[0].name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="port[1].name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="TotalMainCharge['containerType']"/>
+                                        </td>
+
+                                        <t t-foreach="reportData['containers']" t-as="container">
+                                            <td t-attf-style="text-align:right">
+                                                <t t-esc="'%.2f' % TotalMainCharge[container]"/>
+                                            </td>
+                                        </t>
+                                        <td>
+                                            <t t-if="TotalMainCharge['etd']">
+                                                <t t-esc="TotalMainCharge['etd'].day"/>-<t
+                                                    t-esc="TotalMainCharge['etd'].month"/>-
+                                                <t t-esc="TotalMainCharge['etd'].year"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="TotalMainCharge['validity']">
+                                                <t t-esc="TotalMainCharge['validity'].day"/>-<t
+                                                    t-esc="TotalMainCharge['validity'].month"/>-
+                                                <t t-esc="TotalMainCharge['validity'].year"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="4" t-attf-style="background-color: #FACA0B;color:black">
+                                       <t t-esc="'All In ' + billingCurrency.name + ' Rate Total:'"/>
+                                    </td>
+                                    <t t-foreach="reportData['containers']" t-as="container">
+                                        <t t-set="total" t-value="0"/>
+                                        <t t-foreach="reportData['ports']" t-as="port">
+                                            <t t-set="TotalMainCharge"
+                                               t-value="mainchargeTotal(order,port,reportData['containers'])"/>
+                                            <t t-set="total" t-value="total+TotalMainCharge[container]"/>
+
+                                        </t>
+                                        <td t-attf-style="background-color: #FACA0B;color:black;text-align:right;">
+                                            <t t-esc="'%.2f' % total"/>
+                                        </td>
+                                    </t>
+                                    <td t-attf-style="background-color: #FACA0B;color:black"></td>
+                                    <td t-attf-style="background-color: #FACA0B;color:black"></td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <h3>Freight Charges Break Down</h3>
+                            <t t-foreach="reportData['ports']" t-as="port">
+                                <table class="table table-sm o_main_table"
+                                       t-attf-style=" border-bottom: 4px double #333; padding: 10px 0;">
+                                <h5>
+                                    <t t-esc="port[0].name"/>
+                                    -
+                                    <t t-esc="port[1].name"/>
+                                </h5>
+
+                                <tr>
+                                    <td t-attf-style="background-color: #C8CCD7;">
+                                        Via port of loading -
+                                        <t t-esc="port[0].name"/>
+                                        <br/>
+                                        Via port of discharge -
+                                        <t t-esc="port[1].name"/>
+                                    </td>
+                                    <td t-attf-style="background-color: #C8CCD7;text-align:center;">Rate Basis</td>
+                                    <td t-attf-style="background-color: #C8CCD7;text-align:right;">Currency</td>
+                                    <td t-attf-style="background-color: #C8CCD7;text-align:right;">Cont.type</td>
+                                    <t t-foreach="reportData['containers']" t-as="container">
+                                        <td t-attf-style="background-color: #C8CCD7;text-align:right;">
+                                            <t t-esc="reportData[order]['lines'][0].fields_get()[container]['string']"/>
+                                        </td>
+                                    </t>
+                                    <td t-attf-style="background-color: #C8CCD7;text-align:center;">ETD</td>
+                                    <td t-attf-style="background-color: #C8CCD7;text-align:center;">Rate Validity</td>
+                                </tr>
+                                <t t-foreach="reportData[order][port]['mainCharges']['lines']" t-as="freightLine">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="freightLine.product_id.name"/>
+                                        </td>
+                                        <td t-attf-style="text-align:center">
+                                            <t t-esc="freightLine.rate_basis.name"/>
+                                        </td>
+                                        <td t-attf-style="text-align:right">
+                                            <t t-esc="freightLine.foreign_currency.name"/>
+                                        </td>
+                                        <td t-attf-style="text-align:right">
+                                            <t t-esc="freightLine.freight_container_type.name"/>
+                                        </td>
+                                        <t t-foreach="reportData['containers']" t-as="container">
+                                            <td t-attf-style="text-align:right">
+                                                <t t-if="container in freightLine.fields_get_keys()">
+                                                    <t t-esc="'%.2f' % freightLine[container]"/>
+                                                </t>
+                                            </td>
+                                        </t>
+                                        <td>
+                                            <t t-if="freightLine.freight_etd">
+                                                <t t-esc="freightLine.freight_etd.day"/>-<t t-esc="freightLine.freight_etd.month"/>-<t t-esc="freightLine.freight_etd.year"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="freightLine.rate_validity">
+                                                <t t-esc="freightLine.rate_validity.day"/>-<t t-esc="freightLine.rate_validity.month"/>-<t t-esc="freightLine.rate_validity.year"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+
+<!--                            </t>-->
+                            <tr>
+                                <t t-set="TotalMainCharge"
+                                   t-value="mainchargeTotal(order,port,reportData['containers'])"/>
+                                <td colspan="4" t-attf-style="background-color: #C8CCD7;">
+                                    <t t-esc="'All In ' + billingCurrency.name + ' Rate Total:'"/>
+                                </td>
+
+                                <t t-foreach="reportData['containers']" t-as="container">
+                                    <td t-attf-style="background-color: #C8CCD7;text-align:right">
+                                        <t t-if="container in TotalMainCharge.keys()">
+                                            <t t-esc="'%.2f' % TotalMainCharge[container]"/>
+                                        </t>
+                                    </td>
+                                </t>
+                                <td t-attf-style="background-color: #C8CCD7;"></td>
+                                <td t-attf-style="background-color: #C8CCD7;"></td>
+                            </tr>
+                        </table>
+                        <br/>
+                    </t>
+
+
+                    <h4 t-attf-style="background-color: #FACA0B;color:black">Other Charges</h4>
+                    <table class="table table-sm o_main_table"
+                           t-attf-style=" border-bottom: 4px double #333;  padding: 10px 0;">
+                        <t t-foreach="reportData[order]['destination']" t-as="port">
+                            <t t-set="portTotalOtherCharge" t-value="0"/>
+                            <tr>
+                                <td t-attf-style="background-color: #C8CCD7;">Name of Charges</td>
+                                <td t-attf-style="background-color: #C8CCD7;">Currency</td>
+                                <td t-attf-style="background-color: #C8CCD7;">Quantity</td>
+                                <td t-attf-style="background-color: #C8CCD7;text-align:center;">Rate Basis</td>
+                                <td t-attf-style="background-color: #C8CCD7;">Rate</td>
+                                <td t-attf-style="background-color: #C8CCD7;">amount</td>
+                            </tr>
+                            <t t-foreach="reportData[order]['destination'][port]" t-as="freightLine">
+                                <tr>
+                                    <td>
+                                        <t t-esc="freightLine.product_id.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="freightLine.foreign_currency.name"/>
+                                    </td>
+                                    <td>
+                                        <!--                                        todo set qty here-->
+                                        1
+                                    </td>
+                                    <td t-attf-style="text-align:center">
+                                        <t t-esc="freightLine.rate_basis.name"/>
+                                    </td>
+                                    <!--                                todo here to apply rate and amount-->
+                                    <td>
+                                        <t t-esc="'%.2f' % freightLine.freight_20ge"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="'%.2f' % freightLine.freight_20ge"/>
+                                    </td>
+                                    <t t-set="portTotalOtherCharge"
+                                       t-value="portTotalOtherCharge+ freightLine.foreign_currency.compute(freightLine.freight_20ge,billingCurrency)"/>
+                                </tr>
+                            </t>
+
+                            <tr>
+                                <td colspan="4" t-attf-style="background-color: #FACA0B;color:black">
+                                    <t t-esc="'All In ' + billingCurrency.name + ' Rate Total:'"/>
+                                </td>
+                                <td t-attf-style="background-color: #FACA0B;color:black"><t t-esc="'%.2f' % portTotalOtherCharge"/></td>
+                                <td t-attf-style="background-color: #FACA0B;color:black">
+                                    <t t-esc="'%.2f' % portTotalOtherCharge"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                </t>
+                <div t-if="doc.signature" class="mt32 ml64 mr4" name="signature">
+                    <div class="offset-8">
+                        <strong>Signature</strong>
+                    </div>
+                    <div class="offset-8">
+                        <img t-att-src="image_data_uri(doc.signature)" style="max-height: 4cm; max-width: 8cm;"/>
+                    </div>
+                    <div class="offset-8 text-center">
+                        <p t-field="doc.signed_by"/>
+                    </div>
+                </div>
+
+                <div class="oe_structure"/>
+
+                <p t-field="doc.note"/>
+                <p t-if="doc.payment_term_id.note">
+                    <span t-field="doc.payment_term_id.note"/>
+                </p>
+                <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.sudo().note">
+                    <strong>Fiscal Position Remark:</strong>
+                    <span t-field="doc.fiscal_position_id.sudo().note"/>
+                </p>
+            </div>
+        </t>
+    </t>
+</t>
+        </template>
+
+
+        </data>
+        </odoo>

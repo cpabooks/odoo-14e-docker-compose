@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mo_order_extend" model="ir.ui.view">
+        <field name="name">mo.order.extend</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+                <field name="name" position="attributes">
+                        <attribute name="readonly">0</attribute>
+                </field>
+                <field name="name" position="attributes">
+                        <attribute name="attrs">{'readonly':[('system_admin','=',False)]}</attribute>
+                </field>
+                <field name="name" position="after">
+                    <field name="system_admin" invisible="1"/>
+                </field>
+
+        </field>
+    </record>
+</odoo>

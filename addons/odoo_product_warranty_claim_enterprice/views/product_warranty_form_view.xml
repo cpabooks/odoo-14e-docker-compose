@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_product_warranty_claim_form_view_custom" model="ir.ui.view">
+            <field name="name">product.warranty.registration.form</field>
+            <field name="model">product.warranty.registration</field>
+            <field name="arch" type="xml">
+                <form string="Product Warranty Registration">
+                <header>
+                     <field name="state" widget="statusbar" statusbar_visible="draft,confirm,cancel,done" clickable="True"/>
+                </header>
+                <sheet>
+<!--                    <div class="oe_button_box" name="button_box">-->
+<!--                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check">-->
+<!--                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;active&quot;}"/>-->
+<!--                        </button>-->
+<!--                    </div>-->
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="product_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="sale_order_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="subscription_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="contract_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="serial_number" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="start_date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="custom_date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="partner_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="quantity" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="uom_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="end_date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="user_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="company_id" attrs="{'readonly':[('state','!=','draft')]}" groups=" base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Claims">
+                            <field name="helpdesk_support_ids" readonly="1"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_product_warranty_claim_tree_custom" model="ir.ui.view">
+            <field name="name">product.warranty.registration.tree</field>
+            <field name="model">product.warranty.registration</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree string="Product Warranty Claim">
+                    <field name="name"/>
+                    <field name="sale_order_id"/>
+                    <field name="partner_id"/>
+                    <field name="serial_number"/>
+                    <field name="product_id"/>
+                    <field name="quantity"/>
+                    <field name="uom_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="custom_date"/>
+                    <field name="user_id"/>
+                    <field name="company_id" groups=" base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_product_warranty_claim_search_custom" model="ir.ui.view">
+            <field name="name">product.warranty.registration.search</field>
+            <field name="model">product.warranty.registration</field>
+            <field name="arch" type="xml">
+                <search string="Product Warranty Registration" >
+                    <field name="name"/>
+                    <field name="sale_order_id"/>
+                    <field name="partner_id"/>
+                    <field name="serial_number"/>
+                    <field name="product_id"/>
+                    <field name="quantity"/>
+                    <field name="uom_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <group expand="0" string="Group By">
+                        <filter name="Customer" context="{'group_by':'partner_id'}"/>
+                        <filter name="Sale Order" context="{'group_by':'sale_order_id'}"/>
+                        <filter name="Product" context="{'group_by':'product_id'}"/>
+                        <filter name="User" context="{'group_by':'user_id'}"/>
+                        <filter name="Create Date" context="{'group_by':'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+       
+        <record id="action_product_warranty_claim_custom" model="ir.actions.act_window">
+            <field name="name">Customer Warranty</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.warranty.registration</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_warranty_claim"
+                name="Warranty" parent="sale.sale_menu_root" 
+                sequence="4"/>
+        
+        <menuitem id="menu_product_warranty_claim" name="Customer Warranty"
+                action="action_product_warranty_claim_custom" parent="menu_warranty_claim" groups="sales_team.group_sale_salesman_all_leads"
+                sequence="4"/>
+        
+
+</odoo>

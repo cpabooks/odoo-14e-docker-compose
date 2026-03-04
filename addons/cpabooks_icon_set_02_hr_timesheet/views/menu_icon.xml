@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="hr_timesheet.timesheet_menu_root" name="Timesheets"
+          web_icon="cpabooks_icon_set_02_hr_timesheet,static/description/timesheets.png"/>
+
+</odoo>
+

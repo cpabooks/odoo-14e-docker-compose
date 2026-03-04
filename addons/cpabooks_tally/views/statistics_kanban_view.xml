@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_cpabooks_statistics_kanban" model="ir.ui.view">
+        <field name="name">Statistics</field>
+        <field name="model">cpabooks.statistics</field>
+        <field name="arch" type="xml">
+            <kanban create="false">
+                <field name="name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card" style="width: 100%;">
+                            <div class="w-100 main_div">
+                                <div class="top">
+                                    <h5>
+                                        Statistics
+                                    </h5>
+                                </div>
+                                <div class="oe_kanban_content row">
+                                    <div class="col-6 left">
+                                        <div class="w-75 mx-auto content">
+                                            <div class="w-100 text-center content_header">
+                                                <h3>Sales Menus</h3>
+                                            </div>
+
+                                            <div class="w-100 content_body">
+                                                <div class="w-75 mx-auto body_content">
+                                                    <ul>
+                                                        <dd>
+                                                            <button name="quotation" type="object"
+                                                                    class="bg-transparent mt-2 button">
+                                                                Quotations
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="delivery" type="object"
+                                                                    class="bg-transparent mt-2 button">
+                                                                Delivery Orders
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="invoices" type="object"
+                                                                    class="bg-transparent mt-2 button">
+                                                                Invoices
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="receipt" type="object"
+                                                                    class="bg-transparent mt-2 button">
+                                                                Receipt Voucher
+                                                            </button>
+                                                        </dd>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="w-75 mx-auto content">
+                                            <div class="w-100 text-center content_header">
+                                                <h3>Purchase Menus</h3>
+                                            </div>
+
+                                            <div class="w-100 content_body">
+                                                <div class="w-75 mx-auto body_content">
+                                                    <ul>
+                                                        <dd>
+                                                            <button name="purchase" type="object"
+                                                                    class="bg-transparent mt-2 button">
+                                                                Purchase Order
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="grn" type="object"
+                                                                    class="bg-transparent mt-2 button">
+                                                                GRN
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="bills" type="object"
+                                                                    class="bg-transparent mt-2 button">
+                                                                Bills
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="payment" type="object"
+                                                                    class="bg-transparent mt-2 button">
+                                                                Payment Voucher
+                                                            </button>
+                                                        </dd>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Define an action for Tally kanban view -->
+    <record id="action_cpabooks_statistics" model="ir.actions.act_window">
+        <field name="name">Statistics</field>
+        <field name="res_model">cpabooks.statistics</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_cpabooks_statistics_kanban"/>
+        <!-- Use view_mode instead of view_type -->
+    </record>
+
+</odoo>

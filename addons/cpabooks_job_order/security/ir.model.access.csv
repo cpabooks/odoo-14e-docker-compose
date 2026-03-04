@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_quotation_job_order,quotation_job_order,model_quotation_job_order,,1,1,1,1
+access_quotation_job_order_line,quotation_job_order_line,model_quotation_job_order_line,,1,1,1,1

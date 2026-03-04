@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sale_report_custom" inherit_id="cpabooks_custom_print.report_saleorder_document_inherit_custom">
+        <xpath expr="//div[@name='validity']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//div[@name='payment']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+         <xpath expr="//div[@name='make']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+
+         <xpath expr="//div[@name='delivery']" position="before">
+            <div name="breaker" class="row" style="line-height:20px;">
+                        <div class="col-2">
+                            <strong>Breaker </strong>
+                        </div>
+                        <div class="col-10">
+                            <span>: </span><span t-field="doc.breaker"/>
+                        </div>
+                    </div>
+             <div name="elr" class="row" style="line-height:20px;">
+                        <div class="col-2">
+                            <strong>ELR </strong>
+                        </div>
+                        <div class="col-10">
+                            <span>: </span><span t-field="doc.elr"/>
+                        </div>
+                    </div>
+             <div name="enclosure" class="row" style="line-height:20px;">
+                        <div class="col-2">
+                            <strong>Enclosure </strong>
+                        </div>
+                        <div class="col-10">
+                            <span>: </span><span t-field="doc.enclosure"/>
+                        </div>
+                    </div>
+             <div name="brand" class="row" style="line-height:20px;">
+                        <div class="col-2">
+                            <strong>Brand </strong>
+                        </div>
+                        <div class="col-10">
+                            <span>: </span><span t-field="doc.brand"/>
+                        </div>
+                    </div>
+        </xpath>
+
+    </template>
+</odoo>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_pdc_payment">
+        <t t-call="web.html_container">
+
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <center>
+                            <h2 t-if="doc.payment_type=='receive_money'">
+                                <u>PDC Receipt Voucher</u>
+                            </h2>
+                            <h2 t-if="doc.payment_type=='send_money'">
+                                <u>PDC Payment Voucher</u>
+                            </h2>
+                            <h4>
+                                <strong>Ref.</strong>
+                                <span t-field="doc.name"/>
+                            </h4>
+                        </center>
+                        <br/>
+                        <div class="row">
+                            <div class="col-6">
+                                <div t-if="doc.issue_date">
+                                    <strong>Date:</strong>
+                                    <span t-field="doc.issue_date"/>
+                                </div>
+                                <div t-if="doc.payment_date">
+                                    <strong>PDC Date:</strong>
+                                    <span t-field="doc.payment_date"/>
+                                </div>
+                                <div t-if="doc.memo">
+                                    <strong>Memo:</strong>
+                                    <span t-field="doc.memo"/>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div t-if="doc.partner_id">
+                                    <strong t-if="doc.payment_type=='receive_money'">Customer:</strong>
+                                    <strong t-if="doc.payment_type=='send_money'">Vendor:</strong>
+                                    <span t-field="doc.partner_id"/>
+                                </div>
+                                <div t-if="doc.journal_id">
+                                    <strong>Payment Journal:</strong>
+                                    <span t-field="doc.journal_id"/>
+                                </div>
+                                <div t-if="doc.main_bank_id">
+                                    <strong>Bank:</strong>
+                                    <span t-field="doc.main_bank_id.name"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th t-if="doc.invoice_id">
+                                        <span t-if="doc.payment_type=='receive_money'">Invoice Date</span>
+                                        <span t-if="doc.payment_type=='send_money'">Bill Date</span>
+                                    </th>
+                                    <th t-if="doc.invoice_id">
+                                        <span t-if="doc.payment_type=='receive_money'">Invoice Number</span>
+                                        <span t-if="doc.payment_type=='send_money'">Bill Number</span>
+                                    </th>
+                                    <!--                                    <th>-->
+                                    <!--                                        <span>Reference</span>-->
+                                    <!--                                    </th>-->
+                                    <th class="text-right">
+                                        <span>Payment Amount</span>
+                                    </th>
+                                    <!--                                    <th class="text-right">-->
+                                    <!--                                        <span>Amount Paid</span>-->
+                                    <!--                                    </th>-->
+                                    <!--                                    <th class="text-right">-->
+                                    <!--                                        <span>Balance</span>-->
+                                    <!--                                    </th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td t-if="doc.invoice_id">
+                                        <span t-field="doc.invoice_id.invoice_date"/>
+                                    </td>
+                                    <td t-if="doc.invoice_id">
+                                        <span t-field="doc.invoice_id.name"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="doc.payment_amount"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <record id="paperformat_pdc" model="report.paperformat">
+        <field name="name">PDC</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">50</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">45</field>
+        <field name="dpi">80</field>
+    </record>
+
+    <!--    Action Menu PDC Payment Invoice    -->
+    <record id="action_report_pdc_payment" model="ir.actions.report">
+        <field name="name">PDC Payment Report</field>
+        <field name="model">pdc.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sh_pdc.report_pdc_payment</field>
+        <field name="report_file">sh_pdc.report_pdc_payment</field>
+        <field name="print_report_name">'PRO-FORMA - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_pdc_wizard"/>
+        <field name="paperformat_id" ref="sh_pdc.paperformat_pdc"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_timecard_wizard_form" model="ir.ui.view">
+        <field name="name">timecard.wizard.form</field>
+        <field name="model">timecard.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Select Employee and Date">
+                <group>
+                    <field name="emp_id"/>
+                    <field name="month"/>
+                    <field name="year"/>
+                    <field name="company_id" invisible="1"/>
+                </group>
+                <footer>
+                    <button string="Generate Report" type="object" name="get_report" class="btn-primary"/>
+<!--                    <button string="Cancel" class="btn-secondary" special="cancel"/>-->
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_timecard_wizard" model="ir.actions.act_window">
+        <field name="name">Timecard Report</field>
+        <field name="res_model">timecard.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_timecard_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+     <menuitem action="action_timecard_wizard"
+        id="menu_timecard_wizard"
+        parent="hr_timesheet.menu_timesheets_reports"/>
+</odoo>

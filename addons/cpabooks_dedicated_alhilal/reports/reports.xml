@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Report action for payment certificate-->
+        <record id="action_report_payment_certificate" model="ir.actions.report">
+            <field name="name">Payment Certificate</field>
+            <field name="model">payment.certificate</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cpabooks_dedicated_alhilal.certificate_report_template</field>
+            <field name="report_file">cpabooks_dedicated_alhilal.certificate_report_template</field>
+            <field name="binding_model_id" ref="model_payment_certificate"/>
+            <field name="print_report_name">'Payment Certificate - %s' % (object.name)</field>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

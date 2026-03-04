@@ -1,0 +1,45 @@
+.o_kanban_record {
+    cursor: grab;
+    border: 1px solid #dee2e6;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    background-color: white;
+    padding: 8px;
+}
+
+.o_kanban_record:active {
+    cursor: grabbing;
+}
+
+.o_kanban_record.dragging {
+    opacity: 0.5;
+}
+
+.o_kanban_group {
+    min-height: 300px;
+    border: 2px dashed #dee2e6;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+}
+
+.o_kanban_group.drag-over {
+    border-color: #007bff;
+    background-color: #e3f2fd;
+}
+
+.kanban-container {
+    display: flex;
+    gap: 20px;
+}
+
+.kanban-column {
+    flex: 1;
+    min-width: 300px;
+}
+
+.kanban-header {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #007bff;
+}

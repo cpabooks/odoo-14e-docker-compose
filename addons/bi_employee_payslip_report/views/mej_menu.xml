@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--Root menu-->
+        <menuitem id="menu_mej_root" name="MEJ" sequence="001"
+                  web_icon="bi_employee_payslip_report,static/description/icon2.png"/>
+
+        <!--Main menu-->
+        <menuitem id="menu_mej_main_01" name="ME Journals" parent="bi_employee_payslip_report.menu_mej_root" sequence="001"/>
+        <menuitem id="menu_deffered_main_01" name="Deffereds" parent="bi_employee_payslip_report.menu_mej_root" sequence="002"/>
+
+        <!--Menu items-->
+        <menuitem id="menu_ctc_configuration" name="CTC" parent="bi_employee_payslip_report.menu_mej_main_01"
+                  sequence="100"/>
+
+<!--        <menuitem id="menu_ctc_and_formula" name="CTC and Formula" parent="bi_employee_payslip_report.menu_ctc_configuration"-->
+<!--                  action="bi_employee_payslip_report.action_open_ctc_record" sequence="1"/>-->
+
+<!--        <menuitem id="menu_config_me_journals" name="Config ME Journals" parent="bi_employee_payslip_report.menu_ctc_configuration"-->
+<!--                  action="bi_employee_payslip_report.action_config_me_journal" sequence="2"/>-->
+
+
+        <menuitem
+                id="menu_deffered_expense_model"
+                name="Deffered Expenses"
+                parent="bi_employee_payslip_report.menu_deffered_main_01"
+                sequence="003"
+                action="account_asset.action_account_expense_form"/>
+
+
+    </data>
+</odoo>

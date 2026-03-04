@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.rule" id="job_estimate_comp_rule">
+                <field name="name">job estimate multi-company</field>
+                <field name="model_id" ref="model_job_estimate"/>
+                <field name="domain_force">user.get_company()</field>
+            </record>
+    </data>
+</odoo>

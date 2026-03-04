@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="tva_template_inherit" inherit_id="professional_templates_v1.DN_4_document">
+<!--            <xpath expr="//h4[@id='title']/span" position="replace">-->
+<!--                <span>DO NO. </span>-->
+<!--            </xpath>-->
+
+
+            <xpath expr="//div[@t-if='o.picking_type_id']" position="replace">
+
+            </xpath>
+
+            <xpath expr="//div[@class='col-5 float-right']" position="replace">
+                <!-- Insert your modified div here -->
+                <div class="col-5 float-right"
+                     style="border: 1px solid; page-break-inside: avoid !important;padding:15px;">
+                    <strong t-attf-style="font-size:{{int(style.body_font)+6}}px;">
+                        <span class="fa fa-tasks"/>
+                        Project Details:
+                    </strong>
+                    <div t-if="o.project_id">
+                        <div>
+                            <div t-field="o.project_id" style="margin-bottom:0px;"
+                                 t-options='{"fields": ["name", "label_tasks", ], "no_marker": true}'/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+        </template>
+
+        <template id="report_dn4_document2_inherit" inherit_id="professional_templates_v1.report_dn4_document2">
+            <xpath expr="//div[@id='weight_dn4']" position="replace">
+
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_job_order" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.job_order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="is_technical_submittal"/>
+            </xpath>
+            <xpath expr="//page[@name='other_information']" position="after">
+                <page string="Technical Submittal" name="technical_submittal" attrs="{'invisible': [('is_technical_submittal', '=', False)]}">
+                    <group>
+                        <group>
+                            <field name="ts_project"/>
+                            <field name="ts_location"/>
+                            <field name="ts_owner"/>
+                            <field name="ts_project_mgmt"/>
+                            <field name="ts_consultant"/>
+                            <field name="ts_mep_consultant"/>
+                            <field name="ts_main_consultant"/>
+                            <field name="ts_mep_contractor"/>
+                            <field name="ts_designed_panels"/>
+                            <field name="ts_reference_no"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

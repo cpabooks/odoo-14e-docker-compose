@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_user_login_history_user,access_user_login_history_user,model_user_login_history,base.group_user,1,1,1,0
+access_user_login_history_admin,access_user_login_history_admin,model_user_login_history,base.group_system,1,1,1,1
+access_user_login_history_erp_manager,access_user_login_history_erp_manager,model_user_login_history,base.group_erp_manager,1,1,1,1

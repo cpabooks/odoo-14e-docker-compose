@@ -1,0 +1,9 @@
+id,name,details,charge_type/id
+freight_charge_sea_freight,Sea Freight,Sea freight,freight.freight_charge_type_main
+freight_charge_Terminal_Handling,Terminal Handling,Terminal Handling,freight.freight_charge_type_main
+freight_charge_Cartage,Cartage,Cartage,freight.freight_charge_type_other
+freight_charge_Documentation_Fees,Documentation Fees,Documentation Fees,freight.freight_charge_type_other
+freight_charge_Customs_Brokerage_Fee,Customs Brokerage Fee,Customs Brokerage Fee,freight.freight_charge_type_other
+freight_charge_buc_banker,BUC Bunker Charge,BUC Bunker Charge,freight.freight_charge_type_main
+freight_charge_gulf_risk,Gulf Risk Administration Fees,Gulf Risk Administration Fees,freight.freight_charge_type_main
+freight_charge_noc,NOC Charge,NOC Charge,freight.freight_charge_type_other

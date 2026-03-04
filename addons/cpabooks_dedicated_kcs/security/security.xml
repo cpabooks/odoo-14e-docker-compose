@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="cpa_bank_rule" model="ir.rule">
+        <field name="name">Bank Rule</field>
+        <field name="model_id" ref="model_bank_details"/>
+        <field name="global" eval="True" />
+        <field name="domain_force">user.bank_domain()</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_lead_view_form_inherit_sale_qt" model="ir.ui.view">
+        <field name="name">crm.lead.form.inherit.sale_qt</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <button name="action_schedule_meeting" position="after">
+                    <button class="oe_stat_button" type="object" name="action_view_sale_qt" icon="fa-pencil-square-o" attrs="{'invisible': ['|',('type', '=', 'lead'),('bypass_estimation','=',False)]}">
+                        <field name="qt_count" widget="statinfo" string="Quotations"/>
+                    </button>
+                    <button class="oe_stat_button" type="object" attrs="{'invisible': ['|', ('sale_order_count', '=', 0), ('type', '=', 'lead')]}" name="action_view_sale_order" icon="fa-usd">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value"><field name="sale_amount_total" widget="monetary" options="{'currency_field': 'company_currency'}"/></span>
+                            <span class="o_stat_text"> Orders</span>
+                            <field name="sale_order_count" invisible="1"/>
+                        </div>
+                    </button>
+                </button>
+
+            <xpath expr="//button[@name='action_set_lost']" position="after">
+                <button string="Crete Quotation" name="button_create_quotation" type="object" class="oe_highlight"
+                        attrs="{'invisible':[('bypass_estimation','=',False)]}"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='lead']" position="after">
+                <page name="order_line" string="Order Line" attrs="{'invisible':[('bypass_estimation','=',False)]}">
+                    <field name="order_line">
+                        <tree editable="bottom">
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="price_unit"/>
+                            <field name="price_subtotal"/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="other_info" string="Other Info">
+                    <group>
+                        <group>
+                            <field name="bypass_estimation"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="sale_crm_form_inherit" model="ir.ui.view">
+        <field name="name">sale.crm.form.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <button name="action_view_sale_quotation" position="attributes">
+                <attribute name="attrs">{'invisible':[('bypass_estimation','=',True)]}</attribute>
+            </button>
+        </field>
+    </record>
+
+</odoo>

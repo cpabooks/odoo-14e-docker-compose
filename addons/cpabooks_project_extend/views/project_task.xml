@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--SEARCH TASK BY CRM-->
+        <record id="view_task_search_form_inherit" model="ir.ui.view">
+            <field name="name">view.task.search.form.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="crm_id" string="CRM Lead"
+                           filter_domain="[('crm_id.enquiry_number', 'ilike', self)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_task_tree_inherit" model="ir.ui.view">
+            <field name="name">project.task.tree.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//tree" position="inside">
+                    <header>
+                        <button name="action_reset_tid" type="object" string="Reset TID"/>
+                        <button name="action_reset_name" type="object" string="Reset name" class="oe_highlight"/>
+                    </header>
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="replace">
+                    <field name="state" optional="show"/>
+                    <field name="stage_id" optional="show"/>
+                    <field name="priority_id" optional="show"/>
+                    <field name="scope_id" optional="show"/>
+                    <field name="frequency_id" optional="show"/>
+                    <field name="remarks" string="Next Action" optional="show"/>
+                    <field name="date_start" optional="show"/>
+                    <field name="date_end" optional="show"/>
+                    <field name="aging_days" optional="show"/>
+                    <field name="task_group_id" optional="hide"/>
+                    <field name="amount" optional="hide" sum="Total"/>
+                    <field name="amount_per_year" optional="hide" sum="Total"/>
+                    <field name="amount_paid" optional="hide" sum="Total"/>
+                    <field name="amount_due" optional="hide" sum="Total"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="task_seq" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="crm_id" optional="show"/>
+                </xpath>
+                <!--                <xpath expr="//field[@name='company_id']" position="after">-->
+                <!--                    <field name="forecast_hours" string="Plan Hrs." optional="show"/>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='company_id']" position="after">-->
+                <!--                    <field name="plan_diff" optional="show"/>-->
+                <!--                </xpath>-->
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_timesheet_view_task_tree2_inherited" model="ir.ui.view">
+            <field name="name">hr.timesheet.view.task.tree2.inherited</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="hr_timesheet.view_task_tree2_inherited"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='planned_hours']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                    <attribute name="string">Plan Task</attribute>
+                </xpath>
+                <xpath expr="//field[@name='effective_hours']" position="attributes">
+                    <attribute name="string">Hrs. Spent</attribute>
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='remaining_hours']" position="attributes">
+                    <attribute name="string">Remaining</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_timesheet_timesheet_view_tree_user" model="ir.ui.view">
+            <field name="name">hr.timesheet.timesheet.view.tree.user</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.timesheet_view_tree_user"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="name_tree" optional="show" readonly="0"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!--                <xpath expr="//field[@name='unit_amount']" position="before">
+                                    <field name="plan_diff" optional="show" invisible="1"/>
+                                    <field name="plan_time" optional="show"/>
+                                </xpath>-->
+                <xpath expr="//field[@name='unit_amount']" position="attributes">
+                    <attribute name="string">Hrs. Spent</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!--Project task form view-->
+        <record id="project_view_task_form2_inherit_project_extend" model="ir.ui.view">
+            <field name="name">project.view.task.form2.inherit.project.extend</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_deadline']" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </xpath>
+                <xpath expr="//div[@class='oe_title pr-0']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode',False)</attribute>
+                </xpath>
+
+
+                <xpath expr="//group/group[1]" position="inside">
+                    <!--					<field name="amount"/>-->
+                    <label for="amount" invisible="context.get('fsm_mode',False)"/>
+                    <div name="amount_div" class="d-flex">
+                        <field name="amount" invisible="context.get('fsm_mode',False)"/>
+                        <span class="oe_inline o_form_label mx-3 oe_read_only" invisible="context.get('fsm_mode',False)">per</span>
+                        <!-- Bigger margin on the left because in edit mode the external link button covers the text -->
+                        <span class="oe_inline o_form_label mr-3 ml-5 oe_edit_only" invisible="context.get('fsm_mode',False)">per</span>
+                        <field name="period" invisible="context.get('fsm_mode',False)"/>
+                    </div>
+                    <field name="amount_per_year" invisible="context.get('fsm_mode',False)"/>
+                    <field name="amount_paid" invisible="context.get('fsm_mode',False)"/>
+                    <field name="amount_due" invisible="context.get('fsm_mode',False)"/>
+                </xpath>
+
+                <xpath expr="//field[@name='stage_id']" position="replace">
+                    <field name="state" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"
+                           attrs="{'invisible': [('project_id', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='project_id']" position="before">
+                    <field name="stage_id" domain="[]" invisible="context.get('fsm_mode',False)"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="task_seq" copy="false" invisible="context.get('fsm_mode',False)"/>
+                    <field name="is_group" copy="false" invisible="context.get('fsm_mode',False)"/>
+                    <field name="crm_id" invisible="context.get('fsm_mode',False)"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tag_ids']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_deadline']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='project_id']" position="after">
+                    <field name="task_group_id" invisible="context.get('fsm_mode',False)"/>
+                    <field name="scope_id" invisible="context.get('fsm_mode',False)"/>
+                    <field name="priority_id" invisible="context.get('fsm_mode',False)"/>
+                    <field name="frequency_id" invisible="context.get('fsm_mode',False)"/>
+                    <field name="remarks" string="Next Action" invisible="context.get('fsm_mode',False)"/>
+                    <field name="last_action" string="Last Action" invisible="context.get('fsm_mode',False)"/>
+                    <field name="date_start" optional="hide" invisible="context.get('fsm_mode',False)"/>
+                    <field name="date_end" optional="hide" invisible="context.get('fsm_mode',False)"/>
+                    <field name="aging_days" optional="hide" invisible="context.get('fsm_mode',False)"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--SEARCH TASK BY CRM-->
+        <!--		<record id="view_project_task_filter_inherit" model="ir.ui.view"></record>-->
+
+
+        <!--Project task kanban view-->
+        <record id="project_task_kanban_view_inherit_project_extend" model="ir.ui.view">
+            <field name="name">project.task.kanban.view.inherit.project.extend</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='stage_id']" position="attributes">
+                    <options>{'group_expand': '_read_group_stage_ids', 'group_by_tooltip': {'description':
+                        'Description'}}
+                    </options>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_task_search" model="ir.ui.view">
+            <field name="name">project.task.search</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+                <search>
+                    <group expand="1" string="Group By">
+                        <filter name="group_by_task_group_id"
+                                string="Task Group"
+                                context="{'group_by': 'task_group_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--NEW ACTION TO FILETER PROJECT BY PROJECT GROUP-->
+        <record id="acton_task_group_by" model="ir.actions.act_window">
+            <field name="name">Task Groups</field>
+            <field name="res_model">project.task</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">
+                {
+                'search_default_group_by_task_group_id': 1
+                }
+            </field>
+        </record>
+
+        <record id="view_task_form2_inherit_industry_fsm" model="ir.ui.view">
+            <field name="name">view.task.form2.inherit.industry.fsm</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="industry_fsm.view_task_form2_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_fsm_navigate']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode',False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='planned_date_begin']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode',False)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='planned_date_end']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode',False)</attribute>
+                </xpath>
+                <label for="planned_date_begin" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </label>
+                <xpath expr="//i[contains(@class, 'fa-long-arrow-right')]" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+
+                <!--                 <xpath expr="//div[@class='w-100']" position="replace"/> -->
+            </field>
+        </record>
+
+        <record id="view_project_task_inherit_sale_project_form" model="ir.ui.view">
+            <field name="name">view.project.task.inherit.sale.project.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="sale_project.view_sale_project_inherit_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sale_order_id']" position="attributes">
+                    <attribute name="invisible">context.get('fsm_mode', False)</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!--MENU ITEM TO CALL ACTION PROJECT GROUP BY -->
+        <menuitem name="Task Group" id="menu_task_group" action="acton_task_group_by" sequence="1"
+                  parent="project.menu_main_pm"/>
+
+    </data>
+</odoo>

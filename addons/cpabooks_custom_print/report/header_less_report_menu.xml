@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="headerless_header">
+            <div t-attf-class="header">
+            </div>
+        </template>
+        <template id="footerless_footer">
+            <div class="footer">
+            </div>
+        </template>
+
+        <record id="sale_quotation_headerless_report" model="ir.actions.report">
+            <field name="name">Quotation/Order (Without Header &amp; Footer)</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cpabooks_custom_print.custom_sale_quotation_without_header</field>
+            <field name="report_file">cpabooks_custom_print.custom_sale_quotation_without_header</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="pro_forma_invoice_headerless_report" model="ir.actions.report">
+            <field name="name">PRO-FORMA Invoice (Without Header &amp; Footer)</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cpabooks_custom_print.custom_pro_forma_without_header</field>
+            <field name="report_file">cpabooks_custom_print.custom_pro_forma_without_header</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[(4, ref('sale.group_proforma_sales'))]"/>
+        </record>
+
+        <record id="purchase_order_headerless_report" model="ir.actions.report">
+            <field name="name">Purchase Order (Without Header &amp; Footer)</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cpabooks_custom_print.custom_purchase_order_without_header</field>
+            <field name="report_file">cpabooks_custom_print.custom_purchase_order_without_header</field>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="invoice_headerless_report" model="ir.actions.report">
+            <field name="name">Invoices (Without Header &amp; Footer)</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cpabooks_custom_print.custom_invoice_without_header</field>
+            <field name="report_file">cpabooks_custom_print.custom_invoice_without_header</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

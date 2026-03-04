@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="bt_upload_image_in_quotation_line.list">
+      <field name="name">bt_upload_image_in_quotation_line list</field>
+      <field name="model">bt_upload_image_in_quotation_line.bt_upload_image_in_quotation_line</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="bt_upload_image_in_quotation_line.action_window">
+      <field name="name">bt_upload_image_in_quotation_line window</field>
+      <field name="res_model">bt_upload_image_in_quotation_line.bt_upload_image_in_quotation_line</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="bt_upload_image_in_quotation_line.action_server">
+      <field name="name">bt_upload_image_in_quotation_line server</field>
+      <field name="model_id" ref="model_bt_upload_image_in_quotation_line_bt_upload_image_in_quotation_line"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="bt_upload_image_in_quotation_line" id="bt_upload_image_in_quotation_line.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="bt_upload_image_in_quotation_line.menu_1" parent="bt_upload_image_in_quotation_line.menu_root"/>
+    <menuitem name="Menu 2" id="bt_upload_image_in_quotation_line.menu_2" parent="bt_upload_image_in_quotation_line.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="bt_upload_image_in_quotation_line.menu_1_list" parent="bt_upload_image_in_quotation_line.menu_1"
+              action="bt_upload_image_in_quotation_line.action_window"/>
+    <menuitem name="Server to list" id="bt_upload_image_in_quotation_line" parent="bt_upload_image_in_quotation_line.menu_2"
+              action="bt_upload_image_in_quotation_line.action_server"/>
+-->
+  </data>
+</odoo>

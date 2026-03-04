@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="config_me_journal_list_view" model="ir.ui.view">
+            <field name="name">config.me.journal.list.view</field>
+            <field name="model">config.me.journal</field>
+            <field name="arch" type="xml">
+                <tree string="Config ME Journals">
+<!--                    <header>-->
+<!--                        <button name="action_create_me_journals" string="Create" title="Create Config ME Journals"-->
+<!--                                class="oe_highlight" type="object"/>-->
+<!--                    </header>-->
+                    <field name="name"/>
+                    <field name="journal_for"/>
+                    <field name="deferred_expense_account_id"/>
+                    <field name="expense_account_journal_id"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="config_me_journals_form_view" model="ir.ui.view">
+            <field name="name">config.me.journal.form.view</field>
+            <field name="model">config.me.journal</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" class="oe_inline"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="journal_for"/>
+                                <field name="company_id"/>
+                            </group>
+                            <group>
+                                <field name="deferred_expense_account_id"/>
+                                <field name="expense_account_journal_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_config_me_journal" model="ir.actions.act_window">
+            <field name="name">Config ME Journals</field>
+            <field name="res_model">config.me.journal</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="menu_config_me_journals" name="Config ME Journals" parent="bi_employee_payslip_report.menu_ctc_configuration"
+                  action="action_config_me_journal" sequence="2"/>
+
+    </data>
+</odoo>

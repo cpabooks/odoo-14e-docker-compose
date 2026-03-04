@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <template id="login_manage_database_hide" inherit_id="web.login_layout" >
+
+        <xpath expr="//div[hasclass('card-body')]" position="replace">
+            <div class="card-body">
+                <div t-attf-class="text-center pb-3 border-bottom {{'mb-3' if form_small else 'mb-4'}}">
+                    <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" alt="Logo" style="max-height:120px; max-width: 100%; width:auto"/>
+                </div>
+                <t t-raw="0"/>
+                <div class="text-center small mt-4 pt-3 border-top" t-if="not disable_footer">
+                    <a href="http://www.cpabooks.org/" target="_blank">Powered by <span>CPAbooks</span></a>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+
+    <template id="login_select_database_hide" inherit_id="web.login" >
+
+        <xpath expr="//div[hasclass('field-db')]" position="replace">
+            <div class="form-group field-db" t-if="databases and len(databases) &gt; 1">
+                    <label for="db" class="col-form-label">Database</label>
+                    <div t-attf-class="input-group {{'input-group-sm' if form_small else ''}}">
+                        <input type="text" name="db" t-att-value="request.db" id="db" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" readonly="readonly"/>
+                    </div>
+                </div>
+
+        </xpath>
+    </template>
+
+
+
+
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="view_report_style_form_inherit" model="ir.ui.view">
+        <field name="name">view.report.style.form.inherit</field>
+        <field name="model">report.template.settings</field>
+        <field name="inherit_id" ref="professional_templates.view_report_style_form"/>
+        <field name="arch" type="xml">
+            <field name="is_customer_bold" position="after">
+                <field name="is_item_code_visible"/>
+            </field>
+        </field>
+</record>
+</odoo>

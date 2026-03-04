@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_payment_inherited" model="ir.ui.view">
+        <field name="name">account.payment.form.inherited</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/group[2]" position="inside">
+                <field name="narration"/>
+            </xpath>
+
+            <!--                <field name="payment_type" widget="radio"-->
+            <!--                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+            <!--                <field name="payment_type" position="replace">-->
+            <!--                    <field name="payment_type"-->
+            <!--                                       attrs="{'readonly': [('state', 'in', ('draft','posted','cancel'))]}" force_save="1"/>-->
+            <!--                </field>-->
+            <field name="payment_type" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', 'in', ('draft','posted','cancel'))]}</attribute>
+            </field>
+            <field name="partner_type" position="replace">
+                <field name="partner_type"
+                       attrs="{'readonly': [('state', 'in', ('draft','posted','cancel'))], 'invisible': [('is_internal_transfer', '=', True)]}"
+                       force_save="1"/>
+            </field>
+
+            <field name="move_id" position="after">
+                <field name="receiver_id" options="{'no_create_edit':True,'no_open':True,'no_edit':True}"
+                       attrs="{'invisible':[('payment_type','!=','inbound')]}"/>
+            </field>
+            <field name="partner_bank_id" position="after">
+                <field name="clint_bank"/>
+                <field name="payment_method_id" domain="[('payment_type', '=', payment_type)]"/>
+            </field>
+        </field>
+    </record>
+
+<!--    <record id="view_account_payment_inherited_multi_payment" model="ir.ui.view">-->
+<!--        <field name="name">account.payment.form.inherited.multi.payment</field>-->
+<!--        <field name="model">account.payment</field>-->
+<!--        <field name="inherit_id" ref="dev_invoice_multi_payment.account_paumnet_add_method_of_payment"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='payment_for']" position="before">-->
+<!--                <field name="payment_method_id" domain="[]"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		<record id="account_move_journal_entries_inherit" model="ir.ui.view">
+			<field name="name">account.move.journal.entries.inherit</field>
+			<field name="model">account.move</field>
+			<field name="inherit_id" ref="account.view_move_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//group/group[2]" position="inside">
+					<h3 attrs="{'invisible': [('move_type','!=', 'entry')]}" class="w-100 text-black"> Repeat </h3>
+					<field name="is_repeat" attrs="{'invisible': [('move_type','!=', 'entry')]}"/>
+					<field name="repeat_count"  attrs="{'invisible': ['|', ('move_type','!=', 'entry'), ('is_repeat', '=', False)]}"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>
