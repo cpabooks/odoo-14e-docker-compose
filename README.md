@@ -15,7 +15,7 @@ to set up first Odoo instance @ `localhost:10014` (default master password: `Cnv
 and
 
 ``` bash
-curl -s https://raw.githubusercontent.com/cpabooks/odoo-14e-docker-compose/master/run.sh | bash -s odoo-two 11016 21016
+curl -s https://raw.githubusercontent.com/cpabooks/odoo-14e-docker-compose/master/run.sh | bash -s odoo-two 11014 21014
 ```
 
 to set up another Odoo instance @ `localhost:11014` (default master password: `CnvvV46UGZb2=N`)

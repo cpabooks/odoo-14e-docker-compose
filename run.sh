@@ -55,6 +55,16 @@ else
   exit 1
 fi
 ETH0_IP=$(ip addr show eth0 | grep 'inet ' | head -1 | awk '{print $2}' | cut -d'/' -f1)
-echo "Odoo started at http://$ETH0_IP:$PORT | Live chat port: $CHAT"
-echo "Odoo Database Manager can be found http://$ETH0_IP:$PORT/web/database/manager | Master Password: CnvvV46UGZb2=N"
+
+RED='\033[0;31m'
+BOLD='\033[1m'
+NC='\033[0m' # No Color / Reset
+
+echo -e "Odoo started at ${RED}${BOLD}http://$ETH0_IP:$PORT${NC} | Live chat port: ${RED}${BOLD}$CHAT${NC}"
+echo -e "Odoo Database Manager: ${RED}${BOLD}http://$ETH0_IP:$PORT/web/database/manager${NC} | Master Password: ${RED}${BOLD}CnvvV46UGZb2=N${NC}"
 docker ps -a | grep "$DESTINATION-odoo14-1"
+
+
+#echo "Odoo started at http://$ETH0_IP:$PORT | Live chat port: $CHAT"
+#echo "Odoo Database Manager can be found http://$ETH0_IP:$PORT/web/database/manager | Master Password: CnvvV46UGZb2=N"
+#docker ps -a | grep "$DESTINATION-odoo14-1"
