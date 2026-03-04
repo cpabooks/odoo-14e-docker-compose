@@ -46,10 +46,12 @@ find $DESTINATION -type d -exec chmod 755 {} \;
 chmod +x $DESTINATION/entrypoint.sh
 
 # Run Odoo
-if ! is_present="$(type -p "docker-compose")" || [[ -z $is_present ]]; then
+if docker compose version &>/dev/null 2>&1; then
   docker compose -f $DESTINATION/docker-compose.yml up -d
-else
+elif command -v docker-compose &>/dev/null; then
   docker-compose -f $DESTINATION/docker-compose.yml up -d
+else
+  echo "Error: Neither 'docker compose' nor 'docker-compose' found."
+  exit 1
 fi
-
 echo "Odoo started at http://localhost:$PORT | Master Password: CnvvV46UGZb2=N | Live chat port: $CHAT"
