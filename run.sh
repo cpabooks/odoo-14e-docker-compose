@@ -67,4 +67,4 @@ docker ps -a | grep "$DESTINATION-odoo14-1"
 
 #echo "Odoo started at http://$ETH0_IP:$PORT | Live chat port: $CHAT"
 #echo "Odoo Database Manager can be found http://$ETH0_IP:$PORT/web/database/manager | Master Password: CnvvV46UGZb2=N"
-#docker ps -a | grep "$DESTINATION-odoo14-1"
+#docker ps -a | grep "$DESTINATION"
