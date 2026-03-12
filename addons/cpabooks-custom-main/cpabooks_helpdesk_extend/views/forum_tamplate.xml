@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="inherit_website_social_modal" inherit_id="website.social_modal">
+        <xpath expr="//div[@id='oe_social_share_modal']" position="replace">
+            <!-- Replacement content goes here -->
+            <div style="display:none;">
+                Hello World
+            </div>
+        </xpath>
+    </template>
+</odoo>

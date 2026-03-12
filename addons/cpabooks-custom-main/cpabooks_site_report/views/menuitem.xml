@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+         <menuitem name="Site Report"
+            id="menu_site_report_root" sequence="201"/>
+        <menuitem id="menu_site_report" name="Site Report"
+            parent="menu_site_report_root"  sequence="1" />
+
+        <menuitem id="menu_daily_site_report" name="Daily Report"
+            parent="menu_site_report" action="cpabooks_site_report.daily_site_report_form_action" sequence="1" />
+
+        <menuitem id="menu_weekly_site_report" name="Weekly Report"
+            parent="menu_site_report" action="cpabooks_site_report.weekly_site_report_form_action" sequence="2" />
+
+        <menuitem id="menu_monthly_site_report" name="Monthly Report"
+            parent="menu_site_report" action="cpabooks_site_report.monthly_site_report_form_action" sequence="3" />
+
+
+        <menuitem id="menu_supervisor_report" name="Supervisor Report"
+            parent="menu_site_report_root"  sequence="2" />
+        <menuitem id="menu_supervisor_daily_report" name="Supervisor Daily Report"
+            parent="menu_supervisor_report" action="cpabooks_site_report.supervisor_daily_report_form_action" sequence="1" />
+        <menuitem id="menu_supervisor_weekly_report" name="Supervisor Weekly Report"
+            parent="menu_supervisor_report" action="cpabooks_site_report.supervisor_weekly_report_form_action" sequence="2" />
+        <menuitem id="menu_supervisor_monthly_report" name="Supervisor Monthly Report"
+            parent="menu_supervisor_report" action="cpabooks_site_report.supervisor_monthly_report_form_action" sequence="2" />
+
+        <menuitem id="menu_client_report" name="Client Report"
+            parent="menu_site_report_root"  sequence="3" action="cpabooks_site_report.client_report_form_action"/>
+
+</odoo>

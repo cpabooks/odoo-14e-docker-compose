@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_product_delivery_special_discount" model="product.product">
+            <field name="name">SPECIAL DISCOUNT</field>
+            <field name="default_code">SPECIAL</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="list_price">0.0</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sale Order Report -->
+    <template id="sale_report_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@id='total']" position="replace">
+            <div id="total" class="row" name="total">
+                <div class="col-8">
+                    <div class="oe_mt16 oe_mb16">
+                        <strong>Amount In Words: </strong> <span t-field="doc.num_word"/> <span> Only.</span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <table class="table table-sm">
+                        <tr class="border-black o_subtotal" style="">
+                            <td name="td_amount_untaxed_label"><strong>Subtotal</strong></td>
+                            <td name="td_amount_untaxed" class="text-right">
+                                <span t-field="doc.amount_untaxed"/>
+                            </td>
+                        </tr>
+                        <t t-foreach="doc.amount_by_group" t-as="amount_by_group">
+                            <tr style="">
+                                <t t-if="amount_by_group[5] == 1 and doc.amount_untaxed == amount_by_group[2]">
+                                    <td name="td_amount_by_group_label_3">
+                                        <span t-esc="amount_by_group[0]"/>
+                                        <span>&amp;nbsp;<span>on</span>&amp;nbsp;<t t-esc="amount_by_group[2]" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/></span>
+                                    </td>
+                                    <td name="td_amount_by_group_3" class="text-right o_price_total">
+                                        <span t-esc="amount_by_group[1]"
+                                            t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                                    </td>
+                                </t>
+                                <t t-else ="">
+                                    <td name="td_amount_by_group_label">
+                                        <span t-esc="amount_by_group[0]"/>
+                                    </td>
+                                    <td name="td_amount_by_group" class="text-right o_price_total">
+                                        <span t-esc="amount_by_group[1]"
+                                            t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+                        <tr class="border-black o_total">
+                            <td name="td_amount_total_label"><strong>Total</strong></td>
+                            <td name="td_amount_total" class="text-right">
+                                <span t-field="doc.amount_total"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Purchase Order Report -->
+    <template id="purchse_report_inherit" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//div[@id='total']/div[1]" position="before">
+            <div class="col-8">
+                <div class="oe_mt16 oe_mb16">
+                    <strong>Amount In Words: </strong> <span t-field="o.num_word"/> <span> Only.</span>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Account Invoice Report -->
+    <template id="invoice_report_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='total']" position="replace">
+            <div id="total" class="row">
+                <div class="col-8">
+                    <div class="oe_mt16 oe_mb16">
+                        <strong>Amount In Words: </strong> <span t-field="o.num_word"/> <span> Only.</span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <table class="table table-sm" style="page-break-inside: avoid;">
+                        <tr class="border-black o_subtotal" style="">
+                            <td><strong>Subtotal</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.amount_untaxed"/>
+                            </td>
+                        </tr>
+                        <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                            <tr style="">
+                                <!--<t t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and float_compare(o.amount_untaxed, amount_by_group[2], precision_rounding=o.currency_id.rounding) == 0">-->
+                                <t t-if="amount_by_group">
+                                    <td><span class="text-nowrap" t-esc="amount_by_group[0]"/></td>
+                                    <td class="text-right o_price_total">
+                                        <span class="text-nowrap" t-esc="amount_by_group[3]" />
+                                    </td>
+                                </t>
+                                <t t-else="">
+                                    <td>
+                                        <span t-esc="amount_by_group[0]"/>
+                                        <span class="text-nowrap"> on
+                                            <t t-esc="amount_by_group[4]"/>
+                                        </span>
+                                    </td>
+                                    <td class="text-right o_price_total">
+                                        <span class="text-nowrap" t-esc="amount_by_group[3]"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+                        <tr class="border-black o_total">
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <span class="text-nowrap" t-field="o.amount_total"/>
+                            </td>
+                        </tr>
+                        <t t-if="print_with_payments">
+                            <t t-if="o.payment_state != 'invoicing_legacy'">
+                                <t t-set="payments_vals" t-value="o.sudo()._get_reconciled_info_JSON_values()"/>
+                                <t t-foreach="payments_vals" t-as="payment_vals">
+                                    <tr>
+                                        <td>
+                                            <i class="oe_form_field text-right oe_payment_label">Paid on <t t-esc="payment_vals['date']" t-options='{"widget": "date"}'/></i>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="len(payments_vals) > 0">
+                                    <tr class="border-black">
+                                        <td><strong>Amount Due</strong></td>
+                                        <td class="text-right">
+                                            <span t-field="o.amount_residual"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </t>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

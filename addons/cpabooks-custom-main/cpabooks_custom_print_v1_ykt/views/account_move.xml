@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_move_main_ykt" model="ir.ui.view">
+        <field name="name">account.move.main.ykt</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_uom_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_uom_id']" position="after">
+                <field name="uom_text" force_save="1"/>
+            </xpath>
+
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='product_uom_id']" position="after">
+                <field name="uom_text" invisible="1" force_save="1"/>
+            </xpath>
+
+            <xpath expr="//sheet/group/group[@id='header_left_group']/div[@class='o_td_label']" position="before">
+                <field name="manual_invoice" placeholder="Manual Invoice..." attrs="{'invisible':['|',('print_manual_invoice','=',False),('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}" />
+                <field name="print_manual_invoice" attrs="{'invisible':[('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}"/>
+
+            </xpath>
+<!--            <field name="partner_id" position="before">-->
+<!--                <field name="print_manual_invoice"/>-->
+<!--            </field>-->
+<!--            <field name="name" position="after">-->
+<!--                <field name="manual_invoice" placeholder="Manual Invoice..." attrs="{'invisible':['|',('print_manual_invoice','=',False),('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}" />-->
+<!--            </field>-->
+            <xpath expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree/field[@name='name']" position="attributes">
+                <attribute name="string">Description</attribute>
+            </xpath>
+
+
+            <!--This is shifted on 'professional_templates_v1' module-->
+<!--            <field name="invoice_outstanding_credits_debits_widget" position="after">-->
+<!--                <group>-->
+<!--                <group>-->
+<!--                    <field name="prepare_by" options="{'no_create_edit':True,'no_open':True,'no_edit':True}"/>-->
+<!--                    <field name="approve_by" options="{'no_create_edit':True,'no_open':True,'no_edit':True}"/>-->
+<!--                </group>-->
+<!--                    <group></group>-->
+<!--                </group>-->
+<!--            </field>-->
+
+
+            <field name="invoice_date" position="after">
+                <field name="analytic_acc_ids" widget="many2many_tags" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+
+     <record id="view_account_move_tree_ykt" model="ir.ui.view">
+        <field name="name">account.move.tree.ykt</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <field name="invoice_partner_display_name" position="after">
+                <field name="analytic_acc_ids" widget="many2many_tags" invisible="context.get('default_move_type') not in ('in_invoice', 'in_refund','in_receipt')" groups="base.group_user" optional="hide"/>
+            </field>
+            <field name="name" position="after">
+                <field name="manual_invoice"  invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')" groups="base.group_user" optional="hide"/>
+
+            </field>
+        </field>
+     </record>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle
+ -->
+<odoo>
+    <record id="form_dev_company_document_name" model="ir.ui.view">
+        <field name="name">form.dev.company.document.name</field>
+        <field name="model">dev.company.document.name</field>
+
+        <field name="arch" type="xml">
+            <form string="Company Document Name Form">
+                <sheet>
+
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="company_id"/>
+                        </group>
+                     </group>
+
+                </sheet>
+            </form>
+       </field>
+    </record>
+
+    <record id="tree_dev_company_document_name" model="ir.ui.view">
+        <field name="name">tree.dev.company.document.name</field>
+        <field name="model">dev.company.document.name</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="company_id"/>
+
+            </tree>
+       </field>
+    </record>
+
+
+
+
+    <record id="action_dev_company_document_name" model="ir.actions.act_window">
+        <field name="name">Company Document Name</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dev.company.document.name</field>
+        <field name="view_mode">tree</field>
+
+    </record>
+
+
+    <menuitem id="dev_comapny_document_name_menu" name="Company Document Name" parent="base.menu_users"  action="action_dev_company_document_name"/>
+</odoo>

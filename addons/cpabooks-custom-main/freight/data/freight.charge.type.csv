@@ -1,0 +1,3 @@
+id,name,description
+freight_charge_type_main,Main Carrier Charges,Main Carrier Charges
+freight_charge_type_other,Other Charges,Govt Charges for destination ports

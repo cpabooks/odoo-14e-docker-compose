@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_lead_view_form_inherit_job_order" model="ir.ui.view">
+        <field name="name">crm.lead.form.inherit.job_order</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_set_won_rainbowman']" position="before">
+                <button string="New Estimation" name="button_new_estimation" type="object" class="oe_highlight" attrs="{'invisible': ['|', ('type', '=', 'lead'), ('active', '=', False)]}"/>
+            </xpath>
+            <button name="action_schedule_meeting" position="after">
+                <button class="oe_stat_button" type="object" name="action_view_estimation" icon="fa-pencil-square-o" attrs="{'invisible': [('type', '=', 'lead')]}">
+                    <field name="estimation_count" widget="statinfo" string="Estimations"/>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record id="action_new_estimation" model="ir.actions.act_window">
+        <field name="name">Estimation</field>
+        <field name="res_model">job.cost.sheet</field>
+        <field name="view_mode">form,tree</field>
+        <field name="domain">[('opportunity_id', '=', active_id)]</field>
+        <field name="context">{'search_default_opportunity_id': active_id, 'default_opportunity_id': active_id}</field>
+    </record>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="project_form_view_inherit" model="ir.ui.view">
+            <field name="name">project.form.view.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="project_employee_line" string="Employees">
+                        <field name="employee_line" editable="bottom" widget="section_and_note_one2many">
+                            <tree editable="bottom">
+                                <field name="project_id" invisible="1"/>
+                                <field name="employee_id" required="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

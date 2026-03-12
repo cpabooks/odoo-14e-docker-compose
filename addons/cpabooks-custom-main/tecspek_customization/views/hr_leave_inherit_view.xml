@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_leave_form_inherit" model="ir.ui.view">
+            <field name="name">hr.leave.form.inherit</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+            <field name="arch" type="xml">
+                <button name="action_refuse" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('can_approve', '=', False), ('state', 'not in', ('confirm','validate1','validate'))]}</attribute>
+                </button>
+            </field>
+        </record>
+
+        <menuitem id="hr_timesheet.timesheet_menu_activity_all"
+            name="All Timesheets"
+            parent="hr_timesheet.menu_hr_time_tracking"
+            action="hr_timesheet.timesheet_action_all"
+            groups="hr_timesheet.group_hr_timesheet_approver"
+            sequence="1"/>
+
+        <record id="timesheet_view_grid_by_project_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.line.form.inherit</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="timesheet_grid.timesheet_view_grid_by_employee"/>
+            <field name="arch" type="xml">
+                <field name="date" position="replace">
+                    <field name="date" type="col">
+                        <range name="month" string="Month" span="month" step="day"/>
+                        <range name="week" string="Week" span="week" step="day"/>
+                    </field>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

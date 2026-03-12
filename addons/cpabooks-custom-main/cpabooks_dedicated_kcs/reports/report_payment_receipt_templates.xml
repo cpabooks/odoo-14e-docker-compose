@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="cpabooks_report_payment_receipt_document"
+              inherit_id="account.report_payment_receipt_document">
+
+        <xpath expr="//div[@class='page']" position="replace">
+            <div class="page">
+
+                <!-- Title -->
+                <h2 class="text-center" style="text-decoration: underline;">
+                    Payment Receipt
+                </h2>
+
+                <div style="font-size: 20 px;">
+
+                    <!-- Receipt Meta -->
+                    <div class="row my-4">
+                        <div class="col-4 offset-8">
+                            <p>
+                                <strong>Date:</strong>
+                                <span t-field="o.date"/>
+                            </p>
+                            <p>
+                                <strong>Receipt #:</strong>
+                                <span t-field="o.name"/>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Partner -->
+                    <div class="my-4" t-if="o.partner_type">
+                        <t t-if="o.partner_type == 'customer'">
+                            <strong>Customer Name:</strong>
+                        </t>
+                        <t t-else="">
+                            <strong>Vendor Name:</strong>
+                        </t>
+                        <strong>
+                            <span t-field="o.partner_id.name"/>
+                        </strong>
+                    </div>
+
+                    <!-- Invoice Table -->
+                    <t t-set="res_company" t-value="company_id"/>
+                    <table class="table table-sm" style="border-collapse: collapse; width: 100%; border:1px solid black;">
+                        <thead style="background-color: #{{ res_company.color }}; color: white;">
+                            <tr>
+                                <th>Document Number</th>
+                                <th>Date</th>
+                                <th class="text-right">Invoice Amount</th>
+                                <th class="text-right">Received Amount</th>
+                                <th class="text-right">Balance Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.move_id._get_reconciled_invoices_partials()" t-as="rec">
+                                <t t-set="amount" t-value="rec[1]"/>
+                                <t t-set="inv" t-value="rec[2].move_id"/>
+                                <t t-if="inv.move_type != 'entry'">
+                                    <td>
+                                        <span t-field="o.so_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="inv.invoice_date"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="inv.amount_total"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="amount"
+                                              t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="inv.amount_residual"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Payment Summary -->
+                    <div class="my-4">
+                        <p>
+                            <strong>Payment Received Date:</strong>
+                            <span t-field="o.date"/>
+                        </p>
+
+                        <p>
+                            <strong>Total Amount Paid:</strong>
+                            <span t-field="o.amount"
+                                  t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                        </p>
+
+                        <p>
+                            <strong>Amount in Words:</strong>
+                            <span t-esc="o.currency_id.with_context(lang=lang).amount_to_text(o.amount)"/>
+                        </p>
+
+                        <p t-if="o.payment_method_id">
+                            <strong>Mode of Payment:</strong>
+                            <span t-field="o.payment_method_id.name"/>
+                        </p>
+                    </div>
+
+                    <!-- Signature -->
+                    <div class="oe_mt64">
+                        <p>Thanks for your Business</p>
+                        <p>
+                            For
+                            <strong>
+                                <span t-field="o.company_id.name"/>
+                            </strong>
+                            ,
+                        </p>
+                        <t t-if="o.signatory_id">
+                            <img t-if="o.signatory_id.sign_signature"
+                                 t-att-src="'data:image/png;base64,%s' % to_text(o.signatory_id.sign_signature)"
+                                 class="oe_ml0" style="height:100px;"/>
+
+                            <p>
+                                <strong>
+                                    <span t-field="o.signatory_id.name"/>
+                                </strong>
+                            </p>
+                            <p t-if="o.signatory_id.job_title">
+                                <span t-field="o.signatory_id.job_title"/>
+                            </p>
+                        </t>
+                    </div>
+
+                </div>
+            </div>
+        </xpath>
+
+    </template>
+    <template id="cpabooks_report_payment_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.partner_id.lang or o.company_id.partner_id.lang"/>
+                <t t-call="cpabooks_dedicated_kcs.cpabooks_report_payment_receipt_document"
+                   t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

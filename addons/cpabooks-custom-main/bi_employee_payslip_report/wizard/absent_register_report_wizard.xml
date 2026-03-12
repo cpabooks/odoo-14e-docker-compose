@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="absent_register_report_wizard" model="ir.ui.view" >
+        <field name="name">Absent Register Report</field>
+        <field name="model">absent.register.report.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Absent Register Report">
+                <group>
+                    <group>
+                        <field name="from_date"/>
+                    </group>
+                    <group>
+                        <field name="to_date"/>
+                    </group>
+
+                </group>
+                <group>
+                    <group>
+                        <field name="salary_structure" options="{'no_create': True, 'no_open': True, 'no_edit':True }" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="department_id" options="{'no_create': True, 'no_open': True, 'no_edit':True }" widget="many2many_tags"/>
+                    </group>
+
+
+                </group>
+                <group>
+                    <group>
+                        <field name="employee_id" options="{'no_create': True, 'no_open': True, 'no_edit':True }" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="company_id" options="{'no_create': True, 'no_open': True, 'no_edit':True }" />
+                    </group>
+
+                </group>
+                <footer>
+                    <button name="get_report" string="PDF" type="object" class="oe_highlight"/>
+<!--                    <button name="print_excel_report" string="Download Excel" type="object" class="oe_highlight"/>-->
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_absent_register_report_wizard"
+        name="Absent Register Report"
+        res_model="absent.register.report.wizard"
+        view_mode="form"
+        target="new"/>
+
+    <menuitem action="action_absent_register_report_wizard"
+        id="menu_absent_register_report_wizard"
+        parent="hr_timesheet.menu_timesheets_reports"/>
+</odoo>

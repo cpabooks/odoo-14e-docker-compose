@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="job_estimation_report_template_custom" inherit_id="cost_estimate_customer_ld.job_estimation_report_template">
+        <xpath expr="//table[1]" position="inside">
+            <tr style="text-left pd-brt">
+                <td>
+                    <strong>CRM Reference :</strong>
+                </td>
+                <td>
+                    <span t-field="o.crm_reference"/>
+                </td>
+
+                <td>
+                    <strong>Job Order :</strong>
+                </td>
+                <td>
+                    <span t-field="o.project_id"/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>

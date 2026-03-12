@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_diamond" model="ir.ui.view">
+        <field name="name">view.sale.order.diamond</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="manual_quotation" placeholder="Manual Invoice..." attrs="{'invisible':[('print_manual_quotation','=',False)]}" />
+                <field name="print_manual_quotation" />
+            </xpath>
+
+            <xpath expr="//group[@name='order_details']/div[1]" position="attributes">
+                <attribute name="groups">base.group_user</attribute>
+                <attribute name="attrs">{'invisible': [False]}</attribute>
+            </xpath>
+
+            <xpath expr="//group[@name='order_details']/field[@name='date_order'][1]" position="attributes">
+                <attribute name="groups">base.group_user</attribute>
+                <attribute name="attrs">{'invisible': [False]}</attribute>
+            </xpath>
+
+             <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+             <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="multi_salesman" widget="many2many_tags"/>
+                    <field name="multi_sales_team" widget="many2many_tags"/>
+                </xpath>
+        </field>
+    </record>
+
+        <record id="view_sale_order_tree_diamond" model="ir.ui.view">
+        <field name="name">view.sale.order.tree.diamond</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+             <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="multi_salesman" widget="many2many_tags"/>
+                    <field name="multi_sales_team" widget="many2many_tags"/>
+                </xpath>
+        </field>
+    </record>
+</odoo>

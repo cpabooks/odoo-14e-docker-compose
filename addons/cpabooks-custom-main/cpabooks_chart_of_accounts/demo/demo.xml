@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="group_10" model="account.group">
+            <field name="name">10-Accounts Receivable</field>
+            <field name="code_prefix_start">10</field>
+        </record>
+
+        <record id="group_15" model="account.group">
+            <field name="name">15-Other receivables</field>
+            <field name="code_prefix_start">15</field>
+        </record>
+
+        <record id="group_20" model="account.group">
+            <field name="name">20-Employee Advance &amp; Loan</field>
+            <field name="code_prefix_start">20</field>
+        </record>
+
+        <record id="group_25" model="account.group">
+            <field name="name">25-Inventories</field>
+            <field name="code_prefix_start">25</field>
+        </record>
+
+        <record id="group_30" model="account.group">
+            <field name="name">30-Bank and Cash</field>
+            <field name="code_prefix_start">30</field>
+        </record>
+
+        <record id="group_35" model="account.group">
+            <field name="name">35-Deposits</field>
+            <field name="code_prefix_start">35</field>
+        </record>
+
+        <record id="group_40" model="account.group">
+            <field name="name">40-Prepaid Expenses</field>
+            <field name="code_prefix_start">40</field>
+        </record>
+
+        <record id="group_45" model="account.group">
+            <field name="name">45-Fixed Assets</field>
+            <field name="code_prefix_start">45</field>
+        </record>
+
+        <record id="group_50" model="account.group">
+            <field name="name">50-Accounts Payable</field>
+            <field name="code_prefix_start">50</field>
+        </record>
+
+        <record id="group_52" model="account.group">
+            <field name="name">52-VAT Payable</field>
+            <field name="code_prefix_start">52</field>
+        </record>
+
+        <record id="group_55" model="account.group">
+            <field name="name">55-Provisions, accruals &amp; Other Payable</field>
+            <field name="code_prefix_start">55</field>
+        </record>
+
+        <record id="group_60" model="account.group">
+            <field name="name">60-Long Term Loan A/c</field>
+            <field name="code_prefix_start">60</field>
+        </record>
+
+        <record id="group_65" model="account.group">
+            <field name="name">65-Employee Liabilities</field>
+            <field name="code_prefix_start">65</field>
+        </record>
+
+        <record id="group_70" model="account.group">
+            <field name="name">70-Capital &amp; Equities</field>
+            <field name="code_prefix_start">70</field>
+        </record>
+
+        <record id="group_75" model="account.group">
+            <field name="name">75-Income</field>
+            <field name="code_prefix_start">75</field>
+        </record>
+
+        <record id="group_80" model="account.group">
+            <field name="name">80-Cost of Revenue</field>
+            <field name="code_prefix_start">80</field>
+        </record>
+
+        <record id="group_85" model="account.group">
+            <field name="name">85-General &amp; Admin Exp</field>
+            <field name="code_prefix_start">85</field>
+        </record>
+
+        <record id="group_87" model="account.group">
+            <field name="name">87-Salaries &amp; Wages</field>
+            <field name="code_prefix_start">87</field>
+        </record>
+
+        <record id="group_89" model="account.group">
+            <field name="name">89-Salaries &amp; Wages - Others</field>
+            <field name="code_prefix_start">89</field>
+        </record>
+
+        <record id="group_91" model="account.group">
+            <field name="name">91-Vehicle Expenses</field>
+            <field name="code_prefix_start">91</field>
+        </record>
+
+        <record id="group_93" model="account.group">
+            <field name="name">93-Depreciation</field>
+            <field name="code_prefix_start">93</field>
+        </record>
+
+        <record id="group_99" model="account.group">
+            <field name="name">99-Other Income/ Exp</field>
+            <field name="code_prefix_start">99</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+hr_payroll_structure_user,hr_payroll_structure_user_name,cpabooks_payroll_automation.model_hr_payroll_structure,base.group_user,1,1,1,1
+action_salary_code_setup,manage_salary_code_setup,model_salary_code_setup,base.group_system,1,1,1,1
+action_salary_code_setup_line,manage_salary_code_setup_line,model_salary_code_setup_line,base.group_system,1,1,1,1

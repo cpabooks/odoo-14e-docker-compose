@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_form_view_inherit_from_cost_estimation" model="ir.ui.view">
+        <field name="name">mrp.production.form.view.inherit.from.cost.estimation</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="allowed_product_ids" invisible="1"/>
+            </field>
+            <xpath expr="//field[@name='move_raw_ids']/tree/field[@name='product_id']" position="before">
+                <field name="bom_product_id"/>
+            </xpath>
+
+            <xpath expr="//field[@name='bom_reference']" position="after">
+                <field name="bom_ref" options="{'no_create':true,'no_edit':true,'no_open':true,'no_create_edit':true}"/>
+            </xpath>
+
+            <xpath expr="//page[@name='miscellaneous']" position="after">
+                <page name="final_product" string="Final Products">
+                <field name="final_product_ids">
+                    <tree editable="bottom">
+                        <field name="final_product_id"/>
+                        <field name="quantity"/>
+                    </tree>
+                </field>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='components']/field[@name='move_raw_ids']/tree/field[@name='product_uom_qty']" position="after">
+                <field name="mo_raw_actual_qty" invisible="1"/>
+            </xpath>
+
+            <field name="product_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="bom_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="product_qty" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

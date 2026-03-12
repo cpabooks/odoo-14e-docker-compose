@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+     <record model="res.groups" id="group_show_crm">
+        <field name="name">Show CRM App</field>
+    </record>
+
+    <record id="crm.crm_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_custom_print_v1_ykt.group_show_crm')])]"/>
+    </record>
+    </data>
+</odoo>

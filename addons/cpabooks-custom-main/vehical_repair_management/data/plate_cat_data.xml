@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Records for numbers 1-10 -->
+        <record id="vehicle_cat_1" model="vehicle.cat">
+            <field name="name">1</field>
+        </record>
+        <record id="vehicle_cat_2" model="vehicle.cat">
+            <field name="name">2</field>
+        </record>
+        <record id="vehicle_cat_3" model="vehicle.cat">
+            <field name="name">3</field>
+        </record>
+        <record id="vehicle_cat_4" model="vehicle.cat">
+            <field name="name">4</field>
+        </record>
+        <record id="vehicle_cat_5" model="vehicle.cat">
+            <field name="name">5</field>
+        </record>
+        <record id="vehicle_cat_6" model="vehicle.cat">
+            <field name="name">6</field>
+        </record>
+        <record id="vehicle_cat_7" model="vehicle.cat">
+            <field name="name">7</field>
+        </record>
+        <record id="vehicle_cat_8" model="vehicle.cat">
+            <field name="name">8</field>
+        </record>
+        <record id="vehicle_cat_9" model="vehicle.cat">
+            <field name="name">9</field>
+        </record>
+        <record id="vehicle_cat_10" model="vehicle.cat">
+            <field name="name">10</field>
+        </record>
+
+        <!-- Records for letters A-Z -->
+        <record id="vehicle_cat_A" model="vehicle.cat">
+            <field name="name">A</field>
+        </record>
+        <record id="vehicle_cat_B" model="vehicle.cat">
+            <field name="name">B</field>
+        </record>
+        <record id="vehicle_cat_C" model="vehicle.cat">
+            <field name="name">C</field>
+        </record>
+        <record id="vehicle_cat_D" model="vehicle.cat">
+            <field name="name">D</field>
+        </record>
+        <record id="vehicle_cat_E" model="vehicle.cat">
+            <field name="name">E</field>
+        </record>
+        <record id="vehicle_cat_F" model="vehicle.cat">
+            <field name="name">F</field>
+        </record>
+        <record id="vehicle_cat_G" model="vehicle.cat">
+            <field name="name">G</field>
+        </record>
+        <record id="vehicle_cat_H" model="vehicle.cat">
+            <field name="name">H</field>
+        </record>
+        <record id="vehicle_cat_I" model="vehicle.cat">
+            <field name="name">I</field>
+        </record>
+        <record id="vehicle_cat_J" model="vehicle.cat">
+            <field name="name">J</field>
+        </record>
+        <record id="vehicle_cat_K" model="vehicle.cat">
+            <field name="name">K</field>
+        </record>
+        <record id="vehicle_cat_L" model="vehicle.cat">
+            <field name="name">L</field>
+        </record>
+        <record id="vehicle_cat_M" model="vehicle.cat">
+            <field name="name">M</field>
+        </record>
+        <record id="vehicle_cat_N" model="vehicle.cat">
+            <field name="name">N</field>
+        </record>
+        <record id="vehicle_cat_O" model="vehicle.cat">
+            <field name="name">O</field>
+        </record>
+        <record id="vehicle_cat_P" model="vehicle.cat">
+            <field name="name">P</field>
+        </record>
+        <record id="vehicle_cat_Q" model="vehicle.cat">
+            <field name="name">Q</field>
+        </record>
+        <record id="vehicle_cat_R" model="vehicle.cat">
+            <field name="name">R</field>
+        </record>
+        <record id="vehicle_cat_S" model="vehicle.cat">
+            <field name="name">S</field>
+        </record>
+        <record id="vehicle_cat_T" model="vehicle.cat">
+            <field name="name">T</field>
+        </record>
+        <record id="vehicle_cat_U" model="vehicle.cat">
+            <field name="name">U</field>
+        </record>
+        <record id="vehicle_cat_V" model="vehicle.cat">
+            <field name="name">V</field>
+        </record>
+        <record id="vehicle_cat_W" model="vehicle.cat">
+            <field name="name">W</field>
+        </record>
+        <record id="vehicle_cat_X" model="vehicle.cat">
+            <field name="name">X</field>
+        </record>
+        <record id="vehicle_cat_Y" model="vehicle.cat">
+            <field name="name">Y</field>
+        </record>
+        <record id="vehicle_cat_Z" model="vehicle.cat">
+            <field name="name">Z</field>
+        </record>
+    </data>
+</odoo>

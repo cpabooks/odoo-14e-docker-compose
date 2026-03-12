@@ -1,0 +1,75 @@
+@font-face {
+    font-family: 'CourierPrime-Bold';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/CourierPrime-Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'IBMPlexMono-MediumItalic';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/IBMPlexMono-MediumItalic.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Inter-VariableFont_opsz,wght';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/Inter-VariableFont_opsz,wght.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Lato-Black';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/Lato-Black.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Merriweather-VariableFont_opsz,wdth,wght';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/Merriweather-VariableFont_opsz,wdth,wght.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat-VariableFont_wght';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/Montserrat-VariableFont_wght.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Nunito-VariableFont_wght';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/Nunito-VariableFont_wght.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'OpenSans-Italic-VariableFont_wdth,wght';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'PlayfairDisplay-VariableFont_wght';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/PlayfairDisplay-VariableFont_wght.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins-ExtraBold';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/Poppins-ExtraBold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'PressStart2P-Regular';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/PressStart2P-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Raleway-VariableFont_wght';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/Raleway-VariableFont_wght.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto-VariableFont_wdth,wght';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/Roboto-VariableFont_wdth,wght.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'ShareTechMono-Regular';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/ShareTechMono-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'VT323-Regular';
+    src: url(/cpabooks_dedicated_4star/static/src/fonts/VT323-Regular.ttf) format('truetype');
+}
+

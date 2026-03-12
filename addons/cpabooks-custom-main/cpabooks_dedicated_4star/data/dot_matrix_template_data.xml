@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<function name="action_create_default_object" model="dot.matrix.template"/>
+</odoo>

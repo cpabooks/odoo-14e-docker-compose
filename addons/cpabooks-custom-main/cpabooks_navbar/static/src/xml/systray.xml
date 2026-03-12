@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+   <!-- Template for Add Task -->
+   <t t-name="systray_odoo_referral.plan_icon">
+       <li class="gift_icon o_mail_systray_item">
+           <a role="button" href="javascript:void(0)" class="plan_icon" title="Add a Task">
+               <i class="fa fa-list" aria-label="Add an Activity"></i>
+               <span id="gift_notification_counter" class="o_notification_counter badge badge-pill"></span>
+           </a>
+       </li>
+   </t>
+
+   <!-- Template for Add Ticket -->
+   <t t-name="systray_odoo_referral_ticket">
+       <li class="gift_icon o_mail_systray_item">
+           <a role="button" href="javascript:void(0)" class="ticket_icon" title="Add a Ticket">
+               <i class="fa fa-check-square-o" aria-label="Add a Ticket"></i>
+           </a>
+       </li>
+   </t>
+</templates>

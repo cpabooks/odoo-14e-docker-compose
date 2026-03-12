@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <report
+        id="report_site_report"
+        string="Site Report"
+        model="site.report"
+        report_type="qweb-pdf"
+        name="cpabooks_site_report.site_report_report"
+        file="cpabooks_site_report.site_report_report"
+
+    />
+<!--     paperformat = "cpabooks_site_report.paperformat_site_report"-->
+
+     <template id="site_report_report">
+        <t t-call="web.external_layout">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                         <h2 class="text-center">
+                            <span><u>SITE REPORT</u></span>
+
+                        </h2>
+
+                        <div class="row oe_mt16">
+                            <div class="col-6">
+                                <strong>Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/>  </strong>
+                            </div>
+                            <div class="col-6">
+                            <strong>DR#: <t t-esc="o.name"/></strong>
+                            </div>
+
+                    </div>
+
+                     <table class="table table-sm table-bordered" style="font-size: 15px; font-family:FreeSerif;">
+                        <tbody>
+                            <tr>
+                                <td style="width:20%;background-color:#d9dbda;"><b>Name:</b></td>
+                                <td style="width:40%;"><t t-esc="o.name"/></td>
+                                <td style="width:20%;background-color:#d9dbda;"><b>Contact Number:</b></td>
+                                <td style="width:20%;"><t t-esc="o.contact_no"/></td>
+                            </tr>
+                             <tr>
+                                <td style="width:20%;"><b>Project:</b></td>
+                                <td style="width:40%;"><t t-esc="o.project_no.name"/></td>
+                                <td style="width:20%;"><b>Plan Number:</b></td>
+                                <td style="width:20%;"><t t-esc="o.plan_no"/></td>
+                            </tr>
+                             <tr>
+                                <td style="width:20%;"><b>Location:</b></td>
+                                <td style="width:40%;"><t t-esc="o.location"/></td>
+                                <td style="width:20%;"><b>Due Date:</b></td>
+                                <td style="width:20%;"><span t-field="o.due_date" t-options='{"format": "dd/MM/yyyy"}'/></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <br/>
+                    <table class="table table-sm  table-bordered" style="font-size: 15px; font-family:FreeSerif;">
+                        <thead>
+                            <tr>
+                                <td>SR.#</td>
+                                <td>ITEM#</td>
+                                <td>QTY</td>
+                                <td>REMARKS</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="count" t-value="0"/>
+                            <t t-foreach="o.site_report_line" t-as="val">
+                                <t t-set="count" t-value="count+1"/>
+                            <tr>
+                                <td><t t-esc="count"/> </td>
+                                <td><t t-esc="val.product_id.name"/> </td>
+                                <td><t t-esc="val.product_qty"/> </td>
+                                <td><t t-esc="val.remarks"/> </td>
+                            </tr>
+                        </t>
+                        </tbody>
+
+
+                    </table>
+
+                    </div>
+
+                </t>
+
+            </t>
+        </t>
+    </template>
+</odoo>

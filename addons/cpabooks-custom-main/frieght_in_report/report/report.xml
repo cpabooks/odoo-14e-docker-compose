@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="freight_field_sale_order_document_inherit" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//t/div[hasclass('page')]/table/thead/tr/th[2]" position="before">
+                <th name="th_port_of_loading" class="text-center">POL</th>
+                <th name="th_port_of_delivery" class="text-center">POD</th>
+                <th name="th_freight_20ge" class="text-center">20 GE</th>
+                <th name="th_freight_40ge" class="text-center">40 GE</th>
+                <th name="th_freight_40hc" class="text-center">40 HC</th>
+                <th name="th_foreign_currency" class="text-center">Currency</th>
+                <th name="th_rate_validity" class="text-center">Rate Validity</th>
+            </xpath>
+            <xpath expr="//t/div[hasclass('page')]/table/tbody/t/tr/t/td[2]" position="before">
+                <td name="td_port_of_loading" class="text-center"><span t-field="line.port_of_loading"/></td>
+                <td name="td_port_of_delivery" class="text-center"><span t-field="line.port_of_delivery"/></td>
+                <td name="td_freight_20ge" class="text-center"><span t-field="line.price_unit"/></td>
+                <td name="td_freight_40ge" class="text-center"><span t-field="line.price_unit"/></td>
+                <td name="td_freight_40hc" class="text-center"><span t-field="line.price_unit"/></td>
+                <td name="td_foreign_currency" class="text-center"><span t-field="line.foreign_currency"/></td>
+                <td name="td_rate_validity" class="text-center"><span t-field="line.rate_validity"/></td>
+            </xpath>
+
+            <xpath expr="//t/div[hasclass('page')]/table/tbody/t/tr/t/td[1]" position="replace">
+                <td name="td_product_id" class="text-center"><span t-field="line.product_id"/></td>
+            </xpath>
+
+
+<!--            <xpath expr="//t/div[hasclass('page')]/table/thead/tr/th[-1]" position="attributes">
+                <attribute name="class">hidden</attribute>
+            </xpath>-->
+<!--            <xpath expr="//div[@class='page']/div[4]" position="attributes">
+                <attribute name="class">hidden</attribute>
+            </xpath>-->
+
+<!--
+             <xpath expr="//t/div[hasclass('page')]/table/thead/tr/th[4]" position="replace">
+                <field name="invivisble">1</field>
+            </xpath>
+
+            <xpath expr="//t/div[hasclass('page')]/table/tbody/t/td[4]" position="attributes">
+                <attribute name="class">hidden</attribute>
+            </xpath>
+
+-->
+
+
+        </template>
+
+
+        <template id="freight_field_invoice_document_inherit" inherit_id="account.report_invoice_document">
+            <xpath expr="//t/div[hasclass('page')]/table/thead/tr/th[2]" position="before">
+                <th name="th_port_of_loading" class="text-center">POL</th>
+                <th name="th_port_of_delivery" class="text-center">POD</th>
+                <th name="th_freight_20ge" class="text-center">20 GE</th>
+                <th name="th_freight_40ge" class="text-center">40 GE</th>
+                <th name="th_freight_40hc" class="text-center">40 HC</th>
+            </xpath>
+            <xpath expr="//t/div[hasclass('page')]/table/tbody/t/tr/t/td[2]" position="before">
+                <td name="td_port_of_loading" class="text-center"><span t-field="line.port_of_loading"/></td>
+                <td name="td_port_of_delivery" class="text-center"><span t-field="line.port_of_loading"/></td>
+                <td name="td_freight_20ge" class="text-center"><span t-field="line.freight_20ge"/></td>
+                <td name="td_freight_40ge" class="text-center"><span t-field="line.freight_40ge"/></td>
+                <td name="td_freight_40hc" class="text-center"><span t-field="line.freight_40hc"/></td>
+            </xpath>
+        </template>
+
+
+  </data>
+</odoo>
+

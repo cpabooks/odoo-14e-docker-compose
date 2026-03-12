@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ir_ui_view,access_ir_ui_view_manger,base.model_ir_ui_view,base.group_user,1,1,1,1
+"base.access_ir_actions_client","ir_actions_client all","base.model_ir_actions_client","base.group_user",1,1,1,1
+access_ir_actions_act_window,access_ir_actions_act_window,base.model_ir_actions_act_window,base.group_user,1,1,1,0
+access_ir_actions_act_window_view,access_ir_actions_act_window_view,base.model_ir_actions_act_window_view,base.group_user,1,1,1,0
+access_ir_actions_act_window_close,access_ir_actions_act_window_close,base.model_ir_actions_act_window_close,base.group_user,1,1,1,0

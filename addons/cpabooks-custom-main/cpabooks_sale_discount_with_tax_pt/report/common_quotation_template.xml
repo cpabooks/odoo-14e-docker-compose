@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<!--        <template id="report_invoice_discount_inherit" inherit_id="account.report_invoice_document">-->
+        <template id="quotation_common_template_inherit_discount" inherit_id="professional_templates.sales_lines_common_template">
+        <xpath expr="//div[@id='total']/table/tr[1]" position="after" >
+<!--            <t t-if="doc.move_type in ('out_invoice','out_refund','out_receipt')">-->
+            <t t-if="doc.discount_type == 'global' and doc.discount_amt>0">
+                <tr class="border-black">
+                    <td>
+                    <strong> Discount Amount </strong>
+                    </td>
+                    <td class="text-right">
+                        <span t-field="doc.discount_amt" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    </td>
+                </tr>
+            </t>
+            <t t-if="doc.discount_type == 'line' and doc.discount_amt_line>0">
+                <tr class="border-black">
+                    <td>
+                    <strong>Line Discount</strong>
+                    </td>
+                    <td class="text-right">
+                        <span t-field="doc.discount_amt_line" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    </td>
+                </tr>
+            </t>
+                <t t-if="doc.discount_type in ('line','global') and doc.total_after_discount>0">
+					<tr>
+				 <td>
+							Total After Discount
+						</td>
+						<td class="text-right">
+							<span t-field="doc.total_after_discount" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+						</td>
+					</tr>
+				</t>
+<!--          </t>-->
+        </xpath>
+
+<!--        <xpath expr="//div[@name='reference']" position="after">-->
+<!--            <t t-if="doc.move_type in ('out_invoice','out_refund','out_receipt')">-->
+<!--                <div name="discount_type" class="col-auto mw-100 mb-2" t-if="doc.discount_type">-->
+<!--                    <strong>Discount Type:</strong>-->
+<!--                    <p class="m-0" t-field="doc.discount_type"/>-->
+<!--                </div>-->
+<!--            </t>    -->
+<!--        </xpath>-->
+
+<!--        <xpath expr="//div[hasclass('clearfix')]" position="after">-->
+<!--            <t t-if="doc.move_type in ('out_invoice','out_refund','out_receipt')">-->
+<!--            <t t-if="doc.discount_type == 'global'">-->
+<!--                <div class="row">-->
+<!--                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'}">-->
+<!--                        <table class="table table-sm">-->
+<!--                            <tr class="border-black">-->
+<!--                                <td>-->
+<!--                                    <strong> Discount Method</strong>-->
+<!--                                </td>-->
+<!--                                <td class="text-right">-->
+<!--                                    <span t-field="doc.discount_method" />-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr class="border-black">-->
+<!--                                <td>-->
+<!--                                    <strong> Discount Amount</strong>-->
+<!--                                </td>-->
+<!--                                <td class="text-right">-->
+<!--                                    <span t-field="doc.discount_amount" /> -->
+<!--                                    <t t-if="doc.discount_method == 'per'"><span class="oe_inline">&amp;nbsp;%</span></t>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </t>-->
+<!--         </t>   -->
+<!--        </xpath>-->
+        <xpath expr="//table[@name='invoice_line_table']/tbody/t" position="before">
+         <t t-set="total_discount_amt" t-value="0"/>
+          <t t-set="total_taxable_amt" t-value="0"/>
+        </xpath>
+        <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[@name='own_discount_th']" position="before">
+<!--            <t t-if="doc.move_type in ('out_invoice','out_refund','out_receipt')">-->
+            <t t-if="doc.discount_type == 'line'">
+<!--                <th class="text-right"><strong>Discount Method</strong></th>-->
+                <th name="disc_th" class="text-center" t-attf-style="{{th_style}}"> <span>Disc.</span></th>
+                <th name="taxable_amt_th" class="text-center" t-attf-style="{{th_style}}">Taxable <br/><span>Amount</span></th>
+
+<!--            </t>-->
+        </t>
+        </xpath>
+       <!--  <xpath expr="//tbody[hasclass('invoice_tbody')]/t[@t-foreach='doc.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)']/tr/t[@t-if='not line.display_type']/td[5]" position="replace"> -->
+       <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='own_discount_td']" position="before">
+<!--            <t t-if="doc.move_type in ('out_invoice','out_refund','out_receipt')">-->
+            <t t-if="doc.discount_type == 'line'">
+<!--                <t t-if="l.discount_amount">-->
+<!--                    <td class="text-right">-->
+<!--                        <span t-field="l.discount_method"/>-->
+<!--                    </td>-->
+<!--                </t>-->
+<!--                <t t-else="">-->
+<!--                    <td></td>-->
+<!--                </t>-->
+                <t t-if="l.discount_amount">
+                    <td name="disc_td" class="text-right" t-attf-style="{{th_style}}">
+                        <t t-set="total_discount_amt" t-value="total_discount_amt+l.discount_amount"/>
+                        <span t-esc="'%.2f'%(l.discount_amount)"/> <span t-if="l.discount_method=='per'"> %</span>
+                    </td>
+
+                    <!--#after discount-->
+                    <t t-set="after_discount" t-value="0"/>
+                    <t t-set="total_price" t-value="l.product_uom_qty*l.price_unit"/>
+                    <t t-if="l.discount_method=='per'">
+
+                        <t t-set="after_discount" t-value="total_price-(total_price*(l.discount_amount/100))"/>
+                        <t t-set="total_taxable_amt" t-value="total_taxable_amt+after_discount"/>
+                    </t>
+                    <t t-if="l.discount_method=='fix'">
+                        <t t-set="after_discount" t-value="total_price-l.discount_amount"/>
+                        <t t-set="total_taxable_amt" t-value="total_taxable_amt+after_discount"/>
+                    </t>
+                    <td name="taxable_amt_td" class="text-right" t-attf-style="{{th_style}}">
+                        <span t-esc="'%.2f'%(after_discount)"/>
+                    </td>
+                </t>
+                <t t-else="">
+                    <t t-set="total_taxable_amt" t-value="total_taxable_amt+(l.product_uom_qty*l.price_unit)"/>
+                    <td name="disc_td" class="text-right" t-attf-style="{{th_style}}">0.00</td>
+                    <td name="taxable_amt_td" class="text-right" t-attf-style="{{th_style}}"><span t-esc="'%.2f'%(l.product_uom_qty*l.price_unit)"/></td>
+                </t>
+            </t>
+<!--        </t>-->
+    </xpath>
+     <xpath expr="//tr[@name='subtotal_row']/td[@name='subtotal_row_total_amount_td']" position="after">
+         <t t-if="doc.discount_type == 'line'">
+         <td align="right" style="font-weight:bold;" ><span t-esc="'%.2f'%(total_discount_amt)"/></td>
+         <td align="right" style="font-weight:bold;"><span t-esc="'%.2f'%(total_taxable_amt)"/> </td>
+         </t>
+<!--         <td></td>-->
+
+     </xpath>
+
+    </template>
+</data>
+</odoo>

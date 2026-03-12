@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         
+        <template id="support_report" inherit_id="website_helpdesk_support_ticket.support_report">
+            <xpath expr="//t/t/div/table[3]" position="after">
+                <p><strong>Warranty Details</strong></p>
+                <table class="table table-responsive">
+                       <tr style="border: 2px solid black;">
+                           <td><strong>Warranty Number</strong></td><td><span t-field="doc.custom_warranty_id"/></td>
+                           <td><strong>Serial Number</strong></td><td><span t-field="doc.custom_serial_number"/></td>
+                       </tr>
+                       <tr style="border: 2px solid black;">
+                           <td><strong>Warranty Start Date</strong></td><td><span t-field="doc.custom_warranty_start_date"/></td>
+                           <td><strong>Warranty End Date</strong></td><td><span t-field="doc.custom_warranty_end_date"/></td>
+                       </tr>
+                       <tr style="border: 2px solid black;">
+                           <td><strong>SO / Contract Reference</strong></td><td colspan="3"><span t-field="doc.custom_contract_reference"/></td>
+                       </tr>
+                    </table>
+            </xpath>
+        </template>
+        
+    </data>
+</odoo>

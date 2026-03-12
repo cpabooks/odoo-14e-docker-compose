@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="hr_work_entry_contract.menu_hr_payroll_root" name="Payroll"
+          web_icon="cpabooks_icon_set_02_hrm,static/description/payroll.png"/>
+
+    <menuitem id="planning.planning_menu_root" name="Planning"
+          web_icon="cpabooks_icon_set_02_hrm,static/description/planning.png"/>
+
+    <menuitem id="hr.menu_hr_root" name="Employees"
+          web_icon="cpabooks_icon_set_02_hrm,static/description/employees.png"/>
+
+    <menuitem id="hr_attendance.menu_hr_attendance_root" name="Attendances"
+          web_icon="cpabooks_icon_set_02_hrm,static/description/attendances.png"/>
+
+    <menuitem id="hr_holidays.menu_hr_holidays_root" name="Time Off"
+          web_icon="cpabooks_icon_set_02_hrm,static/description/time_off.png"/>
+</odoo>
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="daily_sales_analysis_form">
+            <field name="name">daily.sales.analysis.form</field>
+            <field name="model">daily.sales.analysis</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                            </group>
+                            <group>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button string="Print PDF" class="oe_highlight" type="object" name="check_report"/>
+                            <button special="cancel" string="Cancel" class="btn-primary"/>
+                        </footer>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_daily_sales_analysis_report">
+            <field name="name">Daily Transaction Reports</field>
+            <field name="res_model">daily.sales.analysis</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_action_daily_sales_analysis" action="action_daily_sales_analysis_report"
+                  parent="account.menu_finance_receivables" name="Daly Sales Analysis" sequence="100"/>
+
+    </data>
+</odoo>

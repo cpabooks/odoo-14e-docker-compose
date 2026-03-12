@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="group_account_payment_pdc_approval_security" model="res.groups">
+        <field name="name">Customer/Vendor PDC Payment Approver</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+
+    <record id="pdc_wizard_comp_rule" model="ir.rule">
+        <field name="name">PDC multi company rule</field>
+        <field name="model_id" ref="model_pdc_wizard"/>
+        <field eval="True" name="global"/>
+        <field name="domain_force">['|',('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_tally_kanban" model="ir.ui.view">
+        <field name="name">Home</field>
+        <field name="model">cpabooks.tally</field>
+        <field name="arch" type="xml">
+            <kanban create="false">
+                <field name="name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card" style="width: 100%;">
+                            <div class="w-100 main_div">
+                                <div class="top">
+                                    <h5>
+                                        Get Way of Tally
+                                    </h5>
+                                </div>
+                                <div class="oe_kanban_content row">
+                                    <div class="col-6 left">
+                                        <div class="w-75 mx-auto content">
+                                            <div class="w-100 text-center content_header">
+                                                <h3>Get Way of Tally</h3>
+                                            </div>
+
+                                            <div class="w-100 content_body">
+                                                <div class="row w-75 mx-auto body_content">
+                                                    <div class="w-100">
+                                                        <ul>
+                                                            <dd>
+                                                                <b>Masters</b>
+                                                                <ul>
+                                                                    <dd>
+                                                                        <button name="create_tally" type="object"
+                                                                                string="Create COA"
+                                                                                style="color:blue; !important;"
+                                                                                class="bg-transparent button">Create COA
+                                                                        </button>
+                                                                    </dd>
+                                                                    <dd>
+                                                                        <button name="alter" type="object"
+                                                                                string="Alter COA"
+                                                                                style="color:blue;  !important;"
+                                                                                class="bg-transparent button">Alter COA
+                                                                        </button>
+                                                                    </dd>
+                                                                    <dd>
+                                                                        <button name="revise_chart_of_accounts"
+                                                                                type="object"
+                                                                                style="color:blue;  !important;"
+                                                                                string="Alter COA Bulk"
+                                                                                class="bg-transparent button">Alter COA
+                                                                            Bulk
+                                                                        </button>
+                                                                    </dd>
+
+                                                                    <dd>
+                                                                        <button name="chart_of_accounts" type="object"
+                                                                                style="color:blue;  !important;"
+                                                                                string="Chart Of Accounts"
+                                                                                class="bg-transparent button">Chart of
+                                                                            Accounts
+                                                                        </button>
+                                                                    </dd>
+                                                                </ul>
+                                                            </dd>
+                                                            <br/>
+
+                                                            <dd>
+                                                                <b>Transactions</b>
+                                                                <ul>
+                                                                    <dd>
+                                                                        <button name="accounting_vouchers" type="object"
+                                                                                string="Accounting Voucher"
+                                                                                class="bg-transparent button">Accounting
+                                                                            Voucher
+                                                                        </button>
+                                                                    </dd>
+                                                                    <dd>
+                                                                        <button name="inventory_vouchers" type="object"
+                                                                                string="Inventory Vouchers"
+                                                                                class="bg-transparent button">Inventory
+                                                                            Voucher
+                                                                        </button>
+                                                                    </dd>
+                                                                    <dd>
+                                                                        <button name="order_voucher" type="object"
+                                                                                string="Order Voucher"
+                                                                                class="bg-transparent button">Order
+                                                                            Voucher
+                                                                        </button>
+                                                                    </dd>
+                                                                    <dd>
+                                                                        <button name="payroll_voucher" type="object"
+                                                                                string="Payroll Voucher"
+                                                                                class="bg-transparent button">Payroll
+                                                                            Voucher
+                                                                        </button>
+                                                                    </dd>
+                                                                </ul>
+                                                            </dd>
+                                                            <br/>
+
+                                                            <dd>
+                                                                <b>Utilities</b>
+                                                                <ul>
+                                                                    <dd>
+                                                                        <button name="action_create_budgets"
+                                                                                type="object"
+                                                                                string="Budgets"
+                                                                                style="color:blue;  !important;"
+                                                                                title="Create Budgets"
+                                                                                class="bg-transparent button">Create
+                                                                            Budgets
+                                                                        </button>
+                                                                    </dd>
+
+                                                                    <dd>
+                                                                        <button name="action_view_budgets" type="object"
+                                                                                string="Budgets"
+                                                                                style="color:blue;  !important;"
+                                                                                title="View Budgets"
+                                                                                class="bg-transparent button">Budgets
+                                                                        </button>
+                                                                    </dd>
+                                                                    <dd>
+                                                                        <button name="banking" type="object"
+                                                                                string="Banking"
+                                                                                class="bg-transparent button">Banking
+                                                                        </button>
+                                                                    </dd>
+                                                                    <dd>
+                                                                        <button name="cafm" type="object"
+                                                                                string="C.A.F.M"
+                                                                                class="bg-transparent button">C.A.F.M
+                                                                        </button>
+                                                                    </dd>
+                                                                </ul>
+                                                            </dd>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="w-75 mx-auto content">
+                                            <div class="w-100 text-center content_header">
+                                                <h3>Get Way of Tally</h3>
+                                            </div>
+
+                                            <div class="w-100 content_body">
+                                                <div class="row w-75 mx-auto body_content">
+                                                    <div class="w-100">
+                                                        <ul>
+
+                                                            <dd>
+                                                                <b>Reports</b>
+                                                                <ul>
+                                                                    <dd>
+                                                                        <button name="trial_balance" type="object"
+                                                                                class="bg-transparent button"
+                                                                                string="Trial Balance"
+                                                                                style="color:blue;  !important;">
+                                                                            Trial Balance
+                                                                        </button>
+                                                                    </dd>
+
+                                                                    <dd>
+                                                                        <button name="balance_sheet" type="object"
+                                                                                string="Balance Sheet"
+                                                                                style="color:blue;  !important;"
+                                                                                class="bg-transparent button">Balance
+                                                                            Sheet
+                                                                        </button>
+                                                                    </dd>
+                                                                    <dd>
+                                                                        <button name="profit_loss_ac" type="object"
+                                                                                style="color:blue;  !important;"
+                                                                                string="Profit and Loss A/C"
+                                                                                class="bg-transparent button">Profit and
+                                                                            Loss A/C
+                                                                        </button>
+                                                                    </dd>
+
+                                                                    <dd>
+                                                                        <button name="cash_flow" type="object"
+                                                                                style="color:blue;  !important;"
+                                                                                string="Cash Flow"
+                                                                                class="bg-transparent button">
+                                                                            Cash Flow
+                                                                        </button>
+                                                                    </dd>
+
+                                                                    <dd>
+                                                                        <button name="general_ledger" type="object"
+                                                                                style="color:blue;  !important;"
+                                                                                string="General Ledger"
+                                                                                class="bg-transparent button">
+                                                                            General Ledger
+                                                                        </button>
+                                                                    </dd>
+
+                                                                    <dd>
+                                                                        <button name="partner_ledger" type="object"
+                                                                                style="color:blue;  !important;"
+                                                                                string="Partner Ledger"
+                                                                                class="bg-transparent button">
+                                                                            Partner Ledger
+                                                                        </button>
+                                                                    </dd>
+
+                                                                    <dd>
+                                                                        <button name="partner_ageing" type="object"
+                                                                                style="color:blue;  !important;"
+                                                                                string="Partner Ageing"
+                                                                                class="bg-transparent button">
+                                                                            Partner Ageing
+                                                                        </button>
+                                                                    </dd>
+
+                                                                    <dd>
+                                                                        <button name="stock_summary" type="object"
+                                                                                string="Stock Summary"
+                                                                                class="bg-transparent button">Stock
+                                                                            Summary
+                                                                        </button>
+                                                                    </dd>
+                                                                    <dd>
+                                                                        <button name="ratio_analysis" type="object"
+                                                                                string="Ratio Analysis"
+                                                                                class="bg-transparent button">Ratio
+                                                                            Analysis
+                                                                        </button>
+                                                                    </dd>
+
+                                                                    <br/>
+                                                                    <dd>
+                                                                        <button name="analysis_verification"
+                                                                                type="object"
+                                                                                string="Analysis and Verification"
+                                                                                class="bg-transparent button">Analysis
+                                                                            and
+                                                                            Verification
+                                                                        </button>
+                                                                    </dd>
+
+                                                                    <br/>
+                                                                    <dd>
+                                                                        <button name="display" type="object"
+                                                                                style="color:blue;  !important;"
+                                                                                string="Display"
+                                                                                class="bg-transparent button">
+                                                                            Display
+                                                                        </button>
+                                                                    </dd>
+                                                                    <dd>
+                                                                        <button name="document_expiry_report"
+                                                                                type="object"
+                                                                                string="Document Expiry Report"
+                                                                                class="bg-transparent button">Document
+                                                                            Expiry Report
+                                                                        </button>
+                                                                    </dd>
+                                                                    <dd>
+                                                                        <button name="multi_account_printing"
+                                                                                type="object"
+                                                                                string="Multi Account Printing"
+                                                                                class="bg-transparent button">Multi
+                                                                            Account
+                                                                            Printing
+                                                                        </button>
+                                                                    </dd>
+
+
+                                                                    <br/>
+                                                                    <dd>
+                                                                        <button name="quite" type="object"
+                                                                                string="Quite"
+                                                                                class="bg-transparent button">Quite
+                                                                        </button>
+                                                                    </dd>
+                                                                </ul>
+                                                            </dd>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Define an action for Tally kanban view -->
+    <record id="action_tally_kanban" model="ir.actions.act_window">
+        <field name="name">Tally</field>
+        <field name="res_model">cpabooks.tally</field>
+        <field name="view_mode">kanban</field>
+    </record>
+
+    <!-- Define a menu item for Tally -->
+    <menuitem id="menu_tally_root"
+              name="Tally Fan"
+              web_icon="cpabooks_tally,static/description/icon.png"
+              sequence="5"/>
+    <menuitem id="menu_tally_kanban" name="Tally Home" action="action_tally_kanban" parent="menu_tally_root"
+              sequence="1"/>
+</odoo>

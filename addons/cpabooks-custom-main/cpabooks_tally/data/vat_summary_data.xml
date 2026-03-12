@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Quarters for each year -->
+        <!--2018-->
+        <record id="q1_2018" model="vat.summary.report">
+            <field name="name">VAT Summary Q1/2018</field>
+            <field name="summary_year_id" ref="year_2018"/>
+        </record>
+        <record id="q2_2018" model="vat.summary.report">
+            <field name="name">VAT Summary Q2/2018</field>
+            <field name="summary_year_id" ref="year_2018"/>
+        </record>
+        <record id="q3_2018" model="vat.summary.report">
+            <field name="name">VAT Summary Q3/2018</field>
+            <field name="summary_year_id" ref="year_2018"/>
+        </record>
+        <record id="q4_2018" model="vat.summary.report">
+            <field name="name">VAT Summary Q4/2018</field>
+            <field name="summary_year_id" ref="year_2018"/>
+        </record>
+
+        <!--2019-->
+        <record id="q1_2019" model="vat.summary.report">
+            <field name="name">VAT Summary Q1/2019</field>
+            <field name="summary_year_id" ref="year_2019"/>
+        </record>
+        <record id="q2_2019" model="vat.summary.report">
+            <field name="name">VAT Summary Q2/2019</field>
+            <field name="summary_year_id" ref="year_2019"/>
+        </record>
+        <record id="q3_2019" model="vat.summary.report">
+            <field name="name">VAT Summary Q3/2019</field>
+            <field name="summary_year_id" ref="year_2019"/>
+        </record>
+        <record id="q4_2019" model="vat.summary.report">
+            <field name="name">VAT Summary Q4/2019</field>
+            <field name="summary_year_id" ref="year_2019"/>
+        </record>
+
+        <!--2020-->
+        <record id="q1_2020" model="vat.summary.report">
+            <field name="name">VAT Summary Q1/2020</field>
+            <field name="summary_year_id" ref="year_2020"/>
+        </record>
+        <record id="q2_2020" model="vat.summary.report">
+            <field name="name">VAT Summary Q2/2020</field>
+            <field name="summary_year_id" ref="year_2020"/>
+        </record>
+        <record id="q3_2020" model="vat.summary.report">
+            <field name="name">VAT Summary Q3/2020</field>
+            <field name="summary_year_id" ref="year_2020"/>
+        </record>
+        <record id="q4_2020" model="vat.summary.report">
+            <field name="name">VAT Summary Q4/2020</field>
+            <field name="summary_year_id" ref="year_2020"/>
+        </record>
+
+        <!--2021-->
+        <record id="q1_2021" model="vat.summary.report">
+            <field name="name">VAT Summary Q1/2021</field>
+            <field name="summary_year_id" ref="year_2021"/>
+        </record>
+        <record id="q2_2021" model="vat.summary.report">
+            <field name="name">VAT Summary Q2/2021</field>
+            <field name="summary_year_id" ref="year_2021"/>
+        </record>
+        <record id="q3_2021" model="vat.summary.report">
+            <field name="name">VAT Summary Q3/2021</field>
+            <field name="summary_year_id" ref="year_2021"/>
+        </record>
+        <record id="q4_2021" model="vat.summary.report">
+            <field name="name">VAT Summary Q4/2021</field>
+            <field name="summary_year_id" ref="year_2021"/>
+        </record>
+
+        <!--2022-->
+        <record id="q1_2022" model="vat.summary.report">
+            <field name="name">VAT Summary Q1/2022</field>
+            <field name="summary_year_id" ref="year_2022"/>
+        </record>
+        <record id="q2_2022" model="vat.summary.report">
+            <field name="name">VAT Summary Q2/2022</field>
+            <field name="summary_year_id" ref="year_2022"/>
+        </record>
+        <record id="q3_2022" model="vat.summary.report">
+            <field name="name">VAT Summary Q3/2022</field>
+            <field name="summary_year_id" ref="year_2022"/>
+        </record>
+        <record id="q4_2022" model="vat.summary.report">
+            <field name="name">VAT Summary Q4/2022</field>
+            <field name="summary_year_id" ref="year_2022"/>
+        </record>
+
+        <!--2023-->
+        <record id="q1_2023" model="vat.summary.report">
+            <field name="name">VAT Summary Q1/2023</field>
+            <field name="summary_year_id" ref="year_2023"/>
+        </record>
+        <record id="q2_2023" model="vat.summary.report">
+            <field name="name">VAT Summary Q2/2023</field>
+            <field name="summary_year_id" ref="year_2023"/>
+        </record>
+        <record id="q3_2023" model="vat.summary.report">
+            <field name="name">VAT Summary Q3/2023</field>
+            <field name="summary_year_id" ref="year_2023"/>
+        </record>
+        <record id="q4_2023" model="vat.summary.report">
+            <field name="name">VAT Summary Q4/2023</field>
+            <field name="summary_year_id" ref="year_2023"/>
+        </record>
+
+        <!--2024-->
+        <record id="q1_2024" model="vat.summary.report">
+            <field name="name">VAT Summary Q1/2024</field>
+            <field name="summary_year_id" ref="year_2024"/>
+        </record>
+        <record id="q2_2024" model="vat.summary.report">
+            <field name="name">VAT Summary Q2/2024</field>
+            <field name="summary_year_id" ref="year_2024"/>
+        </record>
+        <record id="q3_2024" model="vat.summary.report">
+            <field name="name">VAT Summary Q3/2024</field>
+            <field name="summary_year_id" ref="year_2024"/>
+        </record>
+        <record id="q4_2024" model="vat.summary.report">
+            <field name="name">VAT Summary Q4/2024</field>
+            <field name="summary_year_id" ref="year_2024"/>
+        </record>
+
+        <!--2025-->
+        <record id="q1_2025" model="vat.summary.report">
+            <field name="name">VAT Summary Q1/2025</field>
+            <field name="summary_year_id" ref="year_2025"/>
+        </record>
+        <record id="q2_2025" model="vat.summary.report">
+            <field name="name">VAT Summary Q2/2025</field>
+            <field name="summary_year_id" ref="year_2025"/>
+        </record>
+        <record id="q3_2025" model="vat.summary.report">
+            <field name="name">VAT Summary Q3/2025</field>
+            <field name="summary_year_id" ref="year_2025"/>
+        </record>
+        <record id="q4_2025" model="vat.summary.report">
+            <field name="name">VAT Summary Q4/2025</field>
+            <field name="summary_year_id" ref="year_2025"/>
+        </record>
+
+    </data>
+</odoo>

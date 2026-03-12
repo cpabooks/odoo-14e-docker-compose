@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<odoo>
+		<record id="view_journal_message_wizard_form" model="ir.ui.view">
+			<field name="name">journal.message.wizard.form</field>
+			<field name="model">journal.message.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Message">
+					<sheet>
+						<group>
+							<field name="message" readonly="1" nolabel="1"/>
+						</group>
+						<footer>
+							<button string="Ok" class="btn-primary" special="cancel"/>
+						</footer>
+					</sheet>
+				</form>
+			</field>
+		</record>
+	</odoo>
+</odoo>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="company_header_inherit" inherit_id="web.external_layout_background">
+        <xpath expr="//div//div//strong[@t-field='company.partner_id.name']" position="replace">
+            <strong style="font-size: 36px;" t-field="company.partner_id.name"/>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="support_ticket_invalid_custom_claim_enterprice" name="Support Invalid">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure"/>
+                    <div class="container">
+                        <h3>Sorry!</h3>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="alert alert-danger">
+                                    <button type="button" class="close" data-dismiss="alert">&amp;times;</button>
+                                    <h4>
+                                        You have entered wrong Email ID, we request you to recheck.
+                                        <br/>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

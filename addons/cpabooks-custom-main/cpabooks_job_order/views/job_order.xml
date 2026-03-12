@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="view_job_order_form" model="ir.ui.view">
+            <field name="name">job.order.form</field>
+            <field name="model">quotation.job.order</field>
+            <field name="arch" type="xml">
+              <form string="Job Order">
+                  <header>
+                      <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,cancelled"/>
+                      <field name="show_delivery_button" invisible="1"/>
+                      <button name="action_confirmed" type="object"
+                            string="Confirm" class="oe_highlight"
+                            attrs="{'invisible': [('state', '=', 'confirmed')]}"/>
+                      <button name="action_create_delivery" type="object"
+                            string="Create Delivery" class="oe_highlight"
+                            attrs="{'invisible': ['|',('state', '!=', 'confirmed'),('show_delivery_button','=',False)]}"/>
+                      <button name="action_reset_to_draft" type="object"
+                            string="Reset To Draft"
+                            attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                      <button name="action_cancel" type="object"
+                            string="Cancel"
+                            attrs="{'invisible': [('state', '=', 'draft')]}"/>
+
+                  </header>
+                  <sheet>
+                       <div class="oe_button_box" name="button_box">
+                           <button name="show_job_order_delivery" type="object" class="oe_stat_button" icon="fa-cubes" attrs="{'invisible': [('delivery_count', '=', 0)]}">
+                                <field name="delivery_count" widget="statinfo" string="Delivery"/>
+                             </button>
+                       </div>
+                      <div class="oe_title">
+                        <h1>
+                            <field name="name" attrs="{'readonly':[('system_admin','=',False)]}" />
+                            <field name="system_admin" invisible="1"/>
+                        </h1>
+                    </div>
+                      <group>
+                          <group>
+                              <field name="manual_job"  attrs="{'invisible':[('print_manual_job','=',False)]}" />
+                            <field name="print_manual_job"/>
+                              <field name="partner_id"/>
+                              <field name="quotation_no"/>
+<!--                              <field name="project_id"/>-->
+                              <field name="enquiry_number"/>
+                              <field name="attention"/>
+                              <field name="subject"/>
+<!--                              <field name="delivery"/>-->
+                              <field name="make"/>
+
+                          </group>
+                          <group>
+                              <field name="validity_date"/>
+                              <field name="job_order_date"/>
+                              <field name="company_id"/>
+                              <field name="total_quantity" invisible="1"/>
+                              <field name="total_remaining_quantity" invisible="1"/>
+                              <field name="total_delivered_quantity" invisible="1"/>
+                              <field name="warehouse_id" required="1"/>
+                              <field name="lpo_number"/>
+                              <field name="job_description"/>
+                              <field name="sale_person"/>
+                              <field name="remark"/>
+                          </group>
+                      </group>
+                      <notebook>
+                          <page string="Job Order Lines" name="job_order_line">
+                              <field name="order_line" attrs="{'readonly':[('state','=','cancelled')]}" widget="section_and_note_one2many" mode="tree,form  ">
+                                  <tree editable="bottom">
+                                      <control>
+                                            <create name="add_line_control" string="Add a line"/>
+                                            <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                            <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                                        </control>
+                                      <field name="sequence" widget="handle"/>
+                                      <field name="line_no"/>
+                                      <field name="product_id"/>
+                                      <field name="name" widget="section_and_note_text"/>
+                                      <field name="product_uom"  readonly="1" force_save="1" options="{'no_create_edit':True,'no_open':True}"/>
+                                      <field name="product_uom_qty" sum="Quantity" attrs="{'readonly':[('parent.state','=','confirmed')]}"/>
+                                      <field name="remaining_qty" sum="Remaining Quantity" readonly="1" force_save="1" string="Remaining Delivery Quantity"/>
+                                      <field name="delivered_qty" sum="Delivered Quantity" readonly="1" force_save="1" string="Done Delivery Quantity"/>
+                                      <field name="quotation_line_id" invisible="1"/>
+                                      <field name="display_type" invisible="1"/>
+                                  </tree>
+                                  <form>
+                                      <group>
+                                      <group>
+                                      <field name="line_no"/>
+                                      <field name="product_id"/>
+                                      <field name="name"/>
+                                      <field name="product_uom"  readonly="1" force_save="1" options="{'no_create_edit':True,'no_open':True}"/>
+                                      <field name="product_uom_qty" sum="Quantity" attrs="{'readonly':[('parent.state','=','confirmed')]}"/>
+                                      </group>
+                                      <group>
+                                      <field name="remaining_qty" sum="Remaining Quantity" readonly="1" force_save="1" string="Remaining Delivery Quantity"/>
+                                      <field name="delivered_qty" sum="Delivered Quantity" readonly="1" force_save="1" string="Done Delivery Quantity"/>
+                                      <field name="quotation_line_id" invisible="1"/>
+                                      <field name="display_type" invisible="1"/>
+                                      </group>
+                                      </group>
+                                  </form>
+                              </field>
+                          </page>
+
+                      </notebook>
+
+                      <group>
+                          <group>
+                              <field name="breaker"/>
+                              <field name="elr"/>
+                              <field name="enclosure"/>
+                              <field name="brand"/>
+                              <field name="delivery"/>
+                              <field name="note"/>
+                          </group>
+                      </group>
+
+
+                  </sheet>
+                   <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+              </form>
+            </field>
+     </record>
+
+    <record id="view_job_order_tree" model="ir.ui.view">
+            <field name="name">job.order.tree</field>
+            <field name="model">quotation.job.order</field>
+            <field name="arch" type="xml">
+                <tree string="Job Orders">
+                    <field name="name"/>
+                    <field name="quotation_no"/>
+                    <field name="job_order_date"/>
+                    <field name="partner_id"/>
+                    <field name="company_id"/>
+                    <field name="total_quantity"/>
+                    <field name="total_remaining_quantity"/>
+                    <field name="total_delivered_quantity"/>
+                    <field name="state"/>
+
+                </tree>
+            </field>
+    </record>
+
+    <record id="view_job_order_filter" model="ir.ui.view">
+            <field name="name">job.order.list.select</field>
+            <field name="model">quotation.job.order</field>
+            <field name="arch" type="xml">
+                <search string="Search Job Order">
+                    <field name="name" string="Order" filter_domain="['|', '|', ('name', 'ilike', self),  ('partner_id', 'child_of', self)]"/>
+                    <field name="partner_id" />
+
+                    <field name="order_line" string="Product" filter_domain="[('order_line.product_id', 'ilike', self)]"/>
+
+<!--                    <filter string="My Orders" domain="[('user_id', '=', uid)]" name="my_sale_orders_filter"/>-->
+<!--                    <filter invisible="1" string="Late Activities" name="activities_overdue"-->
+<!--                        domain="[('activity_ids.date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"-->
+<!--                        help="Show all records which has next action date is before today"/>-->
+<!--                    <filter invisible="1" string="Today Activities" name="activities_today"-->
+<!--                        domain="[('activity_ids.date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>-->
+<!--                    <filter invisible="1" string="Future Activities" name="activities_upcoming_all"-->
+<!--                        domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>-->
+                    <group expand="0" string="Group By">
+                        <filter string="State" name="state" domain="[]" context="{'group_by': 'state'}"/>
+<!--                        <filter name="customer" string="Customer" domain="[]" context="{'group_by': 'partner_id'}"/>-->
+<!--                        <filter string="Order Date" name="order_month" domain="[]" context="{'group_by': 'date_order'}"/>-->
+                    </group>
+               </search>
+            </field>
+        </record>
+
+    <record id="action_job_orders" model="ir.actions.act_window">
+            <field name="name">Job Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">quotation.job.order</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_job_order_filter"/>
+            <field name="context">{}</field>
+            <field name="domain"></field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new Job Order!
+                </p>
+            </field>
+        </record>
+
+    <menuitem id="menu_job_order"
+            name="Job Order"
+            action="action_job_orders"
+            parent="sale.sale_order_menu"
+            sequence="3" />
+</odoo>

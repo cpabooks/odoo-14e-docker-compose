@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_job_order_task_planning_form" model="ir.ui.view">
+        <field name="name">job.order.task.planning.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form"/>
+        <field name="arch" type="xml">
+            <filter name="my_tasks" position="after">
+                <filter string="Parent Task" name="parent_id" domain="[('parent_id', '=', False)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="project.action_view_task" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph,activity</field>
+        <field name="context">{'search_default_my_tasks': 1}</field>
+        <field name="domain">[('parent_id', '=', False)]</field>
+        <field name="search_view_id" ref="project.view_task_search_form"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No tasks found. Let's create one!
+            </p>
+            <p>
+                To get things done, use activities and status on tasks.
+                <br/>
+                Chat in real time or by email to collaborate efficiently.
+            </p>
+        </field>
+    </record>
+
+    <record id="project_task_view_kanban_task_seq" model="ir.ui.view">
+        <field name="name">project.task.kanban.seq</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="task_seq"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_task_tree2_inherited_seq" model="ir.ui.view">
+        <field name="name">project.task.tree.inherited.seq</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field eval="2" name="priority"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="task_seq"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

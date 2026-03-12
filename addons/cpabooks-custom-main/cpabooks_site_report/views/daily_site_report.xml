@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+<!--         <menuitem name="Site Report"-->
+<!--            id="menu_site_report_root" sequence="201"/>-->
+
+
+
+        <record id="daily_site_report_form" model="ir.ui.view">
+            <field name="name">daily.site.report.form</field>
+            <field name="model">daily.site.report</field>
+            <field name="arch" type="xml">
+                <form string="Daily Site Report">
+
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="project_no" options='{ "no_create": True}'/>
+                            <field name="location"/>
+                            <field name="issue_date" widget="date"/>
+                            <field name="rev_no"/>
+
+                        </group>
+                        <group>
+                            <field name="contact_no"/>
+                            <field name="plan_no"/>
+                            <field name="due_date" widget="date"/>
+                            <field name="rev_date" widget="date"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Daily Site Report Details" name="daily_site_report">
+                            <field name="daily_site_report_line" widget="section_and_note_one2many">
+                                <tree string="Daily Report Details" editable="bottom">
+                                    <field name="product_id" options='{ "no_create": True}'/>
+                                    <field name="product_qty"/>
+                                    <field name="remarks"/>
+
+                                </tree>
+
+                            </field>
+
+                            <div class="oe_clear"/>
+                        </page>
+                        <page string="Description" name="description">
+<!--                            <label for="description"/>-->
+<!--                            <div class="o_row">-->
+<!--                                <field name="description"/>-->
+<!--                            </div>-->
+
+<!--                            <label for="ecommendation"/>-->
+<!--                            <div class="o_row">-->
+<!--                                <field name="ecommendation"/>-->
+<!--                            </div>-->
+                            <group>
+                                <field name="description"/>
+                                <field name="recommendation"/>
+                            </group>
+                        </page>
+                        <page string="Photos" name="photos">
+                            <field name="images">
+                                <kanban>
+                                    <field name="id"/>
+                                    <field name="image"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click" >
+                                                <div class="o_kanban_image" style="width:100%">
+                                                    <img t-att-src="kanban_image('daily.image', 'image', record.id.raw_value)" alt="Image"/>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <field name="image" widget="image"/>
+                                </form>
+                            </field>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="daily_site_report_tree" model="ir.ui.view">
+            <field name="name">daily.site.report.tree</field>
+            <field name="model">daily.site.report</field>
+            <field name="arch" type="xml">
+                <tree string="Daily Site Report" multi_edit="1">
+                    <field name="name"/>
+                    <field name="project_no"/>
+                    <field name="location"/>
+                    <field name="contact_no"/>
+                    <field name="plan_no"/>
+                    <field name="due_date" widget="date"/>
+<!--                    <field name="pc_no"/>-->
+
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="daily_site_report_form_action" model="ir.actions.act_window">
+            <field name="name">Daily Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">daily.site.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="daily_site_report_tree"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No Daily Report found. Let's create one!
+
+              </p>
+            </field>
+        </record>
+
+
+
+
+
+
+<!--        <menuitem id="menu_daily_site_report" name="Site Report"-->
+<!--            parent="menu_site_report_root" action="daily_site_report_form_action" sequence="1" />-->
+
+</odoo>

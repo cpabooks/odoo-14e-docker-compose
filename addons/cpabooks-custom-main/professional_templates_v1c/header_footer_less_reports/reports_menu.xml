@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <template id="headerless_header_v1">
+            <div t-attf-class="header">
+            </div>
+        </template>
+        <template id="footerless_footer_v1">
+            <div class="footer">
+            </div>
+        </template>
+
+        <record id="invoice_headerless_report_v1" model="ir.actions.report">
+            <field name="name">Invoices (Without Header &amp; Footer)</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">professional_templates_v1c.custom_invoice_without_header_v1</field>
+            <field name="report_file">professional_templates_v1c.custom_invoice_without_header_v1</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="sale_quotation_headerless_report_v1" model="ir.actions.report">
+            <field name="name">Quotation/Order (Without Header &amp; Footer)</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">professional_templates_v1c.custom_sale_quotation_without_header_v1</field>
+            <field name="report_file">professional_templates_v1c.custom_sale_quotation_without_header_v1</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

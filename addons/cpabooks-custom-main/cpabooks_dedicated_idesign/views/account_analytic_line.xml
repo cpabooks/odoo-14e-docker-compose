@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="account_analytic_line_form_extend" model="ir.ui.view">
+        <field name="name">account.analytic.line.form.extend</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="timesheet_grid.timesheet_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_id']" position="attributes">
+                <attribute name="required">0</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

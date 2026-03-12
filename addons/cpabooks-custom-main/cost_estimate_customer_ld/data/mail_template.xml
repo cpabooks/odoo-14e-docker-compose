@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--Email template -->
+        <record id="email_template_job_estimation" model="mail.template">
+            <field name="name">Job Estimate -Email</field>
+            <field name="email_from">${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
+            <field name="subject">${object.company_id.name}  (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="cost_estimate_customer_ld.model_job_estimate"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_template" ref="cost_estimate_customer_ld.action_job_estimate_report"/>
+            <field name="report_name">${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<p>Dear ${object.partner_id.name}</p>
+<p>
+This is your estimate  <strong>${object.name}</strong> with <strong> Material Estimate </strong>
+amounting in <strong>${object.total_material_estimate} ${object.currency_id.name}</strong> ,
+<strong> Labour Estimate </strong> amounting in <strong>${object.labour_estimate} ${object.currency_id.name}</strong> ,
+<strong> Overhead Estimate </strong> amounting in <strong>${object.overhead_estimate} ${object.currency_id.name}</strong> ,
+<strong> Total Job Estimate </strong> amounting in <strong>${object.job_estimate} ${object.currency_id.name}</strong> from ${object.company_id.name}.
+</p>
+
+<p></p>
+<p>Please reply to this email if you have any queries.</p>
+<p>Thank you,</p>
+
+<p style="color:#888888;">
+% if object.user_id and object.user_id.signature:
+    ${object.user_id.signature | safe}
+% endif
+</p>
+]]></field>
+        </record>
+
+    </data>
+</odoo>

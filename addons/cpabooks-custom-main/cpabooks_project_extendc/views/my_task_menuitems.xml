@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="search_for_my_task" model="ir.ui.view">
+            <field name="name">search.for.my.task</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+                <search string="Search For My Tasks">
+                    <group string="Group By">
+                        <filter name="parent_task" string="Parent Task" domain="[]" context="{'group_by':'parent_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--<record id="inherit_view_task_tree_2_project_extend" model="ir.ui.view">
+            <field name="name">inherit.view.task.tree.2.project.extend</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="after">
+                    <field name="parent_id" optional="hide"/>
+                </xpath>
+            </field>
+        </record>-->
+
+        <record id="action_my_tasks" model="ir.actions.act_window">
+            <field name="name">My Tasks</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph,gantt,activity,map</field>
+            <field name="context">{'search_default_my_tasks': 1, 'all_task': 0, 'default_groupby': 'parent_id'}</field>
+        </record>
+
+        <menuitem id="menu_my_tasks_root"
+                  name="My Tasks"
+                  web_icon="cpabooks_project_extend,static/description/icon.webp"
+                  sequence="5"/>
+        <menuitem id="menu_my_task_main" name="Tasks" sequence="01" parent="menu_my_tasks_root"
+                  action="action_my_tasks"/>
+    </data>
+</odoo>

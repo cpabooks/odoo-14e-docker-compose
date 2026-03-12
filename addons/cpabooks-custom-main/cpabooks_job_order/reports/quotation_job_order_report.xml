@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="quotation_job_order_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+                    <div class="page">
+                        <h2 style="text-align: center; text-decoration: underline;">
+                            <span>Job Order</span>
+                        </h2>
+                        <h5 class="text-center" style="margin-top:-8px;font-size:18px;">
+                            <strong>JOB No:</strong>
+                            <span t-if="o.print_manual_job==False" t-field="o.name"/>
+                            <span t-if="o.print_manual_job==True" t-field="o.manual_job"/>
+                        </h5>
+                        <div class="row oe_mt16" name="customer_address">
+                            <div class="col-6">
+                                <strong>Customer:</strong>
+                                <t t-set="partner"
+                                   t-value="o.partner_id or (o.line_lines and o.line_lines[0].partner_id) or False"/>
+                                <div t-esc="partner"
+                                     t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True}'/>
+                            </div>
+                            <!--                        <div class="col-6 mt-5">-->
+                            <div class="col-6">
+
+                                <!--                            <div t-if="o.lpo_number"> <strong>LPO: </strong><span t-esc="o.lpo_number"/> </div>-->
+                                <div t-if="o.lpo_number" class="row">
+                                    <div class="col-3">
+                                        <strong>LPO</strong>
+                                    </div>
+                                    <div class="col-9">
+                                        <span>:</span>
+                                        <span t-esc="o.lpo_number"/>
+                                    </div>
+                                </div>
+                                <div t-if="o.subject" class="row">
+                                    <div class="col-3">
+                                        <strong>Subject</strong>
+                                    </div>
+                                    <div class="col-9">
+                                        <span>:</span>
+                                        <span t-esc="o.subject"/>
+                                    </div>
+                                </div>
+                                <div t-if="o.sale_person" class="row">
+                                    <div class="col-3">
+                                        <strong>Sale Person</strong>
+                                    </div>
+                                    <div class="col-9">
+                                        <span>:</span>
+                                        <span t-esc="o.sale_person.name"/>
+                                    </div>
+                                </div>
+                                <div t-if="o.remark" class="row">
+                                    <div class="col-3">
+                                        <strong>Remarks</strong>
+                                    </div>
+                                    <div class="col-9">
+                                        <span>:</span>
+                                        <span t-esc="o.remark"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--                    <div t-if="o.subject" class="row">-->
+                        <!--                            <div class="col-2"><strong>Subject </strong></div><div class="col-10"><span>:</span><span t-esc="o.subject"/></div>-->
+                        <!--                    </div>-->
+                        <!--                    <div t-if="o.sale_person" class="row">-->
+                        <!--                         <div class="col-2"><strong>Sale Person </strong></div><div class="col-10"><span>:</span><span t-esc="o.sale_person.name"/></div>-->
+                        <!--                    </div>-->
+                        <!--                    <div t-if="o.remark" class="row">-->
+                        <!--                            <div class="col-2"><strong>Remarks </strong></div><div class="col-10"><span>:</span><span t-esc="o.remark"/></div>-->
+                        <!--                    </div>-->
+                        <div class="row oe_mt16 oe_mb16">
+                            <div t-if="o.quotation_no" class="col-auto" name="div_origin">
+                                <strong>Order:</strong>
+                                <p t-field="o.quotation_no.name"/>
+                            </div>
+                            <t t-set="cust_ref" t-value="o.get_ref()"/>
+                            <div t-if="cust_ref" class="col-auto" name="div_customer_ref">
+                                <strong>Customer Ref:</strong>
+                                <p t-esc="cust_ref"/>
+                            </div>
+
+                            <div t-if="o.job_order_date" class="col-auto" name="div_job_order_date">
+                                <strong>Order Date:</strong>
+                                <p t-field="o.job_order_date"/>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm" t-if="o.state!='done'" name="stock_line_table">
+                            <thead>
+                                <tr>
+                                    <th name="th_sm_sr_no" class="text-center">
+                                        <strong>Sr. No.</strong>
+                                    </th>
+                                    <th name="th_sm_product" class="text-center">
+                                        <strong>Product</strong>
+                                    </th>
+                                    <th name="th_sm_product_desc" class="text-center">
+                                        <strong>Description</strong>
+                                    </th>
+                                    <th name="th_sm_product_desc" class="text-center">
+                                        <strong>Units</strong>
+                                    </th>
+                                    <th name="th_sm_quantity" class="text-center">
+                                        <strong>Quantity</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="sr_no" t-value="1"/>
+
+                                <tr t-foreach="o.order_line" t-as="line">
+                                    <td name="td_sr_no" class="text-center">
+                                        <span t-esc="sr_no"/>
+                                        <t t-set="sr_no" t-value="sr_no+1"/>
+                                    </td>
+
+                                    <td name="product">
+                                        <span t-field="line.product_id.name"/>
+                                    </td>
+                                    <td name="product_description"  class="text-left">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <td name="product_uom">
+                                        <span t-field="line.product_uom.name"/>
+                                    </td>
+                                    <td name="product_qty" class="text-center">
+                                        <span t-field="line.product_uom_qty"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div name="breaker" class="row" style="line-height:20px;">
+                            <div class="col-2">
+                                <strong>Breaker</strong>
+                            </div>
+                            <div class="col-10">
+                                <span>:</span>
+                                <span t-field="o.breaker"/>
+                            </div>
+                        </div>
+                        <div name="elr" class="row" style="line-height:20px;">
+                            <div class="col-2">
+                                <strong>ELR: CBCT &amp; CT</strong>
+                            </div>
+                            <div class="col-10">
+                                <span>:</span>
+                                <span t-field="o.elr"/>
+                            </div>
+                        </div>
+                        <div name="enclosure" class="row" style="line-height:20px;">
+                            <div class="col-2">
+                                <strong>Enclosure</strong>
+                            </div>
+                            <div class="col-10">
+                                <span>:</span>
+                                <span t-field="o.enclosure"/>
+                            </div>
+                        </div>
+                        <div name="brand" class="row" style="line-height:20px;">
+                            <div class="col-2">
+                                <strong>Brand</strong>
+                            </div>
+                            <div class="col-10">
+                                <span>:</span>
+                                <span t-field="o.brand"/>
+                            </div>
+                        </div>
+                        <div name="delivery" class="row" style="line-height:20px;">
+                            <div class="col-2">
+                                <strong>Delivery</strong>
+                            </div>
+                            <div class="col-10">
+                                <span>:</span>
+                                <span t-field="o.delivery"/>
+                            </div>
+                        </div>
+                        <div name="note" class="row" style="line-height:20px;">
+                            <div class="col-2">
+                                <strong>Note</strong>
+                            </div>
+                            <div class="col-10">
+                                <span>:</span>
+                                <br/>
+                                <span t-field="o.note"/>
+                            </div>
+                        </div>
+
+                        <t t-set="signature" t-value="o.get_signature()"/>
+
+                        <div t-if="signature" class="row oe_mt64">
+                            <div class="col-4 text-left">
+
+                                <strong>
+                                    <span style="text-decoration:overline" t-field="signature.signature1"/>
+                                </strong>
+                            </div>
+                            <div class="col-4 text-center">
+                                <strong>
+                                    <span style="text-decoration:overline" t-field="signature.signature2"/>
+                                </strong>
+                            </div>
+                            <div class="col-4 text-right">
+                                <strong>
+                                    <span style="text-decoration:overline" t-field="signature.signature3"/>
+                                </strong>
+                            </div>
+                        </div>
+
+                        <!--                    <div t-if="o.disclaimer" style="page-break-inside: avoid; margin-top: 128px;">-->
+                        <!--                        <strong>Disclaimer</strong>-->
+                        <!--                        <br/>-->
+                        <!--                        <span t-field="o.disclaimer"/>-->
+                        <!--                    </div>-->
+
+                        <!--                    <div t-if="o.signature" class="mt32 ml64 mr4" name="signature">-->
+                        <!--                        <div class="offset-8">-->
+                        <!--                            <strong>Signature</strong>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="offset-8">-->
+                        <!--                            <img t-att-src="image_data_uri(o.signature)" style="max-height: 4cm; max-width: 8cm;"/>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="offset-8 text-center">-->
+                        <!--                            <p t-field="o.partner_id.name"/>-->
+                        <!--                        </div>-->
+                        <!--                    </div>-->
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

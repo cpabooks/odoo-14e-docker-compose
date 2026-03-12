@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="invoice_formats_rads" inherit_id="professional_templates_v1.INVOICE_common_document">
+<!--        <xpath expr="//div[@t-if='o.project_id']" position="replace">-->
+
+<!--        </xpath>-->
+        <xpath expr="//div[@t-if='o.invoice_payment_term_id']" position="after">
+            <div t-if="o.payment_mode" t-attf-style="{{div_style}}">
+                <strong style="white-space:nowrap;">Mode of Payment:</strong>
+                <span t-field="o.payment_mode.name"/>
+            </div>
+        </xpath>
+<!--        <xpath expr="//div[@name='signature']" position="after">-->
+<!--            <p>For, Reliable Automatic Doors System LLC</p>-->
+<!--        </xpath>-->
+    </template>
+
+    <template id="invoice_formats_professional_rads" inherit_id="professional_templates_v1.invoice_lines_common_template">
+        <xpath expr="//th[@name='description_th']" position="replace">
+            <th name="description_th" t-attf-style="{{th_style}}"><i class="fa fa-th-large"
+                                                                     t-if="not style.is_icon_hide"/>Description
+            </th>
+        </xpath>
+        <xpath expr="//div[@name='subject']" position="replace">
+        </xpath>
+        <xpath expr="//div[@t-if='style.aiw_report']" position="after">
+            <p t-if="o.get_vat_amount_in_words()">
+                <!--                    <strong>Amount in Words:</strong><span style="text-decoration:underline;" t-field="o.amount_words"/>-->
+                <strong>Vat Amount In Words:</strong>
+                <span t-esc="o.get_vat_amount_in_words()"/>
+                <span>Only.</span>
+            </p>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="sequence_for_payment_certificate" model="ir.sequence">
+            <field name="name">Sequence For Payment Certificate</field>
+            <field name="code">sequence.payment.certificate</field>
+            <field name="padding">4</field>
+            <field name="prefix">PC/%(year)s/</field>
+        </record>
+    </data>
+</odoo>

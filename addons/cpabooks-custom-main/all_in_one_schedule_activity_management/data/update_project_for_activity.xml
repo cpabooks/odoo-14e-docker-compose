@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+<!--		<function name="action_get_project_mail_activity" model="mail.activity"/>-->
+		<function name="action_get_project_mail_activity" model="mail.activity"/>
+	</data>
+</odoo>

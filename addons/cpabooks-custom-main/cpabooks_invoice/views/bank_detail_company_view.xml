@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="company_bank_details_information" model="ir.ui.view">
+            <field name="name">Bank Information</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[1]" position='after'>
+                    <page string="Company Bank Details">
+                        <group>
+                            <field name="bank_details_header"/>
+                            <field name="iban_number2"/>
+                            <field name="iban_number3"/>
+                            <field name="iban_number"/>
+                            <field name="address_line_1"/>
+                            <field name="address_line_2"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+

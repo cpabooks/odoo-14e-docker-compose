@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="view_sale_order_form_inherited" model="ir.ui.view">
+        <field name="name">sale.order.form.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button type="object" name="action_view_relavent_payment"
+                        class="oe_stat_button"
+                        icon="fa-money"
+                        attrs="{'invisible': [('payment_count', '=', 0)]}">
+                    <field name="payment_count" widget="statinfo" string="Payments"/>
+                </button>
+            </xpath>
+
+
+        </field>
+    </record>
+
+</odoo>

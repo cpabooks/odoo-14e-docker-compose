@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="cpa_agent_routing_rule" model="ir.rule">
+        <field name="name">Agent Routing Code Rule</field>
+        <field name="model_id" ref="model_agent_routing"/>
+        <field name="global" eval="True" />
+        <field name="domain_force">user.code_domain()</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_company_inherit_default_settings" model="ir.ui.view">
+            <field name="name">res.company.report.settings</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                        <separator colspan="2" style="text-decoration: underline;color:#6d7475" string="Header &amp; Footer-I"/>
+
+
+                </xpath>
+
+
+                <xpath expr="//field[@name='phone']" position="before">
+                    <separator colspan="2" style="text-decoration: underline;color:#6d7475"  string="Footer-II"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='vat']" position="before">
+                    <separator colspan="2" style="text-decoration: underline;color:#6d7475" string="Footer-III"/>
+
+                </xpath>
+<!--                <xpath expr="//field[@name='vat']" position="after">-->
+<!--                    <field name="line_1"/>-->
+<!--                    <field name="line_2"/>-->
+<!--                    <field name="line_3"/>-->
+<!--                </xpath>-->
+
+                <xpath expr="//field[@name = 'website']" position="after">
+                        <field name="facebook"/>
+                        <field name="twitter"/>
+                        <field name="youtube"/>
+                </xpath>
+	    </field>
+	</record>
+    </data>
+</odoo>
+

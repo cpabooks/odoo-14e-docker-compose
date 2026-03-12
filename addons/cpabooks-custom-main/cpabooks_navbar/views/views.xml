@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <!-- Action to Open Add Task -->
+        <record id="planning_popup_action" model="ir.actions.act_window">
+            <field name="name">Add a New Activity</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mail.activity</field>
+            <field name="view_id" ref="all_in_one_schedule_activity_management.done_mail_activity_view_form"/>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Action to Open Add Ticket -->
+        <record id="ticket_popup_action" model="ir.actions.act_window">
+            <field name="name">Add a New Ticket</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">helpdesk.ticket</field>
+            <field name="view_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

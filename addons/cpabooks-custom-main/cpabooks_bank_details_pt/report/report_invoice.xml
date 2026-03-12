@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_pt_common_invoice_document_inherit_bank_details"
+              inherit_id="professional_templates.INVOICE_common_document">
+        <xpath expr="//div[@name='note']" position="after">
+            <t t-set="is_mod_install" t-value="o._check_isntallation()"/>
+            <t t-if="is_mod_install">
+                <div class="oe_mt32 row" t-if="o.bank_detail_enable and o.company_id.bank_name"
+                     t-attf-style="margin-left:0px !important;padding-left:0px !important;font-size:{{style.bank_font}}px !important;page-break-inside:avoid;">
+                    <div class="col-5" t-attf-style="margin-left:0px !important;padding-left:0px !important">
+                        <span t-attf-style="text-decoration: underline;font-size:{{style.bank_font}}+4px !important;font-weight:bold;">
+                            Bank Details
+                        </span>
+                        <br/>
+                        <t t-if="o.company_id.bank_name">
+                            <span t-field="o.company_id.bank_name"/>
+                            <br/>
+                        </t>
+                        <t t-if="o.company_id.bank_account_number">
+                            <span t-field="o.company_id.bank_account_number"/>
+                            <br/>
+                        </t>
+                        <t t-if="o.company_id.bank_iban_number">
+                            <span t-field="o.company_id.bank_iban_number"/>
+                            <br/>
+                        </t>
+                        <t t-if="o.company_id.bank_address">
+                            <span t-field="o.company_id.bank_address"/>
+                            <br/>
+                        </t>
+                        <t t-if="o.company_id.bank_branch">
+                            <span t-field="o.company_id.bank_branch"/>
+                        </t>
+                    </div>
+                    <div t-if="o.prepare_by" class="col-7" name="signature_logo_div">
+                        <!--                     <div class="col-4 text-center"></div>-->
+                        <div>
+                            <t t-if="o.prepare_by.user_stamp">
+                                <div name="signature_logo">
+                                    <img t-att-src="'data:image/png;base64,%s' % to_text(o.prepare_by.user_stamp)"
+                                         style="height: 4cm; min-width: 4cm;"/>
+                                </div>
+                            </t>
+                        </div>
+                        <!--                     <div class="col-4 text-center"></div>-->
+                    </div>
+                    <!--                    <div class="col-8" name="user_stamp">-->
+                    <!--                        <h1>Hello There</h1>-->
+                    <!--                    </div>-->
+                </div>
+            </t>
+            <t t-else="">
+                <div class="oe_mt32 row" t-if="o.bank_detail_enable and o.company_id.bank_name" t-attf-style="margin-left:1px;font-size:{{style.bank_font}}px !important">
+                    <span t-attf-style="text-decoration: underline;font-size:{{style.bank_font}}+4 px !important;font-weight:bold;">
+                        Bank Details
+                    </span>
+                    <br/>
+                    <t t-if="o.company_id.bank_name">
+                        <span t-field="o.company_id.bank_name"/>
+                        <br/>
+                    </t>
+                    <t t-if="o.company_id.bank_account_number">
+                        <span t-field="o.company_id.bank_account_number"/>
+                        <br/>
+                    </t>
+                    <t t-if="o.company_id.bank_iban_number">
+                        <span t-field="o.company_id.bank_iban_number"/>
+                        <br/>
+                    </t>
+                    <t t-if="o.company_id.bank_address">
+                        <span t-field="o.company_id.bank_address"/>
+                        <br/>
+                    </t>
+                    <t t-if="o.company_id.bank_branch">
+                        <span t-field="o.company_id.bank_branch"/>
+                    </t>
+                </div>
+
+            </t>
+
+        </xpath>
+    </template>
+</odoo>

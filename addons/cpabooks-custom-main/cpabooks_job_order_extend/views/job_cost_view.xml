@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Switch main menu "Job Costing" to "Estimation" -->
+	<record id="bi_odoo_job_costing_management.main_menu_job_estimates" model="ir.ui.menu">
+		<field name="name">Estimation</field>
+	</record>
+
+	<!-- Switch sub menu "Job Costing" to "Estimation" -->
+	<record id="bi_odoo_job_costing_management.sub_menu_job_costing" model="ir.ui.menu">
+		<field name="name">Estimation</field>
+	</record>
+
+	<!-- Switch menu "Job Cost Sheets" to "Estimation" -->
+	<record id="bi_odoo_job_costing_management.sub_menu_job_costing" model="ir.ui.menu">
+		<field name="name">Estimation</field>
+	</record>
+
+	<!-- Change action "Job Cost Sheets" to "Estimation" -->
+	<record id="bi_odoo_job_costing_management.action_job_cost_sheet" model="ir.actions.act_window">
+		<field name="name">Estimation</field>
+	</record>
+
+	<record id="job_cost_sheet_form_view_inherit_job_order" model="ir.ui.view">
+		<field name="name">job.cost.sheet.form.view.inherit.job_order</field>
+		<field name="model">job.cost.sheet</field>
+		<field name="inherit_id" ref="bi_odoo_job_costing_management.job_cost_sheet_form_view"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='action_confirm']" position="after">
+                <button string="New Quotation" name="button_new_quotation" type="object" class="oe_highlight"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_quotation" icon="fa-pencil-square-o">
+                    <field name="quotation_count" widget="statinfo" string="Quotations"/>
+                </button>
+			</xpath>
+			<xpath expr="//field[@name='name']" position="after">
+				<field name="enquiry_number"/>
+				<field name="opportunity_id" invisible="1"/>
+			</xpath>
+			<xpath expr="//field[@name='material_job_cost_line_ids']/tree" position="attributes">
+				<attribute name="create">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='material_job_cost_line_ids']/tree/field[@name='date']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='labour_job_cost_line_ids']/tree" position="attributes">
+				<attribute name="create">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='labour_job_cost_line_ids']/tree/field[@name='date']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='overhead_job_cost_line_ids']/tree" position="attributes">
+				<attribute name="create">1</attribute>
+			</xpath>
+			<xpath expr="//field[@name='overhead_job_cost_line_ids']/tree/field[@name='date']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="job_cost_sheet_serach_view" model="ir.ui.view">
+		<field name="name">job.cost.sheet.search.view</field>
+		<field name="model">job.cost.sheet</field>
+		<field name="arch" type="xml">
+			<search string="Job Cost Sheets">
+				<field name="name"/>
+				<field name="opportunity_id"/>
+			</search>
+		</field>
+	</record>
+
+	<record id="action_new_quotation" model="ir.actions.act_window">
+        <field name="name">Quotation</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">form,tree</field>
+        <field name="domain">[('job_cost_sheet_id', '=', active_id)]</field>
+        <field name="context">{'search_default_job_cost_sheet_id': active_id, 'default_job_cost_sheet_id': active_id}</field>
+    </record>
+</odoo>

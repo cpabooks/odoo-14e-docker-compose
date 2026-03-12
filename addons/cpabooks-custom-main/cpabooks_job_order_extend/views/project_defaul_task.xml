@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_project_default_task_tree" model="ir.ui.view">
+        <field name="name">project.default.task.tree</field>
+        <field name="model">project.default.task</field>
+        <field name="arch" type="xml">
+            <tree string="Default Task">
+                <field name="name"/>
+                <field name="parent_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_project_default_task_form" model="ir.ui.view">
+        <field name="name">project.default.task.form</field>
+        <field name="model">project.default.task</field>
+        <field name="arch" type="xml">
+            <form string="Default Task Create">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <field name="parent_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_project_default_task_search" model="ir.ui.view">
+        <field name="name">project.default.task.search</field>
+        <field name="model">project.default.task</field>
+        <field name="arch" type="xml">
+            <search string="Account Report">
+                <field name="name"/>
+                <field name="parent_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Parent Report"
+                            name="filter_parent_id"
+                            domain=""
+                            context="{'group_by':'parent_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_create_default_task" model="ir.actions.act_window">
+        <field name="name">Default Task</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.default.task</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_project_default_task_search"/>
+        <field name="view_id" ref="view_project_default_task_tree"/>
+    </record>
+
+    <menuitem id="menu_project_default_task"
+              name="Default Task" parent="project.menu_project_config"
+              action="action_create_default_task"/>
+
+</odoo>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="project.open_view_project_all" model="ir.actions.act_window">
+		<field name="view_mode">tree,kanban,form</field>
+		<field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('project.view_project')}),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('project.view_project_kanban')})]"/>
+	</record>
+	
+	<!--SEARCH PROJECT BY CRM -->
+	<record id="view_project_project_filter_inherit" model="ir.ui.view">
+		<field name="name">view.project.project.filter.inherit</field>
+		<field name="model">project.project</field>
+		<field name="inherit_id" ref="project.view_project_project_filter"/>
+		<field name="arch" type="xml">
+			<xpath expr="//search" position="inside">
+				<!--<field name="crm_id" string="CRM Lead"/>-->
+				<field name="crm_id" string="CRM Lead" filter_domain="[('crm_id.enquiry_number', 'ilike', self)]"/>
+			</xpath>
+		</field>
+	</record>
+	
+	
+	<record id="view_project_custom_extend" model="ir.ui.view">
+		<field name="name">project.project.tree.inherit</field>
+		<field name="model">project.project</field>
+		<field name="inherit_id" ref="project.view_project"/>
+		<field name="arch" type="xml">
+			<xpath expr="//tree" position="inside">
+				<header>
+					<button name="action_reset_pid" type="object" string="Reset PID" class="oe_highlight"/>
+				</header>
+				<field name="project_group_id" optional="hide"/>
+				<field name="location_id" optional="hide"/>
+			</xpath>
+			<xpath expr="//field[@name='name']" position="after">
+				<field name="crm_id" optional="show"/>
+			</xpath>
+			<xpath expr="//field[@name='name']" position="before">
+				<field name="project_pid" optional="hide"/>
+			</xpath>
+			<xpath expr="//field[@name='partner_id']" position="after">
+				<field name="amount_per_year" optional="show" sum="Total"/>
+				<field name="contract_amount" optional="show" sum="Total"/>
+			</xpath>
+			
+			<xpath expr="//field[@name='label_tasks']" position="after">
+				<field name="invoice_ids" widget="many2many_tags" optional="hide"/>
+			</xpath>
+			
+			<xpath expr="//field[@name='analytic_account_id']" position="after">
+				<field name="sales" optional="show"/>
+				<field name="expenses" optional="show"/>
+				<field name="count_analytic_amount" optional="show"/>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="view_project_form_inherit" model="ir.ui.view">
+		<field name="name">view.project.form.inherit</field>
+		<field name="model">project.project</field>
+		<field name="inherit_id" ref="project.edit_project"/>
+		<field name="arch" type="xml">
+		
+			
+<!--			<xpath expr="//div[hasclass('oe_button_box')]/button[@icon='fa-tasks' and .//field[@name='task_count']]"-->
+<!--			       position="replace">-->
+<!--				<button class="oe_stat_button" type="object" name="action_show_task_extend" icon="fa-tasks">-->
+<!--					<field string="Tasks" name="total_task_count" widget="statinfo"-->
+<!--					       options="{'label_field': 'label_tasks'}"/>-->
+<!--				</button>-->
+<!--			</xpath>-->
+			
+			<xpath expr="//page[@name='settings']/group/group[1]/field[@name='user_id']" position="before">
+				<field name="location_id"/>
+				<field name="project_group_id"/>
+				<field name="contract_amount"/>
+			</xpath>
+			
+			<xpath expr="//div[@name='options_active']" position="before">
+				<!--                <field name="sequence" string="PID"/>-->
+				<div name="options_active_sequence">
+					<div>
+						<label for="project_pid" class="oe_inline" string="PID:"/>
+						<field name="project_pid" class="oe_inline oe_input_align"/>
+					</div>
+					<div>
+						<label for="is_group" class="oe_inline" string="Is Group:"/>
+						<field name="is_group" class="oe_inline oe_input_align"/>
+					</div>
+					<div>
+						<label for="crm_id" class="oe_inline" string="CRM:"/>
+						<field name="crm_id" class="oe_inline oe_input_align"/>
+					</div>
+				</div>
+			</xpath>
+			
+			<xpath expr="//div[@name='button_box']" position="inside">
+				
+				<button class="oe_stat_button" type="object" name="action_analytic" icon="fa-bar-chart-o"
+				        seauence="101">
+					<field name="count_analytic_amount"/>
+					<snap class="o_stat_text">Profit</snap>
+				</button><!--button for profit end-->
+				
+				<button class="oe_stat_button" type="object" name="action_invoices" icon="fa-files-o"
+				        seauence="001">
+					<field name="invoices_count"/>
+					<snap class="o_stat_text">Invoices</snap>
+				</button><!--button for invoices end-->
+				
+				<button class="oe_stat_button" type="object" name="action_bills" icon="fa-files-o"
+				        seauence="001">
+					<field name="bills_count"/>
+					<snap class="o_stat_text">Bills</snap>
+				</button><!--button for bils end-->
+			
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="view_project_search" model="ir.ui.view">
+		<field name="name">project.project.search</field>
+		<field name="model">project.project</field>
+		<field name="arch" type="xml">
+			<search>
+				<group expand="1" string="Group By">
+					<filter name="group_by_project_group_id"
+					        string="Project Group"
+					        context="{'group_by': 'project_group_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+	
+	<!--NEW ACTION TO FILETER PROJECT BY PROJECT GROUP-->
+	<record id="acton_project_group_by" model="ir.actions.act_window">
+		<field name="name">Project Groups</field>
+		<field name="res_model">project.project</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">
+			{
+			'search_default_group_by_project_group_id': 1
+			}
+		</field>
+	</record>
+	
+	<!--MENU ITEM TO CALL ACTION PROJECT GROUP BY -->
+	<menuitem name="Project Group" id="menu_project_group" action="acton_project_group_by" sequence="-100"
+	          parent="project.menu_main_pm"/>
+</odoo>

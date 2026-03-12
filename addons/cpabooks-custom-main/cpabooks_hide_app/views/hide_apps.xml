@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<!--    <menuitem name="Discuss"-->
+<!--        id="mail.mail_menu_technical"-->
+<!--        parent="base.menu_custom"-->
+<!--        sequence="1" invisible="1"/>-->
+     <record model="res.groups" id="group_show_discuss">
+        <field name="name">Show Discuss App</field>
+    </record>
+      <record model="res.groups" id="group_show_calendar">
+        <field name="name">Show Calendar App</field>
+    </record>
+         <record model="res.groups" id="group_show_notes">
+        <field name="name">Show Notes App</field>
+    </record>
+         <record model="res.groups" id="group_show_link_tracker">
+        <field name="name">Show Link Tracker App</field>
+    </record>
+
+     <record model="res.groups" id="group_show_contacts">
+        <field name="name">Show Contacts App</field>
+    </record>
+<!--    <record model="res.groups" id="group_show_planning">-->
+<!--        <field name="name">Show Planning App</field>-->
+<!--    </record>-->
+    <record model="res.groups" id="group_show_sign">
+        <field name="name">Show Sign App</field>
+    </record>
+    <record model="res.groups" id="group_show_attendance">
+        <field name="name">Show Attendance App</field>
+    </record>
+    <record model="res.groups" id="group_show_quality">
+        <field name="name">Show Quality App</field>
+    </record>
+
+    <record model="res.groups" id="group_show_crm">
+        <field name="name">Show CRM</field>
+    </record>
+
+    <record model="res.groups" id="group_show_document">
+        <field name="name">Show Documents</field>
+    </record>
+
+    <record model="res.groups" id="group_show_sign">
+        <field name="name">Show Sign</field>
+    </record>
+
+    <record model="res.groups" id="group_show_planning">
+        <field name="name">Show Planning</field>
+    </record>
+
+    <record model="res.groups" id="group_show_invoicing">
+        <field name="name">Show Invoicing</field>
+    </record>
+
+    <record model="res.groups" id="group_show_project">
+        <field name="name">Show Project</field>
+    </record>
+
+    <record model="res.groups" id="group_show_timesheets">
+        <field name="name">Show Timesheets</field>
+    </record>
+
+    <record model="res.groups" id="group_show_email_marketing">
+        <field name="name">Show Email Marketing</field>
+    </record>
+
+    <record model="res.groups" id="group_show_email_marketing">
+        <field name="name">Show Email Marketing</field>
+    </record>
+
+    <record model="res.groups" id="group_show_employee">
+        <field name="name">Show Employee</field>
+    </record>
+
+    <record model="res.groups" id="group_show_accounting">
+        <field name="name">Show Accounting</field>
+    </record>
+
+     <record id="mail.menu_root_discuss" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_discuss')])]"/>
+    </record>
+    <record id="calendar.mail_menu_calendar" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_calendar')])]"/>
+    </record>
+    <record id="note.menu_note_notes" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_notes')])]"/>
+    </record>
+        <record id="utm.menu_link_tracker_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_link_tracker')])]"/>
+    </record>
+    <record id="contacts.menu_contacts" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_contacts')])]"/>
+    </record>
+<!--    <record id="planning.planning_menu_root" model="ir.ui.menu">-->
+<!--        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_planning')])]"/>-->
+<!--    </record>-->
+    <record id="sign.menu_document" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_sign')])]"/>
+    </record>
+
+    <record id="hr_attendance.menu_hr_attendance_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_attendance')])]"/>
+    </record>
+
+     <record id="quality_control.menu_quality_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_quality')])]"/>
+    </record>
+
+    <record id="crm.crm_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_crm')])]"/>
+    </record>
+
+    <record id="documents.menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_document')])]"/>
+    </record>
+
+    <record id="sign.menu_document" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_sign')])]"/>
+    </record>
+
+    <record id="planning.planning_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_planning')])]"/>
+    </record>
+
+    <record id="account.menu_finance" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_invoicing')])]"/>
+    </record>
+
+    <record id="project.menu_main_pm" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_project')])]"/>
+    </record>
+
+    <record id="hr_timesheet.timesheet_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_timesheets')])]"/>
+    </record>
+
+    <record id="mass_mailing.mass_mailing_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_email_marketing')])]"/>
+    </record>
+
+    <record id="hr.menu_hr_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_employee')])]"/>
+    </record>
+
+    <record id="account_accountant.menu_accounting" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, False, [ref('cpabooks_hide_app.group_show_accounting')])]"/>
+    </record>
+
+    </data>
+
+</odoo>

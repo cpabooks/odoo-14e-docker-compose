@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--THIS XML CREATES DATA ON GROUPS-->
+        <record id="group_import_purchase_user" model="res.groups">
+            <field name="name">Group Import Purchase User</field>
+        </record>
+    </data>
+</odoo>

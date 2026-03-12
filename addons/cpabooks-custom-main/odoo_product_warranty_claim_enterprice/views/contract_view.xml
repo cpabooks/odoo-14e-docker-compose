@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_warranty_claim_contract_form_custom" model="ir.ui.view">
+        <field name="name">account.analytic.account.product.warranty</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='main']" position="after">
+                <notebook>
+                    <page name="warranty registration" string="Warranty Registration">
+                        <field name="custom_warranty_registration_ids" type="xml">
+                            <tree string="Warranty Registration" editable="bottom">
+                                <field name="sale_order_id"/>
+                                <field name="partner_id"/>
+                                <field name="name"/>
+                                <field name="serial_number"/>
+                                <field name="product_id"/>
+                                <field name="quantity"/>
+                                <field name="uom_id"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

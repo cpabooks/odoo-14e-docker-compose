@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="sh_crm_lead_print_form_view_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.print.form.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Meetings">
+                    <field name="calendar_meeting_ids" widget="many2many" string="Meeting">
+                        <tree>
+                            <field name="attendee_status" invisible="1" />
+                            <field name="name" />
+                            <field name="partner_ids" widget="many2many_tags"/>
+                            <field name="location" />
+                            <field name="start" string="Start Date" />
+                            <field name="stop" string="End Date" />
+                            <field name="duration" />
+                        </tree>
+                        <form string="Meeting">
+                            <group>
+                                <group>
+                                    <field name="attendee_status" invisible="1" />
+                                    <field name="name" />
+                                    <field name="start" string="Start Date" />
+                                    <field name="duration" />
+                                </group>
+                                <group>
+                                    <field name="partner_ids" widget="many2many_tags" />
+                                    <field name="stop" string="End Date" />
+                                    <field name="location" />
+                                </group>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+                <page string="Quotations">
+                    <field name="sale_quotation_ids" string="Quotation">
+                        <tree>
+                            <field name="name" string="Sale Order" />
+                            <field name="date_order" />
+                            <field name="partner_id" />
+                            <field name="user_id" />
+                            <field name="amount_total" />
+                            <field name="state" />
+                        </tree>
+                        <form string="Quotation">
+                            <group>
+                                <group>
+                                    <field name="name" string="Sale Order" />
+                                    <field name="partner_id" />
+                                    <field name="amount_total" />
+                                </group>
+                                <group>
+                                    <field name="date_order" />
+                                    <field name="user_id" />
+                                    <field name="state" />
+                                </group>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

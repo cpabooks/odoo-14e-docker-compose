@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_form_extend" model="ir.ui.view">
+        <field name="name">view.sale.order.form.extend</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/form/group/group[1]/div[@name='ordered_qty']/field[@name='product_uom']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="force_save">1</attribute>
+                <attribute name="options">{'no_open':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="force_save">1</attribute>
+                <attribute name="options">{'no_open':True}</attribute>
+            </xpath>
+<!--            <field name="note" position="replace">-->
+<!--                <field name=""-->
+<!--            </field>-->
+
+<!--          <xpath expr="//page[@name='customer_signature']" position="after">-->
+<!--              <page  string="T &amp; C" name="note" >-->
+<!--                    <group>-->
+<!--                        <field name="note" nolabel="1"  placeholder="Terms and conditions..."/>-->
+<!--                    </group>-->
+<!--                </page>-->
+<!--          </xpath>-->
+
+             <field name="analytic_account_id" position="after">
+                <field name="show_t_and_c"/>
+                <field name="show_warm_regards"/>
+            </field>
+
+              <xpath expr="//page[@name='customer_signature']" position="after">
+                <page  string="T &amp; C" name="t_and_c" attrs="{'invisible':[('show_t_and_c','=',False)]}">
+                    <group>
+                        <field name="t_and_c" nolabel="1" />
+                    </group>
+                </page>
+              <page  string="W &amp; R" name="warm_regards" attrs="{'invisible':[('show_warm_regards','=',False)]}">
+                    <group>
+                        <field name="warm_regards" decoration-bf="1" placeholder="Warm Regards"/>
+                    </group>
+                </page>
+          </xpath>
+
+            <xpath expr="//notebook" position="before">
+                <div class="row">
+                    <div class="col-6">
+
+                    </div>
+                     <div class="col-6">
+                         <label for="global_vat_tax">Applies Taxes</label>
+                        <field name="global_vat_tax" options="{'no_create':True,'no_open':True,'no_edit':True,'no_create_open':True}" widget="many2many_tags"
+                             attrs="{'readonly':[('state','in',('done','sale','cancel'))]}"/>
+
+                         <button type="object" class="btn-primary" name="taxes_applies" string="Apply" attr="{'invisible':[('state','in',('done','sale','cancel'))]}"/>
+
+                    </div>
+                </div>
+            </xpath>
+
+
+
+        </field>
+    </record>
+     <record id="view_sale_order_tree_extend" model="ir.ui.view">
+        <field name="name">view.sale.order.tree.extend</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="subject" optional="hide"/>
+            </field>
+        </field>
+        </record>
+    <record id="view_sale_quotation_tree_extend" model="ir.ui.view">
+        <field name="name">view.sale.quotation.tree.extend</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="subject" optional="hide"/>
+            </field>
+        </field>
+        </record>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="website.menu_website_configuration" name="Website"
+          web_icon="cpabooks_icon_set_05_website,static/description/website.png"/>
+
+        <menuitem id="sale_subscription.menu_sale_subscription_root"
+              web_icon="cpabooks_icon_set_05_website,static/description/subscription.png"/>
+
+        <menuitem id="helpdesk.menu_helpdesk_root" name="Helpdesk"
+          web_icon="cpabooks_icon_set_05_website,static/description/helpdesk.png"/>
+
+      </data>
+</odoo>

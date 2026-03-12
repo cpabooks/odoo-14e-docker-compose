@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="vat_summary_report_form_view" model="ir.ui.view">
+            <field name="name">vat.summary.form.view</field>
+            <field name="model">vat.summary.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <header>
+                            <button name="action_create_summary_data" string="Test" type="object" class="oe_highlight"/>
+                        </header>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="summary_year_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="vat_summary_report_line" string="VAT Summary">
+                                <field name="report_ids" editable="bottom" widget="one2many_list">
+                                    <tree editable="bottom">
+                                        <field name="vat_id" invisible="1"/>
+                                        <field name="sr_no" readonly="1"/>
+                                        <field name="period_start"/>
+                                        <field name="period_end"/>
+                                        <field name="sales" sum="Total"/>
+                                        <field name="sale_tax" sum="Total"/>
+                                        <field name="purchase" sum="Total"/>
+                                        <field name="purchase_tax" sum="Total"/>
+                                        <field name="net_vat_position" sum="Total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Action Vat summary report -->
+        <record id="action_vat_summary_report" model="ir.actions.act_window">
+            <field name="name">Vat Summary Report</field>
+            <field name="res_model">vat.summary.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

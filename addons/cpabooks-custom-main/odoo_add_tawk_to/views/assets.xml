@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="add_javascript assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/odoo_add_tawk_to/static/src/js/tawk_to.js"></script>
+            <link rel="stylesheet" href="/odoo_add_tawk_to/static/src/css/custom.css"/>
+        </xpath>
+    </template>
+</odoo>

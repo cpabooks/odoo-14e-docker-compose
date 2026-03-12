@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_invoice_form_extend" model="ir.ui.view">
+        <field name="name">view.invoice.form.extend</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/form/sheet/group[1]/field[@name='product_uom_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="force_save">1</attribute>
+                <attribute name="options">{'no_open':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_uom_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="force_save">1</attribute>
+                <attribute name="options">{'no_open':True}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

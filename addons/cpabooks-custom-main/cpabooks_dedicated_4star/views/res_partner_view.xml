@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		<!--PARTNER FORM VIEW INHERIT-->
+		<record id="view_partner_form_inherit" model="ir.ui.view">
+			<field name="name">view.partner.form.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//sheet" position="before">
+					<header>
+						<button name="action_additional_info" type="object" string="Additional Info"
+						        class="oe_hightlight" groups="cpabooks_admin_power.group_partner_editor"/>
+					</header>
+				</xpath>
+			</field>
+		</record>
+		
+		<!--PARTNER LIST VIEW INHERIT-->
+		<record id="view_partner_tree_inherit" model="ir.ui.view">
+			<field name="name">view.partner.tree.view.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_tree"/>
+			<field name="arch" type="xml">
+				<xpath expr="//tree" position="inside">
+					<header>
+						<button name="action_reset_code" type="object" string="Reset Code " class="oe_highlight"
+						        groups="cpabooks_admin_power.group_partner_editor"/>
+					</header>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

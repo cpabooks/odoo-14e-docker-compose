@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sequence_form_extend" model="ir.ui.view">
+        <field name="name">sequence.form.extend</field>
+        <field name="model">ir.sequence</field>
+        <field name="inherit_id" ref="base.sequence_view"/>
+        <field name="arch" type="xml">
+            <field name="implementation" position="after">
+                <field name="sequence_for"/>
+                <field name="sequence_pattern"/>
+                <field name="sequence_for_journals" invisible="1"/>
+            </field>
+
+        </field>
+    </record>
+    <record id="sequence_tree_extend" model="ir.ui.view">
+        <field name="name">sequence.tree.extend</field>
+        <field name="model">ir.sequence</field>
+        <!--        <field name="mode">primary</field>-->
+        <field name="inherit_id" ref="base.sequence_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="/tree" position="inside">
+                <header>
+                    <button name="set_prefix" string="Set Company Prefix" class="oe_highlight" type="object" groups="base.group_system"/>
+                </header>
+            </xpath>
+            <field name="code" position="before">
+                <field name="name"/>
+                <field name="sequence_for"/>
+                <field name="sequence_pattern"/>
+                <field name="sequence_for_journals" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="ir_sequence_form_extend" model="ir.actions.act_window">
+        <field name="name">Re-Sequences</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ir.sequence</field>
+        <field name="view_id" ref="sequence_tree_extend"/>
+        <field name="context">{'active_test': False}</field>
+        <field name="domain">
+            ['|',('sequence_for','!=',False),('sequence_for_journals','!=',False),('company_id','=',allowed_company_ids[0])]
+        </field>
+        <!--            <field name="domain">[('sequence_for','!=',False)]</field>-->
+    </record>
+
+    <!--        <menuitem id="menu_custom_sequence" name="Sequences" parent="base.menu_users" sequence="5" action="base.ir_sequence_form"/>-->
+    <menuitem id="menu_custom_sequence" name="Re-Sequences" parent="base.menu_users" sequence="5"
+              action="ir_sequence_form_extend"/>
+</odoo>

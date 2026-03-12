@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_delivery_slip"
+              parent="account.menu_finance_payables"
+              sequence="3"
+              action="stock.stock_picking_action_picking_type"
+              name="GRN"/>
+</odoo>

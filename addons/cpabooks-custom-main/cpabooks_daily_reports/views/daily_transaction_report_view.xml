@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="daily_transaction_report_form">
+            <field name="name">daily.transaction.report.form</field>
+            <field name="model">daily.transaction.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button string="Print PDF" class="oe_highlight" type="object" name="check_report"/>
+                            <button special="cancel" string="Cancel" class="btn-primary"/>
+                        </footer>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_daily_transaction_report">
+            <field name="name">Daily Transaction Reports</field>
+            <field name="res_model">daily.transaction.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_action_daily_transaction_report" action="action_daily_transaction_report"
+                  parent="account.menu_finance_receivables" name="Daly Transaction Report" sequence="100"/>
+
+    </data>
+</odoo>

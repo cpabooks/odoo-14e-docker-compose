@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="update_multi_module_addon_list_view" model="ir.ui.view">
+            <field name="name">update.multi.module.addon.list.view</field>
+            <field name="model">update.multi.module.addon</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <header>
+                        <button name="action_update_addons_modules" type="object" class="oe_highlight" string="Update"/>
+                    </header>
+                    <field name="module_id"/>
+                    <field name="category_id"/>
+                    <field name="module_name"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--action-->
+        <record id="action_update_multi_module_adon" model="ir.actions.act_window">
+            <field name="name">Update Addon Modules</field>
+            <field name="res_model">update.multi.module.addon</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!--buttons-->
+        <menuitem id="menu_update_multi_module_addon_main" name="Update Addon Module"
+                  action="action_update_multi_module_adon" sequence="0200"
+                  parent="menu_update_modules_root"/>
+    </data>
+</odoo>

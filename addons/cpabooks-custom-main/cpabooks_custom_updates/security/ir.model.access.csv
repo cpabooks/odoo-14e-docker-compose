@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_update_multi_module,access_multi_module,model_update_multi_module,base.group_system,1,1,1,1
+access_update_module_result_wizard,access_update_module_result_wizard,model_update_module_result_wizard,base.group_system,1,1,1,1
+access_update_multi_module_addon,access_update_multi_module_addon,model_update_multi_module_addon,base.group_system,1,1,1,1

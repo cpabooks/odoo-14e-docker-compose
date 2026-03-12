@@ -1,0 +1,4 @@
+id,name,description
+freight_container_type_open_top,Open Top,Open Top Container Type
+freight_container_type_reefer,Reefer,Reefer Container Type
+freight_container_type_dry,Dry,Dry Container Type

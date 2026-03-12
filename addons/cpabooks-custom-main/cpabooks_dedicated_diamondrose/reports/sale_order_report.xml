@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sale_qt_diamond" inherit_id="cpabooks_custom_print.report_saleorder_document_inherit_custom">
+        <xpath expr="//h5[@name='quotation_no']" position="replace">
+             <h5 name="quotation_no" class="text-center" style="margin-top:-8px;font-size:18px;">
+                 <strong>NO. </strong><t t-if="doc.print_manual_quotation==False"><span t-field="doc.name"/></t>
+                  <t t-if="doc.print_manual_quotation==True">
+                            <span t-if="doc.name != '/'" t-field="doc.manual_quotation"/>
+                        </t>
+                </h5>
+        </xpath>
+    </template>
+    <template id="drose_report_image" inherit_id="cpabooks_image.report_saleorder_document_inherit_product_image">
+        <xpath expr="//th[@name='th_image']" position="attributes">
+            <attribute name="t-if">doc.check_image_preview()</attribute>
+        </xpath>
+        <xpath expr="//td[@name='td_image']" position="attributes">
+            <attribute name="t-if">doc.check_image_preview()</attribute>
+        </xpath>
+    </template>
+</odoo>

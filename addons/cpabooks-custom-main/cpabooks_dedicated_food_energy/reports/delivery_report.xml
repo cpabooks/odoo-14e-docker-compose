@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_delivery_report_food_energy" inherit_id="cpabooks_delivery_slip.report_delivery_document_custom">
+        <xpath expr="//table[@name='stock_move_line_table']/thead/tr/th[@name='th_sml_sr_no']" position="after">
+            <th name="th_sml_product" class="text-center"><strong>Product</strong></th>
+        </xpath>
+    </template>
+
+     <template id="report_delivery_report_product_add_aggregate" inherit_id="cpabooks_delivery_slip.stock_report_delivery_aggregated_move_lines_custom">
+        <xpath expr="//td[@name='sr_no']" position="after">
+            <td>
+                <span t-esc="aggregated_lines[line]['name']"/>
+                <p t-if="aggregated_lines[line]['description']">
+                    <span t-esc="aggregated_lines[line]['description']"/>
+                </p>
+            </td>
+        </xpath>
+    </template>
+
+     <template id="report_delivery_report_product_add_serial" inherit_id="cpabooks_delivery_slip.stock_report_delivery_has_serial_move_line_custom">
+        <xpath expr="//td[@name='sr_no']" position="after">
+            <td name="pro_name">
+                <span t-field="move_line.product_id.name"/>
+            </td>
+        </xpath>
+    </template>
+
+
+
+</odoo>

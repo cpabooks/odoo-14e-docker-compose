@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_contact_person,access_contact_person,model_contact_person,base.group_user,1,1,1,1
+access_material_line_req,access_material_line_req,model_material_request_line,base.group_user,1,1,1,1
+access_site_location,access_site_location,model_site_location,base.group_user,1,1,1,1
+access_complaint_detail,access_complaint_detail,model_complaint_detail,base.group_user,1,1,1,1

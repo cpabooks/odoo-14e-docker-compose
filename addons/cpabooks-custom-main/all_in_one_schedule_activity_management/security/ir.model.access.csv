@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_activity_tag,activity.tag,model_activity_tag,base.group_user,1,1,1,1
+mail.access_mail_activity_all,mail.activity.all,model_mail_activity,,1,1,1,1
+mail.access_mail_activity_user,mail.activity.user,model_mail_activity,all_in_one_schedule_activity_management.schedule_management_user,1,1,1,1
+access_activity_feedback,access_activity_feedback,model_activity_feedback,base.group_user,1,1,1,1
+access_activity_create_wizard,access_activity_create_wizard,model_activity_create_wizard,base.group_user,1,1,1,1
+access_activity_timesheet_line,access_activity_timesheet_line,model_activity_timesheet_line,base.group_user,1,1,1,1
+access_activity_report_wizard,access_activity_report_wizard,model_activity_report_wizard,base.group_user,1,1,1,1
+access_cpa_issue,access_cpa_issue,model_cpa_issue,base.group_user,1,1,1,1

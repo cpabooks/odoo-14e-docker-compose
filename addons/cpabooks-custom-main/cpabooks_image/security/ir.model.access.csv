@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cpabooks_image_cpabooks_image,cpabooks_image.cpabooks_image,model_cpabooks_image_cpabooks_image,base.group_user,1,1,1,1

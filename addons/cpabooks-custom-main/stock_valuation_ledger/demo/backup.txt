@@ -1,0 +1,230 @@
+    @api.model
+    def update_product_category_fields(self):
+        #IDENTITY GIVE 501 TO UP
+        # get_company = self.env['res.company'].sudo().search([])
+        # for com in get_company:
+        #     val_list = []
+        #     get_property_stock_valuation_account_id = self.env['account.account'].sudo().search(
+        #         [('name', 'ilike', 'Stock Valuation Account%'), ('company_id', '=', com.id)],limit=1)
+        #
+        #     if not get_property_stock_valuation_account_id:
+        #         # raise ValidationError(com.name+" need to create chart of account first")
+        #         vals = {
+        #             'code': '125050',
+        #             'name': 'Stock Valuation Account',
+        #             'user_type_id': self.env['account.account.type'].search([('name', '=ilike', '%current assets%')],
+        #                                                                     limit=1).id,
+        #             'company_id': com.id,
+        #             'create_uid': self.env.user.id,
+        #             'identity_id': 501
+        #         }
+        #
+        #         val_list.append(vals)
+        #
+        #     get_property_stock_account_input_categ_id = self.env['account.account'].search(
+        #         [('name', 'ilike', 'Stock Input Account (cos)%'), ('company_id', '=', com.id)],limit=1)
+        #     if not get_property_stock_account_input_categ_id:
+        #         vals = {
+        #             'code': '580430',
+        #             'name': 'Stock Input Account (cos)',
+        #             'user_type_id': self.env['account.account.type'].search([('name', '=ilike', '%current assets%')],
+        #                                                                     limit=1).id,
+        #             'company_id': com.id,
+        #             'create_uid': self.env.user.id,
+        #             'identity_id': 502
+        #         }
+        #
+        #         val_list.append(vals)
+        #     get_property_stock_account_output_categ_id = self.env['account.account'].search(
+        #         [('name', 'ilike', 'Stock Output Account (cos)%'), ('company_id', '=', com.id)],limit=1)
+        #     if not get_property_stock_account_output_categ_id:
+        #         vals = {
+        #             'code': '580435',
+        #             'name': 'Stock Output Account (cos)',
+        #             'user_type_id': self.env['account.account.type'].search([('name', '=ilike', '%current assets%')],
+        #                                                                     limit=1).id,
+        #             'company_id': com.id,
+        #             'create_uid': self.env.user.id,
+        #             'identity_id': 503
+        #         }
+        #         val_list.append(vals)
+        #
+        #     get_income_account = self.env['account.account'].sudo().search(
+        #         [('name', 'ilike', 'Sales Account%'), ('company_id', '=', com.id)],limit=1)
+        #
+        #     if not get_income_account:
+        #         # raise ValidationError(com.name+" need to create chart of account first")
+        #         vals = {
+        #             'code': '475370',
+        #             'name': 'Sales Account',
+        #             'user_type_id': self.env['account.account.type'].search([('name', '=ilike', '%income%')],
+        #                                                                     limit=1).id,
+        #             'company_id': com.id,
+        #             'create_uid': self.env.user.id,
+        #             'identity_id': 504
+        #         }
+        #
+        #         val_list.append(vals)
+        #
+        #     get_expense_account = self.env['account.account'].sudo().search(
+        #         [('name', 'ilike', 'Cost of Goods Sold in Trading%'), ('company_id', '=', com.id)],limit=1)
+        #
+        #     if not get_expense_account:
+        #         # raise ValidationError(com.name+" need to create chart of account first")
+        #         vals = {
+        #             'code': '580385',
+        #             'name': 'Cost of Goods Sold in Trading',
+        #             'user_type_id': self.env['account.account.type'].search([('name', '=ilike', '%Cost of Revenue%')],
+        #                                                                     limit=1).id,
+        #             'company_id': com.id,
+        #             'create_uid': self.env.user.id,
+        #             'identity_id': 505
+        #         }
+        #
+        #         val_list.append(vals)
+        #     if len(val_list) > 0:
+        #         data = self.env['account.account'].sudo().create(val_list)
+
+        # get_all_category=self.env['product.category'].search([('name','not ilike','all')],order="id asc")
+        get_all_category = self.env['product.category'].search([])
+        for rec in get_all_category:
+            if rec.name != 'All':
+                rec.parent_id = self.env['product.category'].search([('name', '=ilike', 'all')]).id
+            rec.removal_strategy_id = self.env['product.removal'].search([('name', '=ilike', '%FIFO%')]).id
+            get_company = self.env['res.company'].sudo().search([])
+            val_ir_property = []
+            for com in get_company:
+                query = """delete from ir_property where res_id='{}' and name='{}' and company_id={}""".format(
+                    'product.category,' + str(rec.id), 'property_cost_method', com.id)
+                self._cr.execute(query=query)
+
+                val = {
+                    'name': "property_cost_method",
+                    'res_id': 'product.category,' + str(rec.id),
+                    'company_id': com.id,
+                    'fields_id': self.env['ir.model.fields'].search(
+                        [('name', '=', 'property_cost_method'), ('model', '=', 'product.category')]).id,
+                    'value_text': 'standard',
+                    'type': 'selection'
+                }
+                val_ir_property.append(val)
+
+                query = """delete from ir_property where res_id='{}' and name='{}' and company_id={}""".format(
+                    'product.category,' + str(rec.id), 'property_valuation', com.id)
+                self._cr.execute(query=query)
+
+                val = {
+                    'name': "property_valuation",
+                    'res_id': 'product.category,' + str(rec.id),
+                    'company_id': com.id,
+                    'fields_id': self.env['ir.model.fields'].search(
+                        [('name', '=', 'property_valuation'), ('model', '=', 'product.category')]).id,
+                    'value_text': 'real_time',
+                    'type': 'selection'
+                }
+                val_ir_property.append(val)
+
+                query = """delete from ir_property where res_id='{}' and name='{}' and company_id={}""".format(
+                    'product.category,' + str(rec.id), 'property_stock_valuation_account_id', com.id)
+                self._cr.execute(query=query)
+
+                val = {
+                    'name': "property_stock_valuation_account_id",
+                    'res_id': 'product.category,' + str(rec.id),
+                    'company_id': com.id,
+                    'fields_id': self.env['ir.model.fields'].search(
+                        [('name', '=', 'property_stock_valuation_account_id'), ('model', '=', 'product.category')]).id,
+                    'value_reference': 'account.account,' + str(
+                        self.env['account.account'].search([('name', 'ilike', 'Stock Valuation Account%'), ('company_id', '=', com.id)],limit=1).id),
+                    'type': 'many2one'
+                }
+                val_ir_property.append(val)
+
+                query = """delete from ir_property where res_id='{}' and name='{}' and company_id={}""".format(
+                    'product.category,' + str(rec.id), 'property_stock_account_input_categ_id', com.id)
+                self._cr.execute(query=query)
+
+                val = {
+                    'name': "property_stock_account_input_categ_id",
+                    'res_id': 'product.category,' + str(rec.id),
+                    'company_id': com.id,
+                    'fields_id': self.env['ir.model.fields'].search(
+                        [('name', '=', 'property_stock_account_input_categ_id'),
+                         ('model', '=', 'product.category')]).id,
+                    'value_reference': 'account.account,' + str(self.env['account.account'].search(
+                        [('name', 'ilike', 'Stock Input Account (cos)%'), ('company_id', '=', com.id)],limit=1).id),
+                    'type': 'many2one'
+                }
+                val_ir_property.append(val)
+
+                query = """delete from ir_property where res_id='{}' and name='{}' and company_id={}""".format(
+                    'product.category,' + str(rec.id), 'property_stock_account_output_categ_id', com.id)
+                self._cr.execute(query=query)
+
+                val = {
+                    'name': "property_stock_account_output_categ_id",
+                    'res_id': 'product.category,' + str(rec.id),
+                    'company_id': com.id,
+                    'fields_id': self.env['ir.model.fields'].search(
+                        [('name', '=', 'property_stock_account_output_categ_id'),
+                         ('model', '=', 'product.category')]).id,
+                    'value_reference': 'account.account,' + str(self.env['account.account'].search(
+                        [('name', 'ilike', 'Stock Output Account (cos)%'), ('company_id', '=', com.id)],limit=1).id),
+                    'type': 'many2one'
+                }
+                val_ir_property.append(val)
+
+                query = """delete from ir_property where res_id='{}' and name='{}' and company_id={}""".format(
+                    'product.category,' + str(rec.id), 'property_account_income_categ_id', com.id)
+                self._cr.execute(query=query)
+
+                val = {
+                    'name': "property_account_income_categ_id",
+                    'res_id': 'product.category,' + str(rec.id),
+                    'company_id': com.id,
+                    'fields_id': self.env['ir.model.fields'].search(
+                        [('name', '=', 'property_account_income_categ_id'),
+                         ('model', '=', 'product.category')]).id,
+                    'value_reference': 'account.account,' + str(self.env['account.account'].search(
+                        [('name', 'ilike', 'Sales Account%'), ('company_id', '=', com.id)],limit=1).id),
+                    'type': 'many2one'
+                }
+
+                val_ir_property.append(val)
+
+                query = """delete from ir_property where res_id='{}' and name='{}' and company_id={}""".format(
+                    'product.category,' + str(rec.id), 'property_account_expense_categ_id', com.id)
+                self._cr.execute(query=query)
+
+                val = {
+                    'name': "property_account_expense_categ_id",
+                    'res_id': 'product.category,' + str(rec.id),
+                    'company_id': com.id,
+                    'fields_id': self.env['ir.model.fields'].search(
+                        [('name', '=', 'property_account_expense_categ_id'),
+                         ('model', '=', 'product.category')]).id,
+                    'value_reference': 'account.account,' + str(self.env['account.account'].search(
+                        [('name', 'ilike', 'Cost of Goods Sold in Trading%'), ('company_id', '=', com.id)],limit=1).id),
+                    'type': 'many2one'
+                }
+
+                query = """delete from ir_property where res_id='{}' and name='{}' and company_id={}""".format(
+                    'product.category,' + str(rec.id), 'property_stock_journal', com.id)
+                self._cr.execute(query=query)
+                val_ir_property.append(val)
+
+                val = {
+                    'name': "property_stock_journal",
+                    'res_id': 'product.category,' + str(rec.id),
+                    'company_id': com.id,
+                    'fields_id': self.env['ir.model.fields'].search(
+                        [('name', '=', 'property_stock_journal'),
+                         ('model', '=', 'product.category')]).id,
+                    'value_reference': 'account.account,' + str(self.env['account.journal'].search(
+                        [('name', 'ilike', '%Inventory Valuation%'), ('company_id', '=', com.id)],limit=1).id),
+                    'type': 'many2one'
+                }
+                val_ir_property.append(val)
+
+            self.env['ir.property'].sudo().create(val_ir_property)
+            print('Executed update product category fields')

@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="cost_estimate_customer_ld_v1fm.list">
+      <field name="name">cost_estimate_customer_ld_v1fm list</field>
+      <field name="model">cost_estimate_customer_ld_v1fm.cost_estimate_customer_ld_v1fm</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="cost_estimate_customer_ld_v1fm.action_window">
+      <field name="name">cost_estimate_customer_ld_v1fm window</field>
+      <field name="res_model">cost_estimate_customer_ld_v1fm.cost_estimate_customer_ld_v1fm</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="cost_estimate_customer_ld_v1fm.action_server">
+      <field name="name">cost_estimate_customer_ld_v1fm server</field>
+      <field name="model_id" ref="model_cost_estimate_customer_ld_v1fm_cost_estimate_customer_ld_v1fm"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="cost_estimate_customer_ld_v1fm" id="cost_estimate_customer_ld_v1fm.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="cost_estimate_customer_ld_v1fm.menu_1" parent="cost_estimate_customer_ld_v1fm.menu_root"/>
+    <menuitem name="Menu 2" id="cost_estimate_customer_ld_v1fm.menu_2" parent="cost_estimate_customer_ld_v1fm.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="cost_estimate_customer_ld_v1fm.menu_1_list" parent="cost_estimate_customer_ld_v1fm.menu_1"
+              action="cost_estimate_customer_ld_v1fm.action_window"/>
+    <menuitem name="Server to list" id="cost_estimate_customer_ld_v1fm" parent="cost_estimate_customer_ld_v1fm.menu_2"
+              action="cost_estimate_customer_ld_v1fm.action_server"/>
+-->
+  </data>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="serial_no_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//t/div[hasclass('page')]/table/thead/tr/th[1]" position="before">
+
+<!--
+                <th name="th_line_no" class="text-center">Sl No.</th>
+-->
+
+                <th name="th_serial_no" class="text-center" style="text-transform: capitalize;"><span>Sr. No.</span></th>
+
+            </xpath>
+            <xpath expr="//t/div[hasclass('page')]/table/tbody/t/tr/t/td[1]" position="before">
+
+                <td name="td_line_no" class="text-center"><span t-field="line.line_no"/></td>
+
+
+<!--                <td class="text-center" scope="row"><span t-raw="line_index+1"/></td>-->
+
+            </xpath>
+        </template>
+
+
+        <template id="serial_no_invoice_document_inherit" inherit_id="account.report_invoice_document">
+            <xpath expr="//t/div[hasclass('page')]/table/thead/tr/th[1]" position="before">
+
+                <!--<th name="th_line_no" class="text-center">Sl No.</th>-->
+
+                <th name="th_serial_no" class="text-center" style="text-transform: capitalize;"><span>Sr. No.</span></th>
+
+
+            </xpath>
+            <xpath expr="//t/div[hasclass('page')]/table/tbody/t/tr/t/td[1]" position="before">
+
+                <td name="td_line_no" class="text-center"><span t-field="line.line_no"/></td>
+
+
+<!--                <td class="text-center" scope="row"><span t-raw="line_index+1"/></td>-->
+
+            </xpath>
+        </template>
+
+
+
+
+  </data>
+</odoo>
+
+<!--
+<th name="th_serial_no" class="text-center" style="text-transform: capitalize;"><span>Sr. No.</span></th>
+<td class="text-center" scope="row"><span t-raw="line_index+1"/></td>-->

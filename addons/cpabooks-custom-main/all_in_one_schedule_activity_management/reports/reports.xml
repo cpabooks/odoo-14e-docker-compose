@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		<record id="action_report_activity_report" model="ir.actions.report">
+			<field name="name">Daily Activity Report</field>
+			<field name="model">activity.report.wizard</field>
+			<field name="type">qweb-pdf</field>
+			<field name="report_name">all_in_one_schedule_activity_management.daily_activity_report_template</field>
+			<field name="report_file">all_in_one_schedule_activity_management.daily_activity_report_template</field>
+			<field name="print_report_name">"Daily Activity Report %s" %(object.user_id.name)</field>
+		</record>
+	</data>
+</odoo>

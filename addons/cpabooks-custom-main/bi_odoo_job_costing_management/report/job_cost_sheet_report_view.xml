@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="job_cost_sheet_template_view">
+		<t t-call="web.external_layout">
+			<div class="page">
+				<h2 class="text-center">
+					<span t-field="o.sequence"/>
+				</h2>
+				<table class="table table-sm">
+					<tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;">
+						<td>
+							<strong>Name : </strong>
+						</td>
+						<td>
+							<span t-field="o.name" />
+						</td>
+
+						<!--<td>
+							<strong>Create Date : </strong>
+						</td>
+						<td>
+							<span t-field="o.create_date" />
+						</td>-->
+					</tr>
+
+					<tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;">
+						<td>
+							<strong>Project : </strong>
+						</td>
+						<td>
+							<span t-field="o.project_id.name" />
+						</td>
+
+						<!--<td>
+							<strong>Closed Date : </strong>
+						</td>
+						<td>
+							<span t-field="o.close_date" />
+						</td>-->
+					</tr>
+
+					<tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;">
+						<!--<td>
+							<strong>Analytic Account : </strong>
+						</td>
+						<td>
+							<span t-field="o.analytic_ids.name" />
+						</td>-->
+
+						<td>
+							<strong>Created By : </strong>
+						</td>
+						<td>
+							<span t-field="o.create_by_id" />
+						</td>
+					</tr>
+					<tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;">
+						<!--<td>
+							<strong>Job Order : </strong>
+						</td>
+						<td>
+							<span t-field="o.job_order_id.name" />
+						</td>-->
+
+						<!--<td>
+							<strong>Currency : </strong>
+						</td>
+						<td>
+							<span t-field="o.currency_id.name" />
+						</td>-->
+					</tr>
+					<tr style="padding: 8px;text-align: left;border-top: 1px solid #ddd;">
+						<td>
+							<strong>Customer : </strong>
+						</td>
+						<td>
+							<span t-field="o.job_issue_customer_id" />
+						</td>
+
+						<!-- <td>
+							<strong>Company : </strong>
+						</td>
+						<td>
+							<span t-field="o.project_id.partner_id.name" />
+						</td> -->
+					</tr>
+				</table>
+
+				<h2>Direct Materials</h2>
+				<table class="table table-sm">
+					<thead>
+						<tr>
+							<!--<th>Date</th>
+							<th>Job Type</th>
+							<th>Product</th>-->
+							<th class="text-center">Sl No</th>
+							<th>Product Description</th>
+							<!--<th>Reference</th>-->
+							<th class="text-right">Quantity</th>
+							<th class="text-right">Cost/Unit</th>
+							<!--<th>Actual Purchased Quantity</th>
+							<th>Actual Invoice Quantity</th>-->
+							<th class="text-right">Total</th>
+						</tr>
+					</thead>
+					<tbody class="components_tbody">
+						<t t-set="sr_no" t-value="1"/>
+						<t t-foreach="o.material_job_cost_line_ids" t-as="direct_material">
+							<tr>
+								<!--<td>
+									<span t-field="direct_material.date" />
+								</td>
+								<td>
+									<span t-field="direct_material.job_type_id.name" />
+								</td>
+								<td>
+									<span t-field="direct_material.product_id.name" />
+								</td>-->
+								<td class="text-center">
+									<span t-esc="sr_no"/>
+									<t t-set="sr_no" t-value="sr_no+1"/>
+								</td>
+								<td>
+									<span t-field="direct_material.description" />
+								</td>
+								<!--<td>
+									<span t-field="direct_material.reference" />
+								</td>-->
+								<td class="text-right">
+									<span t-field="direct_material.quantity" />
+								</td>
+								<td class="text-right">
+									<span t-field="direct_material.unit_price" />
+								</td>
+								<!--<td>
+									<span t-field="direct_material.actual_purchase_qty" />
+								</td>
+								<td>
+									<span t-field="direct_material.actual_invoice_qty" />
+								</td>-->
+								<td class="text-right">
+									<span t-field="direct_material.subtotal" />
+								</td>
+							</tr>
+						</t>
+					</tbody>
+				</table>
+				<div class="clearfix">
+					<div id="total" class="row">
+						<div class="col-6"/>
+						<div class="col-6">
+							<table class="table table-sm" style="page-break-inside: avoid;">
+								<tr class="border-black">
+									<td><strong>Total Material Cost</strong></td>
+									<td class="text-right">
+										<span t-field="o.total_material_cost"/>
+									</td>
+								</tr>
+								<tr class="border-black">
+									<td><strong>Total Labour Cost</strong></td>
+									<td class="text-right">
+										<span t-field="o.total_labour_cost"/>
+									</td>
+								</tr>
+								<tr class="border-black">
+									<td><strong>Total Overhead Cost</strong></td>
+									<td class="text-right">
+										<span t-field="o.total_overhead_cost"/>
+									</td>
+								</tr>
+								<tr class="border-black">
+									<td><strong>Profit %</strong></td>
+									<td class="text-right">
+										<span t-field="o.profit_percent"/>
+									</td>
+								</tr>
+								<tr class="border-black o_total">
+									<td><strong>Total</strong></td>
+									<td class="text-right">
+										<span class="text-nowrap" t-field="o.total_cost"/>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<h2>Direct Labour</h2>
+				<table class="table table-sm">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Job Type</th>
+							<th>Product</th>
+							<th>Description</th>
+							<th>Reference</th>
+							<th>Hours</th>
+							<th>Cost/Unit</th>
+							<!-- <th>Actual Timesheet Hours</th> -->
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody class="material_tbody">
+						<t t-foreach="o.labour_job_cost_line_ids" t-as="direct_labour">
+							<tr>
+								<td>
+									<span t-field="direct_labour.date" />
+								</td>
+								<td>
+									<span t-field="direct_labour.job_type_id.name" />
+								</td>
+								<td>
+									<span t-field="direct_labour.product_id.name" />
+								</td>
+								<td>
+									<span t-field="direct_labour.description" />
+								</td>
+								<td>
+									<span t-field="direct_labour.reference" />
+								</td>
+								<td>
+									<span t-field="direct_labour.hours" />
+								</td>
+								<td>
+									<span t-field="direct_labour.unit_price" />
+								</td>
+								<!-- <td>
+									<span t-field="direct_labour.actual_timesheet_hours" />
+								</td> -->
+								<td>
+									<span t-field="direct_labour.subtotal" />
+								</td>
+							</tr>
+						</t>
+					</tbody>
+				</table>
+
+				<h2>Applied Overhead</h2>
+				<table class="table table-sm">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Job Type</th>
+							<th>Product</th>
+							<th>Description</th>
+							<th>Reference</th>
+							<th>Basis</th>
+							<th>Quantity</th>
+							<th>Cost/Unit</th>
+							<th>Actual Purchased Quantity</th>
+							<th>Actual Invoice Quantity</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody class="material_tbody">
+						<t t-foreach="o.overhead_job_cost_line_ids" t-as="overhead">
+							<tr>
+								<td>
+									<span t-field="overhead.date" />
+								</td>
+								<td>
+									<span t-field="overhead.job_type_id.name" />
+								</td>
+								<td>
+									<span t-field="overhead.product_id.name" />
+								</td>
+								<td>
+									<span t-field="overhead.description" />
+								</td>
+								<td>
+									<span t-field="overhead.reference" />
+								</td>
+								<td>
+									<span t-field="overhead.basis" />
+								</td>
+								<td>
+									<span t-field="overhead.quantity" />
+								</td>
+								<td>
+									<span t-field="overhead.unit_price" />
+								</td>
+								<td>
+									<span t-field="overhead.actual_purchase_qty" />
+								</td>
+								<td>
+									<span t-field="overhead.actual_invoice_qty" />
+								</td>
+								<td>
+									<span t-field="overhead.subtotal" />
+								</td>
+							</tr>
+						</t>
+					</tbody>
+				</table>
+			</div>
+		</t>
+	</template>
+
+	<template id="job_cost_sheet_temp_id">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="bi_odoo_job_costing_management.job_cost_sheet_template_view" />
+			</t>
+		</t>
+	</template>
+</odoo>

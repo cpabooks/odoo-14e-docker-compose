@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="ticket_welcome" name="Welcome">
+		<t t-call="website.layout">
+			
+			<div class="container" style="margin-top:20px; margin-bottom:20px; min-height:240px;">
+				<h2>Ticket Number:
+					<span t-esc="ticket_no"></span>
+				</h2>
+				<h4>Thank you so much for providing the above information</h4>
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="alert alert-success" role="status">
+							
+							<p>
+								Your service request has been registered successfully and our service center being
+								notified about it as well. You can expect the technician's call within short time as per
+								the priority.
+								Detail of Service Request:
+								<table>
+									<tr>
+										<td>Service Request No</td>
+										<td>:</td>
+										<td t-esc="ticket_no"></td>
+									</tr>
+									
+									<tr>
+										<td>Tenant Name</td>
+										<td>:</td>
+										<td t-esc="tenant"></td>
+									</tr>
+									
+									<tr>
+										<td>Contact Mobile</td>
+										<td>:</td>
+										<td t-esc="mobile"></td>
+									</tr>
+									
+									<tr>
+										<td>Contact Email</td>
+										<td>:</td>
+										<td t-esc="email"></td>
+									</tr>
+									
+									<tr>
+										<td>Building/ Villa Name</td>
+										<td>:</td>
+										<td t-esc="building"></td>
+									</tr>
+									
+									<tr>
+										<td>Flat Number/ Villa Number</td>
+										<td>:</td>
+										<td t-esc="flat"></td>
+									</tr>
+									
+									<tr>
+										<td>Location/ Address</td>
+										<td>:</td>
+										<td t-esc="address"></td>
+									</tr>
+									
+									
+									<tr>
+										<td>Maintenance Type</td>
+										<td>:</td>
+										<td t-esc="maintenance_type"></td>
+									</tr>
+									<tr>
+										<td>Type of Work</td>
+										<td>:</td>
+										<td t-esc="work_type"></td>
+									</tr>
+									
+									<tr>
+										<td>Problem</td>
+										<td>:</td>
+										<td t-esc="problem"></td>
+									</tr>
+									
+									<tr>
+										<td>Problem Descriptions</td>
+										<td>:</td>
+										<td t-esc="problem_detail"></td>
+									</tr>
+									
+									<tr>
+										<td>Property Managed by</td>
+										<td>:</td>
+										<td t-esc="property"></td>
+									</tr>
+								</table>
+							</p>
+						
+						</div>
+					
+					</div>
+				
+				</div>
+			
+			</div>
+		
+		</t>
+	</template>
+
+</odoo>

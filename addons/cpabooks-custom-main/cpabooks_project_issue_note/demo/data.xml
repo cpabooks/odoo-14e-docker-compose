@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+           <record id="operation_type_project_issue" model="stock.stock_picking_type">
+            <field name="name">Project Issue</field>
+            <field name="code">outgoing</field>
+            <field name="code">outgoing</field>
+          </record>
+    </data>
+</odoo>

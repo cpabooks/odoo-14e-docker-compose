@@ -1,0 +1,104 @@
+.o_list_view thead > tr > th{
+	border-left: 1px solid #dfdfdf;
+    top: 0px !important;
+    position: sticky !important;
+    position: -webkit-sticky !important;
+    background-color: #eee;
+    z-index: 2 !important;
+}
+
+.table-responsive{
+	display: table;	
+}
+
+.o_list_record_selector{
+	color: #4c4c4c !important;
+    background-color: #eee !important;
+}
+
+.o_form_view .o_field_widget.o_field_one2many,
+.o_form_view .o_field_widget.o_field_many2many{
+	height: 360px;
+    overflow: scroll;
+}
+
+/*start code - Added sticky for "o_optional_columns_dropdown_toggle"*/
+.o_list_view .o_optional_columns_dropdown_toggle{
+	z-index: 2 !important;
+	position: sticky !important;
+	position: -webkit-sticky !important;
+    left: 100%;
+    bottom: 96%;
+    top: auto;
+}
+.o_form_view .o_field_widget.o_field_one2many .o_optional_columns_dropdown_toggle,
+.o_form_view .o_field_widget.o_field_many2many .o_optional_columns_dropdown_toggle{
+    bottom: 92%;
+	width: 20px;
+}
+.o_form_view .o_field_widget.o_field_one2many .o_list_view.o_list_optional_columns th:last-child,
+.o_form_view .o_field_widget.o_field_many2many .o_list_view.o_list_optional_columns th:last-child{
+	padding-right: 25px;
+}
+.o_list_view.o_list_optional_columns{
+	width: fit-content;
+	width: -moz-fit-content;
+}
+.o_form_view .o_field_widget.o_field_one2many .o_list_view.o_list_optional_columns,
+.o_form_view .o_field_widget.o_field_many2many .o_list_view.o_list_optional_columns{
+	width: fit-content;
+	width: -moz-fit-content;
+}
+/*end code - Added sticky for "o_optional_columns_dropdown_toggle"*/
+
+/**start code - sticky header for "My Timesheet" screen for Enterprise version**/
+
+.o_grid_title_header{
+    border-left: 1px solid #dfdfdf;
+    top: 0px !important;
+    left: 0px !important;
+    position: sticky !important;
+    position: -webkit-sticky !important;
+    background-color: #e2e2e0;
+    z-index: 2 !important;
+}
+
+.o_view_grid thead > tr {
+     border-left: 1px solid #dfdfdf;
+    top: 0px !important;
+    position: sticky !important;
+    position: -webkit-sticky !important;
+    background-color: #e2e2e0;
+    z-index: 2 !important;
+}
+
+.o_grid_section tr > th{
+	border-left: 1px solid #dfdfdf;
+	top: 0px !important;
+    left: 0px !important;
+    position: sticky !important;
+    position: -webkit-sticky !important;
+    background-color: #e2e2e0;
+    z-index: 2 !important;
+}
+/*
+.o_grid_title_header{
+    border-left: 1px solid #dfdfdf;
+    top: 0px !important;
+    position: sticky !important;
+    position: -webkit-sticky !important;
+    background-color: #e2e2e0;
+    z-index: 2 !important;
+}
+*/
+
+/*
+.o_view_grid tbody > tr > th{
+	border-left: 1px solid #dfdfdf;
+    left: 0px !important;
+    position: sticky !important;
+    position: -webkit-sticky !important;
+    background-color: #e2e2e0;
+    z-index: 2 !important;
+}
+*/

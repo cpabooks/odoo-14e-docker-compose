@@ -1,0 +1,6 @@
+new file tanvir added which are last two only running file. remaining are empty
+1. account.not.delete.csv
+2. account_group_type.csv
+
+not to delete file: added all coa and will no be deleted during revision or changes coa with client
+account_group-type.csf: this is the main file codes generating and revision of all ledgers from here

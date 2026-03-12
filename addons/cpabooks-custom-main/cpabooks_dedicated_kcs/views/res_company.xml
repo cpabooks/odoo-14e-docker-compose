@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_inherit_bank_details" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.bank.details</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="cpabooks_bank_details.view_company_form_inherit_bank"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='bank_details']/group[@name='bank_details_group']" position="attributes">
+                <attribute name="style">display:none</attribute>
+            </xpath>
+            <xpath expr="//page[@name='bank_details']" position="inside">
+                <group name="bank_details_multi">
+                    <field name="bank_details" widget="many2many_tags"/>
+                    <field name="demo_bank_details" widget="many2many_tags" string="Demo" invisible="1"/>
+                </group>
+            </xpath>
+<!--                <page string="Company Bank Details">-->
+<!--                    <group string="Bank Details">-->
+<!--                        <field name="bank_name"/>-->
+<!--                        <field name="bank_account_number"/>-->
+<!--                        <field name="bank_iban_number"/>-->
+<!--                        <field name="bank_address"/>-->
+<!--                        <field name="bank_branch"/>-->
+<!--                    </group>-->
+<!--                </page>-->
+<!--                <page string="Configure Document Layout" name="config_document_layout">-->
+<!--                      <button name="%(web.action_base_document_layout_configurator)d" string="Configure Document Layout" type="action" class="oe_link" icon="fa-arrow-right"/>-->
+<!--                </page>-->
+<!--            </xpath>-->
+
+        </field>
+    </record>
+
+
+
+</odoo>
+

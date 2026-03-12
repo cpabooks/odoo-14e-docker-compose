@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_absent_register" model="report.paperformat">
+        <field name="name">Absent Register</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">15</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">10</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <report id="absent_register_report"
+            model="absent.register.report.wizard"
+            string="Absent Register Report"
+            report_type="qweb-pdf"
+            name="bi_employee_payslip_report.absent_register_report_view"
+            paperformat="bi_employee_payslip_report.paperformat_absent_register"
+            menu="False"/>
+
+
+    <template id="absent_register_report_view">
+        <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="o" t-value="o.with_context(lang=lang)" />
+
+                <div class="page">
+                        <h2 class="text-center" style="margin-top:50px;">
+                            <span>
+                            <u>Absent Register Report</u>
+                        </span>
+                            <br></br>
+                        <span style="font-size: 14px;margin-top:-8px;"><strong>From</strong>:
+                        <t t-esc="from_date"/>
+                        <strong>To</strong>:
+                        <t t-esc="to_date"/>
+                    </span>
+                    </h2>
+                    <table class="table table-sm table-bordered" name="payment_line_table">
+                        <thead>
+                            <tr>
+                                <th  class="text-center">
+                                    <strong>SlNo</strong>
+                                </th>
+                                <th class="text-left">
+                                    <strong>Code</strong>
+                                </th>
+                                <th class="text-left">
+                                    <strong>Employee Name</strong>
+                                </th>
+                                <th class="text-center">
+                                    <strong>Date Absent</strong>
+                                </th>
+                                <th class="text-left">
+                                    <strong>Remarks</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_tbody">
+                            <t t-set="count" t-value="0"/>
+                            <t t-foreach="absent_register" t-as="line">
+                                <t t-set="count" t-value="count+1"/>
+                            <tr>
+                                <td class="text-center"><span t-esc="count"/></td>
+                                <td class="text-left"><span t-esc="line['code']"/></td>
+                                <td class="text-left"><span t-esc="line['name']"/></td>
+                                <td class="text-center"><span t-esc="line['date_absent']"/></td>
+                                <td class="text-left"><span t-esc="line['remarks']"/></td>
+                            </tr>
+
+                        </t>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </t>
+        </t>
+        </t>
+
+
+    </template>
+</odoo>

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="receipt_template">
+            <t t-call="web.external_layout">
+                <div class="page">
+
+                    <style>
+                        .no-padding {
+                        padding: 1px !important; /* Or padding: 0px; */
+                        }
+
+                        *{
+                        font-size:12px;
+                        }
+                        .value {
+                        border: 1px solid black;
+                        border-radius: 5px;
+                        padding: 5px 10px;
+                        background-color: #fff1;
+                        }
+
+                        th {
+                        text-align:center;
+                        }
+                    </style>
+
+                    <t t-set="doc" t-value="doc.with_context(lang=doc.customer_id.lang)"/>
+                    <div class="container p-0">
+                        <h3 class="mb-2 p-2 border text-center">JOB CARD</h3>
+                        <div class="row">
+                            <div class="col-8 mb-2">
+                                <h5>Customer:</h5>
+                                <div class="value">
+                                    <span t-if="doc.customer_id" t-field="doc.customer_id.name"/>
+                                    <span t-else="" class="invisible">N/A</span>
+                                </div>
+                            </div>
+
+                            <div class="col-4 mb-2">
+                                <h5>Contact No:</h5>
+                                <div class="value">
+                                    <span t-if="doc.phone" t-field="doc.phone"/>
+                                    <span t-else="" class="invisible">N/A</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-4 mb-2">
+                                <h5>Job No:</h5>
+                                <div class="value">
+                                    <span t-if="doc.name" t-field="doc.name"/>
+                                    <span t-else="" class="invisible">N/A</span>
+                                </div>
+                            </div>
+
+                            <div class="col-4 mb-2">
+                                <h5>Date:</h5>
+                                <div class="value">
+                                    <span t-if="doc.date" t-field="doc.date"/>
+                                    <span t-else="" class="invisible">N/A</span>
+                                </div>
+                            </div>
+
+                            <div class="col-4 mb-2">
+                                <h5>Reference:</h5>
+                                <div class="value">
+                                    <span t-if="doc.ref" t-field="doc.ref"/>
+                                    <span t-else="" class="invisible">N/A</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-4 mb-2">
+                                <h5>Vehicle Name/Brand:</h5>
+                                <div class="value">
+                                    <span t-if="doc.brand_id" t-field="doc.brand_id.name"/>
+                                    <span t-else="" class="invisible">N/A</span>
+                                </div>
+                            </div>
+
+                            <div class="col-4 mb-2">
+                                <h5>Vehicle Model:</h5>
+                                <div class="value">
+                                    <span t-if="doc.model" t-field="doc.model"/>
+                                    <span t-else="" class="invisible">N/A</span>
+                                </div>
+                            </div>
+
+                            <div class="col-4 mb-2">
+                                <h5>Odo Meter Reading:</h5>
+                                <div class="value">
+                                    <span t-if="doc.odo_meter_reading" t-field="doc.odo_meter_reading"/>
+                                    <span t-else="" class="invisible">N/A</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 mb-2">
+                                <h5>VIN Number:</h5>
+                                <div class="value">
+                                    <span t-if="doc.vin_no" t-field="doc.vin_no"/>
+                                    <span t-else="" class="invisible">N/A</span>
+                                </div>
+                            </div>
+
+                            <div class="col-6 mb-2">
+                                <h5>Plate Number:</h5>
+                                <div class="value" style="font-weight:900; color:red; font-size:18px;">
+                                    <t t-if="doc.plate_no">
+                                        <span><span t-field="doc.plate_no.vehicle_src_id.name"/>-<span t-field="doc.plate_no.plate_no"/>-<span style="color:black;" t-field="doc.plate_no.cat_id.name"/></span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="invisible">N/A</span>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2 mb-0">
+                            <div class="col-12">
+                                <h5 class="p-0 mb-2">ESTIMATED COST</h5>
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <thead>
+                                            <tr style="background-color:#274674 !important;">
+                                                <th scope="col" style="width: 5%; color:#fff !important;">Sr.</th>
+                                                <th scope="col" style="width: 50%; color:#fff !important;">Description
+                                                </th>
+                                                <th scope="col" style="width: 15%; color:#fff !important;">Qty</th>
+                                                <th scope="col" style="width: 15%; color:#fff !important;">Unit Price
+                                                </th>
+                                                <th scope="col" style="width: 15%; color:#fff !important;">Subtotal</th>
+                                            </tr>
+                                        </thead>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="counter" t-value="0"/>
+                                        <!--                                        <t t-if="work_sheet_ids">-->
+                                        <!--                                            <tr>-->
+                                        <!--                                                <td colspan="5" class="text-center"-->
+                                        <!--                                                    style="background:transparent !important">-->
+                                        <!--                                                    <h5 style="font-weight:900; color:#000;">Services</h5>-->
+                                        <!--                                                </td>-->
+                                        <!--                                            </tr>-->
+                                        <!--                                            <t t-foreach="doc.work_sheet_ids" t-as="line">-->
+                                        <!--                                                <tr>-->
+                                        <!--                                                    <td>-->
+                                        <!--                                                        <t t-set="counter" t-value="counter + 1"/>-->
+                                        <!--                                                        <span t-esc="counter"/>-->
+                                        <!--                                                    </td>-->
+
+                                        <!--                                                    <td>-->
+                                        <!--                                                        <span t-field="line.description"/>-->
+                                        <!--                                                    </td>-->
+
+                                        <!--                                                    <td style="text-align:right;">-->
+                                        <!--                                                        <span t-field="line.qty"/>-->
+                                        <!--                                                    </td>-->
+                                        <!--                                                    <td style="text-align:right;">-->
+                                        <!--                                                        <span t-field="line.cost"/>-->
+                                        <!--                                                    </td>-->
+                                        <!--                                                    <td style="text-align:right;">-->
+                                        <!--                                                        <span t-field="line.subtotal"/>-->
+                                        <!--                                                    </td>-->
+                                        <!--                                                </tr>-->
+                                        <!--                                            </t>-->
+                                        <!--                                        </t>-->
+                                        <t t-if="doc.used_part_ids">
+                                            <t t-foreach="doc.used_part_ids" t-as="line">
+                                                <tr>
+                                                    <td class="no-padding">
+                                                        <t t-set="counter" t-value="counter + 1"/>
+                                                        <span t-esc="counter"/>
+                                                    </td>
+                                                    <td class="no-padding">
+                                                        <span t-field="line.description"/>
+                                                    </td>
+                                                    <td class="no-padding" style="text-align:right;">
+                                                        <span t-field="line.quantity"/>
+                                                    </td>
+                                                    <td class="no-padding" style="text-align:right;">
+                                                        <span t-field="line.unit_price"/>
+                                                    </td>
+                                                    <td class="no-padding" style="text-align:right;">
+                                                        <span t-field="line.subtotal"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <t t-if="len(doc.used_part_ids) &lt; doc.rows">
+                                            <t t-set="rows" t-value="doc.rows - len(doc.used_part_ids)"/>
+                                            <t t-foreach="range(rows)" t-as="row">
+                                                <tr>
+                                                    <td class="no-padding">
+                                                        <t t-set="counter" t-value="counter + 1"/>
+                                                        <span t-esc="counter"/>
+                                                    </td>
+                                                    <td class="no-padding"></td>
+                                                    <td class="no-padding" style="text-align:right;"></td>
+                                                    <td class="no-padding" style="text-align:right;"></td>
+                                                    <td class="no-padding" style="text-align:right;"></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+
+
+                                        <tr>
+                                            <td colspan="4" class="bg-light" style="color: black !important;">
+                                                <b>Total</b>
+                                            </td>
+                                            <td class="bg-light" style="color: black !important; text-align:right;">
+                                                <t t-set="service_total" t-value="0"/>
+                                                <t t-set="part_total" t-value="0"/>
+                                                <t t-foreach="doc.work_sheet_ids" t-as="line">
+                                                    <t t-set="service_total"
+                                                       t-value="service_total + line.subtotal"/>
+                                                </t>
+                                                <t t-foreach="doc.used_part_ids" t-as="line">
+                                                    <t t-set="part_total" t-value="part_total + line.subtotal"/>
+                                                </t>
+
+                                                <b>
+                                                    <t t-esc="service_total + part_total"/>
+                                                </b>
+
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <!--                        <div class="clearfix">-->
+                        <!--                            <div id="total" class="row" name="total">-->
+                        <!--                                <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">-->
+                        <!--                                    <table class="table table-sm">-->
+                        <!--                                        <tr class="border-black o_subtotal" style="">-->
+                        <!--                                            <td>-->
+                        <!--                                                <strong>Work Sheet Expense</strong>-->
+                        <!--                                            </td>-->
+                        <!--                                            <td class="text-right">-->
+                        <!--                                                <span t-field="doc.work_sheet_expense"-->
+                        <!--                                                      t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>-->
+                        <!--                                            </td>-->
+                        <!--                                        </tr>-->
+                        <!--                                        <tr class="" style="">-->
+                        <!--                                            <td>-->
+                        <!--                                                <strong>Used Part Expense</strong>-->
+                        <!--                                            </td>-->
+                        <!--                                            <td class="text-right">-->
+                        <!--                                                <span t-field="doc.used_part_expense"-->
+                        <!--                                                      t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>-->
+                        <!--                                            </td>-->
+                        <!--                                        </tr>-->
+                        <!--                                        <tr class="border-black o_total">-->
+                        <!--                                            <td>-->
+                        <!--                                                <strong>Estimated Repair Untaxed Expense</strong>-->
+                        <!--                                            </td>-->
+                        <!--                                            <td class="text-right">-->
+                        <!--                                                <span t-field="doc.total_repair_untaxed_expense"-->
+                        <!--                                                      t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>-->
+                        <!--                                            </td>-->
+                        <!--                                        </tr>-->
+                        <!--                                    </table>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+
+                        <p t-field="doc.note"/>
+
+                        <div class="row py-3">
+                            <div class="col-3 text-center" style="font-weight:bold">
+                                Client Signature
+                            </div>
+                            <div class="col-3 text-muted pt-3" style="">
+                                ________________
+                            </div>
+                            <div class="col-3" style="font-weight:bold">
+                                Authorized Signature
+                            </div>
+                            <div class="col-3 text-muted pt-3" style="">
+                                ________________
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_drop_off_receipt">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="vehical_repair_management.receipt_template" t-lang="doc.customer_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+        <!--        <report id="action_report_drop_off_receipt"-->
+        <!--                string="Work Order Client Receipt"-->
+        <!--                model="vehicle.repair.work.order"-->
+        <!--                report_type="qweb-pdf"-->
+        <!--                file="vehical_repair_management.report_drop_off_receipt"-->
+        <!--                name="vehical_repair_management.report_drop_off_receipt"-->
+        <!--                print_report_name="'Vehicle Work Order - %s' % (object.name)"-->
+        <!--                paperformat="vehical_repair_management.paperformat_vehicle_receipt"-->
+        <!--        />-->
+
+        <record id="action_report_job_card_receipt" model="ir.actions.report">
+            <field name="name">Print Job Card</field>
+            <field name="model">vehicle.repair.work.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">vehical_repair_management.report_drop_off_receipt</field>
+            <field name="report_file">vehical_repair_management.report_drop_off_receipt</field>
+            <field name="print_report_name">'Vehicle Work Order - %s' % (object.name)</field>
+            <!--            <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>-->
+            <field name="binding_model_id" ref="model_vehicle_repair_work_order"/>
+            <field name="binding_type">report</field>
+
+        </record>
+    </data>
+</odoo>

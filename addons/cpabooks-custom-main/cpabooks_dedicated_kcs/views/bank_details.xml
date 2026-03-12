@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+        <record id="bank_setup_form" model="ir.ui.view">
+            <field name="name">bank.setup.form</field>
+            <field name="model">bank.details</field>
+            <field name="arch" type="xml">
+                <form string="Bank Setup">
+
+                <sheet>
+
+                    <group>
+                        <group>
+                            <field name="bank_name"/>
+                            <field name="bank_account_number"/>
+                             <field name="bank_iban_number"/>
+
+                        </group>
+                        <group>
+                            <field name="bank_address"/>
+                        <field name="bank_branch"/>
+                        <field name="company_id" options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+                        </group>
+
+
+                    </group>
+
+
+
+
+                </sheet>
+<!--                <footer>-->
+<!--                    <button type="object" name="read_file" string="Create COA"/>-->
+<!--                </footer>-->
+                </form>
+            </field>
+        </record>
+
+         <record id="bank_setup_tree" model="ir.ui.view">
+            <field name="name">bank.setup.tree</field>
+            <field name="model">bank.details</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="bank_name"/>
+                    <field name="bank_account_number"/>
+                    <field name="bank_iban_number"/>
+                    <field name="bank_address"/>
+                    <field name="bank_branch"/>
+                    <field name="company_id" options="{'no_create':True,'no_create_edit':True,'no_open':True}"/>
+                </tree>
+
+            </field>
+         </record>
+
+
+
+
+
+        <record id="bank_setup_action" model="ir.actions.act_window">
+            <field name="name">Bank Setup</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bank.details</field>
+            <field name="view_mode">tree</field>
+<!--            <field name="target">new</field>-->
+
+        </record>
+
+
+
+
+
+
+    <menuitem id="menu_bank_setup" name="Bank Setup"
+            parent="base.menu_users" action="bank_setup_action" sequence="6" groups="base.group_system"/>
+
+</odoo>

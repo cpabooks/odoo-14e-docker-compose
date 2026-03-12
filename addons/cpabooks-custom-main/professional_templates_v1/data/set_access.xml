@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+<!--        <function name="set_all_access" model="ir.rule"/>-->
+        <function name="delete_rule" model="ir.rule"/>
+    </data>
+</odoo>

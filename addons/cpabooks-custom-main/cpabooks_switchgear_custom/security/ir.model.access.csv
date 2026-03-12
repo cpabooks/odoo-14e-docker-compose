@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_flowchart_kanban,access_flowchart_kanban,model_flowchart_kanban,base.group_user,1,1,1,1
+access_create_pr,access_create_pr,model_create_pr,base.group_user,1,1,1,1
+access_getproduction_data,access_getproduction_data,model_getproduction_data,base.group_user,1,1,1,1

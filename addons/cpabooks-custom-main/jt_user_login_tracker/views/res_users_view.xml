@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="view_users_form_inh" model="ir.ui.view">
+        <field name="name">User Form Inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <div name='button_box' position='inside'>
+                <button class="oe_stat_button text-center" type="object" name="action_view_login_history">Login History</button>
+            </div>
+        </field>
+    </record>
+
+</odoo>

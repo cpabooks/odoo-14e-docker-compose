@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <template id="job_estimate_report">
+            <t t-call="web.report_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+                    <t t-if="o.style =='ESTIMATION_0_document'" t-call="cost_estimate_customer_ld.ESTIMATION_0_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="o.style =='ESTIMATION_common_document'" t-call="cost_estimate_customer_ld.ESTIMATION_common_document" t-lang="o.partner_id.lang"/>
+                    <t t-if="not o.style" t-call="cost_estimate_customer_ld.ESTIMATION_common_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+         <report
+                string="Job Estimate"
+                id="action_job_estimate_report"
+                model="job.estimate"
+                name="cost_estimate_customer_ld.job_estimate_report"
+                file="cost_estimate_customer_ld.job_estimate_report"
+                report_type="qweb-pdf"
+                print_report_name="'Job Estimate - %s' % (object.name or '')"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pdc_wizard,access_pdc_wizard,model_pdc_wizard,base.group_user,1,1,1,1
+access_pdc_payments_approver_user_wizard,access.pdc.payments.approver.user.wizard,model_pdc_payments_approver_user_wizard,base.group_user,1,1,1,1
+access_pdc_payment_approve_comment_wizard,access.pdc.payment.approve.comment.wizard,model_pdc_payment_approve_comment_wizard,base.group_user,1,1,1,1
+access_advance_payment_line_pdc,manage_advance_payment_line_pdc,model_advance_payment_line_pdc,base.group_user,1,1,1,1

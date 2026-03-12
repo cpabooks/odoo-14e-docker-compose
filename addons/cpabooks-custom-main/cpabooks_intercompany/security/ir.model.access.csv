@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cpabooks_intercompany_cpabooks_intercompany,cpabooks_intercompany.cpabooks_intercompany,model_cpabooks_intercompany_cpabooks_intercompany,base.group_user,1,1,1,1

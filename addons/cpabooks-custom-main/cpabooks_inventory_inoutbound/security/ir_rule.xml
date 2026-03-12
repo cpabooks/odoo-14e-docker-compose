@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="ir_rule_stock_picking_type_user_template" model="ir.rule">
+        <field name="name">Warehouse Operation Type Control</field>
+        <field name="model_id" ref="stock.model_stock_picking_type"/>
+        <field name="domain_force">[('id', 'in', user.allow_operation_type.ids)]</field>
+    </record>
+
+    <record id="ir_rule_stock_picking_user_wise" model="ir.rule">
+        <field name="name">Transfer (User Wise)</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="domain_force">[('partner_id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('stock.group_stock_user'))]"/>
+    </record>
+
+    <record id="ir_rule_stock_picking_transfer_erp_manager" model="ir.rule">
+        <field name="name">Transfer (ERP Manager)</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_erp_manager'))]"/>
+    </record>
+
+</odoo>

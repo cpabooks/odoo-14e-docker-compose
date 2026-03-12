@@ -1,0 +1,8 @@
+﻿journal_for,deferred,expense
+total_cash_salary,Salary & Wages Payable,CTC - Salary & Wages Expenses
+leave_salary,Leave Salary Provision,CTO - Leave Salary
+gratuity,End Of Service Indemnity Provision,CTO - End Of Service Indemnity
+air_fare,Air Tickets Provision,CTO - Air Tickets
+medical_insurance,Medical Insurance  (Prepaid),CTO - Medical Insurance (Expenses)
+visa_cost,Visa Expenses (Prepaid),CTO - Visa Expenses
+house_rent,Rent Accommodation (Prepaid),CTO - Rent Accommodation (Expenses)

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_inherit_for_image" inherit_id="cpabooks_custom_print.report_invoice_document_inherit_custom">
+        <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[@name='th_description']"
+               position="after">
+            <th t-if="o.print_product_image and o.move_type=='out_invoice'" name="th_image" >Image</th>
+<!--            style="border:1px solid #d2d7d9;vertical-align:middle;"-->
+        </xpath>
+
+        <xpath expr="//table[@name='invoice_line_table']/tbody/t[4]/tr/t[1]/td[@name='account_invoice_line_name']"
+               position="after">
+            <td t-if="o.print_product_image and o.move_type=='out_invoice'" name="td_image"  align="center">
+                <img t-if="line.image" t-attf-src="data:image/png;base64,{{ line.image }}"
+                     style="max-width: 130px; max-height: 120px; min-width: 120px; min-height: 130px"/>
+            </td>
+<!--            style="border:1px solid #d2d7d9;"-->
+        </xpath>
+    </template>
+
+</odoo>

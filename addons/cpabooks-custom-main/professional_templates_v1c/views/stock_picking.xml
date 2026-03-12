@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_picking_form_inherit_delivery_slip" model="ir.ui.view">
+	    <field name="name">stock.picking.form.inherit.delivery_slip</field>
+	    <field name="model">stock.picking</field>
+	    <field name="inherit_id" ref="stock.view_picking_form"/>
+	    <field name="arch" type="xml">
+<!--	    	<xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="after">-->
+<!--                <field name="product_description"/>-->
+<!--	    	</xpath>-->
+			<xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='description_picking']" position="replace">
+				<field name="description_picking" string="Product Description"/>
+	    	</xpath>
+			<xpath expr="//page[@name='extra']/group[1]" position="after">
+				<group string="Disclaimer" name="disclaimer">
+					<field name="disclaimer" nolabel="1"/>
+				</group>
+			</xpath>
+			<xpath expr="//header/button[@name='action_cancel']" position="after">
+                <button name="reserve_qty" string="Reserved Qty" type="object" class="btn-primary" attrs="{'invisible':['|',('state','in',('done','cancel')),('location_dest_id','!=',5)]}"/>
+            </xpath>
+			<xpath expr="//header" position="inside">
+				<button name="action_set_quantities_to_reservation" attrs="{'invisible': ['|', ('show_validate', '=', False), ('immediate_transfer', '=', True)]}" string="Set quantities" type="object" groups="stock.group_stock_user" class="o_btn_validate" data-hotkey="g"/>
+            </xpath>
+			<xpath expr="//group/group[2]" position="inside">
+				<field name="po_no"/>
+				<field name="prepared_by_id"/>
+				<field name="Approved_by_id"/>
+            </xpath>
+	    </field>
+	</record>
+
+<!--	<record id="view_stock_move_line_detailed_operation_tree_inherit_delivery_slip" model="ir.ui.view">-->
+<!--        <field name="name">stock.move.line.operations.tree.inherit.delivery_slip</field>-->
+<!--        <field name="model">stock.move.line</field>-->
+<!--        <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='product_id']" position="after">-->
+<!--                <field name="product_description"/>-->
+<!--	    	</xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="invoice_common_template_fellora" inherit_id="professional_templates.INVOICE_common_document">
+            <div name="trn" position="after">
+                <div t-attf-style="margin-left:2px;" name="order_by">
+                    <span t-if="o.order_by">
+                        <strong>Order By:</strong>
+                        <span t-field="o.order_by"/>
+                    </span>
+                </div>
+                <div t-attf-style="margin-left:2px;" name="payment_mode">
+                    <span t-if="o.payment_mode">
+                        <strong>Payment Mode:</strong>
+                        <span t-field="o.payment_mode"/>
+                    </span>
+                </div>
+            </div>
+
+
+        </template>
+
+
+        <template id="invoice_common_template_fellora_bank_details_pt" inherit_id="cpabooks_bank_details_pt.report_pt_common_invoice_document_inherit_bank_details">
+            <xpath expr="//div[@class='oe_mt32 row']" position="attributes">
+                <attribute name="class">row</attribute>
+            </xpath>
+
+        </template>
+    </data>
+</odoo>

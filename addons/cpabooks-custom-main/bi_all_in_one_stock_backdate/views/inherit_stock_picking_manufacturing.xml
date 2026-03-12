@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="inherit_stockpicking_remark_form_readonly" model="ir.ui.view">
+            <field name="name">inherit.stockpicking.form.readonly</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='finished_move_line_ids']/tree/field[@name='lot_id']" position="after">
+                    <field name="line_remark"/>
+                </xpath>
+                <xpath expr="//button[@name='button_mark_done']" position="replace">
+                    <button name="button_done_mark" string="Validate Inventory" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'to_close')]}"/>
+                </xpath>
+            </field>
+    </record>
+
+
+    <record id="inherit_pickmovelining_remark_form_readonly" model="ir.ui.view">
+            <field name="name">inherit.pickmovelining.form.readonly</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lot_id']" position="after">
+                    <field name="line_remark"/>
+                </xpath>
+            </field>
+    </record>
+</odoo>

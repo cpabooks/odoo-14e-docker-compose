@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle
+ -->
+<odoo>
+    <record id="form_dev_company_document" model="ir.ui.view">
+        <field name="name">form.dev.company.document</field>
+        <field name="model">dev.company.document</field>
+        <field name="arch" type="xml">
+            <form string="Company Document Form">
+                <sheet>
+                    <h2>
+                        <field name="company_sequence"/>
+                    </h2>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="many_compnay_id" />
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="document"/>
+                            <field name="date_issue"/>
+                            <field name="date_expiry"/>
+                             <field name="current_date" />
+                         </group>
+                     </group>
+                    <notebook>
+                        <page string="Note">
+                             <field name="note"/>
+                        </page>
+                  </notebook>
+                </sheet>
+            </form>
+       </field>
+    </record>
+
+    <record id="tree_dev_company_document" model="ir.ui.view">
+        <field name="name">tree.dev.company.document</field>
+        <field name="model">dev.company.document</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="current_date&lt;date_expiry" string="Company Document Tree">
+                <field name="name"/>
+                <field name="many_compnay_id"/>
+                 <field name="document"/>
+                <field name="date_issue"/>
+                <field name="date_expiry"/>
+                 <field name="current_date" />
+            </tree>
+       </field>
+    </record>
+
+
+
+    <record id="action_dev_company_document" model="ir.actions.act_window">
+        <field name="name">Comapny Document</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dev.company.document</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Create Company Document...
+          </p>
+        </field>
+    </record>
+
+    <menuitem id="dev_comapny_document_menu" name="Company Document" parent="base.menu_users"  action="action_dev_company_document"/>
+</odoo>

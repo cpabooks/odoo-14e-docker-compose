@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <menuitem id="account.menu_action_payment_term_form" action="account.action_payment_term_form" parent="sale.menu_sale_config" sequence="3"/>
+</odoo>

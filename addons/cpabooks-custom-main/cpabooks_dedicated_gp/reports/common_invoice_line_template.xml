@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="inv_common_template_inherit_class"
+                  inherit_id="professional_templates.invoice_lines_common_template">
+            <xpath expr="//div[@name='subject']" position="attributes">
+                <attribute name="style">display:none;</attribute>
+            </xpath>
+
+            <!--#table border set-->
+            <xpath expr="//table[@name='invoice_line_table']/thead/t[1]" position="attributes">
+                <attribute name="t-value">'border: 1px solid #a6a6a6 !important;white-space:nowrap;'</attribute>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t[1]" position="after">
+                <t t-set="td_style" t-value="'border: 1px solid #a6a6a6 !important;'"></t>
+            </xpath>
+
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='price_subtotal_td']"
+                   position="replace">
+                <td name="price_subtotal_td" class="text-right" t-attf-style="{{td_style}}" t-if="display_taxes">
+                    <span t-esc="'{0:,.2f}'.format(price_subtotal)"
+                          groups="account.group_show_line_subtotals_tax_excluded"/>
+                    <span t-esc="'{0:,.2f}'.format(l.price_total)"
+                          groups="account.group_show_line_subtotals_tax_included"/>
+                </td>
+            </xpath>
+            <xpath expr="//td[@name='subtotal_row_total_amntincltax_amt_td']" position="replace">
+                <td t-if="display_taxes" name="subtotal_row_total_amntincltax_amt_td" align="right"
+                    style="font-weight:bold;">
+                    <span t-esc="'{0:,.2f}'.format(total_amntincltax_amt)"/>
+                </td>
+            </xpath>
+            <xpath expr="//th[@name='qty_th']" position="replace">
+                <th name="qty_th" class="text-right" t-attf-style="{{th_style}}">
+                    <i class="fa fa-sort-amount-asc" t-if="not style.is_icon_hide"/>
+                    Qty Unit
+                </th>
+            </xpath>
+            <!-- <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[@name='description_th']" position="before">&ndash;&gt;
+               <th name="item_code_th" t-attf-style="{{th_style}}; display:none;">Item Code</th>&ndash;&gt;
+  &lt;!&ndash;                <i class="fa fa-th-large"/>&ndash;&gt;
+              </xpath>
+
+              <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='description_td']" position="before">
+                  <td name="item_code_td" t-attf-style="{{td_style}};display:none;"><span  t-field="l.product_id.product_tmpl_id.item_code"/></td>
+              </xpath>-->
+
+            <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[@name='description_th']" position="after">
+                <th name="class_th" t-attf-style="{{th_style}}"><i class="fa fa-th-large"/>Class
+                </th>
+            </xpath>
+
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='description_td']"
+                   position="after">
+                <td name="class_td" t-attf-style="{{td_style}}">
+                    <span t-field="l.product_id.product_tmpl_id.categ_id.name"/>
+                </td>
+            </xpath>
+
+            <!--<xpath expr="//table[@name='invoice_line_table']/tbody/tr[@name='subtotal_row']/td[1]" position="attributes">
+                <attribute name="colspan">5</attribute>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']/tbody/tr[@name='subtotal_row']/td[2]" position="attributes">
+                <attribute name="colspan">6</attribute>
+            </xpath>-->
+            <xpath expr="//table[@name='invoice_line_table']/tbody/tr[@name='subtotal_row']/td[1]" position="before">
+                <td name="class_space"></td>
+            </xpath>
+
+
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='count_td']"
+                   position="attributes">
+                <attribute name="t-attf-style">{{td_style}}</attribute>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='image_td']"
+                   position="attributes">
+                <attribute name="t-attf-style">{{td_style}}</attribute>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='description_td']"
+                   position="attributes">
+                <attribute name="t-attf-style">{{td_style}}</attribute>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='uom_td']" position="attributes">
+                <attribute name="t-attf-style">{{td_style}}</attribute>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='price_unit_td']"
+                   position="attributes">
+                <attribute name="t-attf-style">{{td_style}}</attribute>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='total_price_td']"
+                   position="attributes">
+                <attribute name="t-attf-style">{{td_style}}</attribute>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='tax_td']" position="attributes">
+                <attribute name="t-attf-style">{{td_style}}</attribute>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='tax_amount_td']"
+                   position="attributes">
+                <attribute name="t-attf-style">{{td_style}}</attribute>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='price_subtotal_td']"
+                   position="attributes">
+                <attribute name="t-attf-style">{{td_style}}</attribute>
+            </xpath>
+
+            <!--#Hide tax to last-->
+            <!--            <xpath expr="//table/thead/tr/th[@name='tax_th']" position="attributes">-->
+            <!--                <attribute name="t-attf-style">display:none;</attribute>-->
+            <!--            </xpath>-->
+            <!--            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='tax_td']" position="attributes">-->
+            <!--                <attribute name="t-attf-style">display:none;</attribute>-->
+            <!--            </xpath>-->
+
+            <!--             <xpath expr="//table/thead/tr/th[@name='tax_amount_th']" position="attributes">-->
+            <!--                <attribute name="t-attf-style">display:none;</attribute>-->
+            <!--            </xpath>-->
+            <!--            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='tax_amount_td']" position="attributes">-->
+            <!--                <attribute name="t-attf-style">display:none;</attribute>-->
+            <!--            </xpath>-->
+
+            <!--            <xpath expr="//table/thead/tr/th[@name='amnt_incl_amount_th']" position="attributes">-->
+            <!--                <attribute name="t-attf-style">display:none;</attribute>-->
+            <!--            </xpath>-->
+            <!--            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[@name='price_subtotal_td']" position="attributes">-->
+            <!--                <attribute name="t-attf-style">display:none;</attribute>-->
+            <!--            </xpath>-->
+            <!--#Hide subtotal line tax to last-->
+            <!--            <xpath expr="//table[@name='invoice_line_table']/tbody/tr[@name='subtotal_row']/td[@name='subtotal_row_tax_percent_td']" position="attributes">-->
+            <!--                <attribute name="t-attf-style">display:none;</attribute>-->
+            <!--            </xpath>-->
+            <!--             <xpath expr="//table[@name='invoice_line_table']/tbody/tr[@name='subtotal_row']/td[@name='subtotal_row_total_tax_amt_td']" position="attributes">-->
+            <!--                <attribute name="t-attf-style">display:none;</attribute>-->
+            <!--            </xpath>-->
+            <!--            <xpath expr="//table[@name='invoice_line_table']/tbody/tr[@name='subtotal_row']/td[@name='subtotal_row_total_amntincltax_amt_td']" position="attributes">-->
+            <!--                <attribute name="t-attf-style">display:none;</attribute>-->
+            <!--            </xpath>-->
+        </template>
+    </data>
+</odoo>

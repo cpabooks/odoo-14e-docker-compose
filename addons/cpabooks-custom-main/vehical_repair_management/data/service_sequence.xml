@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="vehicle_seq" model="ir.sequence">
+            <field name="name">VR/</field>
+            <field name="prefix">VR/</field>
+            <field name="padding">3</field>
+            <field name="code">vehicle.repair.work.order</field>
+        </record>
+
+        <record id="job_card_seq" model="ir.sequence">
+            <field name="name">JOB card sequence</field>
+            <field name="prefix">JOB/%(year)s/%(month)s/</field>
+            <field name="padding">4</field>
+            <field name="code">job.card.seq</field>
+        </record>
+    </data>
+</odoo>

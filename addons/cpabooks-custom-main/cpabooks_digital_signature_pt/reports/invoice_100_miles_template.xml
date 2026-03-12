@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="inv_100_miles_inherit" inherit_id="professional_templates.INVOICE_13_document">
+            <!--            <xpath expr="//t[@t-call='professional_templates.invoice_lines']" position="after">-->
+            <xpath expr="//div[@class='article page']" position="inside">
+
+
+                <t t-set="signature" t-value="o.get_signature()"/>
+                <br/>
+                <br/>
+                <div t-if="signature and not o.prepare_by" class="row oe-mt64 last-page" name="signature"
+                     style="page-break-inside: always;">
+                    <div class="col-4 text-left">
+                        <strong>
+                            <span style="text-decoration:overline" t-field="signature.signature1"/>
+                        </strong>
+                    </div>
+                    <div class="col-4 text-center">
+
+                        <strong>
+                            <span style="text-decoration:overline" t-field="signature.signature2"/>
+                        </strong>
+                        <t t-if="o.create_uid.user_stamp">
+                            <div name="signature_logo">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(o.create_uid.user_stamp)"
+                                     style="height: 3cm; min-width: 4cm;"/>
+                            </div>
+                        </t>
+
+
+                    </div>
+                    <div class="col-4 text-right">
+                        <strong>
+                            <span style="text-decoration:overline" t-field="signature.signature3"/>
+                        </strong>
+                    </div>
+                </div>
+
+
+                <t t-set="signature" t-value="o.get_signature()"/>
+                <div t-if="signature and  o.prepare_by" class="row oe-mt64 last-page" name="signature"
+                     style="page-break-inside: always;">
+                    <div class="col-4 text-left">
+                        <t t-if="o.prepare_by.user_signature">
+                            <div name="prepare_by_signature">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(o.prepare_by.user_signature)"
+                                     style="height: 1cm; max-width: 5cm;min-width:5cm"/>
+                            </div>
+                        </t>
+                    </div>
+
+                        <div class="col-4 text-center"></div>
+
+                       <div class="col-4 text-right" style="height:100px;">
+                        <t t-if="o.approve_by.user_signature">
+                            <div name="approve_by_signature">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(o.approve_by.user_signature)"
+                                     style="height: 1cm; max-width: 5cm;min-width:5cm"/>
+                            </div>
+                        </t>
+                    </div>
+
+                </div>
+                <div t-if="signature and  o.prepare_by" class="row oe-mt64 last-page" name="signature"
+                     style="page-break-inside: always; margin-top:-55px;" >
+                    <div class="col-4 text-left">
+                        <strong>
+                            <span style="text-decoration:overline">PrePared By
+                                <span t-field="o.prepare_by.name"/>
+                            </span>
+                        </strong>
+                    </div>
+                    <div class="col-4 text-center">
+                    <strong>
+                            <span style="text-decoration:overline" t-field="signature.signature2"/>
+                        </strong>
+                    </div>
+                       <div class="col-4 text-right" style="height:100px;">
+
+                        <strong style="margin-top:30px;">
+                            <span style="text-decoration:overline">Approved By
+                                <span t-field="o.approve_by.name"/>
+                            </span>
+                        </strong>
+                    </div>
+
+                </div>
+
+                 <div t-if="signature and  o.prepare_by" class="row oe-mt64 last-page" name="signature"
+                     style="page-break-inside: always; margin-top:-55px;" >
+                     <div class="col-4 text-center"></div>
+                          <div class="col-4 text-center">
+                         <t t-if="o.create_uid.user_stamp">
+                            <div name="signature_logo">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(o.create_uid.user_stamp)"
+                                     style="height: 3cm; min-width: 4cm;"/>
+                            </div>
+                        </t>
+                          </div>
+                     <div class="col-4 text-center"></div>
+                 </div>
+
+<!--                <div t-if="signature and  o.prepare_by" class="row oe-mt64 last-page" name="signature"-->
+<!--                     style="page-break-inside: always;">-->
+<!--                    <div class="col-4 text-left">-->
+<!--                        <t t-if="o.prepare_by.user_signature">-->
+<!--                            <div name="prepare_by_signature">-->
+<!--                                <img t-att-src="'data:image/png;base64,%s' % to_text(o.prepare_by.user_signature)"-->
+<!--                                     style="height: 1cm; max-width: 4cm;min-width:4cm"/>-->
+<!--                            </div>-->
+<!--                        </t>-->
+<!--                        <strong>-->
+<!--                            <span style="text-decoration:overline">PrePared By-->
+<!--                                <span t-field="o.prepare_by.name"/>-->
+<!--                            </span>-->
+<!--                        </strong>-->
+<!--                    </div>-->
+<!--                    <div class="col-4 text-center">-->
+
+<!--                        <strong>-->
+<!--                            <span style="text-decoration:overline" t-field="signature.signature2"/>-->
+<!--                        </strong>-->
+<!--                        <t t-if="o.create_uid.user_stamp">-->
+<!--                            <div name="signature_logo">-->
+<!--                                <img t-att-src="'data:image/png;base64,%s' % to_text(o.create_uid.user_stamp)"-->
+<!--                                     style="height: 3cm; min-width: 4cm;"/>-->
+<!--                            </div>-->
+<!--                        </t>-->
+
+
+<!--                    </div>-->
+<!--                    <div class="col-4 text-right" style="height:100px;">-->
+<!--                        <t t-if="o.approve_by.user_signature">-->
+<!--                            <div name="approve_by_signature">-->
+<!--                                <img t-att-src="'data:image/png;base64,%s' % to_text(o.approve_by.user_signature)"-->
+<!--                                     style="height: 1cm; max-width: 4cm;min-width:4cm"/>-->
+<!--                            </div>-->
+<!--                        </t>-->
+<!--                        <strong style="margin-top:30px;">-->
+<!--                            <span style="text-decoration:overline">Approved By-->
+<!--                                <span t-field="o.approve_by.name"/>-->
+<!--                            </span>-->
+<!--                        </strong>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+            </xpath>
+        </template>
+    </data>
+</odoo>

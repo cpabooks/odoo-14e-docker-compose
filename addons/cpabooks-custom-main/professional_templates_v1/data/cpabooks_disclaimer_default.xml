@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="cpabooks_disclaimer_default_data" model="cpabooks.disclaimer">
+            <field name="disclaimer"></field>
+        </record>
+    </data>
+</odoo>

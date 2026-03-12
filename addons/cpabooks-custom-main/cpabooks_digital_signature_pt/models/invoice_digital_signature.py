@@ -1,0 +1,121 @@
+# -*- coding: utf-8 -*-
+
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
+
+class ResConfigSettings(models.TransientModel):
+	_inherit = 'res.config.settings'
+
+	is_sign_invoice = fields.Boolean(String="Allow Digital Signature in Customer Invoice")
+	is_sign_bill = fields.Boolean(String="Allow Digital Signature in Vendor Bill")
+	is_confirm_sign_invoice = fields.Boolean(string="Required Signature on Validate Customer Invoice", default=False)
+	is_confirm_sign_bill = fields.Boolean(string="Required Signature on Validate Vendor Bill",default=False)
+
+
+
+	@api.model
+	def get_values(self):
+		res = super(ResConfigSettings, self).get_values()
+		res.update(
+			is_sign_invoice=(self.env['ir.config_parameter'].sudo().get_param('digital_signature.is_sign_invoice')),
+			is_sign_bill=(self.env['ir.config_parameter'].sudo().get_param('digital_signature.is_sign_bill')),
+			is_confirm_sign_invoice=(self.env['ir.config_parameter'].sudo().get_param('digital_signature.is_confirm_sign_invoice')),
+			is_confirm_sign_bill=(self.env['ir.config_parameter'].sudo().get_param('digital_signature.is_confirm_sign_bill')),
+		)
+		return res
+
+	def set_values(self):
+		super(ResConfigSettings, self).set_values()
+		self.env['ir.config_parameter'].sudo().set_param('digital_signature.is_sign_invoice',self.is_sign_invoice),
+		self.env['ir.config_parameter'].sudo().set_param('digital_signature.is_sign_bill',self.is_sign_bill),
+		self.env['ir.config_parameter'].sudo().set_param('digital_signature.is_confirm_sign_invoice',self.is_confirm_sign_invoice),
+		self.env['ir.config_parameter'].sudo().set_param('digital_signature.is_confirm_sign_bill',self.is_confirm_sign_bill),
+
+
+class AccountMove(models.Model):
+	_inherit = "account.move"
+
+	# type = fields.Selection([('url', 'URL'), ('in_invoice', 'In Invoice'), ('out_invoice', 'Out invoice')],
+	# 						string='Type', required=True, store=True, default='empty', change_default=True,
+	# 						compute='_compute_type')
+	receiver_declaration = fields.Text(string="Receiver Declaration",
+									   default="I Received the above items with good condition")
+	show_receiver_declaration = fields.Boolean(string="Show Receiver Declaration")
+
+	@api.onchange('company_id')
+	def get_default_receiver_declaration(self):
+		get_highest_inv = self.env['account.move'].sudo().search(
+			[('company_id', '=', self.company_id.id), ('move_type', '=', 'out_invoice')], limit=1,
+			order='id desc')
+		if get_highest_inv:
+			self.receiver_declaration = get_highest_inv.receiver_declaration
+
+	def _check_isntallation(self):
+		for rec in self:
+			is_module_install = self.env['ir.module.module'].sudo().search(
+				[('name', '=', 'cpabooks_bank_details_pt')])
+			return True if is_module_install else False
+
+	def _digital_sign_customer_invoice(self):
+		is_sign_invoice = (self.env['ir.config_parameter'].sudo().get_param('digital_signature.is_sign_invoice'))
+		return is_sign_invoice
+
+	def _digital_sign_vendor_bill(self):
+		is_sign_bill = (self.env['ir.config_parameter'].sudo().get_param('digital_signature.is_sign_bill'))
+		return is_sign_bill
+
+	def _confirm_sign_invoice(self):
+		is_confirm_sign_invoice = (self.env['ir.config_parameter'].sudo().get_param('digital_signature.is_confirm_sign_invoice'))
+		return is_confirm_sign_invoice
+
+	def _confirm_sign_bill(self):
+		is_confirm_sign_bill = (self.env['ir.config_parameter'].sudo().get_param('digital_signature.is_confirm_sign_bill'))
+		return is_confirm_sign_bill
+	
+	def action_post(self):
+		res = super(AccountMove,self).action_post()
+		if self.move_type == 'out_invoice':
+			if self.confirmation_digital_sign_customer_invoice_compute:
+				if self.digital_signature:
+					return res
+				else:
+					raise UserError(_('Please add Digital Signature for validate customer invoice..!'))
+			else:
+				return res
+		elif self.move_type == 'in_invoice':
+			if self.confirm_sign_bill_compute:
+				if self.digital_signature:
+					return res
+				else:
+					raise UserError(_('Please add Digital Signature for validate vendor bill...!'))
+			else:
+				return res
+		else:
+			return res
+
+	def get_signature(self):
+		get_signature_data = self.env['signature.setup'].search(
+			[('model', '=', 'account.move'), ('company_id', '=', self.env.company.id)])
+		return get_signature_data
+
+
+	def _get_stamp(self):
+		for rec in self:
+			# rec.stamp = rec.approve_by.user_stamp or rec.prepared_by.user_stamp or False
+			if rec.prepare_by and rec.prepare_by.user_stamp:
+				rec.stamp = rec.prepare_by.user_stamp
+			elif rec.approve_by and rec.approve_by.user_stamp:
+				rec.stamp = rec.approve_by.user_stamp;
+			else:
+				rec.stamp = False
+
+
+	digital_signature = fields.Binary(string="Digital Signature")
+	sign_invoice_compute = fields.Text(default=_digital_sign_customer_invoice)
+	digital_sign_vendor_bill_compute = fields.Text(default=_digital_sign_vendor_bill)
+	confirmation_digital_sign_customer_invoice_compute = fields.Text(default=_confirm_sign_invoice)
+	confirm_sign_bill_compute = fields.Text(default=_confirm_sign_bill)
+
+	prepare_by = fields.Many2one('res.users', string="Prepare By", default=lambda self: self.env.user.id)
+	approve_by = fields.Many2one('res.users', string="Approve By")
+	stamp = fields.Binary('stamp', compute=_get_stamp)

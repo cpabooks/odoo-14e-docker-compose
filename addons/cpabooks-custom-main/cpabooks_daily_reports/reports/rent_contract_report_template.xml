@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Report Template -->
+        <template id="rent_contract_report_template">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <h2>Rent Contract Details</h2>
+
+                    <!-- Custom CSS for table styling -->
+                    <style>
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-bottom: 20px;
+                        }
+                        table, th, td {
+                            border: 1px solid #ddd;
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        th {
+                            background-color: #f2f2f2;
+                            font-weight: bold;
+                            text-align: center;
+                        }
+                        td {
+                            text-align: right; /* Align all numeric data to the right */
+                        }
+                        tr:nth-child(even) {
+                            background-color: #f9f9f9;
+                        }
+                        tr:hover {
+                            background-color: #f1f1f1;
+                        }
+                        tfoot td {
+                            font-weight: bold;
+                            background-color: #f2f2f2;
+                            text-align: right;
+                        }
+                        h2 {
+                            text-align: center;
+                            margin-bottom: 20px;
+                        }
+                        .text-left {
+                            text-align: left;
+                        }
+                    </style>
+
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Landlord</th>
+                                <th>Property Location</th>
+                                <th>Cont. St</th>
+                                <th>Cont. En</th>
+                                <th>Duration</th>
+                                <th>Days</th>
+                                <th>Expiring Days</th>
+                                <th>Yearly Rent</th>
+                                <th>Monthly Rent</th>
+                                <th>Security Deposit</th>
+                                <th>NOP</th>
+                                <th>Payment Amount</th>
+                                <th>Contract Copy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="doc">
+                                <tr>
+                                    <td class="text-left"><t t-esc="doc.partner_id.name"/></td>
+                                    <td class="text-left"><t t-esc="doc.property_location"/></td>
+                                    <td><t t-esc="doc.start"/></td>
+                                    <td><t t-esc="doc.end"/></td>
+                                    <td><t t-esc="'{:.0f}'.format(doc.duration)"/></td>
+                                    <td><t t-esc="'{:.0f}'.format(doc.days)"/></td>
+                                    <td><t t-esc="'{:.0f}'.format(doc.days)"/></td>
+                                    <td><t t-esc="'{:,.0f}'.format(doc.rent_yearly)"/></td>
+                                    <td><t t-esc="'{:,.0f}'.format(doc.rent_monthly)"/></td>
+                                    <td><t t-esc="'{:,.0f}'.format(doc.deposit)"/></td>
+                                    <td><t t-esc="'{:,.0f}'.format(doc.payment_numbers)"/></td>
+                                    <td><t t-esc="'{:,.0f}'.format(doc.payment_amount)"/></td>
+<!--                                    <td><t t-esc="'{:,.0f}'.format(doc.payment_1st)"/></td>-->
+<!--                                    <td><t t-esc="'{:,.0f}'.format(doc.payment_2nd)"/></td>-->
+<!--                                    <td><t t-esc="'{:,.0f}'.format(doc.payment_3rd)"/></td>-->
+<!--                                    <td><t t-esc="'{:,.0f}'.format(doc.payment_4th)"/></td>-->
+                                    <td><t t-esc="doc.contract_copy"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7" class="text-left">Total</td>
+                                <td><t t-esc="'{:,.0f}'.format(sum(doc.rent_yearly for doc in docs))"/></td>
+                                <td><t t-esc="'{:,.0f}'.format(sum(doc.rent_monthly for doc in docs))"/></td>
+                                <td><t t-esc="'{:,.0f}'.format(sum(doc.deposit for doc in docs))"/></td>
+                                <td></td>
+                                <td><t t-esc="'{:,.0f}'.format(sum(doc.payment_amount for doc in docs))"/></td>
+<!--                                <td><t t-esc="'{:,.0f}'.format(sum(doc.payment_1st for doc in docs))"/></td>-->
+<!--                                <td><t t-esc="'{:,.0f}'.format(sum(doc.payment_2nd for doc in docs))"/></td>-->
+<!--                                <td><t t-esc="'{:,.0f}'.format(sum(doc.payment_3rd for doc in docs))"/></td>-->
+<!--                                <td><t t-esc="'{:,.0f}'.format(sum(doc.payment_4th for doc in docs))"/></td>-->
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

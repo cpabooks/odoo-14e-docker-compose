@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <!-- <report
+            id="report_product_warranty_card"
+            string="Print Warranty Card"
+            model="account.analytic.account"
+            report_type="qweb-pdf"
+            name="odoo_product_warranty_claim_enterprice.template_report_warranty"
+            file="odoo_product_warranty_claim_enterprice.template_report_warranty"
+        /> -->
+        <record id="report_product_warranty_card" model="ir.actions.report">
+            <field name="name">Print Warranty Card</field>
+            <field name="model">account.analytic.account</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">odoo_product_warranty_claim_enterprice.template_report_warranty</field>
+            <field name="report_file">odoo_product_warranty_claim_enterprice.template_report_warranty</field>
+        </record>
+        <template id="template_report_warranty">
+            <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-foreach="doc.custom_warranty_registration_ids" t-as="warranty">
+                    <t t-call="web.external_layout">
+                    <div class="page">
+                        <div>
+                            <table style="border-spacing:0;margin-bottom:0;height:122px;" class="table">
+                                <thead>
+                                    <tr>
+                                        <td style="text-align: center;" colspan="4">
+                                            <strong><h3>Warranty Card - <span t-field="warranty.name"/></h3></strong>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                             <strong>Product:</strong>
+                                        </td>
+                                        <td>
+                                             <span t-field="warranty.product_id.name"/>
+                                        </td>
+                                        <td>
+                                             <strong>Quantity: </strong>
+                                        </td>
+                                        <td>
+                                             <span t-field="warranty.quantity"/> - <span t-field="warranty.uom_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Customer: </strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="warranty.partner_id.name"/>
+                                        </td>
+                                        <td>
+                                            <strong>Sale Order: </strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="warranty.sale_order_id"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Warranty Period: </strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="warranty.product_id.custom_warranty_interval"/> - <span t-field="warranty.product_id.custom_warranty_rule_type"/>
+                                        </td>
+                                        <td>
+                                            <strong>Warranty Type: </strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="warranty.product_id.custom_warranty_type"/><br/>
+                                            <strong t-if="warranty.product_id.custom_warranty_type == paid">Warranty Cost: </strong><span t-if="warranty.product_id.custom_warranty_type == paid" t-field="warranty.product_id.custom_warranty_cost"/>
+                                       </td>
+                                    </tr>
+                                    <t t-if="warranty.product_id.custom_warranty_type == 'paid'">
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <strong>Warranty Cost: </strong>
+                                        </td>
+                                        <td>
+                                               <span t-field="warranty.product_id.custom_warranty_cost" t-field-options='{"widget": "monetary", "display_currency": "warranty.contract_id.currency_id"}'/>
+                                       </td>
+                                    </tr>
+                                    </t>
+                                    <tr>
+                                        <td>
+                                            <strong>Start Date: </strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="warranty.start_date" t-field-options='{"format": "d/M/y"}'/>
+                                        </td>
+                                        <td>
+                                            <strong>End Date: </strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="warranty.end_date" t-field-options='{"format": "d/M/y"}'/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 2.0em;margin-top: 5em">
+                         <div class="col-xs-6 text-left">
+                         </div>
+                         <div class="col-xs-6 text-right">
+                            <p><strong>Signature:_______________________________</strong></p><br/>
+                            <p><strong>Date:__________________________________</strong></p>
+                         </div>
+                    </div>
+                 </t>
+             </t>
+         </t>
+     </t>
+ </template>
+    </data>
+</odoo>

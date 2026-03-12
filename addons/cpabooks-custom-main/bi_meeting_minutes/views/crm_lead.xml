@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="crm_lead_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='internal_notes']/field[@name='description']" positon="replace">
+                    <field string="Internal Notes" name="description">
+                        <tree editable="bottom">
+                            <field name="desc_line" style="width:800px;" stirng="Internal Notes"/>
+                        </tree>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

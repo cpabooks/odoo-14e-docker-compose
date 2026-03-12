@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="res_config_settings_form_view_inherit_payment_certificate" model="ir.ui.view">
+            <field name="name">res.config.settings.form.view.inherit.payment.certificate</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='account_vendor_bills']" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box" id="account_ocr_settings">
+                        <div class="o_setting_left_pane">
+                            <field name="is_enable_payment_certificate" widget="upgrade_boolean"/>
+                        </div>
+                        <div class="o_setting_right_pane" id="digitalizeocr">
+                            <label for="is_enable_payment_certificate"/>
+                            <div class="text-muted">
+                                Enable Payment Certificate to hold Vendor bills.
+                            </div>
+<!--                            <div id="msg_invoice_extract" class="content-group"-->
+<!--                                 attrs="{'invisible': [('module_account_invoice_extract', '=', False)]}">-->
+<!--                                <div class="text-warning mt16 mb4">-->
+<!--                                    Save this page and come back here to set up the feature.-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

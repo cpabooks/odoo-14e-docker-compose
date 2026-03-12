@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="create_deferred_expense_wizard_sequence" model="ir.sequence">
+            <field name="name">Create Deferred Expense Wizard Sequences</field>
+            <field name="code">create.deferred.expense.wizard</field>
+            <field name="prefix">CDEW</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>

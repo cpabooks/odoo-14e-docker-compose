@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        
+        <template id="helpdesk_support_ticket_inherit_warranty_claim" name="Helpdesk Support Ticket Genarate"
+            customize_show="True">
+            <t t-call="website.layout">
+                <form action="/odoo_product_warranty_claim_enterprice/ticket_submitted" method="post" class="form-horizontal
+                    mt32" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <group>
+                        <div>
+                            <div class="container mb64">
+                                <div id="maindiv" class="col-md-9">
+                                    <div t-attf-class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="customer_id">Customer</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <input type="text" class="form-control" name="customer_id" required="True" t-attf-value="#{user_id.partner_id.name}"/>
+                                        </div>
+                                    </div>
+                                    <div t-attf-class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="email">Email</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <input type="text" class="form-control" name="email" required="True" t-attf-value="#{user_id.partner_id.email}"/>
+                                        </div>
+                                    </div>
+                                    <div t-attf-class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="phone">Phone</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <input type="text" class="form-control" name="phone" required="True" t-attf-value="#{user_id.partner_id.phone}"/>
+                                        </div>
+                                    </div>
+                                    <div t-attf-class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="category">Category</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <select class="form-control" name="category">
+                                                <option value="technical" selected="selected">Technical</option>
+                                                <option value="functional">Functional</option>
+                                                <option value="support">Support</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div t-attf-class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="subject">Claim Subject</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <input type="text" class="form-control" name="subject" required="True" t-attf-value="#{subject
+                                                or ''}"/>
+                                        </div>
+                                    </div>
+                                    <div t-attf-class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="priority">Priority</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <select class="form-control" name="priority">
+                                                <option value="0" selected="selected">Low</option>
+                                                <option value="1">Middle</option>
+                                                <option value="2">High</option>
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+                                    <!--<div class="form-group" id="warranty_id">
+                                        <label class="col-sm-3 col-sm-4 control-label" for="warranty_id">Warranty Number</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <select name="warranty_id" class="form-control">
+                                                <option value="">Select Warranty Number...</option>
+                                                <t t-foreach="warrantys or []" t-as="warranty">
+                                                    <option t-att-value="warranty.id">
+                                                        <t t-esc="warranty.name" />
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="contract">
+                                        <label class="col-sm-3 col-sm-4 control-label" for="contract_reference">SO / Contract Reference</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <select name="contract_reference" class="form-control">
+                                                <option value="">Select SO / Contract Reference...</option>
+                                                <t t-foreach="contracts or []" t-as="contract">
+                                                    <option t-att-value="contract.id" t-att-data-warranty_id="contract.analytic_account_id.id">
+                                                        <t t-esc="contract.name" />
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>-->
+                                    <div t-attf-class="form-group #{error and 'name' in error and 'has-error' or ''}">
+                                        <label class="col-md-3 col-sm-4 control-label" for="warranty_number">Warranty Number</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <input type="text" class="form-control" name="warranty_number" required="True" t-attf-value="#{warranty_number
+                                                or ''}"/>
+                                        </div>
+                                    </div>
+                                    <div t-attf-class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="contract_reference">SO / Contract Reference</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <input type="text" class="form-control" name="contract_reference" required="True" t-attf-value="#{contract_reference
+                                                or ''}"/>
+                                        </div>
+                                    </div>
+                                    <div t-attf-class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="serial_number">Serial Number</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <input type="text" class="form-control" name="serial_number" required="True" t-attf-value="#{serial_number
+                                                or ''}"/>
+                                        </div>
+                                    </div>
+                                    <div t-attf-class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="warranty_start_date">Warranty Start Date</label>
+                                        <div class="col-md-7 col-sm-8">
+                                             <input type="date" name="warranty_start_date" class="form-control" required="required"/>
+                                        </div>
+                                    </div>
+                                    <div t-attf-class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="warranty_end_date">Warranty End Date</label>
+                                        <div class="col-md-7 col-sm-8">
+                                             <input type="date" name="warranty_end_date" class="form-control" required="required"/>
+                                        </div>
+                                    </div>
+                                    <div t-attf-class="form-group">
+                                        <label class="col-md-3 col-sm-4 control-label" for="description">Claim Details</label>
+                                        <div class="col-md-7 col-sm-8">
+                                            <textarea class="form-control" cols="60" name="description" required="True" rows="6"></textarea>
+                                        </div>
+                                    </div>
+                                    <div t-attf-class="form-group form-field o_website_form_custom_attchments">
+                                        <div class="col-md-3 col-sm-4 text-right">
+                                            <label class="control-label" for="attachment" >Attach Files</label>
+                                            
+                                        </div>
+                                        <div class="col-md-7 col-sm-8">
+                                            <input type="file" class="form-control o_website_form_input" name="attachment" multiple='multiple'/>
+                                        </div>
+                                        <div>
+                                            <label style="color:grey; font-size:12px;" >Multiple files can be attach</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                                            <button class="btn btn-success">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </group>
+                </form>
+            </t>
+        </template>
+       <!-- 
+        <record id="warranty_claim_page" model="website.menu">
+            <field name="name">Warrnty Claim</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="url">/page/warranty_claim_request</field>
+            <field name="sequence" type="int">60</field>
+        </record> -->
+        
+        <record id="warranty_claim_request_page" model="website.page">
+            <field name="url">/helpdesk_support_ticket_inherit_warranty_claim</field>
+            <field name="website_published">True</field>
+            <field name="view_id" ref="helpdesk_support_ticket_inherit_warranty_claim" />
+        </record>
+
+        <!--
+         <record id="warranty_claim_page_add" model="website.menu">
+            <field name="name">Create Warrnty Claim</field>
+            <field name="url">/warranty_claim_request</field>
+            <field name="parent_id" ref="warranty_claim_page"/>
+            <field name="sequence" type="int">1</field>
+            <field name="website_id" ref="website.default_website"/>
+            <field name="page_id" ref="warranty_claim_request_page" />
+        </record> -->
+        
+    </data>
+</odoo>

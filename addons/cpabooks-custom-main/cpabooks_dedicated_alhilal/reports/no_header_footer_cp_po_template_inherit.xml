@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<template id="odoo_template_cp_inherit" inherit_id="professional_templates_v1.PO_14_document">
+		<xpath expr="//div[@name='signature']" position="replace">
+			<div class="my-5 py-3"></div>
+			<div class="row mt-5 pt-5" style="top:10px" name="hard_signature">
+				<div style="" class="col-4 text-center  position-relative">
+					<div style="float:left; bottom:0px; border-top: 1px dotted black !important;" class="w-100 text-center px-3 position-absolute">
+						Authorised Signature
+					</div>
+				</div>
+				<div class="col-4 text-center">
+				</div>
+				<div style="" class="col-4 text-center  position-relative">
+					<div style="float:left; bottom:0px; border-top: 1px dotted black !important;" class="w-100 text-center px-3 position-absolute ">
+						Receiver Signature
+					</div>
+				</div>
+			</div>
+		</xpath>
+	</template>
+</odoo>

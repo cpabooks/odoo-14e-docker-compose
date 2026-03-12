@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="gcl" name="CRM-GCL">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+
+                    <div class="container" style="margin-top:20px; margin-bottom:20px">
+                        <div class="row">
+                            <div class="col-lg-6 offset-lg-2">
+
+                                <h3>Green City Line Facilities Services LLC</h3>
+
+                                <form role="form" action="/create/maintenance-request/" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="form-group">
+                                        <label for="tenant" class="control-label">Tenant Name</label>
+                                        <input type="text"
+                                               name="tenant"
+                                               t-att-value="tenant"
+                                               id="tenant"
+                                               class="form-control" placeholder="Your answer"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mobile" class="control-label">Contact Mobile</label>
+                                        <input type="tel"
+                                               name="mobile"
+                                               t-att-value="mobile"
+                                               id="mobile"
+                                               class="form-control" placeholder="Your answer"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="control-label">Contact Email</label>
+                                        <input type="text"
+                                               name="email"
+                                               t-att-value="email"
+                                               id="email"
+                                               class="form-control" placeholder="Your answer"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="building" class="control-label">Building/ Villa Name</label>
+                                        <input type="text"
+                                               name="building"
+                                               t-att-value="building"
+                                               id="building"
+                                               class="form-control" placeholder="Your answer"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="flat" class="control-label">Flat Number/ Villa Number</label>
+                                        <input type="text"
+                                               name="flat"
+                                               t-att-value="flat"
+                                               id="flat"
+                                               class="form-control" placeholder="Your answer"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="maintenance_type" class="control-label">Maintenance Type</label>
+                                        <select name="maintenance_type" t-att-value="maintenance_type" id="maintenance_type" class="form-control">
+                                            <option value="" selected="" disabled="">Select Maintenance Type</option>
+                                            <option value="corrective">Corrective</option>
+                                            <option value="preventive">Preventive</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="work_type" class="control-label">Select Type of Work</label>
+                                        <select
+                                                name="work_type"
+                                                t-att-value="work_type"
+                                                id="work_type"
+                                                class="form-control">
+                                            <option value="">Select</option>
+                                            <option value="HVAC">HVAC</option>
+                                            <option value="Electrical">Electrical</option>
+                                            <option value="Plumbing">Plumbing</option>
+                                            <option value="Civil">Civil</option>
+                                            <option value="Painting">Painting</option>
+                                            <option value="Check-in Works">Check-in Works</option>
+                                            <option value="Material">Material</option>
+                                            <option value="Others">Others</option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="problem" class="control-label">Select Problem</label>
+                                        <select
+                                                name="problem"
+                                                t-att-value="problem"
+                                                id="problem"
+                                                class="form-control">
+                                            <option value="">Select</option>
+                                            <option value="Check-In Works">Check-In Works</option>
+                                            <option value="A/c Not Working">A/c Not Working</option>
+                                            <option value="A/c Water Leak">A/c Water Leak</option>
+                                            <option value="A/c Over Cooling">A/c Over Cooling</option>
+                                            <option value="A/c Burning Smell">A/c Burning Smell</option>
+                                            <option value="A/c Noise">A/c Noise</option>
+                                            <option value="A/c to be Serviced">A/c to be Serviced</option>
+                                            <option value="Kitchen Sink Blocked">Kitchen Sink Blocked</option>
+                                            <option value="Kitchen Sink Water Leak">Kitchen Sink Water Leak</option>
+                                            <option value="Kitchen Mixer Leak">Kitchen Mixer Leak</option>
+                                            <option value="Water Leak From Ceiling">Water Leak From Ceiling</option>
+                                            <option value="Drainage Block">Drainage Block</option>
+                                            <option value="Bad Smell From Drain">Bad Smell From Drain</option>
+                                            <option value="Water Heater Not Working">Water Heater Not Working</option>
+                                            <option value="Shower Set Leak">Shower Set Leak</option>
+                                            <option value="Shut Off Set Leak">Shut Off Set Leak</option>
+                                            <option value="Flush Tank Broken">Flush Tank Broken</option>
+                                            <option value="W/C Flush Not Working">W/C Flush Not Working</option>
+                                            <option value="W/C Water Leak">W/C Water Leak</option>
+                                            <option value="W/C Crack">W/C Crack</option>
+                                            <option value="W/C Seat Cover Broken">W/C Seat Cover Broken</option>
+                                            <option value="W/C Block">W/C Block</option>
+                                            <option value="Garden Tap Broken">Garden Tap Broken</option>
+                                            <option value="Low Water Pressure">Low Water Pressure</option>
+                                            <option value="No Water In the Villa/Flat">No Water In the Villa/Flat
+                                            </option>
+                                            <option value="Water Tank Over Flowing">Water Tank Over Flowing</option>
+                                            <option value="Bath Tub Crack">Bath Tub Crack</option>
+                                            <option value="Wash Basin Broken">Wash Basin Broken</option>
+                                            <option value="Wash Basin Block">Wash Basin Block</option>
+                                            <option value="Wash Basin Leack">Wash Basin Leack</option>
+                                            <option value="Manhole Cover Broken">Manhole Cover Broken</option>
+                                            <option value="Flynet to Be Replaced">Flynet to Be Replaced</option>
+                                            <option value="Sliding Door Not Closing">Sliding Door Not Closing</option>
+                                            <option value="Window Not Closing">Window Not Closing</option>
+                                            <option value="Door Not Closing">Door Not Closing</option>
+                                            <option value="Door Locks Not Working">Door Locks Not Working</option>
+                                            <option value="Sliding Door Nlocks Not Working">Sliding Door Nlocks Not
+                                                Working
+                                            </option>
+                                            <option value="Door Handle Not Working">Door Handle Not Working</option>
+                                            <option value="Mirror Broken">Mirror Broken</option>
+                                            <option value="Sliding Door Glass Broken">Sliding Door Glass Broken</option>
+                                            <option value="Window Glass Broken">Window Glass Broken</option>
+                                            <option value="Kitchen Ceiling to be Fixed">Kitchen Ceiling to be Fixed
+                                            </option>
+                                            <option value="Cupboards to Be Repaired">Cupboards to Be Repaired</option>
+                                            <option value="Holes Need to Be Closed">Holes Need to Be Closed</option>
+                                            <option value="Touch Up Painting to Be Done">Touch Up Painting to Be Done
+                                            </option>
+                                            <option value="Full Villa Painting to be Done">Full Villa Painting to be
+                                                Done
+                                            </option>
+                                            <option value="Tiles Grouting to Be Done">Tiles Grouting to Be Done</option>
+                                            <option value="Tiles Popped Up/broken">Tiles Popped Up/broken</option>
+                                            <option value="Gypsum Work">Gypsum Work</option>
+                                            <option value="Mason Work">Mason Work</option>
+                                            <option value="Skirting Tiles Broken/detached">Skirting Tiles
+                                                Broken/detached
+                                            </option>
+                                            <option value="SP Lights Not Working">SP Lights Not Working</option>
+                                            <option value="SP Lights Cover Faded">SP Lights Cover Faded</option>
+                                            <option value="SP Heater Not Working">SP Heater Not Working</option>
+                                            <option value="SP Pump Not Working">SP Pump Not Working</option>
+                                            <option value="SP Water Leak">SP Water Leak</option>
+                                            <option value="SP Filter Broken">SP Filter Broken</option>
+                                            <option value="SP Skimmer Broken">SP Skimmer Broken</option>
+                                            <option value="SP Tiles Popped Up/Broken">SP Tiles Popped Up/Broken</option>
+                                            <option value="Bulbs to Be Replaced">Bulbs to Be Replaced</option>
+                                            <option value="Switch Socket Not Working">Switch Socket Not Working</option>
+                                            <option value="Doorbell Not Working">Doorbell Not Working</option>
+                                            <option value="No Power in the Villa/Flat">No Power in the Villa/Flat
+                                            </option>
+                                            <option value="Cooker Hood Not Working">Cooker Hood Not Working</option>
+                                            <option value="Exhaust Fan Not Working">Exhaust Fan Not Working</option>
+                                            <option value="Short Circuit in the Villa/flat">Short Circuit in the
+                                                Villa/flat
+                                            </option>
+                                            <option value="Garden Lights Are Not Working">Garden Lights Are Not
+                                                Working
+                                            </option>
+                                            <option value="Cleaning Works">Cleaning Works</option>
+                                            <option value="Electrical Works">Electrical Works</option>
+                                            <option value="Plumbing Works">Plumbing Works</option>
+                                            <option value="Civil Works">Civil Works</option>
+                                            <option value="Bathroom Ceiling to Be Fixed">Bathroom Ceiling to Be Fixed
+                                            </option>
+                                            <option value="Materials Request">Materials Request</option>
+                                            <option value="Snowline Works">Snowline Works</option>
+                                            <option value="Check-in Painting">Check-in Painting</option>
+                                            <option value="Water Heater Leaking">Water Heater Leaking</option>
+                                            <option value="Others">Others</option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="problem_detail" class="control-label">Problem Descriptions</label>
+                                        <input type="text"
+                                               name="problem_detail"
+                                               t-att-value="problem_detail"
+                                               id="problem_detail"
+                                               class="form-control" placeholder="Your answer"/>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="property" class="control-label">Property Managed by</label>
+                                        <input type="text"
+                                               name="property"
+                                               t-att-value="property"
+                                               id="property"
+                                               class="form-control" placeholder="Your answer"/>
+                                    </div>
+
+
+                                    <!--<div class="form-group">
+                                        <label for="property" class="control-label">Property Managed by</label>
+                                        <select
+                                                name="property"
+                                                t-att-value="property"
+                                                id="property"
+                                                class="form-control">
+                                            <option value="">Select</option>
+                                            <option value="AAP">AAP</option>
+                                            <option value="Snowline">Snowline</option>
+                                            <option value="ANS">ANS</option>
+                                            <option value="BRJ">BRJ</option>
+                                            <option value="DLK">DLK</option>
+                                            <option value="Snowline-FAB">Snowline-FAB</option>
+                                            <option value="IBV">IBV</option>
+                                            <option value="MAT">MAT</option>
+                                            <option value="NIY">NIY</option>
+                                            <option value="PVT">PVT</option>
+                                            <option value="ONC">ONC</option>
+                                            <option value="ADNP">ADNP</option>
+                                            <option value="REEM">REEM</option>
+                                            <option value="XRVN">XRVN</option>
+                                            <option value="Asteco">Asteco</option>
+                                            <option value="Bin Hamoodah">Bin Hamoodah</option>
+                                            <option value="AR Wealth">AR Wealth</option>
+
+                                        </select>
+
+                                    </div>-->
+
+
+                                    <!--<h5>Select Work Priority</h5>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               name="priority"
+                                               id="urgent"
+                                               value="Urgent- 4 Hours"/>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            Urgent- 4 Hours
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               name="priority"
+                                               id="normal"
+                                               value="Normal- 24 Hours"/>
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            Normal- 24 Hours
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               name="priority"
+                                               id="schedule"
+                                               value="Schedule"/>
+                                        <label class="form-check-label" for="exampleRadios3">
+                                            Schedule
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                               name="priority"
+                                               id="top_urgent"
+                                               value="Top Urgent"/>
+                                        <label class="form-check-label" for="exampleRadios4">
+                                            Top Urgent
+                                        </label>
+                                    </div>-->
+
+
+                                    <div class="form-group">
+                                        <label for="address" class="control-label">Location/ Address</label>
+                                        <input type="text"
+                                               name="address"
+                                               t-att-value="address"
+                                               id="address"
+                                               class="form-control" placeholder="Your answer"/>
+                                    </div>
+
+                                    <div class="form-check" style="display:none">
+                                        <input class="form-check-input" type="radio"
+                                               name="option"
+                                               id="option_1"
+                                               value="Option 1"/>
+                                        <label class="form-check-label" for="exampleRadios4">
+                                            Option 1
+                                        </label>
+                                    </div>
+	                                <div class="form-group">
+		                                <label class="form-label" for="image">Image</label>
+		                                <input type="file" name="image" class="form-control"/>
+	                                </div>
+
+
+                                    <div class="clearfix">
+                                        <button type="submit" class="btn btn-primary pull-left">Submit</button>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </t>
+    </template>
+</odoo>

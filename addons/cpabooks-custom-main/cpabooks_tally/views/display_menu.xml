@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_trial_balance_kanban" model="ir.ui.view">
+        <field name="name">Trial Balance Kanban View</field>
+        <field name="model">display.menu</field>
+        <field name="arch" type="xml">
+            <kanban create="false">
+                <field name="name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card" style="width: 100%;">
+                            <div class="w-100 main_div">
+                                <div class="top">
+                                    <h5>
+                                        Display Menu
+                                    </h5>
+                                </div>
+                                <div class="oe_kanban_content row">
+                                    <div class="col-6 left">
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="w-75 mx-auto content">
+                                            <div class="w-100 text-center content_header">
+                                                <h3>Display Menu</h3>
+                                            </div>
+
+                                            <div class="w-100 content_body">
+                                                <div class="w-75 mx-auto body_content">
+                                                    <ul>
+                                                        <dd>
+                                                            <button name="day_book" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="Day Book">
+                                                                Day Book
+                                                            </button>
+                                                        </dd>
+
+                                                        <br/>
+                                                        <dd>
+                                                            <button name="account_books" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="Account Books">
+                                                                Account Books
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="statements" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="Statements">
+                                                                Statements
+                                                            </button>
+                                                        </dd>
+
+                                                        <br/>
+                                                        <dd>
+                                                            <button name="inventory_books" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="Inventory Books">
+                                                                Inventory Books
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="inventory_statements" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="Statements of Inventory">
+                                                                Statements of Inventory
+                                                            </button>
+                                                        </dd>
+
+                                                        <br/>
+                                                        <dd>
+                                                            <button name="statutory_reports" type="object"
+                                                                    string="Statutory Reports"
+                                                                    class="bg-transparent button">
+                                                                Statutory Reports
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="vat_summary_report" type="object"
+                                                                    style="color:blue;  !important;"
+                                                                    string="VAT Summary Report"
+                                                                    class="bg-transparent button">
+                                                                Vat Summary Report
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="statistics" type="object"
+                                                                    style="color:blue;  !important;"
+                                                                    string="Statistics"
+                                                                    class="bg-transparent button">
+                                                                Statistics
+                                                            </button>
+                                                        </dd>
+
+                                                        <br/>
+                                                        <dd>
+                                                            <button name="job_work_in_reports" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="Job Work In Reports">
+                                                                Job Work In Reports
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="job_work_out_reports" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="Job Work Out Reports">
+                                                                Job Work Out Reports
+                                                            </button>
+                                                        </dd>
+
+                                                        <br/>
+                                                        <dd>
+                                                            <button name="cash_funds_flow" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="Cash/Funds Flow">
+                                                                Cash/Funds Flow
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="receipts_payments" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="Receipts and Payments">
+                                                                Receipts and Payments
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="payroll_reports" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="Payroll Reports">
+                                                                Payroll Reports
+                                                            </button>
+                                                        </dd>
+
+                                                        <br/>
+                                                        <dd>
+                                                            <button name="list_of_accounts" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="List of Accounts">
+                                                                List of Accounts
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="exception_reports" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="Exception Reports">
+                                                                Exception Reports
+                                                            </button>
+                                                        </dd>
+
+                                                        <br/>
+                                                        <dd>
+                                                            <button name="quit" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="Quit">
+                                                                Quit
+                                                            </button>
+                                                        </dd>
+                                                        <dd>
+                                                            <button name="user_configured_backup" type="object"
+                                                                    class="bg-transparent button"
+                                                                    string="User Configured Backup">
+                                                                User Configured Backup
+                                                            </button>
+                                                        </dd>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Define an action for Tally kanban view -->
+    <record id="action_trial_kanban" model="ir.actions.act_window">
+        <field name="name">Display Menu</field>
+        <field name="res_model">display.menu</field>
+        <field name="view_mode">kanban</field>
+        <!--        <field name="view_id" ref="view_trial_balance_kanban"/>-->
+        <!-- Use view_mode instead of view_type -->
+    </record>
+
+</odoo>

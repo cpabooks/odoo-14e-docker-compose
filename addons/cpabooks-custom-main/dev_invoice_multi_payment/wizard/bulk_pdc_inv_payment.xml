@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="dev_bulk_pdc_invoice_view" model="ir.ui.view">
+        <field name="name">bulk.pdc.invoice.payment.view</field>
+        <field name="model">bulk.pdc.payment</field>
+        <field name="arch" type="xml">
+            <form string="Multiple PDC Registered">
+                <group>
+                    <group>
+                        <field name="payment_type" readonly="1" force_save="1"/>
+                        <field name="journal_id" />
+                        <field name="cheque_no" />
+                        <field name="cheque_date" />
+
+<!--                        <field name="partner_type" readonly="1" force_save="1"/>-->
+<!--                        <field name="journal_id"/>-->
+                    </group>
+                    <group>
+                        <field name="payment_date"/>
+                        <field name="bank_id"/>
+<!--                        <field name="communication"/>-->
+<!--                        <field name="is_pdc_payment"/>-->
+                    </group>
+                </group>
+                    <seperator string='Invoices'/>
+                    <field name="invoice_ids">
+                        <tree editable="buttom">
+                            <field name="invoice_id"/>
+                            <field name="memo"/>
+                            <field name="partner_id"/>
+                            <field name="reference"/>
+                            <field name="journal_id"/>
+                            <field name="due_date"/>
+                            <field name="issue_date"/>
+                            <field name="payment_type" invisible="1" force_save="1"/>
+                            <field name="payment_date"/>
+                            <field name="agent"/>
+                            <field name="bank_id"/>
+                            <field name="payment_amount"/>
+<!--                            <field name="cheque_statement" filename="cheque_statement_filename" />-->
+                            <field name="attachment_ids" widget="many2many_binary" colspan="2"/>
+<!--                            <field name="paid_amount"/>-->
+                        </tree>
+                    </field>
+                <footer>
+                    <button string="Process" name="process_payment" type="object" default_focus="1" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+	 <act_window id="action_bulk_pdc_invoice_payment"
+                name="Multiple PDC Payment"
+                res_model="bulk.pdc.payment"
+                binding_model="account.move"
+                view_mode="form"
+                target="new"
+        />
+
+
+
+</odoo>

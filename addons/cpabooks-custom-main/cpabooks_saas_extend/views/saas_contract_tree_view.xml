@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="saas_contract_tree_view_inherit" model="ir.ui.view">
+        <field name="name">saas.contract.view.tree.inherit</field>
+        <field name="model">saas.contract</field>
+        <field name="priority" eval="70"/>
+        <field name="inherit_id" ref="odoo_saas_kit.saas_contract_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="saas_client"/>
+                <field name="invoice_product_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

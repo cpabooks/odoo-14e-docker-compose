@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_view_form_inherit_whatsapp" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.website.whatsapp</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='website_settings']" position="after">
+                <h2>Whatsapp</h2>
+                <div class="o_settings_container">
+                    <div class="content-group">
+                        <group>
+                            <field name="whatsapp_no" placeholder="Number with Country Code"/>
+                        </group>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
+
+

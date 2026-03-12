@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="so_100_miles_inherit" inherit_id="professional_templates.SO_13_document">
+            <xpath expr="//t[@t-call='professional_templates.order_lines']" position="after">
+                 <div name="warm_regards" class="row oe_mt16" attrs="{'invisible': [('doc.digital_sign_sale_order_compute', '=', False)]}">
+                <div class="col-12">
+                    <span t-field="doc.warm_regards"/>
+                </div>
+            </div>
+            <div name="signature_logo" class="row" attrs="{'invisible': [('doc.digital_sign_sale_order_compute', '=', False)]}">
+                <div class="col-12">
+                    <img t-if="doc.digital_signature" t-att-src="'data:image/png;base64,%s' % to_text(doc.digital_signature)"
+                         style="height: 1.5cm; max-width: 12cm;min-width:6cm"/>
+                    <img t-if="doc.digital_logo" t-att-src="'data:image/png;base64,%s' % to_text(doc.digital_logo)"
+                         style="height: 3cm; max-width: 6cm;padding-left:20px;"/>
+                </div>
+            </div>
+
+            <div t-if="doc.digital_signature" class="col-3 text-center" style="margin-top:-10px;">
+                <span t-field="doc.user_id.name"/>
+            </div>
+
+
+            </xpath>
+
+            <xpath expr="//div[@class='article page']" position="inside">
+                <t t-set="signature" t-value="doc.get_signature()"/>
+            <div t-if="signature" class="row oe_mt64 last-page" name="signature">
+                 <div class="col-4 text-left">
+                    <strong><span style="text-decoration:overline" t-field="signature.signature1"/></strong>
+                </div>
+                <div class="col-4 text-center">
+                    <strong><span style="text-decoration:overline" t-field="signature.signature2"/></strong>
+                </div>
+                <div class="col-4 text-right">
+                    <strong><span style="text-decoration:overline" t-field="signature.signature3"/></strong>
+                </div>
+            </div>
+
+            </xpath>
+
+        </template>
+    </data>
+</odoo>

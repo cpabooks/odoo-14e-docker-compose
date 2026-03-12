@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="paperformat_timecard" model="report.paperformat">
+        <field name="name">Timecard</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">5</field>
+        <field name="dpi">120</field>
+    </record>
+     <report id="timecard_report"
+            model="timecard.wizard"
+            string="Timecard Report"
+            report_type="qweb-pdf"
+            name="bi_employee_payslip_report.timecard_report_view"
+            paperformat="bi_employee_payslip_report.paperformat_timecard"
+            menu="False"/>
+
+	<!-- Custom External Layout Template -->
+    <template id="header_footer_less_layout" name="Custom External Layout">
+        <t t-call="web.external_layout">
+            <!-- Override to remove header and footer -->
+            <t t-set="display_header" t-value="False"/>
+            <t t-set="display_footer" t-value="False"/>
+        </t>
+    </template>
+
+	
+       <template id="timecard_report_view">
+        <t t-call="web.html_container">
+	        <style>
+		        .timesheet-table {
+		        page-break-inside: avoid;
+		        }
+		        .table-header {
+		        display: table-header-group;
+		        }
+		        .page-break {
+		        page-break-after: always;
+		        }
+		        .text-center{
+		        text-align: center !important;
+		        }
+		        .text-right {
+		        text-align: right !important;
+		        }
+	        </style>
+	        <t t-foreach="docs" t-as="o">
+		        <t t-set="o" t-value="o.with_context(lang=lang)" />
+
+                <div class="page">
+                        <h2 class="text-center" style="margin-top:20px;">
+                            <span>
+                            <u><span t-esc="report_title"/></u>
+                        </span>
+                            <br></br>
+                        </h2>
+                    <!--*************************Title Table*********************************-->
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+                        <tr>
+                            <td style="width: 50%; vertical-align: top;">
+                                <table style="width: 100%; border: 1px solid black; border-collapse: collapse;">
+                                    <tr>
+                                        <th colspan="2" style="border: 1px solid black; padding: 5px; text-align: center; background-color: #f2f2f2;">WORKER DETAILS</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 5px; width: 30%;"><strong>NAME</strong></td>
+                                        <td style="border: 1px solid black; padding: 5px;" t-esc="employee['name']"/>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 5px;"><strong>CODE</strong></td>
+                                        <td style="border: 1px solid black; padding: 5px;" t-esc="employee['code']"/>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 5px;"><strong>TRADE</strong></td>
+                                        <td style="border: 1px solid black; padding: 5px;" t-esc="employee['trade']"/>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 5px;"><strong>MONTH</strong></td>
+                                        <td style="border: 1px solid black; padding: 5px;" t-esc="employee['month_range']"/>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 50%; vertical-align: top;">
+                                <table style="width: 100%; border: 1px solid black; border-collapse: collapse;">
+                                    <tr>
+                                        <th colspan="2" style="border: 1px solid black; padding: 5px; text-align: center; background-color: #f2f2f2;">COMPANY</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 5px; width: 30%;"><strong>NAME</strong></td>
+                                        <td style="border: 1px solid black; padding: 5px;" t-esc="company_details['name']"/>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 5px;"><strong>SITE</strong></td>
+                                        <td style="border: 1px solid black; padding: 5px;" t-att-rowspan="2" t-esc="company_details['site']"/>
+                                    </tr>
+                                    <tr style="height: 33px;">
+                                        <td style="border: 1px solid black; padding: 5px;"></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 5px;"><strong>LOCATION</strong></td>
+                                        <td style="border: 1px solid black; padding: 5px;" t-esc="company_details['location']"/>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--*************************Title Table*********************************-->
+                    <!--*************************Main Table*********************************-->
+                    <!-- Add this after your existing company table -->
+                    <table class="timesheet-table" style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid black;">
+                        <thead class="table-header">
+                            <tr style="background-color: #f2f2f2;">
+                                <th style="border: 1px solid black; padding: 5px; text-align: center;">Date</th>
+                                <th style="border: 1px solid black; padding: 5px; text-align: center;">Day</th>
+                                <th style="border: 1px solid black; padding: 5px; text-align: center;">Total Regular Hours<br/>(<t t-esc="regular_hours_per_day"/> hrs/day)</th>
+                                <th style="border: 1px solid black; padding: 5px; text-align: center;">Total OverTime</th>
+                                <th style="border: 1px solid black; padding: 5px; text-align: center;">Total Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="timesheet_data" t-as="day">
+                                <tr>
+                                    <td style="border: 1px solid black; padding: 5px; text-align: center;" t-esc="day['date']"/>
+                                    <td style="border: 1px solid black; padding: 5px; text-align: center;" t-esc="day['day_name']"/>
+                                    <t t-if="not day['is_weekend']">
+                                        <td style="border: 1px solid black; padding: 5px; text-align: center;" t-esc="'{0:,.2f}'.format(day['regular_hours'])"/>
+                                        <td style="border: 1px solid black; padding: 5px; text-align: center;" t-esc="'{0:,.2f}'.format(day['overtime_hours'])"/>
+                                        <td style="border: 1px solid black; padding: 5px; text-align: center;" t-esc="'{0:,.2f}'.format(day['total_hours'])"/>
+                                    </t>
+                                    <t t-else="">
+                                        <td style="border: 1px solid black; padding: 5px; text-align: center;" t-att-colspan="3"/>
+                                    </t>
+                                </tr>
+                            </t>
+                            <tr style="font-weight: bold; background-color: #f2f2f2;">
+                                <td colspan="2" style="border: 1px solid black; padding: 5px; text-align: right;">TOTAL HOURS</td>
+                                <td style="border: 1px solid black; padding: 5px; text-align: center;" t-esc="'{0:,.2f}'.format(totals['regular'])"/>
+                                <td style="border: 1px solid black; padding: 5px; text-align: center;" t-esc="'{0:,.2f}'.format(totals['overtime'])"/>
+                                <td style="border: 1px solid black; padding: 5px; text-align: center;" t-esc="'{0:,.2f}'.format(totals['total'])"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--*************************Main Table*********************************-->
+                    <!-- **********************Salary Table********************************-->
+                    <div style="width: 50%; float: left; margin-top: 20px;">
+                        <table style="width: 100%; border-collapse: collapse; border: 1px solid black;">
+                            <tr>
+                                <th colspan="4" style="border: 1px solid black; padding: 5px; text-align: center; background-color: #f2f2f2;">
+                                    <span t-esc="salary_title"/>
+                                </th>
+                            </tr>
+	                        <tr>
+		                        <th style="border: 1px solid black; padding: 5px; text-align: center; background-color: #f2f2f2;"></th>
+		                        <th style="border: 1px solid black; padding: 5px; text-align: center; background-color: #f2f2f2;">Hours</th>
+		                        <th style="border: 1px solid black; padding: 5px; text-align: center; background-color: #f2f2f2;">Price AED</th>
+		                        <th style="border: 1px solid black; padding: 5px; text-align: center; background-color: #f2f2f2;">Total AED</th>
+	                        </tr>
+	                        <t t-foreach="payslip.line_ids" t-as="line">
+		                        <tr t-if="line.total != 0">
+			                        <td style="border: 1px solid black; padding: 5px;"><strong t-esc="line.name"/></td>
+			                        <td style="border: 1px solid black; padding: 5px;" class="text-right"><strong t-esc="'{0:,.2f}'.format(line.hours)"/></td>
+			                        <td style="border: 1px solid black; padding: 5px;" class="text-right"><strong t-esc="'{0:,.2f}'.format(line.rate_per_hours)"/></td>
+			                        <td style="border: 1px solid black; padding: 5px;" class="text-right"><strong t-esc="'{0:,.2f}'.format(line.total)"/></td>
+		                        </tr>
+	                        </t>
+                        </table>
+                    </div>
+
+                    <!-- Clear float if you have content below -->
+                    <!--<div style="clear: both;"></div>-->
+                    <!-- **********************Salary Table********************************-->
+                    <!--***********************Signature Part********************************-->
+                    <!-- Add this after all your tables -->
+                        <div style="margin-top: 100px; width: 100%;">
+                            <table style="width: 100%; border: none;">
+                                <tr>
+                                    <td style="width: 33%; text-align: center; padding-top: 60px;border: none;">
+                                        <div style="border-top: 1px solid black; width: 80%; margin: 0 auto;">
+                                            <p style="margin-top: 5px;">Prepared By: Accounts</p>
+                                        </div>
+                                    </td>
+                                    <td style="width: 33%; text-align: center; padding-top: 60px;border: none;">
+                                        <div style="border-top: 1px solid black; width: 80%; margin: 0 auto;">
+                                            <p style="margin-top: 5px;">Verified By: HR</p>
+                                        </div>
+                                    </td>
+                                    <td style="width: 33%; text-align: center; padding-top: 60px;border: none;">
+                                        <div style="border-top: 1px solid black; width: 80%; margin: 0 auto;">
+                                            <p style="margin-top: 5px;">Approved By:</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    <!--***********************Signature Part********************************-->
+                </div>
+            </t>
+        </t>
+       </template>
+</odoo>

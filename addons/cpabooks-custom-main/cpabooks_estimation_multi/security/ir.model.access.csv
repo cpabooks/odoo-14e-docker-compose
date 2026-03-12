@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_estimation_final_product,manage_estimation_final_product,model_estimation_final_product,,1,1,1,1
+access_bom_final_product,manage_bom_final_product,model_bom_final_product,,1,1,1,1
+access_mrp_final_product,manage_mrp_final_product,model_mrp_final_product,,1,1,1,1
+access_raw_material_summary,manage_raw_material_summary,model_raw_material_summary,,1,1,1,1

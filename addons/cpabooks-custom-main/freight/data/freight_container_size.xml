@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="freight_container_20_ge" model="freight.container.size">
+            <field name="name">20 Ge</field>
+            <field name="description" >20 GE</field>
+        </record>
+        <record id="freight_container_40_ge" model="freight.container.size">
+            <field name="name">40 Ge</field>
+            <field name="description" >40 GE</field>
+        </record>
+        <record id="freight_container_40_hc" model="freight.container.size">
+            <field name="name">40 HC</field>
+            <field name="description" >40 HC</field>
+        </record>
+    </data>
+</odoo>

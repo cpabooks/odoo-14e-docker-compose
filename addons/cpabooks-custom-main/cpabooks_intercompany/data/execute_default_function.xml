@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <function model="res.company" name="action_closed_onboard_config_panel_from_acc_dashboard"/>
+        <function model="res.currency" name="action_change_currency_unit"/>
+    </data>
+</odoo>

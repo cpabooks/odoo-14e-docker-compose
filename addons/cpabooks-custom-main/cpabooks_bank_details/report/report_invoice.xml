@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_inherit_bank_details" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@class='page']" position="inside">
+            <t t-if="o.bank_detail_enable">
+                <div class="oe_mt32">
+                    <h5 style="text-decoration: underline;">Bank Details</h5>
+                    <t t-if="o.company_id.bank_name">
+                        <span t-field="o.company_id.bank_name"/>
+                        <br/>
+                    </t>
+                    <t t-if="o.company_id.bank_account_number">
+                        <span t-field="o.company_id.bank_account_number"/>
+                        <br/>
+                    </t>
+                    <t t-if="o.company_id.bank_iban_number">
+                        <span t-field="o.company_id.bank_iban_number"/>
+                        <br/>
+                    </t>
+                    <t t-if="o.company_id.bank_address">
+                        <span t-field="o.company_id.bank_address"/>
+                        <br/>
+                    </t>
+                    <t t-if="o.company_id.bank_branch">
+                        <span t-field="o.company_id.bank_branch"/>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

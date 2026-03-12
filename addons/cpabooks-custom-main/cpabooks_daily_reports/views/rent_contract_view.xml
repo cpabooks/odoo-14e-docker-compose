@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--Form-->
+        <record id="rent_contract_form_view" model="ir.ui.view">
+            <field name="name">rent.contract.form.view</field>
+            <field name="model">rent.contract</field>
+            <field name="arch" type="xml">
+                <form string="Rent Contract">
+                    <header>
+                        <button name="change_monthly_rent_ids" string="Get Cost Amount" class="oe_highlight"
+                                type="object" attrs="{'invisible': [('is_account_move', '=', False)]}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="ref" class="oe_inline"/>
+                            </h1>
+                            <h3>
+                                <field name="partner_id" class="oe_inline" placeholder="land Lord"/>
+                            </h3>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" invisible="1"/>
+                                <field name="property_location" widget="geolocation"/>
+                                <field name="duration" attrs="{'readonly': [('is_account_move', '=', True)]}"/>
+                                <field name="payment_numbers" attrs="{'readonly': [('is_account_move', '=', True)]}"/>
+                                <field name="start" attrs="{'readonly': [('is_account_move', '=', True)]}"/>
+                                <field name="end" attrs="{'readonly': [('is_account_move', '=', True)]}"/>
+                                <field name="days" attrs="{'readonly': [('is_account_move', '=', True)]}"/>
+                                <field name="contract_copy"/>
+                            </group>
+                            <group>
+                                <field name="rent_yearly" attrs="{'readonly': [('is_account_move', '=', True)]}"/>
+                                <field name="deposit" attrs="{'readonly': [('is_account_move', '=', True)]}"/>
+                                <field name="payment_amount" string="Amount To Pay"
+                                       attrs="{'readonly': [('is_account_move', '=', True)]}"/>
+                                <field name="rent_monthly" attrs="{'readonly': [('is_account_move', '=', True)]}"/>
+                                <field name="is_account_move" readonly="1"/>
+                                <field name="is_payment_number_line_created" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="payment_number" string="Numbers Of Payments"
+                                  attrs="{'invisible': [('is_payment_number_line_created', '=', False)]}">
+                                <field name="payment_number_line_ids">
+                                    <tree create="0" delete="0" editable="top">
+                                        <field name="name" string="Label" readonly="1"/>
+                                        <field name="payment_date"/>
+                                        <field name="amount" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="monthly_payments" string="Monthly"
+                                  attrs="{'invisible': [('is_payment_number_line_created', '=', False)]}">
+                                <field name="monthly_rent_ids">
+                                    <tree create="0" delete="0" editable="top">
+                                        <field name="month" readonly="1"/>
+                                        <field name="cost_amount" readonly="1" sum="Total"/>
+                                        <field name="amount" readonly="1" sum="Total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <!--List-->
+        <record id="rent_contract_list_view" model="ir.ui.view">
+            <field name="name">rent.contract.list.view</field>
+            <field name="model">rent.contract</field>
+            <field name="arch" type="xml">
+                <tree string="Rent Contracts">
+                    <header>
+                        <button type="object" name="action_print_pdf" string="Print PDF" class="oe_highlight m-2"
+                                groups="base.group_system"/>
+                    </header>
+
+                    <field name="ref"/>
+                    <field name="partner_id"/>
+                    <field name="property_location"/>
+                    <field name="start"/>
+                    <field name="end"/>
+                    <field name="days"/>
+                    <field name="rent_yearly"/>
+                    <field name="rent_monthly"/>
+                    <field name="payment_numbers" string="NOP"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_rent_contract">
+            <field name="name">Rent Contracts</field>
+            <field name="res_model">rent.contract</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="menu_rent_contract_main" name="Rent Contracts" sequence="100"
+                  parent="account.menu_finance_reports">
+            <menuitem id="menu_action_rent_contract" name="Rent Contracts"
+                      action="action_rent_contract" sequence="1"/>
+        </menuitem>
+
+    </data>
+</odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<!--        <template id="inv_common_template_inherit_idesign" inherit_id="professional_templates.INVOICE_common_document">-->
+<!--            <xpath expr="//div[@class='col-5 mt8 mb8 float-right']" position="attributes">-->
+<!--                <attribute name="t-attf-style">background-color:white !important;color:{{style.theme_txt_color}};min-height:178px;max-height:500px;-->
+<!--                </attribute>-->
+<!--            </xpath>-->
+
+
+<!--        </template>-->
+
+        <template id="inv_common_template_line_inherit_idesign"
+                  inherit_id="professional_templates.invoice_lines_common_template">
+            <xpath expr="//div[@t-if='style.aiw_report']/p" position="after">
+                <div t-if="o.prepare_by.user_stamp" class="row oe-mt64">
+                    <div name="signature_logo" class="col-12">
+                        <img t-att-src="'data:image/png;base64,%s' % to_text(o.prepare_by.user_stamp)"
+                             t-attf-style="height: 4cm; min-width: 4cm;border:1px solid black;"/>
+                    </div>
+                </div>
+            </xpath>
+
+
+        </template>
+
+
+                 <template id="inv_common_template_inherit_ds_idesign" inherit_id="cpabooks_digital_signature_pt.inv_common_template_inherit_ds">
+                    <xpath expr="//div[@name='signature_logo_div']" position="replace">
+                    </xpath>
+                </template>
+
+         <template id="inv_common_template_inherit_bd_idesign" inherit_id="cpabooks_bank_details_pt.report_pt_common_invoice_document_inherit_bank_details">
+                    <xpath expr="//div[@name='signature_logo_div']" position="attributes">
+                        <attribute name="t-attf-style">display:none;</attribute>
+                    </xpath>
+                </template>
+
+
+        <template id="invoice_common_template_idesign" inherit_id="professional_templates.INVOICE_common_document">
+            <xpath expr="//div[@name='partner_name']/span[1]" position="attributes">
+                <attribute name="style">display:none;</attribute>
+            </xpath>
+            <xpath expr="//div[@name='partner_name']/span[2]" position="attributes">
+                <attribute name="t-attf-style">margin-left:20px;font-weight:bold !important;text-transform: uppercase !important;</attribute>
+            </xpath>
+            <xpath expr="//div[@name='partner_name']/span[3]" position="attributes">
+                <attribute name="t-attf-style">margin-left:20px;font-weight:bold !important</attribute>
+            </xpath>
+            <xpath expr="//div[@name='partner_name']/span[4]" position="attributes">
+                <attribute name="t-attf-style">margin-left:20px;text-transform: uppercase !important;</attribute>
+            </xpath>
+            <xpath expr="//div[@name='partner_name']/span[5]" position="attributes">
+                <attribute name="t-attf-style">margin-left:20px</attribute>
+            </xpath>
+
+            <xpath expr="//address" position="attributes">
+                <attribute name="t-options">{"widget": "contact", "fields": ["address", "phone",  "email", "website"], "no_marker": true}</attribute>
+            </xpath>
+             <xpath expr="//address" position="attributes">
+                <attribute name="t-attf-style">margin-left:22px !important;</attribute>
+            </xpath>
+        </template>
+    </data>
+</odoo>

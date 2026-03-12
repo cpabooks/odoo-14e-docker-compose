@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_bulk_res_partner_export_wizard_form" model="ir.ui.view">
+		<field name="name">view.bulk.res.partner.export.wizard.form</field>
+		<field name="model">bulk.res.partner.export.wizard</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<div class="oe_title">
+						<h1>Select Fields to Export</h1>
+					</div>
+					<notebook>
+						<page name="export" string="Export">
+							<div class="d-flex align-items-start">
+								<div class="w-50 p-2">
+									<h3 class="text-black">Available Fields</h3>
+									<field name="available_field_ids" mode="tree" nolabel="1">
+										<tree editable="bottom">
+											<field name="field_description"/>
+											<field name="field_name"/>
+											<field name="field_type"/>
+											<button name="move_to_selected" type="object" icon="fa-arrow-right"
+											        title="Select"/>
+										</tree>
+									</field>
+								</div>
+								
+								<div class="d-flex flex-column p-2">
+									<button name="add_all_fields" type="object" class="btn btn-secondary mb-2"
+									        title="Select All" icon="fa-angle-double-right"/>
+									<button name="remove_all_fields" type="object" class="btn btn-secondary"
+									        title="Deselect All" icon="fa-angle-double-left"/>
+								</div>
+								
+								<div class="w-50 p-2">
+									<h3 class="text-black">Selected Fields</h3>
+									<field name="selected_field_ids" mode="tree" nolabel="1">
+										<tree editable="bottom">
+											<button name="move_to_available" type="object" icon="fa-arrow-left"
+											        title="Deselect"/>
+											<field name="field_description"/>
+											<field name="field_name"/>
+											<field name="field_type"/>
+										</tree>
+									</field>
+								</div>
+							</div>
+							<div class="d-flex justify-content-start gap-3">
+								<button name="action_export" string="Export" type="object" class="btn-primary"
+								        data-hotkey="q"/>
+								<button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+							</div>
+						
+						</page>
+						<page name="import" string="Import">
+							<group>
+								<h3 class="text-black">Import Files</h3>
+								<field name="import_file" filename="import_filename"/>
+								<div class="d-flex justify-content-start gap-3">
+									<button name="action_import_res_partner_extra" type="object" string="Import" class="oe_highlight"/>
+									<button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+									<!--								<button name="action_delete_res_partner_extra" type="object" string="Delete All" class="oe_highlight"/>-->
+								</div>
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+				<footer></footer>
+			</form>
+		</field>
+	</record>
+	
+	<record id="action_bulk_res_partner_export" model="ir.actions.act_window">
+		<field name="name">Partner Data Export</field>
+		<field name="res_model">bulk.res.partner.export.wizard</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+	
+	<menuitem
+			id="menu_bulk_res_partner_export"
+			name="Export Partner Data"
+			sequence="10"
+			parent="contacts.res_partner_menu_config"
+			action="action_bulk_res_partner_export"
+	/>
+</odoo>

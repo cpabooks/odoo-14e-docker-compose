@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="cpabook_accounting_automation.list">
+      <field name="name">cpabook_accounting_automation list</field>
+      <field name="model">cpabook_accounting_automation.cpabook_accounting_automation</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="cpabook_accounting_automation.action_window">
+      <field name="name">cpabook_accounting_automation window</field>
+      <field name="res_model">cpabook_accounting_automation.cpabook_accounting_automation</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="cpabook_accounting_automation.action_server">
+      <field name="name">cpabook_accounting_automation server</field>
+      <field name="model_id" ref="model_cpabook_accounting_automation_cpabook_accounting_automation"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="cpabook_accounting_automation" id="cpabook_accounting_automation.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="cpabook_accounting_automation.menu_1" parent="cpabook_accounting_automation.menu_root"/>
+    <menuitem name="Menu 2" id="cpabook_accounting_automation.menu_2" parent="cpabook_accounting_automation.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="cpabook_accounting_automation.menu_1_list" parent="cpabook_accounting_automation.menu_1"
+              action="cpabook_accounting_automation.action_window"/>
+    <menuitem name="Server to list" id="cpabook_accounting_automation" parent="cpabook_accounting_automation.menu_2"
+              action="cpabook_accounting_automation.action_server"/>
+-->
+  </data>
+</odoo>

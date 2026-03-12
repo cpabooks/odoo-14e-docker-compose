@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <!-- Wizard View -->
+        <record id="view_update_module_result_wizard" model="ir.ui.view">
+            <field name="name">update.module.result.wizard.form</field>
+            <field name="model">update.module.result.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Module Update Result">
+                    <sheet>
+                        <group>
+                            <field name="result_message" widget="text" readonly="1" />
+                        </group>
+                        <footer>
+                            <button string="Close" class="btn-secondary" special="cancel" />
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Wizard Action -->
+        <record id="action_update_module_result_wizard" model="ir.actions.act_window">
+            <field name="name">Update Module Result</field>
+            <field name="res_model">update.module.result.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

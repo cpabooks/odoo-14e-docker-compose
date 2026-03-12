@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock.picking_type_in" model="ir.ui.view">
+        <field name="name">IN BOUND</field>
+    </record>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Draft Stage -->
+        <record id="draft" model="helpdesk.description.stage">
+            <field name="name">Draft</field>
+        </record>
+
+        <!-- Work in Progress Stage -->
+        <record id="work_in_progress" model="helpdesk.description.stage">
+            <field name="name">Work in Progress</field>
+        </record>
+
+        <!-- Done Stage -->
+        <record id="done" model="helpdesk.description.stage">
+            <field name="name">Done</field>
+        </record>
+
+        <!-- Hold Stage -->
+        <record id="hold" model="helpdesk.description.stage">
+            <field name="name">Hold</field>
+        </record>
+
+        <!-- Canceled Stage -->
+        <record id="canceled" model="helpdesk.description.stage">
+            <field name="name">Canceled</field>
+        </record>
+    </data>
+</odoo>

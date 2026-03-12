@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="sale_subscription_form_view_inherit" model="ir.ui.view">
+            <field name="name">sale.subscription.form.view.inherit</field>
+            <field name="model">sale.subscription</field>
+            <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form"/>
+            <field name="arch" type="xml">
+                <!--                <xpath expr="//button[@name='generate_recurring_invoice']" position="attributes">-->
+                <!--                    <attribute name="invisible">true</attribute>-->
+                <!--                </xpath>-->
+                <xpath expr="//div//button[@name='generate_recurring_invoice']" position="replace">
+                    <button name="create_multiple_invoices" string="Generate Invoice" class="oe_link"
+                            icon="fa-long-arrow-right" type="object"
+                            attrs="{'invisible': [('payment_mode', '=', 'manual')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

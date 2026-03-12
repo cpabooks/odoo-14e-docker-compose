@@ -1,0 +1,26 @@
+.help th{
+    min-width:70px !important;
+    width: 70px !important;
+    max-width:500px !important
+
+}
+.help table th[data-name=description]{
+width: 350px !important;
+
+}
+.help table th[data-name=issue_id]{
+width: 300px !important;
+
+}
+.help table th[data-name=task_id]{
+width: 300px !important;
+
+}
+
+// .o_description[data-name=description]{
+// width: 100px !important;
+// }
+
+// th.o_column_sortable {
+//     width: 350px !important;
+// }

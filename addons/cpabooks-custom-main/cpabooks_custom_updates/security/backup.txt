@@ -1,0 +1,1 @@
+access_update_multi_module_addon,update_multi_module_addon,model_update_multi_module_addon,base.group_system,1,1,1,1

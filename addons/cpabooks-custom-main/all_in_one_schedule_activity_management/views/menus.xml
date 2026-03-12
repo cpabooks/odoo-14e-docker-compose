@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- This XML code creates different menus.-->
+    <menuitem
+            id="all_in_one_schedule_management_root"
+            name="Activity Management"
+            groups="base.group_user"
+            web_icon="all_in_one_schedule_activity_management,static/description/web_icon.png"
+            sequence="185"/>
+    <!--    <menuitem id="all_in_one_schedule_management_root"-->
+    <!--              name="Activity Management"-->
+    <!--              sequence="10"/>-->
+
+    <menuitem id="menu_activity_dashboard"
+              name="Dashboard"
+              sequence="100"
+              action="all_in_one_schedule_activity_management.activity_action_dashboard_main"
+              parent="all_in_one_schedule_management_root"/>
+
+    <menuitem id="menu_task_main"
+              name="Task"
+              sequence="50"
+              parent="all_in_one_schedule_management_root"/>
+
+    <menuitem id="menu_task"
+              name="Task"
+              action="action_my_tasks"
+              parent="menu_task_main" sequence="001"/>
+
+    <menuitem id="menu_project"
+              name="Projects"
+              action="project.open_view_project_all"
+              parent="menu_task_main" sequence="002"/>
+
+    <menuitem id="activity_act"
+              name="Activity"
+              sequence="50"
+              parent="all_in_one_schedule_management_root"/>
+    <menuitem id="all_activity"
+              name="All Activity"
+              action="mail_activity_all_action"
+              parent="activity_act"/>
+    <menuitem id="my_activity"
+              name="My Activity"
+              action="mail_activity_my_action"
+              parent="activity_act"/>
+    <menuitem id="activity_tags"
+              name="Activity Tag"
+              action="activity_tag_action"
+              parent="activity_act"/>
+    <menuitem id="menu_cpa_issue" action="action_cpa_issue" parent="activity_act" name="Issue List" sequence="70"/>
+            
+
+    <menuitem id="done_activity"
+              name="Done Activity"
+              action="done_mail_activity_all_action"
+              parent="activity_act"/><!--Done activity-->
+
+    <menuitem id="activity_history"
+              name="Activity History"
+              action="mail_activity_history_action"
+              sequence="60"
+              parent="all_in_one_schedule_management_root"/>
+    <menuitem id="activity_reporting"
+              name="Reporting"
+              action="activity_reporting_action"
+              sequence="50"
+              parent="all_in_one_schedule_management_root"/>
+    <!--    <record id="activity_action_dashboard" model="ir.actions.client">-->
+    <!--        <field name="name">Dashboard</field>-->
+    <!--        <field name="tag">activity_dashboard</field>-->
+    <!--        <field name="target">current</field>-->
+    <!--    </record>-->
+</odoo>

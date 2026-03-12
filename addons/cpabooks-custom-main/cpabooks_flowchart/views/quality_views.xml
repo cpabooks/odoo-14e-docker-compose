@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="quality_check_view_form_inherit_switchgear_custom" model="ir.ui.view">
+        <field name="name">quality.check.view.form.inherit.switchgear_custom</field>
+        <field name="model">quality.check</field>
+        <field name="inherit_id" ref="quality_control.quality_check_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='alert_ids']" position="after">
+                <field name="project_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Action for Quality Checks-->
+    <record id="action_qc_from_project" model="ir.actions.act_window">
+        <field name="name">Quality Checks</field>
+        <field name="res_model">quality.check</field>
+        <field name="view_mode">tree,kanban,form,pivot,graph</field>
+        <field name="domain">[('project_id', '=', active_id)]</field>
+        <field name="context">{'default_project_id': active_id}</field>
+    </record>
+
+    <!--Action for Quality Checks from Picking-->
+    <record id="action_qc_from_picking" model="ir.actions.act_window">
+        <field name="name">Quality Checks</field>
+        <field name="res_model">quality.check</field>
+        <field name="view_mode">form,tree,kanban,pivot,graph</field>
+        <field name="domain">[('picking_id', '=', active_id)]</field>
+        <field name="context">{'search_default_picking_id': active_id, 'default_picking_id': active_id}</field>
+    </record>
+</odoo>

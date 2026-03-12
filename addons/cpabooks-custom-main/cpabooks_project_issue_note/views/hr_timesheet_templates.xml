@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="timesheet_plan_extend" model="ir.ui.view">
+        <field name="name">Timesheet Plan</field>
+        <field name="type">qweb</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="sale_timesheet.timesheet_plan"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='o_profitability_section']/div/table/tbody/tr[@t-if='display_cost']" position="before">
+                <td class="o_timesheet_plan_dashboard_cell">
+                    <t t-esc="dashboard['profit']['issue_cost']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                </td>
+                <td title="This cost is based on the total &quot;Issued cost&quot; , Issue for this project">
+                    Issued costs
+                </td>
+            </xpath>
+        </field>
+    </record>
+</odoo>

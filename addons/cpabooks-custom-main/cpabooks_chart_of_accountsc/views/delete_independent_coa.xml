@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <function name="delete_account_coa" model="function.call"/>
+<!--        <record id="default_company" model="res.company">-->
+<!--            <field name="id" model="account.account" eval="obj()._get_default_company()"/>-->
+
+<!--        </record>-->
+    </data>
+</odoo>

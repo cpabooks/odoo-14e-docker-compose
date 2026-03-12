@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="ir_attachment_form_inherit" model="ir.ui.view">
+            <field name="name">ir.attachment.form.inherit</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[2]" position="inside">
+                    <field name="size"/>
+                </xpath>
+            </field>
+        </record>
+
+<!--        <record id="ir_attachment_tree_inherit" model="ir.ui.view">-->
+<!--            <field name="name">ir.attachment.tree.inherit</field>-->
+<!--            <field name="model">ir.attachment</field>-->
+<!--            <field name="inherit_id" ref="base.view_attachment_tree"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--&lt;!&ndash;                <xpath expr="//field[@name='type']" position="after">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <field name="size"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                </xpath>&ndash;&gt;-->
+<!--&lt;!&ndash;                <xpath expr="//tree" position="inside">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <header>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button name="action_load_size" string="Update Size" type="object" class="oe_highlight"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </header>&ndash;&gt;-->
+<!--&lt;!&ndash;                </xpath>&ndash;&gt;-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

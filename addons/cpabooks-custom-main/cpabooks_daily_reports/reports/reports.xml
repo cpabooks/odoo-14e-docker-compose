@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="daily_invoice_report" model="ir.actions.report">
+            <field name="name">cpabooks_daily_reports.daily_invoice_report</field>
+            <field name="model">daily.invoice.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cpabooks_daily_reports.daily_invoice_report_template</field>
+            <field name="report_file">cpabooks_daily_reports.daily_invoice_report_template</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="daily_transaction_report" model="ir.actions.report">
+            <field name="name">cpabooks_daily_reports.daily_transaction_report</field>
+            <field name="model">daily.transaction.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cpabooks_daily_reports.daily_transaction_report_template</field>
+            <field name="report_file">cpabooks_daily_reports.daily_transaction_report_template</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="daily_sales_analysis_report" model="ir.actions.report">
+            <field name="name">cpabooks_daily_reports.daily_transaction_report</field>
+            <field name="model">daily.transaction.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cpabooks_daily_reports.daily_sales_analysis</field>
+            <field name="report_file">cpabooks_daily_reports.daily_sales_analysis</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="rent_contract_report" model="ir.actions.report">
+            <field name="name">cpabooks_daily_reports.rent_contract_report</field>
+            <field name="model">rent.contract</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cpabooks_daily_reports.rent_contract_report_template</field>
+            <field name="report_file">cpabooks_daily_reports.rent_contract_report_template</field>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

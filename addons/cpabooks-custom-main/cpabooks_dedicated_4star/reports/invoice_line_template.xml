@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		<template id="invoice_line_template" name="Dot Matrix Invoice Line Template">
+			<t t-call="web.html_container">
+				<t t-call="cpabooks_dedicated_4star.header_less_header"/>
+				<t t-call="cpabooks_dedicated_4star.footer_less_footer"/>
+				<t t-call="web.external_layout">
+					
+					<div class="page" t-attf-style="display: flex; flex-direction: column; height: 100%;">
+						<t t-foreach="docs" t-as="o">
+							<t t-if="o.dot_matrix_tmpl_id" t-set="style" t-value="o.dot_matrix_tmpl_id"/>
+							<t t-if="not o.dot_matrix_tmpl_id" t-set="style"
+							   t-value="env['dot.matrix.template'].search([], order='id desc', limit=1)"/>
+							<style>
+								@font-face {
+								font-family: 'Courier Prime';
+								src: url(/cpabooks_dedicated_4star/static/src/fonts/CourierPrime-Bold.ttf)
+								format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'IBM Plex Mono';
+								src: url(/cpabooks_dedicated_4star/static/src/fonts/IBMPlexMono-MediumItalic.ttf)
+								format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'Inter';
+								src: url(/cpabooks_dedicated_4star/static/src/fonts/Inter-VariableFont_opsz,wght.ttf)
+								format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'Lato';
+								src: url(/cpabooks_dedicated_4star/static/src/fonts/Lato-Black.ttf) format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'Merriweather';
+								src:
+								url(/cpabooks_dedicated_4star/static/src/fonts/Merriweather-VariableFont_opsz,wdth,wght.ttf)
+								format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'Montserrat';
+								src: url(/cpabooks_dedicated_4star/static/src/fonts/Montserrat-VariableFont_wght.ttf)
+								format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'Nunito';
+								src: url(/cpabooks_dedicated_4star/static/src/fonts/Nunito-VariableFont_wght.ttf)
+								format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'Open Sans';
+								src:
+								url(/cpabooks_dedicated_4star/static/src/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf)
+								format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'Playfair Display';
+								src:
+								url(/cpabooks_dedicated_4star/static/src/fonts/PlayfairDisplay-VariableFont_wght.ttf)
+								format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'Poppins';
+								src: url(/cpabooks_dedicated_4star/static/src/fonts/Poppins-ExtraBold.ttf)
+								format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'Press Start 2P';
+								src: url(/cpabooks_dedicated_4star/static/src/fonts/PressStart2P-Regular.ttf)
+								format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'Raleway';
+								src: url(/cpabooks_dedicated_4star/static/src/fonts/Raleway-VariableFont_wght.ttf)
+								format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'Roboto';
+								src: url(/cpabooks_dedicated_4star/static/src/fonts/Roboto-VariableFont_wdth,wght.ttf)
+								format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'Share Tech Mono';
+								src: url(/cpabooks_dedicated_4star/static/src/fonts/ShareTechMono-Regular.ttf)
+								format('truetype');
+								}
+								
+								@font-face {
+								font-family: 'VT323';
+								src: url(/cpabooks_dedicated_4star/static/src/fonts/VT323-Regular.ttf)
+								format('truetype');
+								}
+								
+								body, p, div, span, td, th, a, h4 {
+								font-weight: <t t-esc="'%s' % (style.font_weight)"/> !important;
+								font-family: "<t t-if="style.font_family" t-esc='style.font_family'/><t t-else="">Arial</t>", serif !important;
+								color: black !important;
+								}
+								
+								p, div, span, td, th, a {
+								font-size:
+								<t t-esc="'%s%s' % (style.body_font_size, style.body_font_unit)"/>
+								!important;
+								}
+								
+								table, thead, tbody, tr, td, th {
+								border: 0 !important;
+								}
+								.w-60 { width:60% !important; }
+								.w-40 { width:40% !important; }
+								.product-row {
+								height: {{style.row_height}}{{style.row_unit}} !important;
+								border: 0 !important;
+								}
+								.product-row td { border: 0 !important; }
+							</style>
+							
+							<t t-set="lines_per_page" t-value="style.row_number"/>
+							<t t-set="total_lines" t-value="len(o.invoice_line_ids)"/>
+							<t t-set="total_pages" t-value="(total_lines + lines_per_page - 1) // lines_per_page"/>
+							
+							<!-- Initialize totals -->
+							<t t-set="total_tax_amount" t-value="0"/>
+							<t t-set="total_net_amount" t-value="0"/>
+							<t t-set="total_amt_exl_tax" t-value="0"/>
+							
+							<t t-foreach="range(total_pages)" t-as="page_num">
+								<t t-if="page_num &gt; 0" t-set="page_break" t-value="'page-break-before: always;'"/>
+								<t t-if="page_num == 0" t-set="page_break" t-value="''"/>
+								
+								<div t-attf-style="{{page_break}}">
+									<!-- Header for each page -->
+									<t t-call="cpabooks_dedicated_4star.report_invoice_dot_matrix_template">
+										<t t-set="chunk_index" t-value="page_num"/>
+										<t t-set="total_pages" t-value="total_pages"/>
+									</t>
+									
+									<!-- Product lines -->
+									<div class="master_table mt-1" t-attf-style="flex: 1 0 auto;">
+										<table class="table table-sm"
+										       t-attf-style="page-break-auto: always !important; height: {{style.table_height}}{{style.unit}} !important">
+											<thead class="invisible">
+												<tr>
+													<th t-attf-style="width: {{style.sr_width}}{{style.unit}} !important;">
+														Sr.
+													</th>
+													<th t-attf-style="width: {{style.name_width}}{{style.unit}} !important;">
+														Item &amp; Description
+													</th>
+													<th class="text-center"
+													    t-attf-style="width: {{style.qty_width}}{{style.unit}} !important;">
+														Qty With Unit
+													</th>
+													<th class="text-center"
+													    t-attf-style="width: {{style.rate_excl_width}}{{style.unit}} !important;">
+														Rate<br/>(Excl. Vat)
+													</th>
+													<th class="text-center"
+													    t-attf-style="width: {{style.rate_incl_width}}{{style.unit}} !important;">
+														Rate<br/>(Incl. Vat)
+													</th>
+													<th class="text-center"
+													    t-attf-style="width: {{style.disc_width}}{{style.unit}} !important;">
+														Disc.
+													</th>
+													<th class="text-center"
+													    t-attf-style="width: {{style.taxable_width}}{{style.unit}} !important;">
+														Taxable Value
+													</th>
+													<th class="text-center"
+													    t-attf-style="width: {{style.vat_width}}{{style.unit}} !important;">
+														VAT %
+													</th>
+													<th class="text-center"
+													    t-attf-style="width: {{style.vat_amt_width}}{{style.unit}} !important;">
+														VAT Amount
+													</th>
+													<th class="text-center"
+													    t-attf-style="width: {{style.net_amount_width}}{{style.unit}} !important;">
+														Net Amount<br/>(Incl.VAT)
+													</th>
+												</tr>
+											</thead>
+											
+											<tbody>
+												<t t-set="start_index" t-value="page_num * lines_per_page"/>
+												<t t-set="end_index"
+												   t-value="min((page_num + 1) * lines_per_page, total_lines)"/>
+												
+												<!-- Product Rows -->
+												<t t-foreach="range(start_index, end_index)" t-as="i">
+													<t t-set="line" t-value="o.invoice_line_ids[i]"/>
+													<t t-set="tax_amount" t-value="line.calculate_tax_amt()"/>
+													<t t-set="rate_inc_tax"
+													   t-value="line.price_unit + (tax_amount / line.quantity)"/>
+													<t t-set="taxable_value" t-value="line.price_unit * line.quantity"/>
+													<t t-set="net_amount" t-value="taxable_value + tax_amount"/>
+													
+													<!-- Accumulate grand totals -->
+													<t t-set="total_tax_amount"
+													   t-value="total_tax_amount + tax_amount"/>
+													<t t-set="total_net_amount"
+													   t-value="total_net_amount + net_amount"/>
+													<t t-set="total_amt_exl_tax"
+													   t-value="total_amt_exl_tax + taxable_value"/>
+													
+													<tr class="product-row"
+													    t-attf-style="height: {{style.row_height}}{{style.row_unit}}">
+														<td class="text-right"
+														    t-attf-style="padding-right: {{style.sr_padding_right}}{{style.unit}} !important;">
+															<span t-esc="i + 1"/>
+														</td>
+														<td t-attf-style="padding-left: {{style.name_padding_left}}{{style.unit}} !important;">
+															<t t-set="char_limit" t-value="style.row_name_char_count"/>
+															<span t-esc="(line.name or '')[:int(char_limit)]"/>
+														</td>
+														<td class="text-right"
+														    t-attf-style="padding-right: {{style.qty_padding_right}}{{style.unit}} !important;">
+															<span t-esc="line.quantity"/>
+														</td>
+														<td class="text-right"
+														    t-attf-style="padding-right: {{style.rate_excl_padding_right}}{{style.unit}} !important;">
+															<span t-attf-style="font-size: 12px !important;" t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+														</td>
+														<td class="text-right"
+														    t-attf-style="padding-right: {{style.rate_incl_padding_right}}{{style.unit}} !important;">
+															<span t-attf-style="font-size: 12px !important;" t-esc="'{0:,.2f}'.format(rate_inc_tax)"/>
+														</td>
+														<td class="text-right"
+														    t-attf-style="padding-right: {{style.disc_padding_right}}{{style.unit}} !important;"></td>
+														<td class="text-right"
+														    t-attf-style="padding-right: {{style.taxable_padding_right}}{{style.unit}} !important;">
+															<span t-esc="'{0:,.2f}'.format(taxable_value)"/>
+														</td>
+														<td t-attf-style="position: relative !important;"> <!--padding-right: {{style.vat_padding_right}}{{style.unit}} !important;-->
+															<span t-attf-style="position: absolute !important; top: {{style.vat_margin_top}}{{style.unit}} !important; right: {{style.vat_margin_right}}{{style.unit}} !important;" t-esc="', '.join(map(lambda x: (x.description.replace('vat', '').replace('VAT', '').replace('Vat', '') if 'vat' in x.description.lower() else x.description), line.tax_ids))"/>
+														</td>
+														<td class="text-right"
+														    t-attf-style="padding-right: {{style.vat_amt_padding_right}}{{style.unit}} !important;">
+															<span t-esc="'{0:,.2f}'.format(tax_amount)"/>
+														</td>
+														<td class="text-right"
+														    t-attf-style="padding-right: {{style.net_amount_padding_right}}{{style.unit}} !important;">
+															<span t-esc="'{0:,.2f}'.format(net_amount)"/>
+														</td>
+													</tr>
+												</t>
+												
+												<!-- Fill remaining empty rows if needed -->
+												<t t-foreach="range(end_index - start_index, lines_per_page)" t-as="i">
+													<tr class="product-row">
+														<td class="text-center invisible">
+															<span t-esc="start_index + i + 1"/>
+														</td>
+														<td class="invisible"></td>
+														<td class="invisible"></td>
+														<td class="invisible"></td>
+														<td class="invisible"></td>
+														<td class="invisible"></td>
+														<td class="invisible"></td>
+														<td class="invisible"></td>
+														<td class="invisible"></td>
+														<td class="invisible"></td>
+													</tr>
+												</t>
+												
+												<!-- Totals row - always at the bottom of the table -->
+												<tr class="product-row"
+												    t-attf-style="height: {{style.row_height}}{{style.row_unit}}">
+													<td class="text-left invisible" colspan="5"
+													    t-attf-style="padding-left: {{style.name_padding_left}}{{style.unit}} !important;">
+														<b>Total</b>
+													</td>
+													<td class="text-right"></td>
+													<td class="text-right"
+													    t-attf-style="padding-right: {{style.total_exc_tax_padding_right}}{{style.unit}} !important">
+														<b>
+															<t t-if="page_num == total_pages - 1">
+																<span t-esc="'{0:,.2f}'.format(total_amt_exl_tax)"/>
+															</t>
+														</b>
+													</td>
+													<td></td>
+													<td class="text-right"
+													    t-attf-style="padding-right: {{style.total_tax_amt_padding_right}}{{style.unit}} !important">
+														<b>
+															<t t-if="page_num == total_pages - 1">
+																<span t-esc="'{0:,.2f}'.format(total_tax_amount)"/>
+															</t>
+														</b>
+													</td>
+													<td class="text-right"
+													    t-attf-style="padding-right: {{style.total_net_amt_padding_right}}{{style.unit}} !important">
+														<b>
+															<t t-if="page_num == total_pages - 1">
+																<span t-esc="'{0:,.2f}'.format(total_net_amount)"/>
+															</t>
+														</b>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									
+									<!-- Show aging bucket only on last page -->
+									<t t-if="page_num == total_pages - 1">
+										<div class="d-flex mt-1" t-attf-style="flex-shrink: 0;">
+											<div class="" t-attf-style="width: 63% !important">
+												<div t-attf-style="height: 18mm !important; position: relative !important"
+												     class="mb-1 p-1">
+													<div t-attf-style="position: absolute !important; top: {{style.bucket_top}}{{style.unit}} !important; right: {{style.bucket_right}}{{style.unit}} !important; bottom: {{style.bucket_bottom}}{{style.unit}} !important;left: {{style.bucket_left}}{{style.unit}} !important;">
+														<p t-if="o.is_print_ageing" class="mb-0" t-esc="o.action_get_dmt_aging()"/>
+														<h4 t-if="o.is_print_ageing" class="mt-0">Net Current Balance:<t t-esc="o.action_get_net_current_balance(total_net_amount)"/></h4>
+													</div>
+												</div>
+												<div t-attf-style="height:50px; position:relative;"
+												     class="border rounded mb-1 invisible">
+													<strong t-attf-style="position:absolute; left:2px; bottom:2px">
+														Driver Name
+													</strong>
+													<strong t-attf-style="position:absolute; left:45%; bottom:2px">
+														Vehicle No.
+													</strong>
+													<strong t-attf-style="position:absolute; right:2px; bottom:2px">
+														Mobile No.
+													</strong>
+												</div>
+											</div>
+											<div class="invisible">
+												<div class="border rounded" t-attf-style="height:150px">
+													<strong t-attf-style="position:absolute; left:2px; bottom:2px">
+														Prepared by
+													</strong>
+													<strong t-attf-style="position:absolute; left:45%; bottom:2px">
+														Approved by
+													</strong>
+													<strong t-attf-style="position:absolute; right:2px; bottom:2px">
+														Store In-charge
+													</strong>
+												</div>
+											</div>
+										</div>
+									</t>
+								</div>
+							</t>
+						</t>
+					</div>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>

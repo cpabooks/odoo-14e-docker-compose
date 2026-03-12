@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="action_create_rfq_from_sale_order" model="ir.actions.server">
+            <field name="name">Create RFQ</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">
+                action=records.action_create_rfq()
+
+            </field>
+        </record>
+
+</odoo>

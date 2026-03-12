@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="account_payment_register_view_inherit" model="ir.ui.view">
+            <field name="name">account.payment.register.view.inherit</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+                <!--                <xpath expr="//field[@name='partner_bank_id']" position="attributes">-->
+                <!--                    <attribute name="invisible">1</attribute>-->
+                <!--                </xpath>-->
+                <xpath expr="//field[@name='partner_bank_id']" position="after">
+                    <field name="clint_bank"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_date']" position="after">
+                    <field name="is_invoice_date"/>
+                    <field name="narration"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

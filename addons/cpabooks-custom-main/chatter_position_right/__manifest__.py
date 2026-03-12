@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+{
+    'name': 'Chatter Position Right',
+    'version': '14.0.1.0.0',
+    'sequence': 1,
+    'summary': """
+        Odoo Chatter in Position Right, All in one Chatter, chatting system. need to write here our cpabooks functions. 
+    """,
+    'description': "Change Odoo Chatter Position from bottom to right.",
+    'author': 'NEWAY Solutions',
+    'maintainer': 'NEWAY Solutions',
+    'price': '0.0',
+    'currency': 'USD',
+    'website': 'https://neway-solutions.com',
+    'license': 'LGPL-3',
+    'images': [
+        'static/description/screenshot.gif'  
+    ],
+    'depends': [
+        'web'
+    ],
+    'data': [
+        'views/assets.xml',
+    ],
+    'demo': [],
+    'qweb': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

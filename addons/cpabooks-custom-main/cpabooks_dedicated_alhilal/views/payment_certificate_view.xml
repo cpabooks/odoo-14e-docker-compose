@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<!--Payment Certificate List View-->
+		<record id="payment_certificate_list_view" model="ir.ui.view">
+			<field name="name">payment.certificate.list.view</field>
+			<field name="model">payment.certificate</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="date"/>
+					<field name="name"/>
+					<field name="payment_ref" optional="hide"/>
+					<field name="journal_id"/>
+					<field name="cheque_no" optional="show"/>
+					<!--										<field name="payment_method_id"/>-->
+					<field name="partner_id"/>
+					<field name="company_id" optional="hide"/>
+					<field name="amount"/>
+				</tree>
+			</field>
+		</record>
+		
+		<!-- Payment Certificate Form View -->
+		<record id="payment_certificate_form_view" model="ir.ui.view">
+			<field name="name">payment.certificate.form.view</field>
+			<field name="model">payment.certificate</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<button name="action_approve" type="object" string="Approve" class="oe_highlight"
+						        attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+						<button name="action_register_payment" type="object" string="Register Payment"
+						        class="oe_highlight" attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+						<button name="action_cancel" type="object" string="Reset to Draft" class="btn-secondary"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+					</header>
+					<sheet>
+						<div class="oe_button_box" name="button_box">
+							<field name="payment_id" invisible="1"/>
+							<button name="action_view_payment" string="Payment" type="object"
+							        attrs="{'invisible':[('payment_id','=',False)]}" icon="fa-list"
+							        help="See Payments"
+							        class="oe_stat_button"/>
+						</div>
+						
+						<div class="oe_title">
+							<label for="name" string="Payment Certificate"/>
+							<h1>
+								<field name="name" placeholder="PC-0001" readonly="1"/>
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="company_id" invisible="1"
+								       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<!--								<field name="journal_id"-->
+								<!--								       attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+								<field name="payment_ref" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="currency_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="payment_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="partner_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="partner_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="destination_account_id" invisible="1"
+								       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="is_internal_transfer" invisible="1"
+								       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="amount" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="num_word" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							</group>
+							<group>
+								<field name="journal_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="allocation_amount" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="narration" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<!--								<field name="payment_id" readonly="1"/>-->
+							</group>
+							<group>
+								<field name="woff_amount" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="woff_account" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="woff_label" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="cheque_no" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="cheque_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="ref" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="previous_balance" string="Less Previous Payment"
+								       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="other_dedication" string="Less Other Deduction"
+								       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<!--<field name="deduction_reason"/>-->
+								<field name="deduction_reason" colspan="2" nolabel="1"
+								       placeholder="Reason for Deduction"
+								       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							</group>
+						</group>
+						<notebook>
+							<page name="adv_line_ids" string="Payment Items">
+								<header>
+									<button name="action_get_inv_lines" string="Load Lines" type="object"
+									        attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('partner_id','=',False)]}"/>
+									<button name="action_remove_inv_lines" string="Clear Lines" type="object"
+									        attrs="{'invisible': ['|', '|', ('state', '!=', 'draft'), ('partner_id','=',False), ('adv_line_ids','=',[])]}"
+									/>
+								</header>
+								<field name="adv_line_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
+									<tree editable="bottom">
+										<field name="certificate_id" invisible="1"/>
+										<field name="full_reco" string=""/>
+										<field name="invoice_id"/>
+										<field name="project_id"/>
+										<field name="date"/>
+										<!--<field name="original_amount" />-->
+										<field name="balance_amount"/>
+										<field name="allocation"/>
+										<field name="woff_amount"/>
+										<field name="woff_account"/>
+										<field name="woff_label"/>
+										<field name="diff_amt"/>
+									</tree>
+								</field>
+								<group>
+									<group>
+										<field name="prepared_by" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+										<field name="checked_by" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+									</group>
+									<group>
+										<field name="approve_by" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+									</group>
+								</group>
+							</page>
+						</notebook>
+						<div class="o_attachment_preview"/>
+						<div class="oe_chatter">
+							<field name="message_follower_ids"/>
+							<field name="message_ids"/>
+						</div>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<!--ACTION FOR PAYMENT CERTIFICATE-->
+		<record id="action_payment_certificate_for_ahd" model="ir.actions.act_window">
+			<field name="name">Payment Certificate</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">payment.certificate</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'default_payment_type': 'outbound', 'default_partner_type': 'supplier'}</field>
+		</record>
+		
+		<!-- Menu Item for Payment Certificate -->
+		<menuitem
+				id="menu_payment_certificate"
+				name="Payment Certificate"
+				parent="account.menu_finance_payables"
+				action="action_payment_certificate_for_ahd"
+				sequence="04"/>
+	</data>
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cpabooks_dedicated_food_energy_cpabooks_dedicated_food_energy,cpabooks_dedicated_food_energy.cpabooks_dedicated_food_energy,model_cpabooks_dedicated_food_energy_cpabooks_dedicated_food_energy,base.group_user,1,1,1,1

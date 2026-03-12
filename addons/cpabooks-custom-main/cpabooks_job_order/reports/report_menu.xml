@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="job_order_report" model="ir.actions.report">
+            <field name="name">Job Order</field>
+            <field name="model">quotation.job.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">cpabooks_job_order.quotation_job_order_report</field>
+            <field name="report_file">cpabooks_job_order.quotation_job_order_report</field>
+            <field name="print_report_name">'Job Order - %s - %s' % (object.partner_id.name or '', object.name)</field>
+            <field name="binding_model_id" ref="cpabooks_job_order.model_quotation_job_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+<!--        <record id="action_report_bom_structure_without_value" model="ir.actions.report">-->
+<!--            <field name="name">BoM Structure (Without Value)</field>-->
+<!--            <field name="model">mrp.bom</field>-->
+<!--            <field name="report_type">qweb-pdf</field>-->
+<!--            <field name="report_name">cpabooks_job_order.header_add_in_mrp_bom_structure_without_value</field>-->
+<!--            <field name="report_file">cpabooks_job_order.header_add_in_mrp_bom_structure_without_value</field>-->
+<!--            <field name="print_report_name">'Bom Structure (Without Value) - %s' % object.display_name</field>-->
+<!--            <field name="binding_model_id" ref="model_mrp_bom"/>-->
+<!--            <field name="binding_type">report</field>-->
+<!--        </record>-->
+</odoo>

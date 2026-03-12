@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		<template id="cpabooks_project_extend.daily_task_report_template" name="Daily Task Report">
+			<t t-call="web.external_layout">
+				<main>
+					<div class="page">
+						<div class="oe_structure"/>
+						
+						<style>
+							.text-capital {
+							text-transform: capitalize !important;
+							}
+							
+							/* Condense text in table cells */
+							table.table td {
+							white-space: nowrap; /* Prevent line break */
+							overflow: hidden; /* Hide overflow */
+							text-overflow: ellipsis; /* Show "..." if text too long */
+							max-width: 120px; /* Adjust width as needed */
+							}
+							td.border-top-bottom {
+							border-top: 1px solid black !important;
+							border-bottom: 1px solid black !important;
+							}
+						</style>
+						
+						<div class="row">
+							<div class="col-12">
+								<h2 class="text-center mb-2 pb-2 border-bottom">Daily Tasks Report</h2>
+								
+								<div class="mt32 mb32">
+									<p>
+										<strong>Report For:</strong>
+										<span t-esc="data['user_name']"/>
+										<br/>
+										<strong>Report Date:</strong>
+										<span t-esc="data['date_report']"/>
+									</p>
+								</div>
+								<!-- Table Section -->
+								<div class="mt32">
+									<table class="table table-sm table-border">
+										<thead>
+											<tr>
+												<th class="text-center">Sr.</th>
+												<th colspan="2" class="text-center">
+													Yesterday
+												</th>
+												<th colspan="2" class="text-center">
+													Today
+												</th>
+												<th colspan="2" class="text-center">
+													Tomorrow
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<t t-set="counter" t-value="0"/>
+											<t t-foreach="data.get('rows', [])" t-as="row">
+												<t t-set="counter" t-value="counter + 1"/>
+												<tr>
+													<td class="text-center">
+														<t t-esc="counter"/>
+													</td>
+													
+													<!-- Previous Day -->
+													<td>
+														<span t-esc="row.get('name')" t-if="row.get('previous_state')"/>
+													</td>
+													<td class="text-center text-capital">
+														<span t-esc="row.get('previous_state')"
+														      t-if="row.get('previous_state')"/>
+													</td>
+													
+													<!-- Report Day -->
+													<td>
+														<span t-esc="row.get('name')" t-if="row.get('report_state')"/>
+													</td>
+													<td class="text-center text-capital">
+														<span t-esc="row.get('report_state')"
+														      t-if="row.get('report_state')"/>
+													</td>
+													
+													<!-- Next Day -->
+													<td>
+														<span t-esc="row.get('name')" t-if="row.get('next_state')"/>
+													</td>
+													<td class="text-center text-capital">
+														<span t-esc="row.get('next_state')"
+														      t-if="row.get('next_state')"/>
+													</td>
+												</tr>
+											</t>
+											<tr t-if="0 &lt; len(data.get('task_unplaned', []))">
+												<td></td>
+												<td></td>
+												<td></td>
+												<td colspan="2" class="text-center border-top-bottom">
+													<strong>Unplanned</strong>
+												</td>
+												<td></td>
+												<td></td>
+												
+											</tr>
+											<t t-foreach="data.get('task_unplaned', [])" t-as="row">
+												<t t-set="counter" t-value="counter + 1"/>
+												<tr>
+													<td class="text-center">
+														<t t-esc="counter"/>
+													</td>
+													
+													<!-- Previous Day -->
+													<td>
+													</td>
+													<td class="text-center text-capital">
+													</td>
+													
+													<!-- Report Day -->
+													<td>
+														<span t-esc="row.get('name')"/>
+													</td>
+													<td class="text-center text-capital">
+														<span t-esc="row.get('state')"/>
+													</td>
+													
+													<!-- Next Day -->
+													<td>
+													</td>
+													<td class="text-center text-capital">
+													</td>
+												</tr>
+											</t>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						<div class="oe_structure"/>
+					</div>
+				</main>
+			</t>
+		</template>
+	</data>
+</odoo>

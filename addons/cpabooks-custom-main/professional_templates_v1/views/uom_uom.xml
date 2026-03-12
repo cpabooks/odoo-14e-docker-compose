@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_uom_inherit" model="ir.ui.view">
+        <field name="name">product.uom.form.inherit</field>
+        <field name="model">uom.uom</field>
+        <field name="inherit_id" ref="uom.product_uom_form_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="system_admin" invisible="1"/>
+            </field>
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="attrs">{'readonly':[('id','!=',False),('system_admin','=',False)]}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

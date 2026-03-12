@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_technical_submittal" model="ir.actions.report">
+        <field name="name">Technical Submittal</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cpabooks_job_order_extend.report_technical_submittal</field>
+        <field name="report_file">cpabooks_job_order_extend.report_technical_submittal</field>
+        <field name="print_report_name">'Technical Submittal - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_internal_order" model="ir.actions.report">
+        <field name="name">Internal Order</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cpabooks_job_order_extend.report_internal_order</field>
+        <field name="report_file">cpabooks_job_order_extend.report_internal_order</field>
+        <field name="print_report_name">'Internal Order - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

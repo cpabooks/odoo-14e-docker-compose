@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_invoice_document_append_supplier_address" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@t-field='o.partner_id']" position="before">
+            <strong>Supplier Address:</strong>
+        </xpath>
+    </template>
+</odoo>

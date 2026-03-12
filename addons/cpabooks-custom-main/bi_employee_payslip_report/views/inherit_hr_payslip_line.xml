@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_payslip_hour_rate_form" model="ir.ui.view">
+        <field name="name">hr.payslip.hour.rate.form</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="mode">extension</field>
+        <field name="arch" type="xml">
+            <!--region WORKED DAYS & INPUTS TAB-->
+           <!-- <xpath expr="//page[@name='worked_days_input']/field[@name='worked_days_line_ids']/tree/field[@name='name']" position="after">
+                <field name="calendar_days"/>
+                <field name="calendar_hours"/>
+                <field name="weekend_days"/>
+                <field name="weekend_hours"/>
+                <field name="public_holidays"/>
+                <field name="public_holidays_hours"/>
+            </xpath>
+            <xpath expr="//page[@name='worked_days_input']/field[@name='worked_days_line_ids']/tree/field[@name='number_of_days']" position="attributes">
+                <attribute name="string">NET W/D</attribute>
+            </xpath>
+            <xpath expr="//page[@name='worked_days_input']/field[@name='worked_days_line_ids']/tree/field[@name='number_of_hours']" position="attributes">
+                <attribute name="string">NET W/H</attribute>
+            </xpath>-->
+
+            <xpath expr="//notebook" position="before">
+                <group>
+                    <group>
+                    <field name="extra_amount"/>
+                        </group>
+                    <group>
+                    <field name="deduction_amount"/>
+                        </group>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='worked_days_input']" position="attributes">
+                <attribute name="style">display:none;</attribute>
+            </xpath>
+
+
+            <!--endregion-->
+
+            <!--region SALARY COMPUTATION TAB-->
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='amount']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='total']" position="before">
+                <field name="amount" string="Computed Salary"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='quantity']" position="before">
+                <field name="hours"/>
+                <field name="rate_per_hours"/>
+                <field name="ot_rate"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='quantity']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='rate']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <!--endregion-->
+
+            <!--region Work Days Calc.-->
+            <xpath expr="//page[@name='worked_days_input']" position="after">
+
+                <page name="custom_working_days_input" string="Working Days &amp; Inputs" autofocus="autofocus" >
+                    <field name="custom_working_days_inputs" colspan="4" nolabel="1">
+                        <tree string="Working Days &amp; Inputs" editable="bottom" create="0" delete="0">
+                                <field name="work_day_type" readonly="1" force_save="1"/>
+                                <field name="work_day_days" readonly="1" force_save="1"  style="text-align:right"/>
+                                <field name="work_day_hour" readonly="1" force_save="1" style="text-align:right"/>
+                                <field name="work_day_formula" readonly="1" force_save="1" style="width:80px;align:center"/>
+
+
+                            </tree>
+                    </field>
+                </page>
+
+<!--                <page string="Working Days Calc." name="working_days_calc">-->
+<!--                        <field name="working_hour_calc_ids" colspan="4" nolabel="1">-->
+<!--                            <tree string="Working Days Calc." editable="bottom" create="0" delete="0">-->
+<!--                                <field name="work_days_cal_type" readonly="1" force_save="1"/>-->
+<!--                                <field name="work_days_cal_hour" readonly="1" force_save="1" sum="Total of hour"/>-->
+<!--                                <field name="work_days_cal_days" readonly="1" force_save="1" sum="Total of days"/>-->
+
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </page>-->
+            </xpath>
+
+              <xpath expr="//page[@name='salary_computation']" position="after">
+                <page name="salary_package" string="Salary Package" autofocus="autofocus">
+
+                    <field name="salary_package"  nolabel="1">
+                        <tree string="Salary Package" editable="bottom" create="0" delete="0">
+                                <field name="type" readonly="1" force_save="1"/>
+                                <field name="amount" readonly="1" force_save="1" sum="Total"/>
+                        </tree>
+
+                    </field>
+                </page>
+            </xpath>
+
+            <!--endregion-->
+
+            <!--region SALARY COMPUTATION HOURLY-->
+<!--            <xpath expr="//notebook/page[2]" position="after">-->
+<!--                <page string="Salary Computation Hourly" name="salary_computation_hourly">-->
+<!--                        <field name="hourly_rate_line_ids" colspan="4" nolabel="1">-->
+<!--                            <tree string="Salary Structure" editable="bottom" decoration-info="total == 0" create="0" delete="0">-->
+<!--                                <field name="name"/>-->
+<!--                                <field name="code" readonly="1" force_save="1"/>-->
+<!--                                <field name="category_id" readonly="1" force_save="1"/>-->
+<!--                                <field name="sequence" invisible="1" readonly="1" force_save="1"/>-->
+<!--                                <field name="hour" readonly="1" force_save="1"/>-->
+<!--                                <field name="hour_rate" readonly="1" force_save="1"/>-->
+<!--                                <field name="salary_rule_id" groups="base.group_no_one" readonly="1" force_save="1"/>-->
+<!--                                <field name="amount" readonly="1" force_save="1"/>-->
+<!--                                <field name="total" readonly="1" force_save="1"/>-->
+<!--                            </tree>-->
+<!--&lt;!&ndash;                            <form string="Payslip Line">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <group col="4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="name"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="code"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="category_id"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="sequence"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="hour"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="hour_rate"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="amount"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="total"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <field name="salary_rule_id"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </group>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </form>&ndash;&gt;-->
+<!--                        </field>-->
+<!--                    </page>-->
+<!--            </xpath>-->
+            <!--endregion-->
+
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_payslip_view_form_hr_payroll_account">
+            <field name="name">hr.payslip.inherit.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll_account.hr_payslip_view_form"/>
+            <field name="arch" type="xml">
+                <button name="action_payslip_done" position="attributes">
+                    <attribute name="string">Create Done Entry</attribute>
+                </button>
+            </field>
+    </record>
+
+
+
+</odoo>

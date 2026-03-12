@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record id="view_order_invoice_discount_form" model="ir.ui.view">
+             <field name="name">sale.order.invoice.discount.form.view</field>
+             <field name="model">sale.order</field>
+             <field name="inherit_id" ref="sale.view_order_form" />
+             <field name="arch" type="xml">
+<!--                 <field name="partner_id" position="after">-->
+<!--                     <field name="product_ids"/>-->
+<!--                 </field>-->
+                 <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']" position="after">
+                     <group>
+                         <group>
+                             <field name="sale_history" nolabel="1" readonly="1">
+                                 <tree>
+                                     <field name="date"/>
+                                     <field name="doc_no"/>
+                                     <field name="quantity"/>
+                                     <field name="delivered_qty"/>
+                                     <field name="rate"/>
+                                 </tree>
+                             </field>
+                         </group>
+                         <group>
+                             <field name="stock_history" readonly="1" nolabel="1">
+                                 <tree>
+                                     <field name="stock_location"/>
+                                     <field name="quantity"/>
+                                 </tree>
+                             </field>
+                         </group>
+                     </group>
+                 </xpath>
+             </field>
+        </record>
+    </data>
+</odoo>

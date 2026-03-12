@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="quot_common_template_inherit" inherit_id="professional_templates.SO_common_document">
+            <xpath expr="//div[@name='project']" position="after">
+                <div name="project_name" t-if="doc.project_name" style="padding-left:3px;">
+                            <span class="fa fa-th-large"/>
+                            <span t-field="doc.project_name"/>
+                    </div>
+            </xpath>
+
+            <xpath expr="//h2" position="attributes">
+                <attribute name="t-attf-style">display:none;</attribute>
+            </xpath>
+<!--            <xpath expr="//h5" position="attributes">-->
+<!--                <attribute name="t-attf-style">display:none;</attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//div[@name='attention']" position="attributes">
+                <attribute name="t-attf-style">display:none;</attribute>
+            </xpath>
+        </template>
+
+         <template id="quot_common_template_inherit_bank_details_placement" inherit_id="cpabooks_bank_details_pt.report_pt_common_quotation_inherit_bank_details">
+             <xpath expr="//div[@class='oe_mt32 row']" position="replace">
+             </xpath>
+         </template>
+
+        <template id="quot_common_template_inherit_digital_signature" inherit_id="cpabooks_digital_signature_pt.common_quotation_inherit_signature">
+             <xpath expr="//div[@name='signature_logo']/div" position="attributes">
+                 <attribute name="class">col-6</attribute>
+             </xpath>
+            <xpath expr="//div[@name='signature_logo']/div/img[2]" position="after">
+                  <div t-if="doc.digital_signature" class="col-6 text-center" style="margin-top:-10px;margin-left:-68px;">
+                    <span t-field="doc.user_id.name"/>
+                </div>
+             </xpath>
+
+            <!--hide name below signature-->
+            <xpath expr="//div[@class='col-3 text-center']" position="replace">
+
+            </xpath>
+            <!--hide name below signature-->
+
+
+            <xpath expr="//div[@name='signature_logo']/div" position="after">
+                <div class="oe_mt32 row col-6" t-if="doc.bank_detail_enable" t-attf-style="margin-left:1px;margin-top:-10px !important;">
+                    <span t-attf-style="text-decoration: underline;font-size:18px;font-weight:bold;" t-if="doc.company_id.bank_name">Bank Details</span>
+                    <br/>
+                    <t t-if="doc.company_id.bank_name">
+                        <span t-field="doc.company_id.bank_name"/>
+                        <br/>
+                    </t>
+                    <t t-if="doc.company_id.bank_account_number">
+                        <span t-field="doc.company_id.bank_account_number"/>
+                        <br/>
+                    </t>
+                    <t t-if="doc.company_id.bank_iban_number">
+                        <span t-field="doc.company_id.bank_iban_number"/>
+                        <br/>
+                    </t>
+                    <t t-if="doc.company_id.bank_address">
+                        <span t-field="doc.company_id.bank_address"/>
+                        <br/>
+                    </t>
+                    <t t-if="doc.company_id.bank_branch">
+                        <span t-field="doc.company_id.bank_branch"/>
+                    </t>
+                </div>
+             </xpath>
+         </template>
+    </data>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_switchgear_custom_extend" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.switchgear_custom</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="project_id" string="Project/Job"/>
+            </xpath>
+
+            <field name="analytic_account_id" position="after">
+                <field name="is_project_create"/>
+                <field name="show_project"/>
+            </field>
+
+        </field>
+    </record>
+
+    <record id="view_order_form_inherit_sale_project_extend" model="ir.ui.view">
+        <field name="name">sale.project.extend</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_project.view_order_form_inherit_sale_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_id']" position="attributes">
+                <attribute name="options">{'no_create':False}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crm_gcl,access.crm.gcl,model_crm_gcl,,1,1,1,1
+access_maintenance_tenant,access_maintenance_tenant,model_maintenance_tenant,base.group_user,1,1,1,1

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_form_extend" model="ir.ui.view">
+        <field name="name">view.purchase.order.form.extend</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/form/group/group[1]/div[@class='o_row']/field[@name='product_uom']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="force_save">1</attribute>
+                <attribute name="options">{'no_open':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="force_save">1</attribute>
+                <attribute name="options">{'no_open':True}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

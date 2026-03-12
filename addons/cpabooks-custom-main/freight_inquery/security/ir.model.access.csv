@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_freight_inquiry,access.freight.inquiry,model_freight_inquiry,,1,1,1,1
+access_freight_inquiry_line,access.freight.inquiry.line,model_freight_inquiry_line,,1,1,1,1

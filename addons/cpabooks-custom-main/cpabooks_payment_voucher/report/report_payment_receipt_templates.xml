@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payment_receipt_document_inherit_voucher" inherit_id="account.report_payment_receipt_document">
+        <xpath expr="//h3" position="before">
+            <h2 class="text-center oe_mb16" style="text-decoration: underline;">
+                <span t-if="o.partner_type == 'customer'">RECEIPT VOUCHER</span>
+                <span t-if="o.partner_type == 'supplier'">PAYMENT VOUCHER</span>
+            </h2>
+            <h5 class="text-center" style="margin-top:-18px;font-size:18px;">
+                <strong>Ref.:</strong>
+                <span t-field="o.name"/>
+            </h5>
+        </xpath>
+        <xpath expr="//h3" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+        <xpath expr="//table[1]" position="after">
+            <div class="clearfix">
+                <div id="total" class="row">
+                    <div class="col-6">
+                        <div class="oe_mt16 oe_mb16">
+                            <strong>In Words:</strong>
+                            <span t-field="o.num_word"/>
+                            <span>Only</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <table class="table table-sm" style="page-break-inside: avoid;">
+                            <tr class="border-black o_total " style="border-bottom: double">
+                                <td>
+                                    <strong>Total</strong>
+                                </td>
+                                <td class="text-right">
+                                    <span class="text-nowrap" t-field="o.amount"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div t-if="o.narration" class="row">
+                <div class="col-7" style="border:1px solid black;">
+                    <b>Narration:</b>
+                    <span t-field="o.narration"/>
+                </div>
+            </div>
+
+            <t t-set="signature" t-value="o.get_signature()"/>
+
+
+            <div t-if="signature and  o.receiver_id" class="row oe_mt64" name="signature"
+                 style="page-break-inside: always;margin-bottom:-55px !important;">
+                <div class="col-4 text-left" t-if="o.payment_type=='inbound'" style="height: 1cm;">
+                    <t t-if="o.receiver_id.user_signature">
+                        <div name="receiver_signature" style="height: 1cm;">
+                            <img t-att-src="'data:image/png;base64,%s' % to_text(o.receiver_id.user_signature)"
+                                 style="height: 1cm; max-width: 5cm;min-width:5cm"/>
+                        </div>
+                    </t>
+                </div>
+                <div class="col-4 text-left" t-if="o.payment_type=='outbound'">
+                    <div name="receiver_signature" style="height: 1cm;">
+                        <!--                            <img t-att-src="'data:image/png;base64,%s' % to_text(o.receiver_id.user_signature)"-->
+                        <!--                                 style="height: 1cm; max-width: 5cm;min-width:5cm" />-->
+                    </div>
+
+                </div>
+
+
+                <div class="col-4 text-center">
+                    <!--                    <t t-if="o.receiver_id">-->
+                    <!--                        <div name="receiver_name">-->
+                    <!--                            <span t-field="o.receiver_id.name"/>-->
+                    <!--                        </div>-->
+                    <!--                    </t>-->
+                </div>
+
+                <div class="col-4 text-center"></div>
+
+            </div>
+
+
+            <div t-if="signature" class="row oe_mt64" name="signature"
+                 style="page-break-inside: always;">
+
+                <div class="col-4 text-left">
+
+                    <strong>
+                        <span style="text-decoration:overline" t-field="signature.signature1"/>
+                    </strong>
+                </div>
+                <div class="col-4 text-center" style="margin-top:-17px !important;">
+                    <strong>
+                        <span t-field="o.receiver_id.name" t-if="o.payment_type=='inbound'"/>
+                        <span t-field="o.partner_id.name" t-if="o.payment_type=='outbound' and o.partner_id"/>
+                    </strong>
+                    <br/>
+                    <strong>
+                        <span style="text-decoration:overline" t-field="signature.signature2"/>
+                    </strong>
+                </div>
+                <div class="col-4 text-right">
+                    <strong>
+                        <span style="text-decoration:overline" t-field="signature.signature3"/>
+                    </strong>
+                </div>
+            </div>
+
+            <!--            <div t-if="len(signature)==0" class="row oe_mt64" style="margin-top: 128px; page-break-inside: avoid;">-->
+            <!--                <div class="col-4 text-left">-->
+            <!--                    <strong><u>Prepared by: </u></strong>-->
+            <!--                </div>-->
+            <!--                <div class="col-4 text-center">-->
+            <!--                    <strong><u>Checked by: </u></strong>-->
+            <!--                </div>-->
+            <!--                <div class="col-4 text-right">-->
+            <!--                    <strong><u>Approved by: </u></strong>-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+
+        </xpath>
+    </template>
+</odoo>

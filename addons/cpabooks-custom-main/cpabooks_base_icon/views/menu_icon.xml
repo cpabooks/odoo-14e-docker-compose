@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="sale.sale_menu_root"
+              name="Sales"
+              web_icon="cpabooks_base_icon,static/description/sales.png"/>
+
+    <menuitem name="Purchase"
+              id="purchase.menu_purchase_root"
+              web_icon="cpabooks_base_icon,static/description/purchase.png"/>
+    <menuitem name="Documents" id="documents.menu_root"
+              web_icon="cpabooks_base_icon,static/description/documents.png"/>
+
+    <menuitem name="Inventory" id="stock.menu_stock_root"
+              web_icon="cpabooks_base_icon,static/description/inventory.png"/>
+
+    <menuitem name="Accounting"
+              id="account_accountant.menu_accounting"
+              web_icon="cpabooks_base_icon,static/description/accounting.png"/>
+
+    <menuitem name="Expenses"
+              id="hr_expense.menu_hr_expense_root"
+              web_icon="cpabooks_base_icon,static/description/expenses.png"/>
+
+    <menuitem name="Projects"
+              id="project.menu_main_pm"
+              web_icon="cpabooks_base_icon,static/description/projects.png"/>
+
+    <menuitem name="Dashboards"
+              id="base.menu_board_root"
+              web_icon="cpabooks_base_icon,static/description/dashboards.png"/>
+
+    <menuitem name="Apps"
+              id="base.menu_management"
+              web_icon="cpabooks_base_icon,static/description/apps.png"/>
+    <menuitem name="Apps"
+              id="mail.menu_root_discuss"
+              web_icon="cpabooks_base_icon,static/description/discuss.png"/>
+
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--region HEADERLESS REPORT-->
+    <template id="headerless_header">
+        <div t-attf-class="header">
+        </div>
+    </template>
+    <template id="footerless_footer">
+        <div class="footer">
+        </div>
+    </template>
+    <record id="payment_receipt_headerless_report" model="ir.actions.report">
+        <field name="name">Payment Receipt (Without Header &amp; Footer)</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cpabooks_payment_voucher.custom_payment_receipt_without_header</field>
+        <field name="report_file">cpabooks_payment_voucher.custom_payment_receipt_without_header</field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_type">report</field>
+    </record>
+    <!--endregion-->
+
+
+    <!--        Standard payment voucher report-->
+    <record id="action_standard_report_payment_receipt" model="ir.actions.report">
+        <field name="name">Payment Receipt (Standard Format)</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cpabooks_payment_voucher.report_standard_payment_voucher</field>
+        <field name="report_file">cpabooks_payment_voucher.report_standard_payment_voucher</field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_type">report</field>
+    </record>
+    <!--        Standard payment voucher report-->
+</odoo>

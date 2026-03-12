@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="job_estimate_report_inherit" inherit_id="cost_estimate_customer_ld.job_estimation_report_template">
+        <xpath expr="//div[@class='col-4 justify-self-end']/table/tr[4]" position="after">
+            <tr class="border-black">
+                <td>
+                    <strong>Final Job Estimate</strong>
+                </td>
+                <td class="text-right">
+                    <span t-field="o.final_total_job_estimation"/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>

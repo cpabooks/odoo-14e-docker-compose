@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  Serial No. quotation sale order pdf report  -->
+<!--    <template id="serial_no_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">-->
+<!--        <xpath expr="//t/div[hasclass('page')]/table/thead/tr/th[1]" position="before">-->
+<!--            <th name="th_line_no" class="text-center">Sr. No.</th>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//t/div[hasclass('page')]/table/tbody/t/tr/t/td[1]" position="before">-->
+<!--            <td name="td_line_no" class="text-center">-->
+<!--                <span t-field="line.line_no"/>-->
+<!--            </td>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+    <template id="report_item_code_quotation_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//td[@name='td_name']" position="replace">
+            <td name="td_name" style="max-width:150px;" >
+                <span t-field="line.name"/>
+            </td>
+        </xpath>
+        <xpath expr="//table//thead//tr//th[@name='th_description']" position="before">
+            <th name="th_item_code_quotation" style="max-width:150px;">
+                <span>Item Code</span>
+            </th>
+        </xpath>
+        <xpath expr="//table//tbody//tr//td[@name='td_name']" position="before">
+            <td name="item_code_in_quotation_table" style="max-width:150px;">
+                <span t-field="line.product_id.item_code"/>
+            </td>
+        </xpath>
+    </template>
+</odoo>

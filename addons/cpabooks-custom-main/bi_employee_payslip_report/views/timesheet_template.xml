@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_timesheet_template_tree" model="ir.ui.view">
+        <field name="name">timesheet.template.tree</field>
+        <field name="model">timesheet.template.config</field>
+        <field name="arch" type="xml">
+            <tree string="Timesheet Templates" multi_edit="1" sample="1">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="task_id" invisible="1"/>
+                <field name="is_active"/>
+                <field name="company_id" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_timesheet_template_form" model="ir.ui.view">
+        <field name="name">timesheet.template.form</field>
+        <field name="model">timesheet.template.config</field>
+        <field name="arch" type="xml">
+            <form string="Timesheet Template">
+                <header>
+                    <button name="add_into_timesheet" type="object"
+                            string="Add Into Timesheet" class="oe_highlight"
+                            attrs="{'invisible':[('state','=','added')]}"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,added"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="is_active"/>
+                            <field name="project_id"
+                                   options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                            <field name="task_id" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"
+                                   invisible="1"/>
+                            <field name="company_id"
+                                   options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" readonly="1"
+                                   force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Assign Employee" name="timesheet_configuration_lines">
+                            <field name="timesheet_line">
+                                <tree string="Timesheet Configuration Lines" editable="bottom">
+                                    <field name="employee_id"
+                                           options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                                    <field name="project" readonly="0"/>
+                                    <field name="task"
+                                           options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                                    <field name="description"/>
+                                    <field name="unit_amount" widget="time"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_timesheet_template" model="ir.actions.act_window">
+        <field name="name">Timesheet Template</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">timesheet.template.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new timesheet template, the first step of add into timesheet!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="timesheet_template_configuration"
+              name="Timesheet Template Configuration"
+              parent="hr_timesheet.menu_hr_time_tracking"
+              action="action_timesheet_template"/>
+
+</odoo>

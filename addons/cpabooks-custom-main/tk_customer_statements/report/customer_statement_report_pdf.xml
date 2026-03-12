@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    Template-->
+    <template id="customer_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <h6 class="text-left mb-2">
+                    <strong>
+                        <t t-esc="partner_name"/>
+                    </strong>
+                </h6>
+
+                <!--                <h4 if="partner_name" class="text-left mb-2" />-->
+                <address class="text-left mb-3"
+                         style="font-size:15px; line-height:1.5; color:#444; font-style:normal;">
+
+                    <i class="fa fa-map-marker" style="margin-right:6px; color:#093671;"></i>
+
+                    <t t-if="partner_street">
+                        <span t-esc="partner_street"/>
+                    </t>
+
+                    <t t-if="partner_street2">
+                        ,
+                        <span t-esc="partner_street2"/>
+                    </t>
+
+                    <br/>
+
+                    <t t-if="partner_city" t-esc="partner_city"/>
+                    <t t-if="partner_state_id">,
+                        <t t-esc="partner_state_id"/>
+                    </t>
+                    <t t-if="partner_zip">
+                        <t t-esc="partner_zip"/>
+                    </t>
+
+                    <t t-if="partner_country_id">
+                        <br/>
+                        <span t-esc="partner_country_id"/>
+                    </t>
+                </address>
+
+                <div class="d-flex">
+                    <div class="w-50 p-2">
+                    </div>
+                    <div class="w-50">
+                        <h4 class="text-center p-1 mb-0"
+                            t-attf-style="background-color:#093671 !important; color:#fff !important; letter-spacing: 3px !important; text-transform: uppercase !important; font-width:900 !important;">
+                            Statement of Account
+                        </h4>
+                        <div class="w-100 mb-1 mt-0 text-left">
+                            Detailed Report For The Period
+                            <strong t-esc="start_date"/>
+                            to
+                            <strong t-esc="end_date"/>
+                        </div>
+                        <div class="w-100 my-1">
+                            <b class="float-right" t-esc="'{0:,.2f}'.format(abs(opening_balance))"/>
+                            <strong>Opening Balance</strong>
+                        </div>
+                        <div class="w-100 my-1">
+                            <b class="float-right" t-esc="'{0:,.2f}'.format(abs(total_amount))"/>
+                            <strong>Invoiced Amount</strong>
+                        </div>
+                        <div class="w-100 mt-1 mb-0" t-attf-style="border-bottom:2px solid black !important;">
+                            <b class="float-right" t-esc="'{0:,.2f}'.format(total_inv_payment)"/>
+                            <strong>Amount Received</strong>
+                        </div>
+                        <div class="w-100 mt-1">
+                            <t t-set="total_due_amount"
+                               t-value="abs(opening_balance) + abs(total_amount) - abs(total_inv_payment)"/>
+                            <b class="float-right" t-esc="'{0:,.2f}'.format(abs(total_due_amount))"/>
+                            <strong>Balance Due</strong>
+                        </div>
+                    </div>
+                </div>
+                <table style="border:solid 1px gainsboro;width:100%; table-layout: fixed;height:100%;margin-top:20px;">
+                    <thead>
+                        <tr style="height:40px;border-bottom:solid 2px black;">
+                            <td style="color:#093671 !important; text-transform:uppercase !important; vertical-align: middle;text-align:center;border:solid 1px gainsboro;">
+                                <strong>Invoice Date</strong>
+                            </td>
+                            <td style="color:#093671 !important; text-transform:uppercase !important; vertical-align: middle;text-align:center;border:solid 1px gainsboro;">
+                                <strong>Reference</strong>
+                            </td>
+                            <td style="color:#093671 !important; text-transform:uppercase !important; vertical-align: middle;text-align:center;border:solid 1px gainsboro;">
+                                <strong style="margin-right:5px;">Invoice Amount</strong>
+                            </td>
+                            <td style="color:#093671 !important; text-transform:uppercase !important; vertical-align: middle;text-align:center;border:solid 1px gainsboro;">
+                                <strong style="margin-right:5px;">Payment Amount</strong>
+                            </td>
+                            <td style="color:#093671 !important; text-transform:uppercase !important; vertical-align: middle;text-align:center;margin-right:10px;border:solid 1px gainsboro;">
+                                <strong style="margin-right:5px;">Payment Date</strong>
+                            </td>
+                            <td style="color:#093671 !important; text-transform:uppercase !important; vertical-align: middle;text-align:center;margin-right:10px;border:solid 1px gainsboro;">
+                                <strong style="margin-right:5px;">Balance Due</strong>
+                            </td>
+                        </tr>
+                    </thead>
+                    <t t-set="total_inv_amount" t-value="0"/>
+                    <t t-set="total_payment" t-value="0"/>
+                    <t t-set="total_due" t-value="abs(opening_balance)"/>
+                    <tbody>
+                        <tr style="height:40px;border:solid 1px gainsboro;">
+                            <td colspan="5"
+                                style="vertical-align: middle;text-align:left;border:solid 1px gainsboro; margin-left:10px !important;">
+                                <span>Opening Balance as of</span>
+                                <strong t-esc="start_date"/>
+                            </td>
+                            <td style="vertical-align: middle;text-align:right;border:solid 1px gainsboro; margin-right:10px !important;">
+                                <span t-esc="'{0:,.2f}'.format(abs(opening_balance))"/>
+                            </td>
+                        </tr>
+                        <!--INVOICE ROW-->
+                        <t t-foreach="docs" t-as="invoice">
+                            <t t-set="inv_amount" t-value="abs(invoice['amount'])"/>
+                            <t t-set="pay_amount" t-value="abs(invoice['payment_amount'])"/>
+                            <t t-set="total_due" t-value="total_due + inv_amount - pay_amount"/>
+                            <t t-set="total_inv_amount" t-value="total_inv_amount + inv_amount"/>
+                            <t t-set="total_payment" t-value="total_payment + pay_amount"/>
+
+                            <tr style="height:40px;border:solid 1px gainsboro;">
+                                <td style="vertical-align: middle;text-align:center;border:solid 1px gainsboro;">
+                                    <span t-esc="invoice['invoice_date']"/>
+                                </td>
+                                <td style="font-size: 12px !important; vertical-align: middle;text-align:center;border:solid 1px gainsboro;">
+                                    <span t-esc="invoice['invoice_id']"/>
+                                </td>
+                                <td style="text-align:right;vertical-align: middle;border:solid 1px gainsboro;">
+                                    <span class="text-center" t-if="invoice['amount'] == 0"></span>
+                                    <span t-else="" style="margin-right:5px;"
+                                          t-esc="'{0:,.2f}'.format(abs(invoice['amount']))"/>
+                                </td>
+                                <td style="text-align:right;vertical-align: middle;middle;border:solid 1px gainsboro;">
+                                    <span style="margin-right:5px;" t-if="invoice['payment_amount'] == 0 "></span>
+                                    <span t-else="" style="margin-right:5px;"
+                                          t-esc="'{0:,.2f}'.format(abs(invoice['payment_amount']))"/>
+                                </td>
+                                <td style="text-align:right;vertical-align: middle;middle;border:solid 1px gainsboro;">
+                                    <span style="margin-right:5px;"
+                                          t-esc="invoice['payment_date']"/>
+                                </td>
+                                <td style="text-align:right;vertical-align: middle;middle;border:solid 1px gainsboro;">
+                                    <span style="margin-right:5px !important;"
+                                          t-esc="'{0:,.2f}'.format(abs(total_due))"/>
+                                </td>
+                            </tr>
+                        </t>
+
+                        <tr t-if="payments" style="height:40px;border-bottom:solid 2px gainsboro;">
+                            <td colspan="6" style="vertical-align: middle;border:solid 1px gainsboro;">
+                                <b class="ml-1">ON ACCOUNT PAYMENT (UNALLOCATED)</b>
+                            </td>
+                        </tr>
+
+                        <!--PAYMENT ROW-->
+                        <t t-foreach="payments" t-as="p">
+                            <t t-set="pay_amount" t-value="abs(float(p['amount']))"/>
+                            <t t-set="total_due" t-value="total_due - pay_amount"/>
+                            <t t-set="total_payment" t-value="total_payment + pay_amount"/>
+
+                            <tr style="height:40px;border:solid 1px gainsboro;">
+                                <td style="vertical-align: middle;text-align:center;border:solid 1px gainsboro;">
+                                    <!--<span t-esc="p['date']"/>-->
+                                </td>
+                                <td style="vertical-align: middle;text-align:center;border:solid 1px gainsboro;font-size:12px !important;">
+                                    <span t-esc="p['payment']"/>
+                                </td>
+                                <td style="text-align:right;vertical-align: middle;border:solid 1px gainsboro;">
+                                </td>
+                                <td style="text-align:right;vertical-align: middle;middle;border:solid 1px gainsboro;">
+                                    <span style="margin-right:5px;" t-if="p['amount'] == 0 "></span>
+                                    <span t-else="" style="margin-right:5px;"
+                                          t-esc="'{0:,.2f}'.format(abs(float(p['amount'])))"/>
+                                </td>
+                                <td style="text-align:right;vertical-align: middle;middle;border:solid 1px gainsboro;">
+                                    <span style="margin-right:5px;"
+                                          t-esc="p['payment_date']"/>
+                                </td>
+                                <td style="text-align:right;vertical-align: middle;middle;border:solid 1px gainsboro;">
+                                    <span style="margin-right:5px;"
+                                          t-esc="'{0:,.2f}'.format(abs(total_due))"/>
+                                </td>
+                            </tr>
+
+                        </t>
+                        <!--Refunds-->
+                        <t t-foreach="refunds" t-as="refund">
+                            <!--                            <t t-set="pay_amount" t-value="abs(float(p['amount']))"/>-->
+                            <!--                            <t t-set="total_due" t-value="total_due - pay_amount"/>-->
+                            <!--                            <t t-set="total_payment" t-value="total_payment + pay_amount"/>-->
+
+                            <tr style="height:40px;border:solid 1px gainsboro;">
+                                <td style="vertical-align: middle;text-align:center;border:solid 1px gainsboro;">
+                                    <!--<span t-esc="p['date']"/>-->
+                                </td>
+                                <td style="vertical-align: middle;text-align:center;border:solid 1px gainsboro;font-size:12px !important;">
+                                    <span t-esc="refund['refund_id']"/>
+                                </td>
+                                <td style="text-align:right;vertical-align: middle;border:solid 1px gainsboro;">
+                                </td>
+                                <td style="text-align:right;vertical-align: middle;middle;border:solid 1px gainsboro;">
+                                    <span style="margin-right:5px;" t-if="refund['amount'] == 0 "></span>
+                                    <span t-else="" style="margin-right:5px;"
+                                          t-esc="'{0:,.2f}'.format(abs(float(refund['amount'])))"/>
+                                </td>
+                                <td style="text-align:right;vertical-align: middle;middle;border:solid 1px gainsboro;">
+                                    <span style="margin-right:5px;"
+                                          t-esc="refund['refund_date']"/>
+                                </td>
+                                <td style="text-align:right;vertical-align: middle;middle;border:solid 1px gainsboro;">
+                                    <!--                                    <span style="margin-right:5px;"-->
+                                    <!--                                          t-esc="'{0:,.2f}'.format(abs(total_due))"/>-->
+                                </td>
+                            </tr>
+
+                        </t>
+
+                        <!-- Total row -->
+                        <tr style="height:40px;border:solid 1px gainsboro;">
+                            <td colspan="2"
+                                style="text-align:right;vertical-align: middle;border:solid 1px gainsboro;  background-color:#093671 !important; color:#fff !important; font-width:900 !important;">
+                                <strong style="margin-right:5px;">TOTAL</strong>
+                            </td>
+                            <td style="text-align:right;vertical-align: middle;border:solid 1px gainsboro;  background-color:#093671 !important; color:#fff !important; font-width:900 !important;">
+                                <strong>
+                                    <span style="margin-right:5px;" t-esc="'{0:,.2f}'.format(total_inv_amount)"/>
+                                </strong>
+                            </td>
+                            <td style="text-align:right;vertical-align: middle;border:solid 1px gainsboro;  background-color:#093671 !important; color:#fff !important; font-width:900 !important;">
+                                <strong>
+                                    <span style="margin-right:5px;" t-esc="'{0:,.2f}'.format(total_payment)"/>
+                                </strong>
+                            </td>
+                            <td style="text-align:right;vertical-align: middle;border:solid 1px gainsboro;  background-color:#093671 !important; color:#fff !important; font-width:900 !important;">
+                            </td>
+                            <td style="text-align:right;vertical-align: middle;border:solid 1px gainsboro;  background-color:#093671 !important; color:#fff !important; font-width:900 !important;">
+                                <strong>
+                                    <span style="margin-right:5px;" t-esc="'{0:,.2f}'.format(total_due)"/>
+                                </strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </t>
+        </t>
+    </template>
+    <!-- Report Action -->
+    <record id="customer_report_template_action" model="ir.actions.report">
+        <field name="name">Customer Statement Report</field>
+        <field name="model">customer.statement.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">tk_customer_statements.customer_report_template</field>
+        <field name="report_file">tk_customer_statements.customer_report_template</field>
+        <field name="binding_model_id" ref="model_customer_statement_wizard"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Customer Statement Report for %s' % object.name</field>
+    </record>
+</odoo>

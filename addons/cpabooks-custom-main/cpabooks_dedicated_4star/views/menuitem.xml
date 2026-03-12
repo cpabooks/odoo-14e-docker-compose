@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_import_purchase_root" name="Import Purchase" sequence="001"
+                  web_icon="cpabooks_dedicated_4star,static/description/icon.png" groups="group_import_purchase_user"/>
+
+        <menuitem id="menu_import_purchase_main" name="Import Purchase" parent="menu_import_purchase_root" sequence="001"
+                  action="cpabooks_dedicated_4star.action_import_purchase_view"/>
+    </data>
+</odoo>

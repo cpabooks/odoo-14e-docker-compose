@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+
+    <menuitem id="report_voucher_menu"
+              name="Report Voucher"
+              parent="sale.sale_order_menu"
+              action="account.action_account_payments"
+    />
+
+
+</odoo>

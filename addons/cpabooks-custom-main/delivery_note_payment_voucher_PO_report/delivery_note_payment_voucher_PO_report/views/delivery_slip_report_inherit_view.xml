@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_delivery_note_inherit" inherit_id="stock.report_delivery_document">
+        <xpath expr="//div[@class='page']" position="before">
+            <h2 style="text-align:center;text-decoration: underline;">Delivery Note</h2>
+        </xpath>
+
+        <xpath expr="//table[2][@name='stock_move_line_table']" position="after">
+            <h5 style="margin-top:200px;font-size:14px;">Receiver Signature:_________</h5>
+        </xpath>
+    </template>
+</odoo>

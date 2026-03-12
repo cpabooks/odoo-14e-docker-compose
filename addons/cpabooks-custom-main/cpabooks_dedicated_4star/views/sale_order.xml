@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="professional_templates_sale_order_inherit" model="ir.ui.view">
+            <field name="name">professional_templates_sale_order_inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="professional_templates_v1.professional_sale_order_inherit"/>
+            <field name="arch" type="xml">
+			    <xpath expr="//field[@name='attention']" position="attributes">
+				    <attribute name="invisible">1</attribute>
+			    </xpath>
+            </field>
+        </record>
+	    
+	    <record id="sale_order_form_view_inherit" model="ir.ui.view">
+		    <field name="name">sale.order.form.view.inherit</field>
+		    <field name="model">sale.order</field>
+		    <field name="inherit_id" ref="sale.view_order_form"/>
+		    <field name="arch" type="xml">
+			    <xpath expr="//page[@name='other_information']/group/group[@name='sales_person']/field[@name='user_id']" position="attributes">
+				    <attribute name="invisible">1</attribute>
+			    </xpath>
+			    <xpath expr="//group/group" position="inside">
+				    <field name="payment_mode"/>
+			    </xpath>
+		    </field>
+	    </record>
+    </data>
+</odoo>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="hr_recruitment.menu_hr_recruitment_root" name="Recruitment" web_icon="cpabooks_icon_set_02_recruitment,static/description/recruitment.png"/>
+</odoo>

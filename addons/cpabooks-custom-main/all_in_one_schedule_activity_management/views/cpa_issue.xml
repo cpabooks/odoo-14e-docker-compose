@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- List view for issue list -->
+        <record id="view_cpa_issue_tree" model="ir.ui.view">
+            <field name="name">view.cpa.issue.tree</field>
+            <field name="model">cpa.issue</field>
+            <field name="arch" type="xml">
+                <tree editable="top" create="1" delete="1" multi_edit="1" string="Issue List">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for issue list -->
+        <record id="action_cpa_issue" model="ir.actions.act_window">
+            <field name="name">Issue List</field>
+            <field name="res_model">cpa.issue</field>
+            <field name="view_mode">tree</field>
+        </record>
+    </data>
+</odoo>

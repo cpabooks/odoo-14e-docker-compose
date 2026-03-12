@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="report_template_settings_inherit" model="ir.ui.view">
+            <field name="name">Report template settings inherit for estimation</field>
+            <field name="model">report.template.settings</field>
+            <field name="inherit_id" ref="professional_templates_v1.view_report_style_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='template_rfq']" position="after">
+                    <field name="template_est"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

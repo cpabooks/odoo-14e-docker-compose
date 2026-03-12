@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!-- Default Record -->
+        <record id="ctc_default_data" model="ctc.report.formula">
+            <field name="name">Employee CTC and Formula</field>
+        </record>
+
+
+        <!-- Form View -->
+        <record id="employee_ctc_report_and_formula_form" model="ir.ui.view">
+            <field name="name">Employee CTC and Formulas Form View</field>
+            <field name="model">ctc.report.formula</field>
+            <field name="arch" type="xml">
+                <form string="Employee CTC and Formulas">
+                    <header>
+                        <button name="action_launch_create_deferred_expense_wizard" string="MEJ"
+                                class="oe_highlight"
+                                type="object"/>
+                        <button name="action_reset_ctc_line" string="Reset line"
+                                class="oe_highlight"
+                                type="object"/>
+                        <button name="action_print_xls" type="object" title="Export Excel"
+                                class="oe_button_box fa fa-download"/>
+                    </header>
+
+                    <div class="row col-12 mt-3 border mx-auto" style="padding:10px 0px">
+                        <div class="col-9">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Employee CTC and Formulas"/>
+                            </h1>
+                        </div>
+                        <div class="col-3 text-right">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1 class="text-warning">
+                                <field name="total_ctc_line_ids" placeholder="Total CTC"/>
+                            </h1>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="filter_structure_type_id"/>
+                        </group>
+                        <group></group>
+                    </group>
+
+                    <notebook>
+                        <!--CTC Reports -->
+                        <page string="CTC Reports">
+                            <field name="ctc_line_ids" widget="one2many">
+                                <tree editable="bottom" create="0" delete="0">
+                                    <field name="employee_id" sum="Total"/>
+                                    <field name="total" decoration-bf="1" class="bg-info text-black" sum="Total"/>
+                                    <field name="total_cash_salary" decoration-bf="1" class="bg-info text-black"
+                                           sum="Total"/>
+                                    <field name="salary" readonly="0" sum="Total"/>
+                                    <field name="other_salary" readonly="0" sum="Total"/>
+                                    <field name="other_costs" decoration-bf="1" class="bg-info text-black"
+                                           sum="Total"/>
+                                    <field name="leave_salary" readonly="0" sum="Total"/>
+                                    <field name="gratuity" readonly="0" sum="Total"/>
+                                    <field name="air_fare" readonly="0" sum="Total"/>
+                                    <field name="medical_insurance" readonly="0" sum="Total"/>
+                                    <field name="visa_cost" readonly="0" sum="Total"/>
+                                    <field name="house_rent" readonly="0" sum="Total"/>
+                                    <field name="company_id" readonly="0" optional="1"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!--CTC Formulas-->
+                        <page string="CTC Formula">
+                            <group string="Formula">
+                                <group>
+                                    <field name="formula_for_leave_salary"/>
+                                    <field name="formula_for_air_fare"/>
+                                    <field name="formula_for_medical_insurance"/>
+                                </group>
+                                <group>
+                                    <field name="formula_for_gratuity"/>
+                                    <field name="formula_for_visa_cost"/>
+                                    <field name="formula_for_rent"/>
+                                    <field name="rent_accom1"/>
+                                    <field name="rent_accom2"/>
+                                </group>
+                            </group>
+                            <group col="3" string="Legends (for Formula) &amp; Extra Actions">
+                                <group>
+                                    <span colspan="2">Leave Salary Formula: %%(salary)s/11</span>
+                                    <span colspan="2">Gratuity Formula: %%(salary)s/12</span>
+                                    <span colspan="2">**'Operator' and 'number of months' are both changeable.
+                                    </span>
+                                </group>
+
+                                <group>
+                                </group>
+
+                                <group>
+                                    <button name="action_reset_ctc_line" type="object" string="Reset All CTC Lines"
+                                            class="btn-link"/> <!--icon="fa-arrow-right"-->
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="CTC Monthly">
+                            <h1>CTC Monthly</h1>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action to open the specific record -->
+        <record id="action_open_ctc_record" model="ir.actions.act_window">
+            <field name="name">Employee CTC Reports and Formulas</field>
+            <field name="res_model">ctc.report.formula</field>
+            <field name="view_mode">form</field>
+            <field name="res_id" eval="ref('bi_employee_payslip_report.ctc_default_data')"/>
+        </record>
+
+        <!-- Menu Item -->
+<!--        <menuitem id="menu_ctc_configuration" name="CTC" parent="hr_work_entry_contract.menu_hr_payroll_configuration"-->
+<!--                  sequence="100"/>-->
+        <menuitem id="menu_ctc_and_formula" name="CTC and Formula" parent="bi_employee_payslip_report.menu_ctc_configuration"
+                  action="action_open_ctc_record" sequence="1"/>
+    </data>
+</odoo>

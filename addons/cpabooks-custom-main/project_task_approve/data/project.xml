@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="request_to_approve">
+            <p>
+                Dear
+                <t t-esc="object.approver_user_id.sudo().name"/>,
+            </p>
+            <p>
+                You have been requested to approve the task
+                <t t-esc="object.name"/>.
+            </p>
+            <p>
+                <a t-att-href="'/mail/view?model=%s&amp;res_id=%s' % (object._name, object.id)">
+                    View Task
+                </a>
+            </p>
+        </template>
+
+        <template id="task_approval">
+            <p>
+                Dear
+                <t t-esc="object.user_id.sudo().name"/>,
+            </p>
+            <p>
+                Completion of the task "<t t-esc="object.name"/>" was approved.
+            </p>
+            <p>
+                <a t-att-href="'/mail/view?model=%s&amp;res_id=%s' % (object._name, object.id)">
+                    View Task
+                </a>
+            </p>
+        </template>
+    </data>
+</odoo>

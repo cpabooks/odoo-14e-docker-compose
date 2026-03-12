@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_report_inherit_custom" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@name='signature']" position="replace">
+            <t t-set="signature" t-value="doc.get_signature()"/>
+            <div t-if="signature" class="row oe_mt64" name="signature">
+                <div class="col-4 text-left">
+                    <strong>
+                        <span style="text-decoration:underline" t-field="signature.signature1"/>
+                    </strong>
+                </div>
+                <div class="col-4 text-center">
+                    <strong>
+                        <span style="text-decoration:underline" t-field="signature.signature2"/>
+                    </strong>
+                </div>
+                <div class="col-4 text-right">
+                    <strong>
+                        <span style="text-decoration:underline" t-field="signature.signature3"/>
+                    </strong>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

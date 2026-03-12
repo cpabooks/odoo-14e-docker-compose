@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id = "bill_of_lading_report" model="ir.actions.report">
+            <field name="name">Bill Of Lading</field>
+            <field name="model">freight.operation</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">freight.bill_of_lading</field>
+            <field name="report_file">freight.bill_of_lading</field>
+        </record>
+
+        <record id = "airway_bill_report" model="ir.actions.report">
+            <field name="name">Airway Bill</field>
+            <field name="model">freight.operation</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">freight.airway_bill</field>
+            <field name="report_file">freight.airway_bill</field>
+        </record>
+
+    </data>
+</odoo>
+
+<!--
+<record id="action_report_production_order_cost" model="ir.actions.report">
+        <field name="name">Production Order Cost</field>
+        <field name="model">mrp.production</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">odoo_process_costing_manufacturing.report_mrporder_cost</field>
+        <field name="report_file">odoo_process_costing_manufacturing.report_mrporder_cost</field>
+        <field name="binding_model_id" ref="mrp.model_mrp_production"/>
+        <field name="binding_type">report</field>
+</record>-->

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="helpdesk_ticket_view_form_approval" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.form.approval</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <field name="tag_ids" position="after">
+                <field name="approver_id"/> <!-- attrs="{'readonly':[('ticket_state','not in',('draft','cancel'))]}" -->
+                <!--                <field invisible="1" name="ticket_state"-->
+                <!--                       decoration-primary="ticket_state == 'new'"-->
+                <!--                       decoration-info="ticket_state == 'draft'"-->
+                <!--                       decoration-warning="ticket_state == 'submit_for_approval'"-->
+                <!--                       decoration-success="ticket_state == 'approve'"/>-->
+                <field name="show_approve_btn" invisible="1"/>
+            </field>
+            <xpath expr="//header" position="inside">
+                <!-- <button name="set_approver" string="Set Approver" type="object" class="oe_highlight" groups="helpdesk.group_helpdesk_user"/> -->
+                <!-- <button name="btn_cancel" string="Cancel" type="object" class="oe_highlight" groups="helpdesk.group_helpdesk_user"/> -->
+
+<!--                <button id="button1" name="get_reviewed" type="object" string="1.Set As Reviewed" class="btn-success"/>-->
+
+<!--                <button id="button2" name="submit_for_approval" string="2.Submit for Approval" type="object"-->
+<!--                        class="btn-success"/>-->
+
+<!--                <button id="button3" name="btn_approve" string="3.Approve" type="object" class="btn-success"/>-->
+
+
+            </xpath>
+
+
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_tree_approval" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.tree.approval</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="stage_id" position="after">
+                <field name="ticket_state" invisible="1" decoration-info="ticket_state == 'draft'"
+                       decoration-warning="ticket_state == 'submit_for_approval'"
+                       decoration-success="ticket_state == 'approve'" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_search_approval" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.search.approval</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search"/>
+        <field name="arch" type="xml">
+            <search>
+                <field name="ticket_state"/>
+                <filter string="Ticket Status" name="ticket_state"/>
+                <group expand="0" string="Group By">
+                    <filter string="Ticket Status" name="ticket_state" context="{'group_by':'ticket_state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="helpdesk_approved" model="ir.ui.view">
+        <field name="name">helpdesk_approved</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='stage_id']" position="before">
+                <field name="ticket_state" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

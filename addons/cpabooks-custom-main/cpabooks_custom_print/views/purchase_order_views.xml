@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="po_terms_tree_view" model="ir.ui.view">
+        <field name="name">po.terms.tree.view</field>
+        <field name="model">po.terms</field>
+        <field name="arch" type="xml">
+            <tree string="Terms and Conditions" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_po_terms" model="ir.actions.act_window">
+        <field name="name">Terms and Conditions</field>
+        <field name="res_model">po.terms</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a terms and conditions
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_po_terms"
+        name="Terms and Conditions"
+        action="action_po_terms"
+        parent="purchase.menu_purchase_config"
+        sequence="2"/>
+
+    <record id="purchase_order_form_inherit_custom_print" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.custom_print</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="dest_address_id" string="Shipping Address" context="{'default_type':'delivery'}" options='{"always_reload": True}'/>
+            </xpath>
+            <xpath expr="//field[@name='notes']" position="before">
+                <div attrs="{'invisible': [('amount_total', '&lt;=', 0)]}">
+                    <label for="num_word" style="margin-right: 8px;"/>
+                    <field name="num_word"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_quotation_tree" model="ir.ui.view">
+        <field name="name">purchase.order.quotation.tree</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="rfq_date"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="purchase_order_quotation_form" model="ir.ui.view">
+        <field name="name">purchase.order.quotation.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <field name="effective_date" position="after">
+                <field name="rfq_date"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="form_sale_order_inventory_control" model="ir.ui.view">
+		<field name="name">sale.order_inventory_control</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+		</field>
+	</record>
+</odoo>

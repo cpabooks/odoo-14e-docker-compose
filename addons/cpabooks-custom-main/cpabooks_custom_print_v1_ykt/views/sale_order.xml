@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_main_ykt" model="ir.ui.view">
+        <field name="name">sale.order.main.ykt</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//group[@name='note_group']" position="after">
+                <div class="row">
+                    <div class="col-2">
+                    <field name="exclusion_or_inclusion" nolabel="1" placeholder="Exclusion/Inclusion"/>
+                    </div>
+                    <div class="col-10">
+                        <field name="exclusion_or_inclusion_body" nolabel="1" placeholder="Exclusion/Inclusion Text..."/>
+                    </div>
+                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-12">-->
+<!--                    <field name="warm_regards" nolabel="1" placeholder="Warm Regards"/>-->
+<!--                        </div>-->
+<!--                </div>-->
+            </xpath>
+
+<!--            <xpath expr="//page[@name='other_information']/group[1]/group[@name='sales_person']/field[@name='user_id']" position="replace">-->
+<!--                 <field name="user_id" domain="[('share', '=', False)]" widget="many2one_avatar_user"/>-->
+<!--            </xpath>-->
+
+            <xpath expr="//field[@name='note']" position="attributes">
+                <attribute name="placeholder">General Notes...</attribute>
+<!--                <field name="note" nolabel="1" placeholder="Terms and conditions..."/>-->
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+<!--            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">-->
+<!--                <field name="image_name" invisible="1"/>-->
+<!--                <field name="image" widget="image" filename="image_name" options='{"size": [150, 150]}'/>-->
+<!--            </xpath>-->
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom']" position="after">
+                <field name="uom_text" />
+            </xpath>
+             <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                <field name="remarks" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_sale_order_ykt" model="ir.ui.view">
+        <field name="name">sale.order.ykt</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="professional_templates.professional_sale_order_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='subject']" position="after">
+                <field name="message_box"/>
+
+            </xpath>
+            <xpath expr="//field[@name='enquiry_number']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='delivery_detail']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='make_detail']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+     <record id="sale_order_serach_view_inherit" model="ir.ui.view">
+            <field name="name">sale.order.search.view.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/field[@name='order_line']" position="after">
+                    <field name="subject"/>
+                </xpath>
+            </field>
+        </record>
+</odoo>

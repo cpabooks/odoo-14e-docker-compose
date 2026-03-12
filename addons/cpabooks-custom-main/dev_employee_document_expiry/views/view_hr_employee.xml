@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle
+ -->
+<odoo>
+    <record id="employee_document_form_employee" model="ir.ui.view">
+        <field name="name">employee.document.form.employee</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                 <button name="action_view_employee_documents"
+                          type="object"
+                          class="oe_stat_button"
+                          icon="fa-book">
+                     <field name="documents" widget="statinfo" string="Documents"/>
+                </button>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Document History"  >
+                    <field name="employee_document_ids" mode="kanban" context="{'default_parent_id': active_id,'default_employee_id': active_id}">
+                        <kanban>
+                            <field name="name"/>
+                            <field name="document"/>
+                            <field name="employee_id"/>
+                            <field name="date_issue"/>
+                            <field name="date_expiry"/>
+                            <templates>
+                                <t t-name="kanban-box">
+                                    <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                        <div class="oe_kanban_details">
+                                            <strong><h3><field name="name"/></h3></strong>
+                                            <ul>
+                                                 <li><span style="color: #800000">Date Issue : </span><field name="date_issue"/></li>
+                                                  <li><span style="color: #800000">Date Expiry : </span><field name="date_expiry"/></li>
+                                                 <li><span style="color: #800000">Document : </span><field name="document"/></li>
+                                            </ul>
+                                        </div>
+                                        <div class="oe_clear"></div>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

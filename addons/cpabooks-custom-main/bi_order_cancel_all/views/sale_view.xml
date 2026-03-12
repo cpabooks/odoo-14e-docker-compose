@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_cancel_form" model="ir.ui.view">
+        <field name="name">sale.order.cancel</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_cancel']" position="replace">
+                <button name="action_cancel" type="object" string="Cancel"
+                        groups="bi_order_cancel_all.group_purchase_cancel"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

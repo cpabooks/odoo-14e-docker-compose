@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="sale_common_template_rads" inherit_id="professional_templates_v1.SO_common_document">
+        <!--        Qt No to order No-->
+        <xpath expr="//div[@id='invoice_title']/t[2]" position="replace">
+            <strong style="white-space:nowrap;">Quote No:</strong>
+        </xpath>
+        <!--        Qt No to order No-->
+
+        <xpath expr="//div[@name='quote_date']/strong" position="replace">
+            <strong style="white-space:nowrap;">Date:</strong>
+        </xpath>
+        <xpath expr="//div[@name='quote_date']/span" position="replace">
+            <span t-esc="context_timestamp(doc.date_order).strftime('%d/%m/%Y')"/>
+        </xpath>
+        <!--        create date to date and remove time ****comment out on behalf of shohel bhai****-->
+        <!--        <xpath expr="//div[@name='create_date']/strong" position="replace">-->
+        <!--            <strong style="white-space:nowrap;">Date:</strong>-->
+        <!--        </xpath>-->
+        <!--        <xpath expr="//div[@name='create_date']/span" position="replace">-->
+        <!--            <span t-esc="context_timestamp(doc.create_date).strftime('%d/%m/%Y')"/>-->
+        <!--        </xpath>-->
+        <!--        create date to date and remove time-->
+        <!--        hide salesperson block and place after asset no-->
+        <xpath expr="//div[@name='salesperson']" position="attributes">
+            <attribute name="t-attf-style">{{div_style}};display:none;</attribute>
+        </xpath>
+
+        <xpath expr="//div[@name='asset_no']" position="after">
+            <div t-if="doc.user_id.name" t-attf-style="{{div_style}}" name="Prepared_by">
+                <strong style="white-space:nowrap;">Prepared By:</strong>
+                <span t-field="doc.user_id.name"/>
+            </div>
+        </xpath>
+        <!--        hide salesperson block-->
+        <!--        hide all note,validity part-->
+        <xpath expr="//div[@name='extra_part']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+
+        <xpath expr="//div[@name='extra_part']" position="after">
+            <div name="extra_part_rads">
+                <div name="tc_note" class="row" style="line-height:20px;" t-if="doc.note">
+                    <div class="col-2">
+                        <strong>Note</strong>
+                        <span class="float-right">:</span>
+                    </div>
+                    <div class="col-10">
+                        <span t-field="doc.note"/>
+                    </div>
+                </div>
+                <div name="exclusion_m" class="row" style="line-height:20px;"
+                     t-if="doc.exclusion and doc.show_exclusion">
+                    <div class="col-2">
+                        <strong>Exclusion</strong>
+                        <span class="float-right">:</span>
+                    </div>
+                    <div class="col-10">
+                        <span t-field="doc.exclusion"/>
+                    </div>
+                </div>
+                <div name="delivery" class="row" style="line-height:20px;" t-if="doc.delivery_detail">
+                    <div class="col-2">
+                        <strong>Delivery</strong>
+                        <span class="float-right">:</span>
+                    </div>
+                    <div class="col-10">
+                        <span t-field="doc.delivery_detail"/>
+                    </div>
+                </div>
+                <div name="payment" class="row" style="line-height:20px;" t-if="doc.payment_term_id">
+                    <div class="col-2">
+                        <strong>Payment</strong>
+                        <span class="float-right">:</span>
+                    </div>
+                    <div class="col-10">
+                        <span t-field="doc.payment_term_id"/>
+                    </div>
+                </div>
+
+                <div name="validity_day" class="row" style="line-height:20px;" t-if="doc.show_validity and doc.validity_days">
+                    <div class="col-2">
+                        <strong>Validity</strong>
+                        <span class="float-right">:</span>
+                    </div>
+                    <div class="col-10">
+                        <span t-field="doc.validity_days"/>
+                        Days
+                    </div>
+                </div>
+
+                <div name="warranty" class="row" style="line-height:20px;" t-if="doc.warranty and doc.show_warranty">
+                    <div class="col-2">
+                        <strong>Warranty</strong>
+                        <span class="float-right">:</span>
+                    </div>
+                    <div class="col-10">
+                        <span t-field="doc.warranty"/>
+                    </div>
+                </div>
+            </div>
+
+            <t t-set="warm_regards_val" t-value="doc.get_warm_regards_cp()"/>
+            <div name="warm_regards" class="row oe_mt16 position-relative" t-if="warm_regards_val">
+                <!--Stamp-->
+                <div t-attf-style="color:{{style.text_color}}" class="col-12">
+                    <span t-field="doc.warm_regards"/>
+                </div>
+            </div>
+        </xpath>
+        <!--        hide all note,validity part-->
+    </template>
+</odoo>

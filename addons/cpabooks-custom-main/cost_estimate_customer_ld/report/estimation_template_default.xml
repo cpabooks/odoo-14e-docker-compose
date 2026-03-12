@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="job_estimation_report_template">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <style>
+                        .table{
+                        border-collapse: collapse;
+                        width: 100%;
+                        }
+                        tr.pd-brt{
+                        padding: 10px;
+                        border-top: 1px solid rgb(140, 140, 140);
+                        }
+                    </style>
+                    <t t-foreach="docs" t-as="o">
+                        <div class="row">
+                            <h2 class="col-12 text-center">Job Estimate # -
+                                <span t-field="o.name"/>
+                            </h2>
+                            <br/>
+                        </div>
+
+                        <div class="row mt-1">
+                            <h3 class="col-12 text-center">
+                                <span t-field="o.partner_id"/>
+                            </h3>
+                            <br/>
+                        </div>
+
+                        <table class="table table-condensed mt-4">
+                            <tr class="text-left pd-brt">
+                                <td>
+                                    <strong>Customer Reference :</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.customer_ref"/>
+                                </td>
+
+                                <td>
+                                    <strong>Payment Terms :</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.payment_term_id"/>
+                                </td>
+                            </tr>
+
+                            <tr style="text-left pd-brt">
+                                <td>
+                                    <strong>Sales Person :</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.sales_person_id"/>
+                                </td>
+
+                                <td>
+                                    <strong>Sales Team :</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.sales_team_id"/>
+                                </td>
+                            </tr>
+
+                            <tr style="text-left pd-brt">
+                                <td>
+                                    <strong>Date Of Estimate :</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.date"/>
+                                </td>
+
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <t t-if="o.material_estimation_ids">
+                            <h4>Material Estimate</h4>
+                            <br/>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">Product</th>
+                                        <th width="21%">Description</th>
+                                        <th width="10%">Quantity</th>
+                                        <th width="12%">Unit Of Measure</th>
+                                        <th width="12%">Unit Price</th>
+                                        <th width="12%">Discount (%)</th>
+                                        <th width="13%">Sub Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.material_estimation_ids" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <span t-field="line.product_id"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.description"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="line.quantity"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.uom_id"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="line.price_unit"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.discount"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="line.subtotal"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <t t-if="o.labour_estimation_ids">
+                            <h4>Labour Estimate</h4>
+                            <br/>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">Product</th>
+                                        <th width="21%">Description</th>
+                                        <th width="10%">Quantity</th>
+                                        <th width="12%">Unit Of Measure</th>
+                                        <th width="12%">Hours</th>
+                                        <th width="12%">Unit Price</th>
+                                        <th width="12%">Discount (%)</th>
+                                        <th width="13%">Sub Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.labour_estimation_ids" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <span t-field="line.product_id"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.description"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="line.quantity"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.uom_id"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="line.hours" widget="float_time"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="line.price_unit"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.discount"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="line.subtotal"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <t t-if="o.overhead_estimation_ids">
+                            <h4>Overhead Estimate</h4>
+                            <br/>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">Product</th>
+                                        <th width="21%">Description</th>
+                                        <th width="10%">Quantity</th>
+                                        <th width="12%">Unit Of Measure</th>
+                                        <th width="12%">Unit Price</th>
+                                        <th width="12%">Discount (%)</th>
+                                        <th width="13%">Sub Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.overhead_estimation_ids" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <span t-field="line.product_id"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.description"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="line.quantity"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.uom_id"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="line.price_unit"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.discount"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="line.subtotal"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <div class="row mt-2">
+                            <div class="col-8 text-left">
+                                <strong>Description Of Job Estimate</strong>
+                                <br/>
+                                <span t-field="o.description"/>
+                            </div>
+                            <div class="col-4 justify-self-end">
+                                <table class="table-condensed">
+                                    <tr class="border-black" t-if="o.total_material_estimate">
+                                        <td>
+                                            <strong>Total Material Estimate</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.total_material_estimate"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-black" t-if="o.total_labour_estimate">
+                                        <td>
+                                            <strong>Total Labour Estimate</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.total_labour_estimate"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-black" t-if="o.total_overhead_estimate">
+                                        <td>
+                                            <strong>Total Overhead Estimate</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.total_overhead_estimate"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-black">
+                                        <td>
+                                            <strong>Total Job Estimate</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.total_job_estimate"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="ESTIMATION_0_document" name="Estimation Default Template">
+            <t t-call="web.html_container">
+                <t t-foreach="doc_ids" t-as="o">
+                    <t t-call="cost_estimate_customer_ld.job_estimation_report_template"/>
+                </t>
+            </t>
+        </template>
+
+<!--        <report-->
+<!--                string="Job Estimate"-->
+<!--                id="action_job_estimate_report"-->
+<!--                model="job.estimate"-->
+<!--                name="cost_estimate_customer_ld.job_estimate_report"-->
+<!--                file="cost_estimate_customer_ld.job_estimate_report"-->
+<!--                report_type="qweb-pdf"-->
+<!--                print_report_name="'Job Estimate - %s' % (object.name or '')"-->
+<!--        />-->
+
+        <!--        v14 -->
+        <!--        <record id="action_report_job_estimate" model="ir.actions.report">-->
+        <!--            <field name="name">Job Estimate</field>-->
+        <!--            <field name="model">job.estimate</field>-->
+        <!--            <field name="report_type">qweb-pdf</field>-->
+        <!--            <field name="report_name">cost_estimate_customer_ld.job_estimate_report</field>-->
+        <!--            <field name="report_file">cost_estimate_customer_ld.job_estimate_report</field>-->
+        <!--            <field name="print_report_name">'Job Estimate - %s' % (object.name or '')</field>-->
+        <!--            <field name="binding_model_id" ref="model_job_estimate"/>-->
+        <!--            <field name="binding_type">report</field>-->
+        <!--        </record>-->
+
+
+    </data>
+</odoo>
+

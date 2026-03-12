@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<data>
+		
+		<template id="report_invoice_dot_matrix_template" name="Invoice Report Dot Matrix">
+			<style>
+<!--				                        .invisible {-->
+<!--				                        visibility: visible !important;-->
+<!--				                        }-->
+				div {
+				font-size: 13px !important;
+				}
+			</style>
+			<div class="page">
+				<h1 class="text-center invisible">Dot Matrix Invoice</h1>
+				<div class="d-flex justify-content-start gap-0">
+					<t t-set="div_style" t-value="'color:black !important;'"/>
+					<div class="" t-attf-style="width: 60% !important;">
+						<div class="d-flex">
+							<div class="w-50"
+							     t-attf-style="margin-top: {{style.cust_code_margin_top}}{{style.unit}} !important;">
+								<strong class="invisible">Customer Code:</strong>
+								<t t-set="inv_id" t-value="o.id"/>
+								<span t-esc="data['additional_info'].get(inv_id).get('code')"/>
+							</div>
+							<div class="w-50"
+							     t-attf-style="margin-top: {{style.trn_margin_top}}{{style.unit}} !important; margin-left: {{style.trn_margin_left}}{{style.unit}} !important">
+								<strong class="invisible">TRN:</strong>
+								<span t-attf-style="font-weight: 900 !important;" t-field="o.partner_id.vat"/>
+							</div>
+						</div>
+						<div class="d-flex">
+							<div class="w-100"
+							     t-attf-style="height:30px; margin-top: {{style.name_margin_top}}{{style.unit}} !important; margin-left: {{style.name_margin_left}}{{style.unit}} !important;">
+								<strong class="invisible">Name:</strong>
+								<span t-attf-style="font-weight: 900 !important;" t-field="o.partner_id.name"/>
+							</div>
+						</div>
+						<div class="d-flex">
+							<div class="w-50"
+							     t-attf-style="margin-top: {{style.tel_margin_top}}{{style.unit}} !important; margin-left: {{style.tel_margin_left}}{{style.unit}} !important;">
+								<strong class="invisible">Tel No.:</strong>
+								<span t-field="o.partner_id.phone"/>
+							</div>
+							<div class="w-50"
+							     t-attf-style="margin-top: {{style.territory_margin_top}}{{style.unit}} !important; margin-left: {{style.territory_margin_left}}{{style.unit}} !important;">
+								<strong class="invisible">Territory:</strong>
+								<span t-field="o.partner_id.city"/>
+							</div>
+						</div>
+						<div class="d-flex">
+							<div class="w-50"
+							     t-attf-style="margin-top: {{style.mobile_margin_top}}{{style.unit}} !important; margin-left: {{style.mobile_margin_left}}{{style.unit}} !important;">
+								<strong class="invisible">Mobile :</strong>
+								<span t-field="o.partner_id.mobile"/>
+							</div>
+							<div class="w-50"
+							     t-attf-style="margin-top: {{style.whatsapp_margin_top}}{{style.unit}} !important; margin-left: {{style.whatsapp_margin_left}}{{style.unit}} !important;">
+								<strong class="invisible">Whatsapp:</strong>
+								<span t-field="o.partner_id.mobile"/>
+							</div>
+						</div>
+						<div class="d-flex">
+							<div class="w-50"
+							     t-attf-style="margin-top: {{style.email_margin_top}}{{style.unit}} !important; margin-left: {{style.email_margin_left}}{{style.unit}} !important;">
+								<strong class="invisible">E-mail :</strong>
+								<span t-attf-style="font-size: {{style.email_font_size}}{{body_font_unit}} !important;" t-if="o.partner_id.email and o.partner_id.email != 'N/A'"
+								      t-field="o.partner_id.email"/>
+							</div>
+							<div class="w-50"
+							     t-attf-style="margin-top: {{style.emirates_margin_top}}{{style.unit}} !important; margin-left: {{style.emirates_margin_left}}{{style.unit}} !important;">
+								<strong class="invisible">Emirates:</strong>
+								<span t-field="o.partner_id.country_id.name"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="" t-attf-style="width: 40% !important;">
+						<div class="d-flex mb-2">
+							<div class="w-50"
+							     t-attf-style="margin-top: {{style.inv_margin_top}}{{style.unit}} !important; margin-left: {{style.inv_margin_left}}{{style.unit}} !important;">
+								<strong class="invisible">Invoice No.:</strong>
+								<span t-attf-style="font-size: 16px !important" t-field="o.name"/>
+							</div>
+							<div class="w-50"
+							     t-attf-style="margin-top: {{style.date_margin_top}}{{style.unit}} !important; margin-left: {{style.date_margin_left}}{{style.unit}} !important;">
+								<strong class="invisible">Date:</strong>
+								<span t-field="o.invoice_date"/>
+							</div>
+						</div>
+						<div class="d-flex mb-2">
+							<div class="w-50"
+							     t-attf-style="margin-top: {{style.do_margin_top}}{{style.unit}} !important; margin-left: {{style.do_margin_left}}{{style.unit}} !important;">
+								<strong class="invisible">DO No.:</strong>
+								<span t-field="o.do_no"/>
+							</div>
+							<div class="w-50"
+							     t-attf-style="margin-top: {{style.lpo_margin_top}}{{style.unit}} !important; margin-left: {{style.lpo_margin_left}}{{style.unit}} !important;">
+								<strong class="invisible">LPO No. :</strong>
+								<span t-field="o.lpo_no"/>
+							</div>
+						</div>
+						<div class=""
+						     t-attf-style="margin-top: {{style.co_margin_top}}{{style.unit}} !important; margin-left: {{style.co_margin_left}}{{style.unit}} !important;">
+							<strong class="invisible">C/o.:</strong>
+							<span t-field="o.user_id.name"/>
+						</div>
+						<div class=""
+						     t-attf-style="margin-top: {{style.payment_terms_margin_top}}{{style.unit}} !important; margin-left: {{style.payment_terms_margin_left}}{{style.unit}} !important;">
+							<strong class="invisible">Payment Terms :</strong>
+							<span t-if="o.invoice_payment_term_id"
+							      t-field="o.invoice_payment_term_id.name"/>
+						</div>
+						<div class="d-flex mb-2">
+							<div class="w-50" t-attf-style="margin-top: {{style.ship_to_margin_top}}{{style.unit}} !important; margin-left: {{style.ship_to_margin_left}}{{style.unit}} !important;">
+								<strong class="invisible">Ship To :</strong>
+								<span t-field="o.partner_id.city"/>
+							</div>
+							<div class="w-50" t-attf-style="margin-top: {{style.page_no_margin_top}}{{style.unit}} !important; margin-left: {{style.page_no_margin_left}}{{style.unit}} !important;">
+								<strong class="invisible">Page No.</strong>
+								<span t-esc="str(chunk_index + 1) + '/' + str(total_pages)"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!--Items-->
+			
+			</div>
+			<!--            </t>-->
+		</template>
+	</data>
+</odoo>

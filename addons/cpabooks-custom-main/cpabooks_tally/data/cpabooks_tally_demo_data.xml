@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="flowchart_kanban_data_1" model="cpabooks.tally">
+        <field name="name">Tally</field>
+    </record>
+    <record id="flowchart_kanban_data_3" model="display.menu">
+        <field name="name">Display Menu</field>
+    </record>
+    <record id="cpabooks_statistics_data" model="cpabooks.statistics">
+        <field name="name">Statistics</field>
+    </record>
+</odoo>

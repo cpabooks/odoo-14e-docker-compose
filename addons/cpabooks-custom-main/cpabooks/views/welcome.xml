@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <template id="company_welcome" name="Welcome">
+        <t t-call="website.layout">
+
+            <div class="container" style="margin-top:20px; margin-bottom:20px; min-height:240px;">
+                <h3>Thank you</h3>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="alert alert-success" role="status">
+                            Your company created successfully...
+                            <p>
+                                Now you can login your company using your email and password!
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </t>
+     </template>
+
+</odoo>

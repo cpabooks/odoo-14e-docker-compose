@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle
+ -->
+<odoo>
+    <record id="company_document_expiry_inherited" model="ir.ui.view">
+        <field name="name">company.document.expiry.inherited</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='logo']" position="before">
+                <div class="oe_button_box" name="button_box">
+                        <button name="action_view_company_documents"
+                          type="object"
+                          class="oe_stat_button"
+                           icon="fa-book" >
+                        <field name="documents" widget="statinfo" string="Documents"/>
+                        </button>
+                </div>
+                
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Document History" >
+                         <field name="company_document_ids" mode="kanban" context="{'default_many_compnay_id': active_id,'default_many_compnay_id': active_id}">
+
+                        <kanban>
+                            <field name="name"/>
+                            <field name="document"/>
+                            <field name="many_compnay_id"/>
+                            <field name="date_issue"/>
+                            <field name="date_expiry"/>
+                            <templates>
+                                <t t-name="kanban-box">
+                                    <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                        <div class="oe_kanban_details">
+                                            <strong><h3><field name="name"/></h3></strong>
+                                            <ul>
+                                                 <li><span style="color: #800000">Date Issue : </span><field name="date_issue"/></li>
+                                                  <li><span style="color: #800000">Date Expiry : </span><field name="date_expiry"/></li>
+                                                 <li><span style="color: #800000">Document : </span><field name="document"/></li>
+                                            </ul>
+                                        </div>
+                                        <div class="oe_clear"></div>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_bom_structure_multi">
+        <t t-set="data_report_landscape" t-value="True"/>
+
+        <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+            <t t-call-assets="mrp.assets_common" t-js="False"/>
+            <t t-foreach="docs" t-as="data">
+                <div class="page">
+                    <t t-call="cpabooks_estimation_multi.multi_bom_structure"/>
+                </div>
+                <p style="page-break-before:always;"> </p>
+            </t>
+        </t>
+        </t>
+    </template>
+
+    <template id="multi_bom_structure">
+
+        <div class="container o_mrp_bom_report_page">
+            <t t-if="data.get('final_product')">
+            <div class="row">
+                    <div class="col-lg-12">
+                        <h1>BoM Structure &amp; Cost</h1>
+<!--                        <h3>-->
+<!--                            <a href="#" t-if="data['report_type'] == 'html'" t-att-data-res-id="data['product'].id" t-att-data-model="data['product']._name" class="o_mrp_bom_action">-->
+<!--                                <t t-esc="data['bom_prod_name']"/>-->
+<!--                            </a>-->
+<!--                            <t t-else="" t-esc="data['bom_prod_name']"/>-->
+<!--                        </h3>-->
+                        <h6 t-if="data['bom'].code">Reference: <t t-esc="data['bom'].code"/></h6>
+                        <div class="oe_mt16 oe_mb16">
+                            <table class="table table-condensed oe_mt16 oe_mb16">
+                            <tr>
+                                <td>
+                                    <strong>Estimation Reference :</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="data['estimate_reference']"/>
+                                </td>
+
+                                <td>
+                                    <strong>Job Order :</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="data['project_id']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Customer :</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="data['partner_id']"/>
+                                </td>
+
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+                <t t-set="currency" t-value="data['currency']"/>
+
+                 <div class="row">
+                    <div class="col-lg-12">
+                        <div class="mt16">
+                            <table width="100%" class="o_mrp_bom_expandable">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th name="th_mrp_bom_h">BoM</th>
+                                        <th class="text-right">Quantity</th>
+                                        <th class="text-left">Unit of Measure</th>
+                                        <th class="o_mrp_prod_cost text-right" title="This is the cost defined on the product.">Product Cost</th>
+                                        <th class="o_mrp_bom_cost text-right" title="This is the cost based on the BoM of the product. It is computed by summing the costs of the components and operations needed to build the product.">BoM Cost</th>
+<!--                                        <th class="o_mrp_has_attachments" title="Files attached to the product">Attachments</th>-->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="total_fp" t-value="0"/>
+                                    <t t-set="total_mp" t-value="0"/>
+                                    <t t-set="zero_value" t-value="0.00"/>
+                                    <t t-foreach="data['final_product']" t-as="final_prod">
+                                        <t t-set="total_fp" t-value="total_fp+final_prod['bom_product_price']"/>
+                                        <tr style="background-color:#e0dfda">
+                                            <td><span t-esc="final_prod['name']"/></td>
+                                            <td><span t-esc="final_prod['code']"/></td>
+                                            <td class="text-right"><span t-esc="'%.2f'% final_prod['quantity']"/></td>
+                                            <td class="text-left"><span t-esc="final_prod['uom']"/></td>
+<!--                                            <td class="text-right"><span t-esc="final_prod.final_product_id.standard_price"/></td>-->
+                                            <td class="text-right"><span t-esc="zero_value" t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/></td>
+                                            <td class="text-right"><span t-esc="final_prod['bom_product_price']" t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/></td>
+<!--                                                <span t-esc="final_prod['bom_product_price']" options="{'currency_field': 'currency_id'}"/> -->
+<!--                                            t-esc="'{0:,.2f}'.format(inv_value)-->
+<!--                                             "'%.2f'% final_prod['bom_product_price']"-->
+<!--                                            <span t-field="data['currency'].symbol" />-->
+                                        </tr>
+                                        <t t-foreach="data['material']" t-as="material_prod">
+                                            <t t-if="final_prod['name']==material_prod['bom_product_name']">
+                                                <t t-set="total_mp" t-value="total_mp+material_prod['product_price']"/>
+                                                <tr>
+                                                    <td><span style="margin-left:20px;" t-esc="material_prod['material_name']"/></td>
+                                                    <td><span t-esc="material_prod['code']"/></td>
+                                                    <td class="text-right"><span t-esc="'%.2f'%  material_prod['quantity']"/></td>
+                                                    <td class="text-left"><span t-esc="material_prod['uom']"/></td>
+                                                    <td class="text-right"><span t-esc="material_prod['product_price']" t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/></td>
+                                                    <td class="text-right"><span t-esc="zero_value" t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </t>
+                                    <tr>
+                                        <t t-set="total_mp" t-value="total_mp+data['labour_cost']"/>
+                                        <td>Labour Cost</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-right"><span t-esc="data['labour_cost']" t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/></td>
+                                        <td class="text-right"><span t-esc="zero_value" t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <t t-set="total_mp" t-value="total_mp+data['overhead_cost']"/>
+                                        <td>Overhead Cost</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-right"><span t-esc="data['overhead_cost']" t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/></td>
+                                        <td class="text-right"><span t-esc="zero_value" t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/></td>
+                                    </tr>
+                                     <tr>
+                                        <t t-set="total_mp" t-value="total_mp+data['profit']"/>
+                                        <td>Profit</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-right"><span t-esc="data['profit']" t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/></td>
+                                        <td class="text-right"><span t-esc="zero_value" t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-right">Unit Cost</td>
+                                        <td></td>
+                                        <td class="text-right"><span t-esc="total_mp" t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/></td>
+                                        <td class="text-right"><span t-esc="total_fp" t-options="{'widget': 'monetary', 'display_currency': data['currency']}"/></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                 </div>
+
+            </t>
+        </div>
+    </template>
+</odoo>

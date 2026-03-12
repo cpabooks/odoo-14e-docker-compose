@@ -1,0 +1,31 @@
+{
+    "name": "All in one Margin || Sale, Purchase, Invoice and Product margin",
+    "version": "14.1.1.1",
+    "description": """
+        Using this module you can auto calculate margin in sale, purchase, invoice and product margin in percentage.
+    """,
+    'summary':"Using this module you can auto calculate margin in sale, purchase, invoice and product margin in percentage.",
+    'sequence': 1,
+    'price': 14,
+    'currency': 'EUR',
+    "author" : "MAISOLUTIONSLLC",
+    "email": 'apps@maisolutionsllc.com',
+    "website":'https://maisolutionsllc.com/',
+    'license': 'OPL-1',
+    'category':"Sales",
+    'depends': ['base','sale_management','product','sale_margin'],
+    "data": [
+             "views/product_margin_view.xml",
+             "views/sale_margin_view.xml",
+             "views/invoice_margin_view.xml",
+             "views/purchase_margin_view.xml",
+    ],
+    'qweb': [],
+    'css': [],
+    'js': [],
+    'demo': [],
+    "images": ['static/description/main_screenshot.png'],    
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}

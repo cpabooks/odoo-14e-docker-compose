@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_invoice_tree" model="ir.ui.view">
+            <field name="name">account.out.invoice.tree</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount_total_signed']" position="after">
+                    <field name="amount_residual"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_residual_signed']" position="attributes">
+                    <attribute name="attrs">{'column_invisible':[(True)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

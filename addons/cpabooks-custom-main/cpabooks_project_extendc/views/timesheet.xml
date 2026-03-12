@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="timesheet_tree_inherited" model="ir.ui.view">
+            <field name="name">timesheet.tree.inherited</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.timesheet_view_tree_user"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='task_id']" position="after">
+                    <field name="project_id" string="Project/Job"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="systray_odoo_referral_icon" inherit_id="web.assets_backend">
+            <xpath expr=".">
+                <script type="text/javascript" src="/cpabooks_navbar/static/src/js/systray.js"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

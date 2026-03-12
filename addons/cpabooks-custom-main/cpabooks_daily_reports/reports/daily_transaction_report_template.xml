@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="daily_transaction_report_template">
+			<t t-call="web.html_container">
+				<div>
+					<style>
+						.report-container {
+						width: 100%;
+						border-collapse: collapse;
+						margin: 20px 0;
+						font-size: 16px;
+						text-align: left;
+						}
+						.report-container thead tr {
+						background-color: #f2f2f2;
+						color: #333;
+						text-align: left;
+						font-weight: bold;
+						font-size: 12px;
+						}
+						.report-container th, .report-container td {
+						border: 1px solid #ddd;
+						padding: 8px;
+						font-size: 12px;
+						}
+						.report-container tbody tr:nth-child(even) {
+						background-color: #f9f9f9;
+						}
+						.report-container tbody tr:hover {
+						background-color: #f1f1f1;
+						}
+						.right-align {
+						text-align: right;
+						}
+						h1 {
+						width: 100%;
+						text-align: center;
+						border-bottom: 1px solid #000055;
+						padding-bottom: 10px;
+						font-size:15px;
+						}
+						.heading {
+						font-size: 14px;
+						margin-top: 10px;
+						margin-bottom:0px;
+						<!--                        transform: translateY(-20px) !important;-->
+						text-transform: uppercase !important;
+						font-weight: 700;
+						}
+						.payment-diff, .sale-diff {
+						background-color: #ddd;
+						}
+						.total {
+						background-color: #ddd;
+						font-weight: 700;
+						}
+						.cash-movement, .bills {
+						margin-top: 50px !important;
+						}
+					</style>
+					<h1>
+						<t t-esc="company"/>
+					</h1>
+					<h1>
+						Daily Report
+					</h1>
+					<p t-if="report_title">
+						<t t-esc="report_title"/>
+					</p>
+					
+					<!-- Invoices Section -->
+					<div t-if="invoices" class="heading">INVOICES</div>
+					<table t-if="invoices" class="report-container">
+						<thead>
+							<tr>
+								<th>Invoice Number</th>
+								<th>Partner</th>
+								<th class="">Payment Status</th>
+								<th class="">Sales Man</th>
+								<th class="">Payment Term</th>
+								<th class="right-align">Amount Incl. Tax</th>
+								<th class="right-align">Due Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-foreach="invoices" t-as="invoice">
+								<tr>
+									<td>
+										<t t-esc="invoice['name']"/>
+									</td>
+									<td>
+										<t t-esc="invoice['partner']"/>
+									</td>
+									<td>
+										<t t-esc="invoice['payment_state']"/>
+									</td>
+									<td>
+										<t t-esc="invoice['sales_man']"/>
+									</td>
+									<td>
+										<t t-esc="invoice['payment_term']"/>
+									</td>
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(invoice['amount'])"/>
+									</td>
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(invoice['due_amount'])"/>
+									</td>
+								</tr>
+							</t>
+							<tr t-if="invoices">
+								<td class="total">Total</td>
+								<td colspan="5" class="right-align total">
+									<t t-esc="'{0:,.2f}'.format(total_invoice_amount_total_signed)"/>
+								</td>
+								<td class="right-align total">
+									<t t-esc="'{0:,.2f}'.format(total_invoice_due_amount)"/>
+								</td>
+							</tr>
+						</tbody>
+					</table><!--Invoice Table end-->
+					
+					<!--Received money section (cash)-->
+					<div t-if="receipts" class="heading">RECEIVED MONEY CASH</div>
+					<table t-if="receipts" class="report-container">
+						<thead>
+							<tr>
+								<th>RV Number</th>
+								<th>Partner</th>
+								<th>Invoice Number</th>
+								<th>Invoice Date</th>
+								<th class="right-align">Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-foreach="receipts" t-as="receipt">
+								<tr>
+									<td>
+										<t t-esc="receipt['name']"/>
+									</td>
+									<td>
+										<t t-esc="receipt['partner']"/>
+									</td>
+									
+									<td>
+										<t t-esc="receipt['invoice']"/>
+									</td>
+									<td>
+										<t t-esc="receipt['inv_date']"/>
+									</td>
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(receipt['amount'])"/>
+									</td>
+								</tr>
+							</t>
+							<tr t-if="receipts">
+								<td class="total">Total</td>
+								<td colspan="4" class="right-align total">
+									<t t-esc="'{0:,.2f}'.format(total_received)"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--Received money (cash) end-->
+					
+					<!--Received money section (bank-->
+					<div t-if="received_bank" class="heading">BANK RECEIVED</div>
+					<table t-if="received_bank" class="report-container">
+						<thead>
+							<tr>
+								<th>RV Number</th>
+								<th>Partner</th>
+								<th>Invoice Number</th>
+								<th>Invoice Date</th>
+								<th class="right-align">Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-foreach="received_bank" t-as="receipt">
+								<tr>
+									<td>
+										<t t-esc="receipt['name']"/>
+									</td>
+									<td>
+										<t t-esc="receipt['partner']"/>
+									</td>
+									
+									<td>
+										<t t-esc="receipt['invoice']"/>
+									</td>
+									<td>
+										<t t-esc="receipt['inv_date']"/>
+									</td>
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(receipt['amount'])"/>
+									</td>
+								</tr>
+							</t>
+							<tr t-if="receipts">
+								<td class="total">Total</td>
+								<td colspan="4" class="right-align total">
+									<t t-esc="'{0:,.2f}'.format(total_bank_received)"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--Received money (bank) end-->
+					
+					
+					<!-- Bills Section -->
+					<div t-if="bills" class="heading bills">BILLS</div>
+					<table t-if="bills" class="report-container">
+						<thead>
+							<tr>
+								<th>Bill Number</th>
+								<th>Partner</th>
+								<th class="">Payment Status</th>
+								<th class="right-align">Amount Incl. Tax</th>
+								<th class="right-align">Due Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-foreach="bills" t-as="bill">
+								<tr>
+									<td>
+										<t t-esc="bill['name']"/>
+									</td>
+									<td>
+										<t t-esc="bill['partner']"/>
+									</td>
+									<td>
+										<t t-esc="bill['payment_state']"/>
+									</td>
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(bill['amount'])"/>
+									</td>
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(bill.get('amount_due', 0.00))"/>
+									</td>
+								</tr>
+							</t>
+							<tr t-if="bills">
+								<td class="total">Total</td>
+								<td colspan="3" class="right-align total">
+									<t t-esc="'{0:,.2f}'.format(total_bill_amount_total_signed)"/>
+								</td>
+								<td class="right-align total">
+									<t t-esc="'{0:,.2f}'.format(total_bill_due_amount)"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--bills end-->
+					
+					<!--paid bill section CASH-->
+					<div t-if="paid_bills" class="heading">PAID BILLS CASH</div>
+					<table t-if="paid_bills" class="report-container">
+						<thead>
+							<tr>
+								<th>PV Number</th>
+								<th>Partner</th>
+								<th>Bill Number</th>
+								<th>Bill Date</th>
+								<th class="right-align">Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-foreach="paid_bills" t-as="paid">
+								<tr>
+									<td>
+										<t t-esc="paid['name']"/>
+									</td>
+									<td>
+										<t t-esc="paid['partner']"/>
+									</td>
+									<td>
+										<t t-esc="paid['invoice']"/>
+									</td>
+									<td>
+										<t t-if="paid['bill_date']" t-esc="paid['bill_date']"/>
+										<t t-else="">
+											<span class="text-danger">BILL NOT BOOKED</span>
+										</t>
+									</td>
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(paid['amount'])"/>
+									</td>
+								</tr>
+							</t>
+							<tr t-if="paid_bills">
+								<td class="total">Total</td>
+								<td colspan="4" class="right-align total">
+									<t t-esc="'{0:,.2f}'.format(total_bill)"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--paid bill end-->
+					
+					<!--paid bill section BANK-->
+					<div t-if="paid_bills_bank" class="heading">BANK PAID</div>
+					<table t-if="paid_bills_bank" class="report-container">
+						<thead>
+							<tr>
+								<th>PV Number</th>
+								<th>Partner</th>
+								<th>Bill Number</th>
+								<th>Bill Date</th>
+								<th class="right-align">Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-foreach="paid_bills_bank" t-as="paid">
+								<tr>
+									<td>
+										<t t-esc="paid['name']"/>
+									</td>
+									<td>
+										<t t-esc="paid['partner']"/>
+									</td>
+									<td>
+										<t t-esc="paid['invoice']"/>
+									</td>
+									<td>
+										<t t-if="paid['bill_date']" t-esc="paid['bill_date']"/>
+										<t t-else="">
+											<span class="text-danger">BILL NOT BOOKED</span>
+										</t>
+									</td>
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(paid['amount'])"/>
+									</td>
+								</tr>
+							</t>
+							<tr t-if="paid_bills">
+								<td class="total">Total</td>
+								<td colspan="4" class="right-align total">
+									<t t-esc="'{0:,.2f}'.format(total_bank_paid_bill)"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--paid bill end-->
+					
+					<!--Others Table-->
+					<div t-if="transactions" class="heading">OTHER TRANSACTIONS</div>
+					<table t-if="transactions" class="report-container">
+						<thead>
+							<tr>
+								<!--                            <th>Label</th>-->
+								<th>Partner</th>
+								<th class="right-align">Doc Number</th>
+								<th class="right-align">Doc Type</th>
+								<th class="">Ref.</th>
+								<th class="right-align">Debit</th>
+								<th class="right-align">Credit</th>
+								<th class="right-align">Net Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-foreach="transactions" t-as="transaction">
+								<tr>
+									<!--                                <td>-->
+									<!--                                    <t t-esc="transaction['name']"/>-->
+									<!--                                </td>-->
+									
+									<td>
+										<t t-esc="transaction['partner']"/>
+									</td>
+									
+									<td class="right-align">
+										<!--                                    <t t-esc="'{0:,.2f}'.format(invoice['amount'])"/>-->
+										<t t-esc="transaction['doc_num']"/>
+									</td>
+									
+									<td class="right-align">
+										<t t-esc="transaction['doc_type']"/>
+									</td>
+									
+									<td>
+										<t t-esc="transaction['ref']"/>
+									</td>
+									
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(transaction['debit'])"/>
+									</td>
+									
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(transaction['credit'])"/>
+									</td>
+									
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(transaction['net_amount'])"/>
+									</td>
+								</tr>
+							</t>
+							<tr t-if="transactions">
+								<td class="total">Total</td>
+								<td class="total"></td>
+								<td class="total"></td>
+								<td class="total"></td>
+								<td class="right-align total">
+									<t t-esc="'{0:,.2f}'.format(total_debit)"/>
+								</td>
+								<td class="right-align total">
+									<t t-esc="'{0:,.2f}'.format(total_credit)"/>
+								</td>
+								<td class="right-align total">
+									<t t-esc="'{0:,.2f}'.format(total_net)"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				
+				<!--Movement section-->
+				<div t-if="journal_data" class="cash-movement">
+					<div class="heading">CASH MOVEMENTS</div>
+					<table class="report-container">
+						<thead>
+							<tr>
+								<th></th>
+								<!-- Generate a header for each journal -->
+								<t t-foreach="journal_data" t-as="journal">
+									<th class="right-align">
+										<t t-esc="journal['journal_id']"/>
+									</th>
+								</t>
+								<th class="right-align">Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Opening Cash Balance</td>
+								<t t-foreach="journal_data" t-as="journal">
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(journal['journal_open'])"/>
+									</td>
+								</t>
+								<td class="right-align">
+									<t t-set="opening_total"
+									   t-value="sum(journal['journal_open'] for journal in journal_data)"/>
+									<t t-esc="'{:,.2f}'.format(opening_total)"/>
+								</td>
+							</tr>
+							<tr>
+								<td>Add: Cash In</td>
+								<!-- Display receipts for each journal -->
+								<t t-foreach="journal_data" t-as="journal">
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(journal['journal_receipt'])"/>
+									</td>
+								</t>
+								<td class="right-align">
+									<t t-set="cash_in_total"
+									   t-value="sum(journal['journal_receipt'] for journal in journal_data)"/>
+									<t t-esc="'{0:,.2f}'.format(cash_in_total)"/>
+								</td>
+							</tr>
+							<tr>
+								<td>Less: Cash Out</td>
+								<!-- Display payments for each journal -->
+								<t t-foreach="journal_data" t-as="journal">
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(journal['journal_paid'])"/>
+									</td>
+								</t>
+								<td class="right-align">
+									<t t-set="cash_out_total"
+									   t-value="sum(journal['journal_paid'] for journal in journal_data)"/>
+									<t t-esc="'{0:,.2f}'.format(cash_out_total)"/>
+								</td>
+							</tr>
+							<tr>
+								<td>Closing Cash Balance</td>
+								<!-- Calculate the closing balance for each journal -->
+								<t t-foreach="journal_data" t-as="journal">
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(journal['journal_open'] + journal['journal_receipt'] - journal['journal_paid'])"/>
+									</td>
+								</t>
+								<td class="right-align">
+									<t t-set="closing_total"
+									   t-value="opening_total + cash_in_total - cash_out_total"/>
+									<t t-esc="'{0:,.2f}'.format(closing_total)"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!--Cash Movement end-->
+				<!--Cash Movement end-->
+				
+				<!--BANK MOVEMENT SECTION-->
+				<div t-if="journal_data" class="cash-movement">
+					<div class="heading">BANK MOVEMENTS</div>
+					<table class="report-container">
+						<thead>
+							<tr>
+								<th></th>
+								<!-- Generate a header for each journal -->
+								<t t-foreach="bank_journal_data" t-as="journal">
+									<th class="right-align">
+										<t t-esc="journal['journal_id']"/>
+									</th>
+								</t>
+								<th class="right-align">Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Opening Bank Balance</td>
+								<t t-foreach="bank_journal_data" t-as="journal">
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(journal['journal_open'])"/>
+									</td>
+								</t>
+								<td class="right-align">
+									<t t-set="opening_total"
+									   t-value="sum(journal['journal_open'] for journal in bank_journal_data)"/>
+									<t t-esc="'{:,.2f}'.format(opening_total)"/>
+								</td>
+							</tr>
+							<tr>
+								<td>Add: Bank In</td>
+								<!-- Display receipts for each journal -->
+								<t t-foreach="bank_journal_data" t-as="journal">
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(journal['journal_receipt'])"/>
+									</td>
+								</t>
+								<td class="right-align">
+									<t t-set="cash_in_total"
+									   t-value="sum(journal['journal_receipt'] for journal in bank_journal_data)"/>
+									<t t-esc="'{0:,.2f}'.format(cash_in_total)"/>
+								</td>
+							</tr>
+							<tr>
+								<td>Less: Bank Out</td>
+								<!-- Display payments for each journal -->
+								<t t-foreach="bank_journal_data" t-as="journal">
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(journal['journal_paid'])"/>
+									</td>
+								</t>
+								<td class="right-align">
+									<t t-set="cash_out_total"
+									   t-value="sum(journal['journal_paid'] for journal in bank_journal_data)"/>
+									<t t-esc="'{0:,.2f}'.format(cash_out_total)"/>
+								</td>
+							</tr>
+							<tr>
+								<td>Closing Bank Balance</td>
+								<!-- Calculate the closing balance for each journal -->
+								<t t-foreach="bank_journal_data" t-as="journal">
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(journal['journal_open'] + journal['journal_receipt'] - journal['journal_paid'])"/>
+									</td>
+								</t>
+								<td class="right-align">
+									<t t-set="closing_total"
+									   t-value="opening_total + cash_in_total - cash_out_total"/>
+									<t t-esc="'{0:,.2f}'.format(closing_total)"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!--BANK MOVEMENT END-->
+				<!--BANK MOVEMENT END-->
+				
+				
+				<div t-if="pdcs" class="pdc_report" style="margin-top:40px;">
+					<div class="heading">PDC CUSTOMER</div>
+					<table class="report-container">
+						<thead>
+							<tr>
+								<th>PDC Number</th>
+								<th>PDC Date</th>
+								<th>Payment Journal</th>
+								<th>Partner</th>
+								<th>Payment Amount</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-foreach="pdcs" t-as="pdc">
+								<tr>
+									<td>
+										<t t-esc="pdc.name"/>
+									</td>
+									<td>
+										<t t-esc="pdc.payment_date"/>
+									</td>
+									<td>
+										<t t-esc="pdc.journal_id.name"/>
+									</td>
+									<td>
+										<t t-esc="pdc.partner_id.name"/>
+									</td>
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(pdc.payment_amount)"/>
+									</td>
+									<td>
+										<t t-esc="pdc.state"/>
+									</td>
+								</tr>
+							</t>
+							<tr style="background-color: #ddd; font-weight: bold;">
+								<td colspan="3" class="total-line">Total</td>
+								<td class="right-align total-line">
+									<t t-set="total" t-value="0"/>
+									<t t-foreach="pdcs" t-as="pdc">
+										<t t-set="total" t-value="total + pdc.payment_amount"/>
+									</t>
+									<t t-esc="'{0:,.2f}'.format(total)"/>
+								</td>
+								<td class="total-line"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				
+				<div t-if="pdc_vendors" class="pdc_report" style="margin-top:40px;">
+					<div class="heading">PDC VENDOR</div>
+					<table class="report-container">
+						<thead>
+							<tr>
+								<th>PDC Number</th>
+								<th>Payment Journal</th>
+								<th>Partner</th>
+								<th>Payment Amount</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-foreach="pdc_vendors" t-as="pdc">
+								<tr>
+									<td>
+										<t t-esc="pdc.name"/>
+									</td>
+									<td>
+										<t t-esc="pdc.journal_id.name"/>
+									</td>
+									<td>
+										<t t-esc="pdc.partner_id.name"/>
+									</td>
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(pdc.payment_amount)"/>
+									</td>
+									<td>
+										<t t-esc="pdc.state"/>
+									</td>
+								</tr>
+							</t>
+							<tr style="background-color: #ddd; font-weight: bold;">
+								<td colspan="3" class="total-line">Total</td>
+								<td class="right-align total-line">
+									<t t-set="total" t-value="0"/>
+									<t t-foreach="pdcs" t-as="pdc">
+										<t t-set="total" t-value="total + pdc.payment_amount"/>
+									</t>
+									<t t-esc="'{0:,.2f}'.format(total)"/>
+								</td>
+								<td class="total-line"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<div t-if="expenses" class="expenses_report" style="margin-top: 40px">
+					<div class="heading">EXPENSES</div>
+					<table class="report-container">
+						<thead>
+							<tr>
+								<th>Expense Name</th>
+								<th>Employee</th>
+								<th>Total</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-foreach="expenses" t-as="expense">
+								<tr>
+									<td>
+										<t t-esc="expense.name"/>
+									</td>
+									<td>
+										<t t-esc="expense.employee_id.name"/>
+									</td>
+									<td class="right-align">
+										<t t-esc="'{0:,.2f}'.format(expense.total_amount)"/>
+									</td>
+									<td>
+										<t t-esc="expense.state"/>
+									</td>
+								</tr>
+							</t>
+							<tr style="background-color: #ddd; font-weight: bold;">
+								<td colspan="2" class="total-line">Total</td>
+								<td class="right-align total-line">
+									<t t-set="total" t-value="0"/>
+									<t t-foreach="expenses" t-as="expense">
+										<t t-set="total" t-value="total + expense.total_amount"/>
+									</t>
+									<t t-esc="'{0:,.2f}'.format(total)"/>
+								</td>
+								<td class="total-line"></td>
+							</tr>
+						
+						</tbody>
+					</table>
+				</div>
+<div style="margin-top: 40px">
+    <div class="heading">Daily Sales Report</div>
+    <table class="report-container" border="1" cellspacing="0" cellpadding="4">
+        <thead>
+            <tr>
+                <t t-foreach="invoice_table_columns" t-as="col">
+                    <th>
+                        <t t-esc="col or ''"/>
+                    </th>
+                </t>
+            </tr>
+        </thead>
+        <tbody>
+            <tr t-foreach="invoice_table_rows" t-as="row">
+                <td>
+                    <t t-esc="row['serial'] or ''"/>
+                </td>
+                <td>
+                    <t t-esc="row['user_name'] or ''"/>
+                </td>
+                <t t-foreach="row['totals']" t-as="amount">
+                    <td class="text-right">
+                        <t t-esc="'{0:,.2f}'.format(amount or 0.0)"/>
+                    </td>
+                </t>
+                <!-- Row total column -->
+                <td t-attf-style="text-align: right !important;">
+                    <t t-esc="'{0:,.2f}'.format(row['row_total'] or 0.0)"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+			</t>
+		</template>
+	</data>
+</odoo>

@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="line_number_stock_number">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="before">
+                    <field name="line_no" string="Sl No." readonly="1" style="text-align:center"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
