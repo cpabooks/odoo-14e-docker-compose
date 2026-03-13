@@ -22,7 +22,7 @@ fi
 
 # Copy logrotate config
 cp /etc/odoo/logrotate /etc/logrotate.d/odoo
-
+sed -i 's/with open(os.devnull) as dn:/with open(os.devnull, "w") as dn:/' /usr/lib/python3/dist-packages/odoo/tools/misc.py
 # Start cron daemon (required for logrotate)
 #cron
 
